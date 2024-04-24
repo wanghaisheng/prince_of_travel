@@ -1,0 +1,162 @@
+---
+import { getCollection } from 'astro:content';
+import { Markdown } from '@astropub/md'
+import Layout from '../../layouts/Layout.astro';
+import NewsletterForm from '../../components/NewsletterForm.astro';
+export const prerender = true;
+const { slug } = Astro.params;
+const {content_markdown} = Astro.props
+
+// let res = await fetch(`https://princeoftravel.com/wp-json/wp/v2/posts?slug=${slug}&_embed`);
+// let res = await fetch(`https://norian.studio/wp-json/wp/v2/dinos?slug=${slug}`);
+// let res = await fetch(`https://jsonplaceholder.typicode.com/posts?slug=${slug}`)
+// let [post] = await res.json();
+// console.log(post);
+
+// local collections data needs the Astro.props to match the param and props in the getStaticPaths function
+// Doesn't look like you need the added API fetch with $slug for it to create duynamic routes
+// from API data
+// You can combine the API post data and collections post data with concat()
+// you can use the same prop name for API data + collections DataTransfer, but you have to separate and conditionally render the keys
+
+
+export async function getStaticPaths() {
+  const newsEntries = await getCollection('blog');
+  let data = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?categories=16,1&per_page=50&_embed");
+  let posts = await data.json();
+    const combinedArray = newsEntries.concat(posts);
+
+  return combinedArray.map(article => ({
+        params: { slug: article.slug }, 
+        props: { article }
+    }))
+}
+
+
+const { article } = Astro.props;
+console.log(article)
+// const { Content } = await article.render();
+
+// get read time
+function wordCount(str) {
+  const words = str.match(/(\w+)/g).length;
+  const readMins = Math.trunc(words / 250);
+  return readMins;
+}
+---
+
+<Layout title={article.title?.rendered || article.data.title} description="" image=''>
+    <div class="container-fluid px-0 pt-0">
+        <div class="row min-vh-100">
+          <div class="col-lg-6 d-flex flex-column justify-content-center align-items-start text-start p-5">
+            <a href="/blog">
+                <div class="d-flex align-items-center" data-aos="fade-up">
+                    <i class="bi bi-arrow-left text-black-50 fs-1"></i>
+                    <h6 class="ms-2 my-0 text-black-50 fw-light">Back to blog</h6>
+                </div>
+            </a>
+
+            { article.title?.rendered ?
+            <h1 class="display-4 fw-900 text-body-secondary lh-2 ls-1 mb-4 mt-2" style="font-size: 12vmin;">
+                <Fragment set:html={article.title.rendered} />
+            </h1>
+            :
+            <h1 class="display-4 fw-900 text-body-secondary lh-2 ls-1 mb-4 mt-2" style="font-size: 12vmin;">{article.data.title}</h1>
+            }
+
+            <!-- <h1 class="display-4 fw-900 text-body-secondary lh-1 mb-4 mt-2" style="font-size: 12vmin;">{article.title?.rendered || article.data.title}</h1> -->
+
+            <!-- { article.excerpt?.rendered ?
+            <div class="fs-5 col-md-7 text-body-secondary" data-aos="fade-up" data-aos-delay="400">
+                <Fragment set:html={article.excerpt.rendered} />
+            </div>
+            :
+            <p class="fs-5 col-md-7 text-body-secondary mb-3 mt-3" data-aos="fade-up" data-aos-delay="400">{article.data.description}</p>
+            } -->
+            <div data-aos="fade-up" data-aos-delay="600">
+                <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {article._embedded?.author[0].name || article.data.author}</p>
+                <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {article.date?.toString().slice(0,10) || article.data.pubDate.toString().slice(0,10)}</p>
+                <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Read time </span>  {wordCount(article.content?.rendered || article.body)} mins</p>
+            </div>
+        </div>
+        
+        { !article.data?.carousel ?
+            
+        <div class="col-lg-6 d-flex flex-column justify-content-center align-items-center min-vh-50">
+          <img class="w-100 h-100 object-fit m-3 p-3 rounded-5" src={article._embedded['wp:featuredmedia'][0].source_url || article.data.imageUrl} alt="" />
+        </div>
+
+        :
+
+        <div class="col-lg-12 d-flex flex-column justify-content-center align-items-center pt-5 px-0">
+          <div id="carouselExampleIndicators" class="carousel slide"  data-bs-ride="true">
+              <div class="carousel-indicators">
+                  {article.data.carousel.map((item, index) => (
+                      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to={index} class={index === 0 ? 'active' : ''} aria-current="true" aria-label={'Slide ' + index+1}>
+                      <i class="bi bi-dot fs-1"></i>
+                      </button>
+                  ))}
+              </div>
+              <div class="carousel-inner object-fit h-100">
+              {article.data.carousel.map((item, index) => (
+                  <div style="height: 600px"
+                  class:list={["carousel-item min-vw-100", index === 0 ? 'active' : '']}>
+                      <img src={item.url} class="d-block w-100 h-100 object-fit" alt={item.alt}>
+                </div>
+              ))}
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                  <i class="bi bi-arrow-left-circle-fill display-2 opacity-100"  aria-hidden="true"></i>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                  <i class="bi bi-arrow-right-circle-fill display-2 opacity-100" aria-hidden="true"></i>
+                <span class="visually-hidden">Next</span>
+              </button>
+          </div>
+        </div><!--end carousel -->
+        }
+
+        </div>
+    </div>
+
+    <!-- body -->
+    <div class="container w-100 mx-auto">
+        <div id="content" class="row p-4">
+            <div class="col-lg-9 col-md-10">
+
+                <!-- <Fragment set:html={article.content.rendered} /> -->
+<!-- <Content /> -->
+
+                {article.content?.rendered ?
+                <Fragment set:html={article.content.rendered} /> 
+                :
+                // <BlogContent post={article.body} />
+                <Markdown of={article.body} />
+                }
+                <!-- <BlogContent post={JSON.stringify(article.body)} /> -->
+                <!-- <Fragment set:html={article.content.rendered} /> -->
+            </div>
+            <!-- sidebar -->
+            <div class="d-none d-xl-flex flex-column col-lg-2 col-lg-3 pt-5">
+                <p><span class="fw-bold text-pc-dark">Prince Collection</span> is a non-traditional, full service travel concierge designed exclusively for companies and individuals who require exclusive travel arrangements. We handle the nuances of travel ensuring a seamless and extraordinary journey from start to finish.</p>
+                <hr>
+                <div class="my-3">
+                    <h4 class="fs-5 fw-bold text-pc-dark">Newsletter</h4>
+                    <p>Join the Prince Collection newsletter to get weekly updates delivered straight to your inbox.</p>
+                    <NewsletterForm newsletterBtn="btn-pc" />
+                </div>
+                <hr>
+                <div class="my-3">
+                    <h4 class="fs-5 fw-bold text-pc-dark">Book your travel</h4>
+                    <p>Let Prince Collection’s Travel Concierge handle your exclusive travel arrangements. Get started by filling out some basic info about your trip.</p>
+                    <a href="/book">
+                        <button class="btn btn-pc">Book now</button>
+                    </a>
+                </div>
+                <hr>
+                <h2 class="text-secondary mt-1">More posts</h2>
+            </div>
+        </div>
+    </div>
+</Layout>
