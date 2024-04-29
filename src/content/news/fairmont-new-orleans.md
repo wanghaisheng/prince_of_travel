@@ -1,7 +1,7 @@
 ---
 draft: false
 title: Fairmont New Orleans
-author: Prince Collection
+author: Prince of Travel
 description: "Fairmont Hotels & Resorts has announced that it will open a new
   luxury hotel in New Orleans two decades after the original Fairmont New
   Orleans closed following Hurricane Katrina. "

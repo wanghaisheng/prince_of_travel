@@ -2,13 +2,13 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from "astro:content";
 // const allPosts = await Astro.glob('../../pages/blog/*.md');
-const allPosts = await getCollection("news");
+const newsPosts = await getCollection("news");
 // astro.glob => getCollection is the difference between getting all files from a directory in pages vs. collections
 // https://docs.astro.build/en/tutorials/add-content-collections/
 import functions from '../../js/functions.js';
 
+const { index, slug } = Astro.props
 
-const { index } = Astro.props
 const slideAnim = {
   old: {
     name: 'slideDown',
@@ -29,22 +29,24 @@ const verticalSlide = {
   backwards: slideAnim,
 }
 
-// reduce length of post description to closest full word
-// function shorten(text, max) {
-//   return text && text.length > max ? text.slice(0, max).split(' ').slice(0, -1).join(' ') : text
-// }
+const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?categories=942,1&_embed=true&per_page=5");
+const posts = await res.json();
 
-let filteredPosts = allPosts.filter(post => post.data.draft === false)
-filteredPosts.sort((a, b) => b.data.pubDate - a.data.pubDate);
-const [firstArticle, ...allArticles] = filteredPosts;
+// const combinedPosts = allPosts.concat(posts);
+
+// let filteredPosts = allPosts.filter(post => post.data.draft === false)
+// filteredPosts.sort((a, b) => b.data.pubDate - a.data.pubDate);
+// const [firstArticle, ...allArticles] = filteredPosts;
+const [firstArticle, ...allArticles] = newsPosts;
+
 ---
 
 <Layout title="Prince Collection | News" description="Prince Collection's latest news, deals, and happenings in the travel space." image={firstArticle.data.imageUrl}>
 	<div class="container-fluid px-0">
-		<div class="row min-vh-100 bg-dutch-white">
+		<div class="row min-vh-100 bg-light">
 			<div class="col-lg-6 d-flex flex-column justify-content-center align-items-center min-vh-500 text-center p-5 mt-5 mt-lg-0 animate-in">
-				<span class="badge rounded-pill fw-bold bg-pc-dark-80 text-pc-10 py-2 px-4">News</span>
-				<h1 class="col-lg-10 font-windsong text-pc-dark-80 fw-900 mb-2 my-4 pt-2" style="font-size: 10vmin;">{firstArticle.data.title}</h1>
+				<span class="badge rounded-pill fw-bold text-bg-secondary py-2 px-4">News</span>
+				<h1 class="col-lg-10 text-body-secondary fw-900 lh-1 mb-2" style="font-size: 11vmin;">{firstArticle.data.title}</h1>
 				<p class="col-md-8 fs-5 text-body-secondary mt-0 mb-2">{functions.shorten(firstArticle.data.description, 150) + '...'}</p>
 				<div class="py-2">
 					<p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {firstArticle.data.author}</p>
@@ -58,10 +60,9 @@ const [firstArticle, ...allArticles] = filteredPosts;
 				<img src={firstArticle.data.imageUrl} class="w-100 h-100" style="object-fit: cover;" alt={firstArticle.data.imageAlt}>
 			</div>
 		</div>
-		
+
 		<div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-3 p-4">
-			{allArticles.map((post) => (
-			!post.data.draft &&
+			{allArticles?.map((post) => (
 			<div class="col">
 				<a href={`/news/${post.slug}/`}>
 					<div class="card bg-pc-light rounded-4 p-0 border-0 shadow" style="min-height: 500px">
@@ -83,13 +84,58 @@ const [firstArticle, ...allArticles] = filteredPosts;
 					</div>
 				</a>
 			</div>
+			))}
+
+			{posts?.map((post) => (		
+			<div class="col">
+				<a href={`/news/${post.slug}/`}>
+					<div class="card bg-pc-light rounded-4 p-0 border-0 shadow" style="min-height: 500px">
+						<img src="" data-src={post._embedded['wp:featuredmedia'][0].source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top rounded-top-4 w-100" style="object-fit: cover; height: 200px; filter: brightness(70%)" alt="">
+						<i class="bi bi-arrow-up-right-circle-fill text-pc-10 fs-1 position-absolute top-0 end-0 me-3 mt-2"></i>
+						<div class="card-body position-relative px-4 pb-4">
+							<p class="small mb-2">{post.date.toString().slice(0,10)}</p>
+							<h5 class="card-title fw-bold mb-0"><Fragment set:html={post.title.rendered} /></h5>
+							<p class="small m-0 text-secondary mt-2 mb-0">By: {post._embedded?.author[0].name}</p>
+							<p class="card-text text-body-secondary pe-4">{functions.shorten(post.excerpt.rendered, 150) + '...'}</p>
+						</div>
+					</div>
+				</a>
+			</div>
+			))}		
 		</div>
-		))}
-    </div>
+	</div>
 </Layout>
+
+
+<script>	
+	
+var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
+
+// var modal = document.getElementById('exampleModal');
+
+// myModal.addEventListener('click', updateURL);
+
+// myModal.addEventListener('click', revertURL);
+
+// function updateURL(slug) {
+// 	myModal.show();
+// 	const newURL = `/news/${slug}`;
+// 	window.history.pushState({}, '', newURL);
+// }
+// function revertURL() {
+// 	myModal.hide();
+// 	window.history.back();
+// }
+
+// window.addEventListener('popstate', function () {
+// var modalInstance = bootstrap.Modal.getInstance(modal);
+// if (modalInstance) {
+// modalInstance.hide();
+// }
+// });
+
+</script>
         
-<!-- <div class="grid" style="--col: 1fr 1fr 2fr; --row: auto;"></div>
-<div class="grid" style="--col: 3fr 1fr; --row:auto;"></div> -->
 <style>
 .grid {
   display: grid;

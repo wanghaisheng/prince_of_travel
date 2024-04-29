@@ -21,10 +21,10 @@ const {content_markdown} = Astro.props
 
 
 export async function getStaticPaths() {
-  const newsEntries = await getCollection('blog');
-  let data = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?categories=16,1&per_page=50&_embed");
+  const blogEntries = await getCollection('blog');
+  let data = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?categories=942,941,943,16,944,1&per_page=50&_embed");
   let posts = await data.json();
-    const combinedArray = newsEntries.concat(posts);
+    const combinedArray = blogEntries.concat(posts);
 
   return combinedArray.map(article => ({
         params: { slug: article.slug }, 
@@ -32,9 +32,10 @@ export async function getStaticPaths() {
     }))
 }
 
-
 const { article } = Astro.props;
 console.log(article)
+// this throws an error when combined with WP API dynamic data
+// Had to get a markdown plugin to parse separately
 // const { Content } = await article.render();
 
 // get read time

@@ -11,7 +11,8 @@ const blogPosts = await getCollection("blog");
 // const [firstArticle, ...allArticles] = allPosts;
 
 // make sure to match the fetch url exactly with that of the corresponding index page i.e. blog + [...slug]
-const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?categories=16,1&per_page=50&_embed");
+
+const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?categories=942,941,943,16,944,325,331,1&per_page=50&_embed");
 // const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?categories=16&_fields[]=title&_fields[]=excerpt&_fields[]=content&_fields[]=date&_fields[]=author&_fields[]=slug&_fields[]=yoast_head_json&per_page=50&_embed");
 const posts = await res.json();
 
@@ -35,109 +36,142 @@ const posts = await res.json();
 // https://princeoftravel.com/wp-json/wp/v2/posts?categories=442 Business Credit Cards
 
 // const allPosts = [].concat(blogPosts, posts);
-// const allPosts = blogPosts.concat(posts);
-// console.log(allPosts);
+const allPosts = blogPosts.concat(posts);
+// const [firstPost, secondPost, thirdPost, fourthPost, ...remainingPosts] = allPosts;
+// const introPosts = [secondPost, thirdPost, fourthPost];
+
+function newsPosts(arr, category) { 
+    const newsPosts = arr.filter(cat => cat === category);
+    return newsPosts;
+}
+
 ---
 
 <Layout title="Welcome to Prince Collection" description="About Prince Collection">
 		<div class="container-fluid px-0">
-			<div class="row pt-5">
-				<div class="col-lg-12 d-flex flex-column justify-content-center align-items-center text-center p-5">
-                    <span class="badge rounded-pill fw-bold bg-pc-dark-80 text-light py-2 px-3">Where will you go next?</span>
-					<h1 class="display-3 fw-bold lh-1 mb-2 mt-3">Your <span class="text-pc-dark">luxury</span> travel concierge</h1>
-					<p class="col-md-7 fs-5 text-body-secondary mt-3 mb-4">Prince Collection’s Travel Concierge is designed exclusively for companies and individuals who require exclusive travel arrangements handled for them. Our expertise lies in handling the nuances of travel, ensuring a seamless and extraordinary journey from start to finish.</p>
-					<a href="/book">
-						<button class="btn btn-pc fw-bold rounded-pill px-4 shadow">Book your hotel</button>
-					</a>
-				</div>
-			</div>
          
             <!-- :class=“{
                 ‘style-a’: (index + 1) % 3 !== 0,
                 ‘style-b’: (index + 1) % 3 === 0
                 }” -->
+            <!-- referencing data -->
+            <!-- post.slug for collections : post.url for pages/ -->
+            <!-- post.data.* for collections -->
+            <!-- post.frontmatter.* for pages -->
+            
 
-<!-- <div class="row g-3 p-4">
-    {
-        allPosts.map((post, index) => (
-            <div class:list={[(index + 1) % 4 ? 'col-lg-4' : 'col-lg-12']}>
-               
-        <a href={`/blog/${post.slug}/`}>
-            <div class="card rounded-4 border-0 px-2 pb-4 shadow position-relative" style="min-height: 500px">
-                <img src={post.data.imageUrl} 
-                class="card-img-top rounded-4 w-100 h-100 position-absolute top-0 start-0 z-0 rounded-4" style="object-fit: cover;" alt={post.data.imageAlt}>
-                <div class="card-body d-flex flex-column justify-content-end px-3 pb-0">
-                    <div class="position-relative bg-light p-4 rounded-4 shadow">
-                    <div class="d-flex flex-row">
-                        {
-                        post.data.tags.map((tag) => (
-                            <div class="span badge bg-secondary me-1">{tag}</div>
-                        ))
-                        }
-                    </div>
-                    <p class="small mb-2">{post.data.pubDate.toString().slice(0,10)}</p>
-                    <h5 class="card-title fw-bold mb-0">{post.data.title}</h5>
-                    <p class="small m-0 text-secondary mt-2 mb-0">By: {post.data.author}</p>
-                    <p class="card-text text-body-secondary pe-5">{post.data.description}</p>
-                    <button class="btn btn-outline-secondary">Read</button>
-                </div>
-                </div>
-            </div>
-    
-        </div>
-    </a>
-    </div>
-    ))}
-</div> -->
-
-
-<!-- referencing data -->
-<!-- post.slug for collections : post.url for pages/ -->
-<!-- post.data.* for collections -->
-<!-- post.frontmatter.* for pages -->
-
-
-            <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-3 p-4">
-                {
-                blogPosts.map((post, index) => (
-                    <div class="col">
-                        <a href={`/blog/${post.slug}/`}>
-                            <div class="card bg-pc-light rounded-5 border-0 shadow" style="min-height: 500px">
-                            <img src="" data-src={post.data.imageUrl} class="card-img-top w-100 object-fit rounded-top-5" style="height: 200px;" alt="..." data-aos="fade" />
-                            <div class="card-body p-4 position-relative">
-                                <p class="small m-0 text-secondary mt-2 mb-0">{post.data.pubDate?.toString().slice(0,10)}</p>
-                                <h5 class="card-title text-secondary fs-4 fw-900 my-2">{post.data.title}</h5>
-                                <p class="small m-0 text-secondary mt-2 mb-0">By: {post.data.author}</p>
-                                <p class="card-text text-body-secondary pe-5">{functions.shorten(post.data.description, 150) + '...'} </p>
-                                <!--<button class="btn btn-sm small btn-secondary rounded-pill px-4 m-0 mt-2 mb-0">Read</button>-->
-                                <i class="bi bi-arrow-up-right-circle-fill text-secondary opacity-75 fs-2 position-absolute top-0 end-0 m-3"></i>
-                            </div>
+            <div class="row p-4">
+                <div class="col-lg-9 mt-5">
+                    <div class="row">
+                        <div class="col-lg-12 d-flex flex-column justify-content-center align-items-start text-start min-vh-50 p-5">
+                            <h1 class="display-1 font-oswald text-uppercase fw-900 ls-1 lh-1 mb-2 mt-3">Prince of Travel Blog</h1>
+                            <p class="col-md-8 fs-5 text-body-secondary mt-3 mb-4">Prince of Travel brings you deals, news, reviews, guides, and insights into the travel space. Our expertise lies in handling the nuances of travel, ensuring a seamless and extraordinary journey from start to finish.</p>
                         </div>
+                    </div>
+                    <div class="row bg-black text-light rounded-4 mx-2">
+                        <div class="col-md-6 p-0">
+                            <img src="" data-src={blogPosts[0].data.imageUrl} class="card-img-top w-100 object-fit rounded-start-4" style="height: 300px;" alt="..." data-aos="fade" />
+                        </div>
+                        <div class="col-lg-6 d-flex flex-column justify-content-center align-items-start p-5">
+                            <p class="small m-0 mt-2 mb-0 text-primary" style="text-transform: capitalize;">{blogPosts[0].data.category}</p>
+                            <h5 class="card-title fs-4 fw-900 my-2">{blogPosts[0].data.title}</h5>
+                            <p class="small m-0 mt-2 mb-0">By: {blogPosts[0].data.author}</p>
+                            <p class="card-text pe-5">{functions.shorten(blogPosts[0].data.description, 150) + '...'} </p>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3 px-1 g-3">
+                        {
+                        posts.filter(cat => cat._embedded['wp:term'][0][0].slug != 'news').slice(0,3).map((article, index) => (
+                            <div class="col-lg-4 mt-0">
+                                <a href={`/${article._embedded['wp:term'][0][0].slug}/${article.slug}/`}>
+                                <div class="card bg-pc-light rounded-4 border-0 shadow mb-3" style="min-height: 500px">
+                                    <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top w-100 object-fit rounded-top-4" style="height: 200px;" alt="..." data-aos="fade" />
+                                    <div class="card-body px-3 position-relative">
+                                        <!--<p class="small m-0 text-secondary mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>-->
+                                        <p class="small m-0 text-secondary mt-2 mb-0" style="text-transform: capitalize;">{article._embedded['wp:term'][0][0].slug}</p>
+                                        <h5 class="card-title text-secondary fw-900 my-2"><Fragment set:html={article.title.rendered} /></h5>
+                                        <p class="small text-secondary mt-1 mb-0">By: {article._embedded?.author[0].name}</p>
+                                        <p class="small card-text text-body-secondary my-3"><Fragment set:html={functions.shorten(article.excerpt.rendered, 150)} /></p>
+                                        <!--<button class="btn btn-sm small btn-secondary rounded-pill px-4 m-0 mt-2 mb-0">Read</button>-->
+                                        <i class="bi bi-arrow-up-right-circle-fill text-secondary opacity-75 fs-2 position-absolute bottom-0 end-0 m-3"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        ))}
+
+                 <!-- <div class:list={["card rounded-5 border-0 shadow", (index + 1) % 3 ? (index + 1) % 4 ? 'bg-pc-light' : 'bg-timberwolf' : 'bg-pc']} style="min-height: 500px"></div> -->
+
+                </div>    
+            </div><!--end wrapper col 8 -->
+
+            <!-- sidebar -->
+            <div class="col-lg-3 px-3">
+                <h2>Latest</h2>
+                {
+                    posts.filter(cat => cat._embedded['wp:term'][0][0].slug === 'news').slice(0,3).map((article, index) => (
+                    <div class="col-lg-12 col-md-4">
+                        <a href={`/news/${article.slug}/`}>
+                            <div class="card bg-pc-light rounded-4 border-0 mb-3 shadow position-relative">
+                                <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top w-100 h-100 object-fit rounded-4 p-2" style="min-height: 150px;" alt="..." data-aos="fade" />
+                                <div class="card-body px-3 pb-4 pt-1">
+                                    <p class="small m-0 text-secondary my-0">{article.date?.toString().slice(0,10)}</p>
+                                    <p class="small m-0 text-secondary mt-2 mb-0" style="text-transform: capitalize;">{article._embedded['wp:term'][0][0].slug}</p>
+                                    <h6 class="card-title text-secondary fw-900 my-2"><Fragment set:html={article.title.rendered} /></h6>
+                                    <p class="small text-secondary mt-1 mb-0">By: {article._embedded?.author[0].name}</p>
+                                    <i class="bi bi-arrow-up-right-circle-fill text-secondary opacity-75 fs-4 position-absolute bottom-0 end-0 m-1"></i>
+                                    </div>
+                                </div>
                         </a>
                     </div>
-                ))}
-                 <!-- <div class:list={["card rounded-5 border-0 shadow", (index + 1) % 3 ? (index + 1) % 4 ? 'bg-pc-light' : 'bg-timberwolf' : 'bg-pc']} style="min-height: 500px"></div> -->
+                    ))}
+                </div>
+            </div><!--end row-->
+
+            <div class="row bg-black text-light p-4">
+                <div class="col-lg-12 d-flex flex-column justify-content-center align-items-start text-start mb-3">
+                    <h1 class="display-1 font-oswald text-uppercase fw-900 ls-1 lh-1">/ Guides</h1>
+                </div>
                 {
-                posts.map((article, index) => (
-                <div class="col">
-                    <a href={`/blog/${article.slug}/`}>
-                        <div class="card bg-pc-light rounded-5 border-0 shadow" style="min-height: 500px">
-                            <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top w-100 object-fit rounded-top-5" style="height: 200px;" alt="..." data-aos="fade" />
+                 posts.filter(cat => cat._embedded['wp:term'][0][0].slug === 'guides').slice(0,5).map((article, index) => (
+                    <div class:list={[index === 0 ? 'row pb-4' : 'd-none']}>
+                        <a class="d-flex" href={`/${article._embedded['wp:term'][0][0].slug}/${article.slug}/`}>
+                        <div class="col-lg-6">
+                            <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top w-100 h-100 object-fit rounded-start-4 p-0" style="min-height: 150px;" alt="..." data-aos="fade" />
+                        </div>
+                        <div class="col-lg-6 text-light d-flex flex-column justify-content-center align-items-start p-5">
+                            <div class="card-body px-2 py-0">
+                                <p class="small m-0 mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>
+                                <h6 class="card-title display-1 font-oswald opacity-75 text-uppercase fw-900 ls-1 lh-1 fw-900 my-2"><Fragment set:html={article.title.rendered} /></h6>
+                                <p class="small my-3">By: {article._embedded?.author[0].name}</p>
+                               <!--<button class="btn btn-sm small btn-secondary rounded-pill px-4 m-0 mt-2 mb-0">Read</button>-->
+                                <i class="bi bi-arrow-up-right-circle-fill text-light opacity-50 display-5 my-3"></i>
+                            </div>
+                        </div> 
+                        </a>  
+                    </div>
+
+                    <div class:list={[index !== 0 ? 'col-lg-3 col-md-6' : 'd-none']}>
+                        <a href={`/${article._embedded['wp:term'][0][0].slug}/${article.slug}/`}>
+                        <div class="card bg-pc-light rounded-4 border-0 shadow mb-3" style="min-height: 500px">
+                            <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top w-100 object-fit rounded-top-4" style="height: 200px;" alt="..." data-aos="fade" />
                             <div class="card-body p-4 position-relative">
-                                <p class="small m-0 text-secondary mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>
+                                <!--<p class="small m-0 text-secondary mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>-->
+                                <p class="small m-0 text-secondary mt-2 mb-0" style="text-transform: capitalize;">{article._embedded['wp:term'][0][0].slug}</p>
                                 <h5 class="card-title text-secondary fs-4 fw-900 my-2"><Fragment set:html={article.title.rendered} /></h5>
                                 <p class="small text-secondary mt-1 mb-0">By: {article._embedded?.author[0].name}</p>
                                 <p class="card-text text-body-secondary my-3"><Fragment set:html={functions.shorten(article.excerpt.rendered, 150)} /></p>
-                               <!--<button class="btn btn-sm small btn-secondary rounded-pill px-4 m-0 mt-2 mb-0">Read</button>-->
                                 <i class="bi bi-arrow-up-right-circle-fill text-secondary opacity-75 fs-2 position-absolute top-0 end-0 m-3"></i>
                             </div>
                         </div>
-                    </a>
-                </div>
+                   </a>
+                    </div>
+             
                 ))}
+                </div>
             </div>
-        </div>
-    </Layout>
+</Layout>
         
 <style>
 
@@ -150,10 +184,4 @@ const posts = await res.json();
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
 }
-/* .masonry {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-template-rows: masonry;
-    gap: 30px;
-} */
     </style>

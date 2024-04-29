@@ -1,7 +1,7 @@
 ---
 draft: false
 title: Four Seasons Cabo San Lucas
-author: Prince Collection
+author: T.J. Dunn
 description: "Officially opening on May 1, 2024, Four Seasons Cabo San Lucas at
   Cabo del Sol will be a welcome addition to the already established luxury
   hotels in the area. "

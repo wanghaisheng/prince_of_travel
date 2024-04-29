@@ -91,6 +91,10 @@ video:hover {
   color: rgba(0,0,0,.4)!important;
 }
 
+#content .content-body p:first-of-type { 
+  margin-top: 0;
+}
+
 #content .content-body p { 
   font-size: 19px;
   line-height: 32px;

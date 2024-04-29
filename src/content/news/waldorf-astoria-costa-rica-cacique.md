@@ -1,7 +1,7 @@
 ---
 draft: false
 title: Waldorf Astoria Costa Rica Cacique
-author: T.J. Dunn
+author: Ricky Zhang
 description: The Waldorf Astoria Costa Rica Cacique is scheduled to open its
   doors to guests in November 2024, adding an exciting new location to the
   brand’s 30+ luxury properties worldwide.
