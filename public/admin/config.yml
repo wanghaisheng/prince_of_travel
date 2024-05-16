@@ -236,19 +236,19 @@ collections:
       - { label: "Title", name: "title", widget: "string" } 
       - { label: 'Publish Date', name: 'pubDate', widget: 'datetime' }
       - { label: 'Bank', name: 'bank', widget: 'string', required: false }
+      - { label: "Payment Network", name: "payment_network", widget: "string", required: false }
       - { label: 'Points Program', name: 'points_program', widget: 'string', required: false }
       - { label: "Rating", name: "rating", widget: "number", required: false }
       - { label: "Membership Reward Points", name: "mr_points", widget: "string", required: false } 
       - { label: "First-year Value", name: "fy_value", widget: "string", required: false }
-      # - { label: "Signup Bonus", name: "signup_bonus", widget: "string", required: false }
+      - { label: "Required Spend", name: "required_spend", widget: "number", required: false }
+      - { label: "Annual Fee", name: "fee", widget: "number", required: false }
       - label: "Signup Bonus"
         name: "signup_bonus"
         collapsed: true
         widget: "list"
         fields:
           - { label: "Signup bonus", name: "bonus", widget: "string", required: false }
-      - { label: "Required Spend", name: "spend", widget: "number", required: false }
-      - { label: "Payment Network", name: "payment_network", widget: "string", required: false }
       - label: "Earning Rate"
         name: "earning_rate"
         collapsed: true
@@ -262,6 +262,7 @@ collections:
         fields:
           - {label: Perk, name: perk, widget: string,  required: false }
       - { label: "Insurance", name: "insurance", widget: "string", required: false }
+      - { label: "Card Type", name: "card_type", widget: "string", required: false }
       - { label: "Apply Now", name: "apply_link", widget: "string", required: false }
       - { label: "Apply Now Content", name: "apply_content", widget: "text", required: false }
       - { label: "Best Card for", name: "best_for", widget: "list", required: false }

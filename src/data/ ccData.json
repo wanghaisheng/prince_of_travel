@@ -1,17 +1,34 @@
 {
    "credit_cards": [
         {
-            "title": "",
-            "rating": 5,
-            "mr_points": 70000,
-            "fy_value": "",
-            "signup_bonus": "",
-            "annual_fee": "",
+            "title": "American Express Aeroplan Business Reserve Card",
+            "rating": "",
+            "mr_points": "Up to 90,000 Aeroplan points",
+            "fy_value": "$1,921 first-year value",
+            "signup_bonus": [
+                "Earn 30,000 Aeroplan points upon spending $3,000 in the first three months",
+                "Earn 5,000 Aeroplan points upon spending $2,000 in each of the first 12 billing periods, up to 60,000 Aeroplan points",
+                "Total of 90,000 Aeroplan points"
+            ],
+            "annual_fee": 599,
+            "earning_rate": [
+                "3 Aeroplan points per dollar spent on Air Canada and Air Canada Vacations",
+                "2 Aeroplan points per dollar spent on hotels and car rentals",
+                "1.25 Aeroplan points per dollar spent on everything else"
+            ],
+            "referral_bonus": [
+                "20,000 Aeroplan points, up to a maximum of 150,000 Aeroplan points per year"
+            ],
             "required_spend": 100,
-            "bank": "",
-            "earning_rate": [],
-            "perks": [],
-            "insurance": "",
+            "bank": "Amex",
+            "perks": [
+                "Priority check-in, boarding, and free first checked bag on Air Canada flights",
+                "Maple Leaf Lounge access within North America",
+                "Priority airport services at YYZ",
+                "Preferred pricing on Air Canada flights"
+            ],
+            "insurance": "Strong",
+            "card_type": "Credit card",
             "apply_now_link": "",
             "apply_now_content": "",
             "slug": ""
