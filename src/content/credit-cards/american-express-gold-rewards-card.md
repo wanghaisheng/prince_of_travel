@@ -2,17 +2,22 @@
 draft: false
 featured: false
 title: American Express Gold Rewards Card
-bank:
-rating: 
+pubDate: 2024-03-07T20:43:06.642Z
 mr_points: 70000
 fy_value: 1676
-signup_bonus:
-fee: 250
-spend: 
-payment_network: 
-earning_rate: 
-perks: 
+signup_bonus: []
+annual_fee: 250
+earning_rate: []
+referral_bonus: []
+perks: []
 insurance: 
+card_type:
+payment_network:
+bank: "BMO"
+points_program: 
+rating: 5
+required_spend: 
+best_for:
 apply_link: 
 apply_content:
 category: credit-cards
@@ -20,7 +25,6 @@ tags:
   - amex
 description: "The Gold Rewards Card comes with many of the same features and fees, albeit scaled down for those who many not be able to take advantage of everything the Platinum Card has to offer."
 SEOdescription: "The Gold Rewards Card comes with many of the same features and fees, albeit scaled down for those who many not be able to take advantage of everything the Platinum Card has to offer."
-pubDate: 2024-03-07T20:43:06.642Z
 imageUrl: https://princeoftravel.com/wp-content/uploads/2021/05/Best-Overall-Credit-Cards-banner-image-edited.jpg
 imageAlt: 
 contents:
