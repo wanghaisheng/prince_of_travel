@@ -106,10 +106,7 @@ function shorten(text, max) {
     date={post.date?.toString().slice(0,10) || post.data.pubDate.toString().slice(0,10)}
     description={post.excerpt || post.data?.description}
     readTime={post.content ? wordCount(post.content) : wordCount(post.body)} 
-    slider={post.data?.carousel == undefined || post.data?.carousel == '' }
     featuredImage={post.featured_image?.large || post.data?.imageUrl}
-    slider={post.data?.carousel.url}
-    carouselImages={post.data?.carousel}
     tags={post.data?.tags}
     toc={post.data?.contents}
     postContent={post.content}
