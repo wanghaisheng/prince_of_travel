@@ -12,11 +12,11 @@ const blogPosts = await getCollection("blog");
 
 // make sure to match the fetch url exactly with that of the corresponding index page i.e. blog + [...slug]
 
-const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?categories=942,941,943,16,944,325,331,1&per_page=50&_embed");
 // const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?categories=16&_fields[]=title&_fields[]=excerpt&_fields[]=content&_fields[]=date&_fields[]=author&_fields[]=slug&_fields[]=yoast_head_json&per_page=50&_embed");
+
+const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?categories=942,941,943,16,944,325,331&_embed");
 const posts = await res.json();
 
-// const combinedArray = blogPosts.concat(posts);
 
 // https://princeoftravel.com/wp-json/wp/v2/posts?categories=943 (guides)
 // https://princeoftravel.com/wp-json/wp/v2/posts?categories=16 (reviews)
@@ -37,7 +37,7 @@ const posts = await res.json();
 // 310 US Credit Cards Currently 0 posts with this cat
 
 // const allPosts = [].concat(blogPosts, posts);
-const allPosts = blogPosts.concat(posts);
+// const allPosts = blogPosts.concat(posts);
 // const [firstPost, secondPost, thirdPost, fourthPost, ...remainingPosts] = allPosts;
 // const introPosts = [secondPost, thirdPost, fourthPost];
 
