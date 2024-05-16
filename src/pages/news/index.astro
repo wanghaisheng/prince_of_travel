@@ -29,7 +29,7 @@ const verticalSlide = {
   backwards: slideAnim,
 }
 
-const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?categories=942,1&_embed=true&per_page=5");
+const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?categories=942,1&_embed&per_page=50");
 const posts = await res.json();
 
 // const combinedPosts = allPosts.concat(posts);
