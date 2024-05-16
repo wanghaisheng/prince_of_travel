@@ -1,0 +1,138 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from "astro:content";
+// const allPosts = await Astro.glob('../../pages/blog/*.md');
+const ccPosts = await getCollection("credit-cards");
+// astro.glob => getCollection is the difference between getting all files from a directory in pages vs. collections
+// https://docs.astro.build/en/tutorials/add-content-collections/
+import functions from '../../js/functions.js';
+import PostIndex from '../../components/PostComponents/PostIndex.astro';
+
+const { index, slug } = Astro.props
+
+const slideAnim = {
+  old: {
+    name: 'slideDown',
+    duration: '0.5s',
+    easing: 'ease-out',
+    fillMode: 'backwards',
+  },
+  new: {
+    name: 'slideUp',
+    duration: '0.5s',
+    delay: `${index * 0.2 + 0.1}s`,
+    easing: 'ease-out',
+    fillMode: 'backwards',
+  },
+}
+const verticalSlide = {
+  forwards: slideAnim,
+  backwards: slideAnim,
+}
+
+// credit cards
+// https://princeoftravel.com/wp-json/wp/v2/posts?categories=313 best deals (&300+ value)
+// https://princeoftravel.com/wp-json/wp/v2/posts?categories=441 No Fee / First Year Free
+// https://princeoftravel.com/wp-json/wp/v2/posts?categories=311 Best travel benefits
+// https://princeoftravel.com/wp-json/wp/v2/posts?categories=442 Business Credit Cards
+// 310 US Credit Cards Currently 0 posts with this cat
+// Tags 17 (credit cards = 287), 121 (US credit cards = 61)
+
+// fetch('https://princeoftravel.com/wp-json/wp/v2/posts&_embed=true&per_page=20')
+//  .then(response => response.json())
+//  .then(posts => {
+//     const filteredPosts = posts.filter(post => post.slug.startsWith('credit-cards'));
+//     console.log(filteredPosts);
+//  });
+
+// const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?filter[name]=best-credit-cards&per_page=50&_embed=true");
+// const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?tax_query[0][taxonomy]=category&tax_query[0][field]=term_id&tax_query[0][terms]=313,311,%20442,%20441&tax_query[1][taxonomy]=post_tag&tax_query[1][field]=term_id&tax_query[1][terms]=17,121&per_page=50&_embed=true");
+// const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?tags=17&per_page=50&_embed");
+// const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?search=credit-cards&per_page=50&_embed=true");
+// const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?categories=313,441,311,442&_embed=true&per_page=50");
+
+const res = await fetch("https://pftravelstage.wpengine.com/wp-json/pot/v1/credit-cards?per_page=100");
+// const res = await fetch("https://pftravelstage.wpengine.com/wp-json/pot/v1/credit-cards?per_page=100");
+
+// const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/pages?per_page=50&_embed=true");
+// const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?categories=441&_embed=true&per_page=30");
+const posts = await res.json();
+// doesn't work? // doesn't work? the credit-cards and best-credit-cards portion of the slug are dynamic
+// const filteredPosts = posts.filter(post => post.slug.startsWith('amex'));
+// console.log(filteredPosts.slice(0,5));
+
+const combinedPosts = ccPosts.concat(posts);
+
+// let filteredPosts = allPosts.filter(post => post.data.draft === false)
+// filteredPosts.sort((a, b) => b.data.pubDate - a.data.pubDate);
+// const [firstArticle, ...allArticles] = filteredPosts;
+const [firstArticle, ...allArticles] = ccPosts;
+
+---
+
+<Layout title="Prince of Travel | Credit Cards" description="Prince Collection's latest news, deals, and happenings in the travel space." image={firstArticle.data.imageUrl}>
+	<PostIndex
+	badge="Credit Cards"
+	title={ccPosts[0].data.title}
+	description={ccPosts[0].data.description}
+	author={ccPosts[0].data.author}
+	date={ccPosts[0].data.date}
+	categorySlug="credit-cards"
+	firstArticleSlug={ccPosts[0].data.slug}
+	image={ccPosts[0].data.imageUrl}
+
+	mdPosts={ccPosts}
+
+	/>
+
+</Layout>
+
+
+<script>	
+	
+var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
+
+// var modal = document.getElementById('exampleModal');
+
+// myModal.addEventListener('click', updateURL);
+
+// myModal.addEventListener('click', revertURL);
+
+// function updateURL(slug) {
+// 	myModal.show();
+// 	const newURL = `/news/${slug}`;
+// 	window.history.pushState({}, '', newURL);
+// }
+// function revertURL() {
+// 	myModal.hide();
+// 	window.history.back();
+// }
+
+// window.addEventListener('popstate', function () {
+// var modalInstance = bootstrap.Modal.getInstance(modal);
+// if (modalInstance) {
+// modalInstance.hide();
+// }
+// });
+
+</script>
+        
+<style>
+.grid {
+  display: grid;
+  /* grid-template-columns: var(--col);
+  grid-template-rows: var(--row); */
+  /* grid-template-columns: 300px 1fr 2fr; */
+  gap: 15px;
+}
+.grid-1 {
+   display: grid;
+   grid-template-columns: 1fr 1fr 2fr;
+   grid-template-rows: auto;
+}
+.grid-2 {
+   display: grid;
+   grid-template-columns: 3fr, 1fr;
+   grid-template-rows: auto;
+}
+</style>

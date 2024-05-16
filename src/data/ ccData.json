@@ -1,0 +1,20 @@
+{
+   "credit_cards": [
+        {
+            "title": "",
+            "rating": 5,
+            "mr_points": 70000,
+            "fy_value": "",
+            "signup_bonus": "",
+            "annual_fee": "",
+            "required_spend": 100,
+            "bank": "",
+            "earning_rate": [],
+            "perks": [],
+            "insurance": "",
+            "apply_now_link": "",
+            "apply_now_content": "",
+            "slug": ""
+        }
+    ]
+}

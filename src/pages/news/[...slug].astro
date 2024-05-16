@@ -96,6 +96,8 @@ function shorten(text, max) {
     <PostBody
     category="news"
     title={post.title?.rendered || post.data.title}
+    backToUrl={post.data.category}
+    backToText="News"
     author={post._embedded?.author[0].name || post.data.author}
     date={post.date?.toString().slice(0,10) || post.data.pubDate.toString().slice(0,10)}
     description={post.excerpt?.rendered || post.data?.description}
@@ -103,7 +105,6 @@ function shorten(text, max) {
     slider={post.data?.carousel == undefined || post.data?.carousel == '' }
     featuredImage={post.data?.imageUrl || post._embedded['wp:featuredmedia'][0].source_url}
     carouselImages={post.data?.carousel}
-
     tags={post.data?.tags}
     toc={post.data?.contents}
     postContent={post.content?.rendered}

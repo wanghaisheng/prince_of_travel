@@ -19,6 +19,7 @@ collections:
     extension: "json"
     folder: /src/content/blog # Where each new post with .md should be saved
     create: true # Allows users to create new items in the collection
+    preview_path: blog/{{slug}}
     fields:
       - { label: "Draft", name: "draft", widget: "boolean", default: true}
       - { label: "Title", name: "title", widget: "string" } # Field Title
@@ -53,6 +54,7 @@ collections:
     name: news # Name of the collection used for various functionality in the CMS
     folder: /src/content/news # Where each new post with .md should be saved
     create: true # Allows users to create new items in the collection
+    preview_path: news/{{slug}}
     fields:
       - { label: "Draft", name: "draft", widget: "boolean", default: true}
       - { label: "Title", name: "title", widget: "string" } # Field Title
@@ -87,6 +89,7 @@ collections:
     name: reviews # Name of the collection used for various functionality in the CMS
     folder: /src/content/reviews # Where each new post with .md should be saved
     create: true # Allows users to create new items in the collection
+    preview_path: reviews/{{slug}}
     fields:
       - { label: "Draft", name: "draft", widget: "boolean", default: true}
       - { label: "Title", name: "title", widget: "string" } # Field Title
@@ -116,11 +119,166 @@ collections:
       - {label: "Table of Contents", name: "contents", widget: "list", default: ["Comma separated list of all main section titles"], required: false }
       - {label: "Body", name: "body", widget: "markdown"}
 
-  - label: guides # Label used in the UI for the collection
-    label_singular: guide # Label for singular post
-    name: guides # Name of the collection used for various functionality in the CMS
-    folder: /src/content/guides # Where each new post with .md should be saved
+  - label: hotels # Label used in the UI for the collection
+    label_singular: hotel # Label for singular post
+    name: hotels # Name of the collection used for various functionality in the CMS
+    folder: /src/content/hotels # Where each new post with .md should be saved
     create: true # Allows users to create new items in the collection
+    preview_path: hotels/{{slug}}
+    fields:
+      - { label: "Draft", name: "draft", widget: "boolean", default: true}
+      - { label: "Title", name: "title", widget: "string" } # Field Title
+      - { label: "Author", name: "author", widget: "string", default: "Prince Collection" } # Field Title
+      - { label: "Description", name: "description", widget: "string" } # Field Description
+      - { label: "SEO Description", name: "SEOdescription", widget: "string" } # SEO Description
+      - { label: 'Publish Date', name: 'pubDate', widget: 'datetime' }
+      - { label: "Featured image", name: "imageUrl", widget: "image" } # Field Featured Image
+      - { label: "Image Alt text", name: "imageAlt", widget: "string" }
+      - { label: "Category", name: "category", widget: "string", default: "reviews" }
+      - { label: "Tags", name: "tags", widget: "list", default: ["reviews"] }
+      - { label: "Featured post", name: "featured", widget: "boolean", default: false, required: false }
+      - label: "Carousel"
+        name: "carousel"
+        widget: list
+        required: false
+        collapsed: true
+        fields:
+          - {label: Image, name: url, widget: image, required: false}
+      - label: "Gallery"
+        name: "gallery"
+        widget: list
+        required: false
+        collapsed: true
+        fields:
+          - {label: Image, name: url, widget: image, required: false}
+      - {label: "Table of Contents", name: "contents", widget: "list", default: ["Comma separated list of all main section titles"], required: false }
+      - {label: "Body", name: "body", widget: "markdown"}
+  
+  - label: deals # Label used in the UI for the collection
+    label_singular: deal # Label for singular post
+    name: deals # Name of the collection used for various functionality in the CMS
+    folder: /src/content/deals # Where each new post with .md should be saved
+    create: true # Allows users to create new items in the collection
+    preview_path: deals/{{slug}}
+    fields:
+      - { label: "Draft", name: "draft", widget: "boolean", default: true}
+      - { label: "Title", name: "title", widget: "string" } # Field Title
+      - { label: "Author", name: "author", widget: "string", default: "Prince Collection" } # Field Title
+      - { label: "Description", name: "description", widget: "string" } # Field Description
+      - { label: "SEO Description", name: "SEOdescription", widget: "string" } # SEO Description
+      - { label: 'Publish Date', name: 'pubDate', widget: 'datetime' }
+      - { label: "Featured image", name: "imageUrl", widget: "image" } # Field Featured Image
+      - { label: "Image Alt text", name: "imageAlt", widget: "string" }
+      - { label: "Category", name: "category", widget: "string", default: "reviews" }
+      - { label: "Tags", name: "tags", widget: "list", default: ["reviews"] }
+      - { label: "Featured post", name: "featured", widget: "boolean", default: false, required: false }
+      - label: "Carousel"
+        name: "carousel"
+        widget: list
+        required: false
+        collapsed: true
+        fields:
+          - {label: Image, name: url, widget: image, required: false}
+      - label: "Gallery"
+        name: "gallery"
+        widget: list
+        required: false
+        collapsed: true
+        fields:
+          - {label: Image, name: url, widget: image, required: false}
+      - {label: "Table of Contents", name: "contents", widget: "list", default: ["Comma separated list of all main section titles"], required: false }
+      - {label: "Body", name: "body", widget: "markdown"}
+  
+  - label: insights # Label used in the UI for the collection
+    label_singular: insight # Label for singular post
+    name: insights # Name of the collection used for various functionality in the CMS
+    folder: /src/content/insights # Where each new post with .md should be saved
+    create: true # Allows users to create new items in the collection
+    preview_path: insights/{{slug}}
+    fields:
+      - { label: "Draft", name: "draft", widget: "boolean", default: true}
+      - { label: "Title", name: "title", widget: "string" } # Field Title
+      - { label: "Author", name: "author", widget: "string", default: "Prince Collection" } # Field Title
+      - { label: "Description", name: "description", widget: "string" } # Field Description
+      - { label: "SEO Description", name: "SEOdescription", widget: "string" } # SEO Description
+      - { label: 'Publish Date', name: 'pubDate', widget: 'datetime' }
+      - { label: "Featured image", name: "imageUrl", widget: "image" } # Field Featured Image
+      - { label: "Image Alt text", name: "imageAlt", widget: "string" } 
+      - { label: "Category", name: "category", widget: "string", default: "guides" }
+      - { label: "Tags", name: "tags", widget: "list", default: ["guides"] }
+      - { label: "Featured post", name: "featured", widget: "boolean", default: false, required: false }
+      - label: "Carousel"
+        name: "carousel"
+        widget: list
+        required: false
+        collapsed: true
+        fields:
+          - {label: Image, name: url, widget: image, required: false}
+      - label: "Gallery"
+        name: "gallery"
+        widget: list
+        required: false
+        collapsed: true
+        fields:
+          - {label: Image, name: url, widget: image, required: false}
+      - { label: "Table of Contents", name: "contents", widget: "list", default: ["section-title"], required: false }
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  - label: credit-cards # Label used in the UI for the collection
+    label_singular: credit-card # Label for singular post
+    name: credit-cards # Name of the collection used for various functionality in the CMS
+    folder: /src/content/credit-cards # Where each new post with .md should be saved
+    create: true # Allows users to create new items in the collection
+    preview_path: credit-cards/{{slug}}
+    fields:
+      - { label: "Draft", name: "draft", widget: "boolean", default: true}
+      - { label: "Featured card", name: "featured", widget: "boolean", default: false }
+      - { label: "Title", name: "title", widget: "string" } 
+      - { label: 'Publish Date', name: 'pubDate', widget: 'datetime' }
+      - { label: 'Bank', name: 'bank', widget: 'string' }
+      - { label: "Rating", name: "rating", widget: "number", required: false }
+      - { label: "Membership Reward Points", name: "mr_points", widget: "number", required: false } 
+      - { label: "First-year Value", name: "fy_value", widget: "number", required: false }
+      # - { label: "Signup Bonus", name: "signup_bonus", widget: "string", required: false }
+      - label: "Signup Bonus"
+        name: "signup_bonus"
+        collapsed: true
+        widget: "list"
+        fields:
+          - { label: "Signup bonus", name: "bonus", widget: "string", required: false }
+      - { label: "Required Spend", name: "spend", widget: "number", required: false }
+      - { label: "Payment Network", name: "payment_network", widget: "string", required: false }
+      - label: "Earning Rate"
+        name: "earning_rate"
+        collapsed: true
+        widget: "list"
+        fields:
+          - {label: Detail, name: detail, widget: string,  required: false }
+      - label: "Perks & Benefits"
+        name: "perks"
+        collapsed: true
+        widget: "list"
+        fields:
+          - {label: Perk, name: perk, widget: string,  required: false }
+      - { label: "Insurance", name: "insurance", widget: "string", required: false }
+      - { label: "Apply Now", name: "apply_link", widget: "string", required: false }
+      - { label: "Apply Now Content", name: "apply_content", widget: "text", required: false }
+      - { label: "Body", name: "body", widget: "markdown"}
+      - { label: "Description", name: "description", widget: "string", required: false } # Field Description
+      - { label: "SEO Description", name: "SEOdescription", widget: "string", required: false } # SEO Description
+      - { label: "Featured image", name: "imageUrl", widget: "image", required: false } # Field Featured Image
+      - { label: "Image Alt text", name: "imageAlt", widget: "string", required: false } 
+      - { label: "Category", name: "category", widget: "string", default: "credit-cards" }
+      - { label: "Tags", name: "tags", widget: "list", default: ["credit-cards"], required: false }
+      - { label: "Table of Contents", name: "contents", widget: "list", default: ["Paste article headings here"], required: false }
+      - { label: "Author", name: "author", widget: "string", required: false }
+  
+  - label: best-credit-cards # Label used in the UI for the collection
+    label_singular: best-credit-card # Label for singular post
+    name: best-credit-cards # Name of the collection used for various functionality in the CMS
+    folder: /src/content/best-credit-cards # Where each new post with .md should be saved
+    create: true # Allows users to create new items in the collection
+    preview_path: best-credit-cards/{{slug}}
     fields:
       - { label: "Draft", name: "draft", widget: "boolean", default: true}
       - { label: "Title", name: "title", widget: "string" } # Field Title
@@ -155,6 +313,7 @@ collections:
     name: authors # Name of the collection used for various functionality in the CMS
     folder: /src/content/authors # Where each new post with .md should be saved
     create: true # Allows users to create new items in the collection
+    preview_path: authors/{{slug}}
     fields:
       - { label: "Name", name: "name", widget: "string" } # Field Title
       - { label: "Description", name: "description", widget: "string" } # Field Description

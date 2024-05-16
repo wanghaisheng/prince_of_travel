@@ -1,7 +1,7 @@
 /* https://www.learnui.design/tools/data-color-picker.html#single */
 
 :root {
-    --pc: #f0beb4;
+    --pot: #61002A;
     --pc-dark: #a1655c;
     --pc-light: #f6f1eb;
     /* CSS menu palette HEX */
@@ -71,7 +71,7 @@
 /* pc brand */
 
 .text-pc {
-    color: var(--pc);
+    color: var(--pot);
 }
 .text-pc-80 {
     color: #f2c5bc;
@@ -92,7 +92,7 @@
 /* bg */
 
 .bg-pc {
-    background: var(--pc);
+    background: var(--pot);
 }
 .bg-pc-80 {
     background: #f2c5bc;

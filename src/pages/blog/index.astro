@@ -34,6 +34,7 @@ const posts = await res.json();
 // https://princeoftravel.com/wp-json/wp/v2/posts?categories=441 No Fee / First Year Free
 // https://princeoftravel.com/wp-json/wp/v2/posts?categories=311 Best travel benefits
 // https://princeoftravel.com/wp-json/wp/v2/posts?categories=442 Business Credit Cards
+// 310 US Credit Cards Currently 0 posts with this cat
 
 // const allPosts = [].concat(blogPosts, posts);
 const allPosts = blogPosts.concat(posts);
@@ -69,37 +70,41 @@ function newsPosts(arr, category) {
                         </div>
                     </div>
                     <div class="row bg-black text-light rounded-4 mx-2">
+
+                        
                         <div class="col-md-6 p-0">
-                            <img src="" data-src={blogPosts[0].data.imageUrl} class="card-img-top w-100 object-fit rounded-start-4" style="height: 300px;" alt="..." data-aos="fade" />
+                            <img src="" data-src={blogPosts[0].data.imageUrl} class="card-img-top w-100 h-100 object-fit rounded-start-4" style="height: 300px;" alt="..." data-aos="fade" />
                         </div>
-                        <div class="col-lg-6 d-flex flex-column justify-content-center align-items-start p-5">
+                        <div class="col-md-6 d-flex flex-column justify-content-center align-items-start p-5">
+                            <a href={`/${blogPosts[0].data.category}/${blogPosts[0].data.slug}/`}>
                             <p class="small m-0 mt-2 mb-0 text-primary" style="text-transform: capitalize;">{blogPosts[0].data.category}</p>
                             <h5 class="card-title fs-4 fw-900 my-2">{blogPosts[0].data.title}</h5>
                             <p class="small m-0 mt-2 mb-0">By: {blogPosts[0].data.author}</p>
                             <p class="card-text pe-5">{functions.shorten(blogPosts[0].data.description, 150) + '...'} </p>
+                            </a>
                         </div>
                     </div>
 
                     <div class="row mt-3 px-1 g-3">
-                        {
-                        posts.filter(cat => cat._embedded['wp:term'][0][0].slug != 'news').slice(0,3).map((article, index) => (
-                            <div class="col-lg-4 mt-0">
-                                <a href={`/${article._embedded['wp:term'][0][0].slug}/${article.slug}/`}>
-                                <div class="card bg-pc-light rounded-4 border-0 shadow mb-3" style="min-height: 500px">
-                                    <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top w-100 object-fit rounded-top-4" style="height: 200px;" alt="..." data-aos="fade" />
-                                    <div class="card-body px-3 position-relative">
-                                        <!--<p class="small m-0 text-secondary mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>-->
-                                        <p class="small m-0 text-secondary mt-2 mb-0" style="text-transform: capitalize;">{article._embedded['wp:term'][0][0].slug}</p>
-                                        <h5 class="card-title text-secondary fw-900 my-2"><Fragment set:html={article.title.rendered} /></h5>
-                                        <p class="small text-secondary mt-1 mb-0">By: {article._embedded?.author[0].name}</p>
-                                        <p class="small card-text text-body-secondary my-3"><Fragment set:html={functions.shorten(article.excerpt.rendered, 150)} /></p>
-                                        <!--<button class="btn btn-sm small btn-secondary rounded-pill px-4 m-0 mt-2 mb-0">Read</button>-->
-                                        <i class="bi bi-arrow-up-right-circle-fill text-secondary opacity-75 fs-2 position-absolute bottom-0 end-0 m-3"></i>
-                                    </div>
+                    {
+                    posts.filter(cat => cat._embedded['wp:term'][0][0].slug != 'news').slice(0,3).map((article, index) => (
+                        <div class="col-md-4 mt-0">
+                            <a href={`/${article._embedded['wp:term'][0][0].slug}/${article.slug}/`}>
+                            <div class="card bg-pc-light rounded-4 border-0 shadow mb-3" style="min-height: 500px">
+                                <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top w-100 object-fit rounded-top-4" style="height: 200px;" alt="..." data-aos="fade" />
+                                <div class="card-body px-3 position-relative">
+                                    <!--<p class="small m-0 text-secondary mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>-->
+                                    <p class="small m-0 text-secondary mt-2 mb-0" style="text-transform: capitalize;">{article._embedded['wp:term'][0][0].slug}</p>
+                                    <h5 class="card-title text-secondary fw-900 my-2"><Fragment set:html={article.title.rendered} /></h5>
+                                    <p class="small text-secondary mt-1 mb-0">By: {article._embedded?.author[0].name}</p>
+                                    <p class="small card-text text-body-secondary my-3"><Fragment set:html={functions.shorten(article.excerpt.rendered, 150)} /></p>
+                                    <!--<button class="btn btn-sm small btn-secondary rounded-pill px-4 m-0 mt-2 mb-0">Read</button>-->
+                                    <i class="bi bi-arrow-up-right-circle-fill text-secondary opacity-75 fs-2 position-absolute bottom-0 end-0 m-3"></i>
                                 </div>
-                            </a>
-                        </div>
-                        ))}
+                            </div>
+                        </a>
+                    </div>
+                    ))}
 
                  <!-- <div class:list={["card rounded-5 border-0 shadow", (index + 1) % 3 ? (index + 1) % 4 ? 'bg-pc-light' : 'bg-timberwolf' : 'bg-pc']} style="min-height: 500px"></div> -->
 
@@ -107,19 +112,21 @@ function newsPosts(arr, category) {
             </div><!--end wrapper col 8 -->
 
             <!-- sidebar -->
-            <div class="col-lg-3 px-3">
+            <div class="col-lg-3 px-3 pt-5">
                 <h2>Latest</h2>
                 {
                     posts.filter(cat => cat._embedded['wp:term'][0][0].slug === 'news').slice(0,3).map((article, index) => (
-                    <div class="col-lg-12 col-md-4">
+                    <div class="col-lg-12">
                         <a href={`/news/${article.slug}/`}>
                             <div class="card bg-pc-light rounded-4 border-0 mb-3 shadow position-relative">
-                                <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top w-100 h-100 object-fit rounded-4 p-2" style="min-height: 150px;" alt="..." data-aos="fade" />
-                                <div class="card-body px-3 pb-4 pt-1">
-                                    <p class="small m-0 text-secondary my-0">{article.date?.toString().slice(0,10)}</p>
+                                <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top w-100 h-100 object-fit rounded-4 p-2" style="height: 150px;" alt="..." data-aos="fade" />
+                                <div class="card-body px-4 pb-4 pt-1">
+                                   
                                     <p class="small m-0 text-secondary mt-2 mb-0" style="text-transform: capitalize;">{article._embedded['wp:term'][0][0].slug}</p>
+                                   
                                     <h6 class="card-title text-secondary fw-900 my-2"><Fragment set:html={article.title.rendered} /></h6>
                                     <p class="small text-secondary mt-1 mb-0">By: {article._embedded?.author[0].name}</p>
+                                    <!--<p class="small m-0 fw-bold text-secondary opacity-50 my-0">{article.date?.toString().slice(0,10)}</p>-->
                                     <i class="bi bi-arrow-up-right-circle-fill text-secondary opacity-75 fs-4 position-absolute bottom-0 end-0 m-1"></i>
                                     </div>
                                 </div>

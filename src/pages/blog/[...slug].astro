@@ -21,12 +21,12 @@ const {content_markdown} = Astro.props
 
 
 export async function getStaticPaths() {
-  const blogEntries = await getCollection('blog');
-  let data = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?categories=942,941,943,16,944,1&per_page=50&_embed");
-  let posts = await data.json();
+    const blogEntries = await getCollection('blog');
+    let data = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?categories=942,941,943,16,944,1&per_page=50&_embed");
+    let posts = await data.json();
     const combinedArray = blogEntries.concat(posts);
 
-  return combinedArray.map(article => ({
+    return combinedArray.map(article => ({
         params: { slug: article.slug }, 
         props: { article }
     }))

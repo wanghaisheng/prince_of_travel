@@ -1,14 +1,14 @@
 ---
-const { title, category, author, date, description, content, slider, featuredImage, carouselImages, item, tags, toc, tocURL, postContent, postBody, fbShare, tweetCurrentPage, emailPage } = Astro.props
+const { title, backToUrl, backToText, author, date, description, readTime, slider, featuredImage, carouselImages, tags, toc, tocURL, postContent, postBody, fbShare, tweetCurrentPage, emailPage } = Astro.props
 import { Markdown } from '@astropub/md';
 ---
 <div class="container-fluid px-0 pt-3">
-    <div class="row min-vh-100">
-        <div class="col-lg-8 d-flex flex-column justify-content-center align-items-start text-start p-5">
-            <a href={'/' + category}>
+    <div class="row py-3">
+        <div class="col-lg-8 min-vh-500 d-flex flex-column justify-content-center align-items-start text-start p-5">
+            <a href={'/' + backToUrl}>
                 <div class="d-flex align-items-center" data-aos="fade-up">
                     <i class="bi bi-arrow-left text-black-50 fs-1"></i>
-                    <h6 class="ms-2 my-0 text-black-50 fw-light">Back to {category}</h6>
+                    <h6 class="ms-2 my-0 text-black-50 fw-light">Back to {backToText}</h6>
                 </div>
             </a>
 
@@ -22,9 +22,12 @@ import { Markdown } from '@astropub/md';
             <div class="mt-3" data-aos="fade-up" data-aos-delay="600">
                 <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {author}</p>
                 <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {date}</p>
-                <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Read time </span> {content} mins</p>
+                <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Read time </span> {readTime} mins</p>
             </div>
         </div>
+        </div>
+
+        <div class="row">
 
 { slider ?
               
@@ -83,7 +86,7 @@ import { Markdown } from '@astropub/md';
             </div>
             <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {author}</p>
             <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {date}</p>
-            <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Read time </span>  {content} mins</p>
+            <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Read time </span>  {readTime} mins</p>
             <hr>
             <p><span class="fw-bold text-pc-dark">Prince Collection</span> is a non-traditional, full service travel concierge designed exclusively for companies and individuals who require exclusive travel arrangements. We handle the nuances of travel ensuring a seamless and extraordinary journey from start to finish.</p>
             <hr>
