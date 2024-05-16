@@ -39,6 +39,14 @@ const posts = await res.json();
 // const [firstArticle, ...allArticles] = filteredPosts;
 const [firstArticle, ...allArticles] = newsPosts;
 
+// bit-alaska post had a cross at the end of the url which threw a build error in netlify
+function removeSpecialCharactersFromURL(url) {
+    // Define a regular expression to match special characters
+	const regex = /[^\w\s\-#]/gi;
+    // Replace special characters with an empty string
+    const cleanURL = url.replace(regex, '');
+    return cleanURL;
+}
 ---
 
 <Layout title="Prince Collection | News" description="Prince Collection's latest news, deals, and happenings in the travel space." image={firstArticle.data.imageUrl}>
@@ -52,7 +60,7 @@ const [firstArticle, ...allArticles] = newsPosts;
 					<p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {firstArticle.data.author}</p>
 					<p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {firstArticle.data.pubDate.toString().slice(0,10)}</p>
 				</div>
-				<a href={`/news/${firstArticle.slug}/`}>
+				<a href={`/news/${removeSpecialCharactersFromURL(firstArticle.slug)}/`}>
 					<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
 				</a>
 			</div>
@@ -88,7 +96,7 @@ const [firstArticle, ...allArticles] = newsPosts;
 
 			{posts?.map((post) => (		
 			<div class="col">
-				<a href={`/news/${post.slug}/`}>
+				<a href={`/news/${removeSpecialCharactersFromURL(post.slug)}/`}>
 					<div class="card bg-pc-light rounded-4 p-0 border-0 shadow" style="min-height: 500px">
 						<img src="" data-src={post._embedded['wp:featuredmedia'][0].source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top rounded-top-4 w-100" style="object-fit: cover; height: 200px; filter: brightness(70%)" alt="">
 						<i class="bi bi-arrow-up-right-circle-fill text-pc-10 fs-1 position-absolute top-0 end-0 me-3 mt-2"></i>
