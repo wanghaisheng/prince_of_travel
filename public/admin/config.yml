@@ -235,10 +235,11 @@ collections:
       - { label: "Featured card", name: "featured", widget: "boolean", default: false }
       - { label: "Title", name: "title", widget: "string" } 
       - { label: 'Publish Date', name: 'pubDate', widget: 'datetime' }
-      - { label: 'Bank', name: 'bank', widget: 'string' }
+      - { label: 'Bank', name: 'bank', widget: 'string', required: false }
+      - { label: 'Points Program', name: 'points_program', widget: 'string', required: false }
       - { label: "Rating", name: "rating", widget: "number", required: false }
-      - { label: "Membership Reward Points", name: "mr_points", widget: "number", required: false } 
-      - { label: "First-year Value", name: "fy_value", widget: "number", required: false }
+      - { label: "Membership Reward Points", name: "mr_points", widget: "string", required: false } 
+      - { label: "First-year Value", name: "fy_value", widget: "string", required: false }
       # - { label: "Signup Bonus", name: "signup_bonus", widget: "string", required: false }
       - label: "Signup Bonus"
         name: "signup_bonus"
@@ -263,6 +264,7 @@ collections:
       - { label: "Insurance", name: "insurance", widget: "string", required: false }
       - { label: "Apply Now", name: "apply_link", widget: "string", required: false }
       - { label: "Apply Now Content", name: "apply_content", widget: "text", required: false }
+      - { label: "Best Card for", name: "best_for", widget: "list", required: false }
       - { label: "Body", name: "body", widget: "markdown"}
       - { label: "Description", name: "description", widget: "string", required: false } # Field Description
       - { label: "SEO Description", name: "SEOdescription", widget: "string", required: false } # SEO Description
