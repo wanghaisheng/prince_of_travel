@@ -5,12 +5,12 @@ import PostBody from '../../components/PostComponents/PostBody.astro';
 
 export const prerender = true;
 export async function getStaticPaths() {
-    const newsEntries = await getCollection('credit-cards');
-    let data = await fetch("https://pftravelstage.wpengine.com/wp-json/pot/v1/credit-cards?per_page=100");
+    const ccEntries = await getCollection('credit-cards');
+    let data = await fetch("https://pftravelstage.wpengine.com/wp-json/pot/v1/credit-cards/all-posts");
     let posts = await data.json();
-    // const combinedArray = newsEntries.concat(posts);
+    const combinedArray = ccEntries.concat(posts);
 
-  return newsEntries.map(post => ({
+  return combinedArray.map(post => ({
     params: { slug: post.slug }, 
     props: { post }
   }));
@@ -22,7 +22,7 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 
-const allPosts = await getCollection("news");
+const allPosts = await getCollection("credit-cards");
 let filteredPosts = allPosts.filter(post => post.data.draft === false)
 // const { Content } = await post.render();
 
@@ -98,7 +98,7 @@ function shorten(text, max) {
 <Layout title={post.title || post.data.title} description={post.excerpt || post.data.description} image={post.data?.imageUrl || post.featured_image.medium}>
 
     <PostBody
-    category="news"
+    category="credit-cards"
     title={post.title || post.data.title}
     backToUrl="credit-cards"
     backToText="Credit Cards"
@@ -112,8 +112,8 @@ function shorten(text, max) {
     postContent={post.content}
     postBody={post.body}
     fbShare={fbShare()}
-    tweetCurrentPage={tweetCurrentPage(post.title?.rendered || post.title)}
-    emailPage={emailPage(post.title?.rendered || post.title)}
+    tweetCurrentPage={tweetCurrentPage(post.title)}
+    emailPage={emailPage(post.title)}
     />
 
           

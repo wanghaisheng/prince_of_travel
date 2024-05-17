@@ -6,7 +6,6 @@ const ccPosts = await getCollection("credit-cards");
 // astro.glob => getCollection is the difference between getting all files from a directory in pages vs. collections
 // https://docs.astro.build/en/tutorials/add-content-collections/
 import functions from '../../js/functions.js';
-import PostIndex from '../../components/PostComponents/PostIndex.astro';
 
 const { index, slug } = Astro.props
 
@@ -30,36 +29,8 @@ const verticalSlide = {
   backwards: slideAnim,
 }
 
-// credit cards
-// https://princeoftravel.com/wp-json/wp/v2/posts?categories=313 best deals (&300+ value)
-// https://princeoftravel.com/wp-json/wp/v2/posts?categories=441 No Fee / First Year Free
-// https://princeoftravel.com/wp-json/wp/v2/posts?categories=311 Best travel benefits
-// https://princeoftravel.com/wp-json/wp/v2/posts?categories=442 Business Credit Cards
-// 310 US Credit Cards Currently 0 posts with this cat
-// Tags 17 (credit cards = 287), 121 (US credit cards = 61)
-
-// fetch('https://princeoftravel.com/wp-json/wp/v2/posts&_embed=true&per_page=20')
-//  .then(response => response.json())
-//  .then(posts => {
-//     const filteredPosts = posts.filter(post => post.slug.startsWith('credit-cards'));
-//     console.log(filteredPosts);
-//  });
-
-// const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?filter[name]=best-credit-cards&per_page=50&_embed=true");
-// const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?tax_query[0][taxonomy]=category&tax_query[0][field]=term_id&tax_query[0][terms]=313,311,%20442,%20441&tax_query[1][taxonomy]=post_tag&tax_query[1][field]=term_id&tax_query[1][terms]=17,121&per_page=50&_embed=true");
-// const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?tags=17&per_page=50&_embed");
-// const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?search=credit-cards&per_page=50&_embed=true");
-// const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?categories=313,441,311,442&_embed=true&per_page=50");
-
-const res = await fetch("https://pftravelstage.wpengine.com/wp-json/pot/v1/credit-cards?per_page=100");
-// const res = await fetch("https://pftravelstage.wpengine.com/wp-json/pot/v1/credit-cards?per_page=100");
-
-// const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/pages?per_page=50&_embed=true");
-// const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?categories=441&_embed=true&per_page=30");
+const res = await fetch("https://pftravelstage.wpengine.com/wp-json/pot/v1/credit-cards/all-posts");
 const posts = await res.json();
-// doesn't work? // doesn't work? the credit-cards and best-credit-cards portion of the slug are dynamic
-// const filteredPosts = posts.filter(post => post.slug.startsWith('amex'));
-// console.log(filteredPosts.slice(0,5));
 
 const combinedPosts = ccPosts.concat(posts);
 
@@ -68,23 +39,90 @@ const combinedPosts = ccPosts.concat(posts);
 // const [firstArticle, ...allArticles] = filteredPosts;
 const [firstArticle, ...allArticles] = ccPosts;
 
+// bit-alaska post had a cross at the end of the url which threw a build error in netlify
+function removeSpecialCharactersFromURL(url) {
+    // Define a regular expression to match special characters
+	const regex = /[^\w\s\-#]/gi;
+    // Replace special characters with an empty string
+    const cleanURL = url.replace(regex, '');
+    return cleanURL;
+}
 ---
 
-<Layout title="Prince of Travel | Credit Cards" description="Prince Collection's latest news, deals, and happenings in the travel space." image={firstArticle.data.imageUrl}>
-	<PostIndex
-	badge="Credit Cards"
-	title={ccPosts[0].data.title}
-	description={ccPosts[0].data.description}
-	author={ccPosts[0].data.author}
-	date={ccPosts[0].data.date}
-	categorySlug="credit-cards"
-	firstArticleSlug={ccPosts[0].data.slug}
-	image={ccPosts[0].data.imageUrl}
+<Layout title="Prince of Travel | Credit Cards" description="Prince of Travel's latest news, deals, and happenings in the travel space." image={firstArticle.data.imageUrl}>
+	<div class="container-fluid px-0">
+		<div class="row min-vh-100 bg-light">
+			<div class="col-lg-6 d-flex flex-column justify-content-center align-items-center min-vh-500 text-center p-5 mt-5 mt-lg-0 animate-in">
+				<span class="badge rounded-pill fw-bold text-bg-secondary py-2 px-4">News</span>
+				<h1 class="text-body-secondary fw-900 lh-1 ls-1 mb-4" style="font-size: 9vmin;">{firstArticle.data.title}</h1>
+				<p class="col-md-8 fs-5 text-body-secondary mt-0 mb-2">{functions.shorten(firstArticle.data.description, 150) + '...'}</p>
+				<div class="py-2">
+					<p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {firstArticle.data.author}</p>
+					<p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {firstArticle.data.pubDate.toString().slice(0,10)}</p>
+				</div>
+				<a href={`/news/${removeSpecialCharactersFromURL(firstArticle.slug)}/`}>
+					<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
+				</a>
+			</div>
+			<div class="col-lg-6">
+				<img src={firstArticle.data.imageUrl} class="w-100 h-100" style="object-fit: cover;" alt={firstArticle.data.imageAlt}>
+			</div>
+		</div>
 
-	mdPosts={ccPosts}
+		<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 p-4">
+			{allArticles?.map((post) => (
+			<div class="col">
+				<a href={`/news/${post.slug}/`}>
+					<div class="card bg-pc-light rounded-4 p-0 border-0 shadow" style="min-height: 500px">
+						<img src="" data-src={post.data.imageUrl} class="card-img-top rounded-top-4 w-100" style="object-fit: cover; height: 200px; filter: brightness(70%)" alt={post.data.imageAlt}>
+						<i class="bi bi-arrow-up-right-circle-fill text-pc-10 fs-1 position-absolute top-0 end-0 me-3 mt-2"></i>
+						<div class="card-body position-relative px-4 pb-4">
+							<p class="small mb-2">{post.data.pubDate.toString().slice(0,10)}</p>
+							<h5 class="card-title fw-bold mb-0">{post.data.title}</h5>
+							<p class="small m-0 text-secondary mt-2 mb-0">By: {post.data.author}</p>
+							<p class="card-text text-body-secondary pe-4">{functions.shorten(post.data.description, 150) + '...'}</p>
+						</div>
+						<div class="card-footer p-3">
+							<!--<div class="d-flex flex-row flex-wrap" style="text-wrap: pretty;">
+							{post.data.tags.map((tag) => (
+								<p class="small text-pc-dark-80 me-1 my-0">#{tag}</p>
+							))}
+							</div>-->
+						</div>
+					</div>
+				</a>
+			</div>
+			))}
 
-	/>
+			{posts?.map((post) => (		
+			<div class="col">
+				<a href={`/credit-cards/${removeSpecialCharactersFromURL(post.slug)}/`}>
+					<div class="card bg-pc-light rounded-4 p-0 border-0 shadow" style="min-height: 500px">
+						<img src="" data-src={post.featured_image || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top rounded-top-4 w-100" style="object-fit: cover; height: 200px; filter: brightness(70%)" alt="">
+						<i class="bi bi-arrow-up-right-circle-fill text-pc-10 fs-1 position-absolute top-0 end-0 me-3 mt-2"></i>
+						<div class="card-body position-relative px-4 pb-4">
+							<p class="small mb-2">{post.date.toString().slice(0,10)}</p>
+							<h5 class="card-title fw-bold mb-0"><Fragment set:html={post.title} /></h5>
+							<!--<p class="small m-0 text-secondary mt-2 mb-0">By: {post.author}</p>-->
+							<p class="small m-0 text-secondary mt-2 mb-0"><Fragment set:html={post.reward_points} /></p>
+							<p class="small m-0 text-secondary my-0"><Fragment set:html={post.fees} /></p>
+              <ul class="text-secondary mt-2">
+                <li><Fragment set:html={post.features_0_feature} /></li>
+                <li><Fragment set:html={post.features_1_feature} /></li>
+                <li><Fragment set:html={post.features_2_feature} /></li>
+              </ul>
 
+							<!--<p class="card-text text-body-secondary pe-4">{functions.shorten(post.excerpt, 150) + '...'}</p>-->
+						</div>
+            <div class="d-inline">
+            <button class="btn btn-sm btn-secondary">Details</button>
+            </div>
+					</div>
+				</a>
+			</div>
+			))}		
+		</div>
+	</div>
 </Layout>
 
 
