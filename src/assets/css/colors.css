@@ -16,6 +16,27 @@
     --ucla-blue: #52749dff;
     --charcoal: #474e57ff;
     --light-grey: hsl(60, 12%, 90%);
+    
+    --beige: rgb(217, 214, 204);
+--lightblue: rgb(50, 149, 201);
+--orange: rgb(252, 173, 0);
+--green: rgb(80, 190, 61);
+--salmon: rgb(242, 109, 95);
+--royalblue: rgb(0, 122, 255);
+}
+
+.palette {
+color: rgb(22, 22, 23);
+color: rgb(51, 51, 54);
+color: rgb(245, 245, 247);
+color: rgb(0, 113, 227);
+color: rgba(51, 51, 54, 0.4);
+--beige: rgb(217, 214, 204);
+--lightblue: rgb(50, 149, 201);
+--orange: rgb(252, 173, 0);
+--green: rgb(80, 190, 61);
+--salmon: rgb(242, 109, 95);
+--royalblue: rgb(0, 122, 255);
 }
 
 .bg-pc-light {

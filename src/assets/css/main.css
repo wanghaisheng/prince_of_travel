@@ -47,10 +47,10 @@ h1, .h1,
 h2, .h2,
 h3, .h3 {
   font-family: 'Inter Tight', Helvetica, Arial, sans-serif;
-  font-family: 'Oswald', Helvetica, Arial, sans-serif;
+  /* font-family: 'Oswald', Helvetica, Arial, sans-serif; */
   font-weight: 900;
   letter-spacing: 0;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 p {
@@ -76,4 +76,17 @@ iframe {
 border-radius: 18px;
 width: 100% !important;
 height: 450px !important;
+}
+
+.offcanvas {
+  color: #212529BF;
+}
+
+.offcanvas ul {
+  padding: 10px 40px;
+}
+
+.offcanvas ul li {
+  font-size: 18px;
+  margin-bottom: 4px;
 }

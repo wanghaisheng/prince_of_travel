@@ -1,0 +1,165 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<style>
+    /* .container {
+      display: flex;
+    } */
+    .scroll-div {
+      overflow-y: scroll;
+      /* margin-right: 20px; */
+    }
+
+    .container {
+    display: flex;
+    width: 100%;
+    /* overflow: hidden; */
+    /* overflow-y: auto; */
+}
+
+.slow-scroll, .fast-scroll {
+    /* width: 50%; Each div occupies 50% of the container width */
+    height: 100vh;
+    /* overflow: hidden; Hide scrollbar */
+    overflow-y: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.slow-scroll::-webkit-scrollbar, 
+.fast-scroll::-webkit-scrollbar {
+  display: none;
+}
+  </style>
+<Layout title='' description='' image=''>
+
+<div class="container-fluid h-100">
+    <div class="row h-100">
+        <div class="scroll-div col-lg-6 bg-primary slow-scroll">
+            <!-- id="scrollDiv1" -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="div p-4 border rounded-5 shadow mb-2">
+                        <h5 class="fw-bold">Title</h5>
+                        <p>Sit reprehenderit laborum esse mollit ullamco cillum id aliqua pariatur. Magna adipisicing qui aute culpa aliqua consectetur culpa do eiusmod in pariatur esse voluptate aute. Officia mollit exercitation laborum ipsum.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="div p-4 border rounded-5 shadow mb-2">
+                        <h5 class="fw-bold">Title</h5>
+                        <p>Sit reprehenderit laborum esse mollit ullamco cillum id aliqua pariatur. Magna adipisicing qui aute culpa aliqua consectetur culpa do eiusmod in pariatur esse voluptate aute. Officia mollit exercitation laborum ipsum.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="div p-4 border rounded-5 shadow mb-2">
+                        <h5 class="fw-bold">Title</h5>
+                        <p>Sit reprehenderit laborum esse mollit ullamco cillum id aliqua pariatur. Magna adipisicing qui aute culpa aliqua consectetur culpa do eiusmod in pariatur esse voluptate aute. Officia mollit exercitation laborum ipsum.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="div p-4 border rounded-5 shadow mb-2">
+                        <h5 class="fw-bold">Title</h5>
+                        <p>Sit reprehenderit laborum esse mollit ullamco cillum id aliqua pariatur. Magna adipisicing qui aute culpa aliqua consectetur culpa do eiusmod in pariatur esse voluptate aute. Officia mollit exercitation laborum ipsum.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="div p-4 border rounded-5 shadow mb-2">
+                        <h5 class="fw-bold">Title</h5>
+                        <p>Sit reprehenderit laborum esse mollit ullamco cillum id aliqua pariatur. Magna adipisicing qui aute culpa aliqua consectetur culpa do eiusmod in pariatur esse voluptate aute. Officia mollit exercitation laborum ipsum.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="div p-4 border rounded-5 shadow mb-2">
+                        <h5 class="fw-bold">Title</h5>
+                        <p>Sit reprehenderit laborum esse mollit ullamco cillum id aliqua pariatur. Magna adipisicing qui aute culpa aliqua consectetur culpa do eiusmod in pariatur esse voluptate aute. Officia mollit exercitation laborum ipsum.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="div p-4 border rounded-5 shadow mb-2">
+                        <h5 class="fw-bold">Title</h5>
+                        <p>Sit reprehenderit laborum esse mollit ullamco cillum id aliqua pariatur. Magna adipisicing qui aute culpa aliqua consectetur culpa do eiusmod in pariatur esse voluptate aute. Officia mollit exercitation laborum ipsum.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="div p-4 border rounded-5 shadow mb-2">
+                        <h5 class="fw-bold">Title</h5>
+                        <p>Sit reprehenderit laborum esse mollit ullamco cillum id aliqua pariatur. Magna adipisicing qui aute culpa aliqua consectetur culpa do eiusmod in pariatur esse voluptate aute. Officia mollit exercitation laborum ipsum.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="div p-4 border rounded-5 shadow mb-2">
+                        <h5 class="fw-bold">Title</h5>
+                        <p>Sit reprehenderit laborum esse mollit ullamco cillum id aliqua pariatur. Magna adipisicing qui aute culpa aliqua consectetur culpa do eiusmod in pariatur esse voluptate aute. Officia mollit exercitation laborum ipsum.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="div p-4 border rounded-5 shadow mb-2">
+                        <h5 class="fw-bold">Title</h5>
+                        <p>Sit reprehenderit laborum esse mollit ullamco cillum id aliqua pariatur. Magna adipisicing qui aute culpa aliqua consectetur culpa do eiusmod in pariatur esse voluptate aute. Officia mollit exercitation laborum ipsum.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-div col-lg-6 bg-warning fast-scroll">
+            <!-- id="scrollDiv2" -->
+            <h1>Dolor non officia tempor irure dolor ea qui.</h1>
+            <p>Ipsum exercitation mollit non magna esse anim enim laborum ut deserunt nulla incididunt. Nisi pariatur Lorem eiusmod elit ad duis culpa voluptate ad in pariatur. Aute in laboris ipsum do tempor ipsum quis nulla esse occaecat officia consequat ad. Nulla aliqua ad in aliquip velit laborum qui deserunt et magna officia excepteur. Esse ad culpa deserunt quis sint fugiat incididunt eu ex aute cillum.</p>
+            <p>Ipsum exercitation mollit non magna esse anim enim laborum ut deserunt nulla incididunt. Nisi pariatur Lorem eiusmod elit ad duis culpa voluptate ad in pariatur. Aute in laboris ipsum do tempor ipsum quis nulla esse occaecat officia consequat ad. Nulla aliqua ad in aliquip velit laborum qui deserunt et magna officia excepteur. Esse ad culpa deserunt quis sint fugiat incididunt eu ex aute cillum.</p>
+            <h2>Fugiat sint pariatur nostrud magna.</h2>
+            <p>Pariatur duis consectetur mollit nisi exercitation laboris officia incididunt. Sit mollit occaecat pariatur mollit cupidatat sit tempor nostrud enim. Occaecat tempor qui nisi duis nostrud voluptate exercitation cupidatat id non.</p>
+            <p>Pariatur duis consectetur mollit nisi exercitation laboris officia incididunt. Sit mollit occaecat pariatur mollit cupidatat sit tempor nostrud enim. Occaecat tempor qui nisi duis nostrud voluptate exercitation cupidatat id non.</p>
+            <p>Pariatur duis consectetur mollit nisi exercitation laboris officia incididunt. Sit mollit occaecat pariatur mollit cupidatat sit tempor nostrud enim. Occaecat tempor qui nisi duis nostrud voluptate exercitation cupidatat id non.</p>
+            <p>Pariatur duis consectetur mollit nisi exercitation laboris officia incididunt. Sit mollit occaecat pariatur mollit cupidatat sit tempor nostrud enim. Occaecat tempor qui nisi duis nostrud voluptate exercitation cupidatat id non.</p>
+           <p>Dolor veniam nulla consectetur ad minim qui do velit ad cupidatat laborum deserunt sit. Ex adipisicing duis nisi mollit dolore. Nostrud veniam ea eiusmod velit velit labore reprehenderit esse fugiat Lorem adipisicing sint. Aliqua in veniam cillum sunt sint est dolor nulla elit laboris aliqua occaecat. Ea enim exercitation in et aliquip veniam eiusmod. Eiusmod aute ad aute veniam eu et nisi cillum.</p>
+           <p>Dolor veniam nulla consectetur ad minim qui do velit ad cupidatat laborum deserunt sit. Ex adipisicing duis nisi mollit dolore. Nostrud veniam ea eiusmod velit velit labore reprehenderit esse fugiat Lorem adipisicing sint. Aliqua in veniam cillum sunt sint est dolor nulla elit laboris aliqua occaecat. Ea enim exercitation in et aliquip veniam eiusmod. Eiusmod aute ad aute veniam eu et nisi cillum.</p>
+           <p>Dolor veniam nulla consectetur ad minim qui do velit ad cupidatat laborum deserunt sit. Ex adipisicing duis nisi mollit dolore. Nostrud veniam ea eiusmod velit velit labore reprehenderit esse fugiat Lorem adipisicing sint. Aliqua in veniam cillum sunt sint est dolor nulla elit laboris aliqua occaecat. Ea enim exercitation in et aliquip veniam eiusmod. Eiusmod aute ad aute veniam eu et nisi cillum.</p>
+           <p>Dolor veniam nulla consectetur ad minim qui do velit ad cupidatat laborum deserunt sit. Ex adipisicing duis nisi mollit dolore. Nostrud veniam ea eiusmod velit velit labore reprehenderit esse fugiat Lorem adipisicing sint. Aliqua in veniam cillum sunt sint est dolor nulla elit laboris aliqua occaecat. Ea enim exercitation in et aliquip veniam eiusmod. Eiusmod aute ad aute veniam eu et nisi cillum.</p>
+           <p>Dolor veniam nulla consectetur ad minim qui do velit ad cupidatat laborum deserunt sit. Ex adipisicing duis nisi mollit dolore. Nostrud veniam ea eiusmod velit velit labore reprehenderit esse fugiat Lorem adipisicing sint. Aliqua in veniam cillum sunt sint est dolor nulla elit laboris aliqua occaecat. Ea enim exercitation in et aliquip veniam eiusmod. Eiusmod aute ad aute veniam eu et nisi cillum.</p>
+           <p>Dolor veniam nulla consectetur ad minim qui do velit ad cupidatat laborum deserunt sit. Ex adipisicing duis nisi mollit dolore. Nostrud veniam ea eiusmod velit velit labore reprehenderit esse fugiat Lorem adipisicing sint. Aliqua in veniam cillum sunt sint est dolor nulla elit laboris aliqua occaecat. Ea enim exercitation in et aliquip veniam eiusmod. Eiusmod aute ad aute veniam eu et nisi cillum.</p>
+            
+            
+        </div>
+  </div>
+</div>
+</Layout>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+    if (window.innerWidth > 768) {
+        var slowScrollDiv = document.querySelector(".slow-scroll");
+        var fastScrollDiv = document.querySelector(".fast-scroll");
+
+        slowScrollDiv.addEventListener('scroll', function() {
+            // Sync div2 scroll position with div1
+            fastScrollDiv.scrollTop = slowScrollDiv.scrollTop * 0.5; // Adjust scroll speed as needed
+        });
+
+        // Add scroll event listener to div2
+        fastScrollDiv.addEventListener('scroll', function() {
+            // Sync div1 scroll position with div2
+            slowScrollDiv.scrollTop = fastScrollDiv.scrollTop * 2; // Adjust scroll speed as needed
+        });
+    } else {
+        return;
+    }
+    console.log(window.innerWidth);
+});
+
+  // Get references to the divs
+  const div1 = document.getElementById('scrollDiv1');
+  const div2 = document.getElementById('scrollDiv2');
+
+  // Add scroll event listener to div1
+  div1.addEventListener('scroll', function() {
+    // Sync div2 scroll position with div1
+    div2.scrollTop = div1.scrollTop * 0.5; // Adjust scroll speed as needed
+  });
+
+  // Add scroll event listener to div2
+  div2.addEventListener('scroll', function() {
+    // Sync div1 scroll position with div2
+    div1.scrollTop = div2.scrollTop * 2; // Adjust scroll speed as needed
+  });
+</script>
+
