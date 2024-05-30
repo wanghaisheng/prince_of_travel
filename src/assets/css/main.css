@@ -66,6 +66,10 @@ img {
   transition: all .3s ease-in-out;
 }
 
+.credit-card-img {
+  width: 300px;
+}
+
 /* video */
 
 video:hover {
@@ -89,4 +93,10 @@ height: 450px !important;
 .offcanvas ul li {
   font-size: 18px;
   margin-bottom: 4px;
+}
+
+@media only screen and (max-width: 600px) {
+  .credit-card-img {
+    width: 100%;
+  }
 }

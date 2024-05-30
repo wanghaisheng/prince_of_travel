@@ -20,5 +20,15 @@ export default {
         } 
         showhide();
         }
+    },
+    // not using but works
+    isPortraitOrientation: (imgSrc) => {
+          // Get the natural width and height of the image element
+        const width = imgSrc.naturalWidth || imgSrc.width;
+        const height = imgSrc.naturalHeight || imgSrc.height;
+        // Check if the image is in portrait orientation
+        return height > width;
     }
    };
+
+ 

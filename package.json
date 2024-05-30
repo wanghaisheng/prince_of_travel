@@ -10,11 +10,14 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^3.0.0",
+    "@astrojs/mdx": "^3.0.1",
     "@astrojs/netlify": "^5.2.1",
-    "@astrojs/sitemap": "^3.1.4",
+    "@astrojs/sitemap": "^3.1.5",
+    "@astrojs/vue": "^4.3.0",
     "@astropub/md": "^0.4.0",
     "aos": "^2.3.4",
-    "astro": "^4.8.2"
+    "astro": "^4.9.0",
+    "firebase": "^10.12.1",
+    "vue": "^3.4.27"
   }
 }

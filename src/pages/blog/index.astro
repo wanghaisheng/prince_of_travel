@@ -16,7 +16,7 @@ const blogPosts = await getCollection("blog");
 
 // for some reason the per_page field is throwing an error, initially it was when calling 100,
 // it would work at 90, but then seems to have stopped working
-const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?categories=942,941,943,16,944,325,331&_embed");
+const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?categories=942,941,943,16,944,325,331&per_page=50&_embed");
 const posts = await res.json();
 
 

@@ -41,6 +41,38 @@
       "background": "bg-pale-dogwood"
     },
     {
+      "title": "Insights",
+      "path": "/insights",
+      "description": "Get in-depth information on hotel programs and learn more about Prince Collection’s premier brands and vendors.",
+      "icon": "bi-book",
+      "badge": "Travel tips",
+      "background": "bg-pale-dogwood"
+    },
+    {
+      "title": "Credit Cards",
+      "path": "/credit-cards",
+      "description": "Get in-depth information on hotel programs and learn more about Prince Collection’s premier brands and vendors.",
+      "icon": "bi-book",
+      "badge": "Travel tips",
+      "background": "bg-pale-dogwood"
+    },
+    {
+      "title": "Best Credit Cards",
+      "path": "/best-credit-cards",
+      "description": "Get in-depth information on hotel programs and learn more about Prince Collection’s premier brands and vendors.",
+      "icon": "bi-book",
+      "badge": "Travel tips",
+      "background": "bg-pale-dogwood"
+    },
+    {
+      "title": "Credit Cards",
+      "path": "/credit-cards",
+      "description": "Get in-depth information on hotel programs and learn more about Prince Collection’s premier brands and vendors.",
+      "icon": "bi-book",
+      "badge": "Travel tips",
+      "background": "bg-pale-dogwood"
+    },
+    {
       "title": "Book travel",
       "description": "Secure your stay at the world's best hotels, enjoying exclusive benefits through Prince Collection without any additional costs.",
       "path": "/book",
