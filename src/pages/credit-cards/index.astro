@@ -104,8 +104,6 @@ function isPortraitOrientation(imgElement) {
 
 		<div class="columns p-3">
 			{allArticles?.map((post) => (
-			<div class="col">
-				<a href={`/news/${post.slug}/`}>
 					<div class="card bg-pc-light rounded-4 p-0 border-0 shadow mb-3" style="min-height: 500px; break-inside: avoid-column; white-space: nowrap;">
 						<img src="" data-src={post.data.imageUrl} class="card-img-top rounded-top-4 w-100 p-2" style="object-fit: cover; height: 200px;" alt={post.data.imageAlt}>
 						<i class="bi bi-arrow-up-right-circle-fill text-pc-10 fs-1 position-absolute top-0 end-0 me-3 mt-2"></i>
@@ -113,16 +111,17 @@ function isPortraitOrientation(imgElement) {
 							<p class="small mb-2">{post.data.pubDate.toString().slice(0,10)}</p>
 							<h5 class="card-title fw-bold mb-0 text-balance">{post.data.title}</h5>
 							<p class="small m-0 text-secondary mt-2 mb-0">By: {post.data.author}</p>
-							<p class="card-text text-body-secondary pe-4">{functions.shorten(post.data.description, 150) + '...'}</p>
-						</div>
+              <div class="d-flex flex-wrap pb-3 pt-2">
+                <button class="btn btn-sm btn-secondary opacity-75 me-1 rounded-pill px-4" type="button" data-bs-toggle="offcanvas" data-bs-target={'#item_' + index} aria-controls="offcanvasBottom">Details</button>
+                <a href={`/credit-cards/${post.data.slug}`}>
+                <button class="btn btn-sm btn-secondary rounded-pill px-4">Review</button>
+                </a>
+              </div>
 						</div>
 					</div>
-				</a>
-			</div>
 			))}
       
 			{posts?.map((post, index) => (		
-			<div class="col">
 					<div class="card rounded-4 p-0 border-0 shadow bg-pc-light mb-3" style="min-height: 500px; break-inside: avoid-column; white-space: nowrap;">
 						<div class="text-center" style="background: #d6d6d6">
               <img src={post.featured_image.large} class="landscape" data-image-id={'item_' + index}
@@ -131,26 +130,23 @@ function isPortraitOrientation(imgElement) {
 						<div class="card-body position-relative px-4 pb-3">
 							<!--<p class="small mb-2">{post.date.toString().slice(0,10)}</p>-->
 							<h5 class="fs-4 text-dark card-title fw-bold mb-0" style="font-size: 24px; text-wrap: pretty"><Fragment set:html={post.custom_fields.credit_card_short_name} /></h5>
-              <!--<badge class="badge position-absolute end-0 top-0 m-3">{post.custom_fields.bank_name}</badge>-->
+              <badge class="badge position-absolute end-0 top-0 m-3">{post.custom_fields.bank_name}</badge>
               <div class="my-3">
 							  <p class="small m-0 text-secondary mt-2 mb-0" style="font-size: 16px"><Fragment set:html={post.custom_fields.reward_points} /></p>
-                <p class="small m-0 text-secondary my-0" style="font-size: 16px"><Fragment set:html={post.fees} /></p>
+                <p class="small m-0 text-secondary my-0" style="font-size: 16px"><Fragment set:html={post.custom_fields.fees} /></p>
               </div>
               <ul class="text-black-50 mt-2 text-balance" style="font-size: 16px">
                 <li><Fragment set:html={post.custom_fields.features_0_feature} /></li>
                 <li><Fragment set:html={post.custom_fields.features_1_feature} /></li>
                 <li><Fragment set:html={post.custom_fields.features_2_feature} /></li>
               </ul>
-
-							<!--<p class="card-text text-body-secondary pe-4">{functions.shorten(post.excerpt, 150) + '...'}</p>-->
-              <div class="d-flex pb-3 pt-2">
-                <button class="btn btn-secondary opacity-75 me-1 rounded-pill px-4" type="button" data-bs-toggle="offcanvas" data-bs-target={'#item_' + index} aria-controls="offcanvasBottom">Quick Look</button>
-                <a href={`/credit-cards/${removeSpecialCharactersFromURL(post.slug)}/`}>
-                <button class="btn btn-secondary rounded-pill px-4">Review</button>
+              <div class="d-flex flex-wrap pb-3 pt-2">
+                <button class="btn btn-sm btn-secondary opacity-75 me-1 rounded-pill px-4" type="button" data-bs-toggle="offcanvas" data-bs-target={'#item_' + index} aria-controls="offcanvasBottom">Details</button>
+                <a href={`/credit-cards/${removeSpecialCharactersFromURL(post.slug)}`}>
+                <button class="btn btn-sm btn-secondary rounded-pill px-4 mt-2 mt-lg-0">Review</button>
                 </a>
               </div>
 						</div>
-
 					</div>	
           
           <!--card detail drawer-->
@@ -160,8 +156,17 @@ function isPortraitOrientation(imgElement) {
                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
               </svg>
 
-              <img src="" data-src={post.featured_large || '/images/general/pc-hotel-palm-trees.jpeg'} class="credit-card-img" alt="">
-              <h2 class="col-lg-9 display-1 ls-1 lh-1 text-black-50 fw-bold my-4"><Fragment set:html={post.title} /></h2>
+              <div class="row">
+                <div class="col-lg-3">
+                  <img src={post.featured_image.large} data-image-id={'item_' + index} class="credit-card-img" alt="">
+                  </div>  
+                  <div class="col-lg-9">
+                    <h2 class="display-3 ls-1 lh-1 text-black-50 fw-bold my-4 px-4"><Fragment set:html={post.title} /></h2>
+                    </div>
+              </div>
+             
+            
+            
 
               <div class="container-fluid px-0 mt-4 mb-5">
                   <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 my-3">
@@ -172,7 +177,7 @@ function isPortraitOrientation(imgElement) {
                           <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1z"/>
                         </svg>
                         <h5 class="fs-3 fw-bold">MR Points</h5>
-                        <p class="my-0 text-black-50" style="font-size: 17px;"><Fragment set:html={post.membership_reward}/></p>
+                        <p class="my-0 text-black-50" style="font-size: 17px;"><Fragment set:html={post.custom_fields.membership_reward}/></p>
                       </div>
                     </div>
                     <div class="col">  
@@ -182,7 +187,7 @@ function isPortraitOrientation(imgElement) {
                           <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm13 2v5H1V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1m-1 9H2a1 1 0 0 1-1-1v-1h14v1a1 1 0 0 1-1 1"/>
                         </svg>
                         <h5 class="fs-3 fw-bold">1st Year Value</h5>
-                        <p class="my-0 text-black-50" style="font-size: 17px;"><Fragment set:html={post.fees}/></p>
+                        <p class="my-0 text-black-50" style="font-size: 17px;"><Fragment set:html={post.custom_fields.fees}/></p>
                       </div>  
                       </div>
                       <div class="col">
@@ -193,7 +198,7 @@ function isPortraitOrientation(imgElement) {
                           <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11m0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12"/>
                         </svg>
                         <h5 class="fs-3 fw-bold">Fees</h5>
-                        <p class="my-0 text-black-50" style="font-size: 17px;"><Fragment set:html={'$' + post.annual_fee + ' Annual fee'}/></p>
+                        <p class="my-0 text-black-50" style="font-size: 17px;"><Fragment set:html={'$' + post.custom_fields.annual_fee + ' Annual fee'}/></p>
                       </div>  
                       </div>
                       <div class="col">
@@ -203,22 +208,22 @@ function isPortraitOrientation(imgElement) {
                           <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911z"/>
                         </svg>
                         <h5 class="fs-3 fw-bold">Perks</h5>
-                        <p class="my-0 text-black-50" style="font-size: 17px;"><Fragment set:html={post.features_1_feature} /></p>
+                        <p class="my-0 text-black-50" style="font-size: 17px;"><Fragment set:html={post.custom_fields.features_1_feature} /></p>
                       </div>  
                       </div>
                     </div>  
                   </div>
               
-              <div class="display-5 fw-bold my-4 text-black-50"><Fragment set:html={post.card_content_1_c_title} /></div>
+              <div class="display-5 fw-bold my-4 text-black-50"><Fragment set:html={post.custom_fields.card_content_1_c_title} /></div>
               <div class="fs-5 text-body-secondary">
-                <p><Fragment set:html={post.card_content_1_c_content} /></p>
+                <p><Fragment set:html={post.custom_fields.card_content_1_c_content} /></p>
               </div>
-              <div class="display-5 fw-bold my-4 text-black-50"><Fragment set:html={post.card_content_4_c_title} /></div>
+              <div class="display-5 fw-bold my-4 text-black-50"><Fragment set:html={post.custom_fields.card_content_4_c_title} /></div>
               <div class="fs-5">
-                <p><Fragment set:html={post.card_content_4_c_content} /></p>
+                <p><Fragment set:html={post.custom_fields.card_content_4_c_content} /></p>
               </div>
               <div class="d-flex mt-5 pt-4 justify-content-end border-top border-secondary">
-                <a href={post.colum_block_0_col1_button_link} target="_blank">
+                <a href={post.custom_fields.colum_block_0_col1_button_link} target="_blank">
                   <button class="btn btn-secondary rounded-pill px-4 me-2">Apply Now</button>
                 </a>
                 <a href={`/credit-cards/${removeSpecialCharactersFromURL(post.slug)}/`}>
@@ -227,10 +232,8 @@ function isPortraitOrientation(imgElement) {
               </div>
             </div>
         </div>
-			</div>
 			))}		
-		</div>
-    
+      </div>
 	</div>
 </Layout>
 
@@ -258,40 +261,6 @@ imageElements.forEach(function(imageElement) {
         }
     });
 });
-
-// Assuming img is the reference to your image element
-// var img = document.querySelector('.card-image');
-
-// img.onload = function() {
-//   var aspectRatio = img.naturalWidth / img.naturalHeight;
-//   var container = img.parentNode;
-
-//   if (aspectRatio < 1) {
-//     container.classList.add('portrait');
-//   } else {
-//     container.classList.add('landscape');
-//   }
-// };
-
-// add a hash and the card slug to the url when offcanvas is clicked/remove when closed
-// document.addEventListener("DOMContentLoaded", function() {
-//   // Get all offcanvas elements
-//   var offcanvasList = document.querySelectorAll(".offcanvas");
-
-//   // Loop through each offcanvas and add event listeners
-//   offcanvasList.forEach(function(offcanvas) {
-//     offcanvas.addEventListener("shown.bs.offcanvas", function() {
-//       // Get the product slug from data attribute
-//       var productSlug = offcanvas.dataset.productSlug;
-//       // Update the URL with the product slug
-//       history.pushState({}, '', '#' + productSlug);
-//     });
-
-//     offcanvas.addEventListener("hidden.bs.offcanvas", function() {
-//       // Revert the URL back to the previous state
-//       history.back();
-//     });
-//   });
 
 // // Check if there is a hash in the URL when the page loads
 // window.addEventListener("load", function() {
@@ -489,22 +458,38 @@ function closeOffcanvas() {
         
 <style>
   .columns {
-    columns: 200px 4;
+    column-count: 4;
     column-gap: 15px;
-    -moz-columns: 200px 4;
+    -moz-column-count: 4;
     -moz-column-gap: 15px;
-    -webkit-columns: 200px 4;
+    -webkit-column-count: 4;
     -webkit-column-gap: 15px;
-}
+    writing-mode: horizontal-tb;
 
-@media and (max-width: 768px) {
+}
+@media only screen and (min-width: 1200px) {
   .columns {
-    columns: 200px 3;
-    -moz-columns: 200px 3;
-    -webkit-columns: 200px 3;
+    column-count: 4;
+    -moz-column-count: 4;
+    -webkit-column-count: 4;
   } 
 }
-@media and (max-width: 600px) {
+
+@media only screen and (max-width: 992px) {
+  .columns {
+    column-count: 3;
+    -moz-column-count: 3;
+    -webkit-column-count: 3;
+  } 
+}
+@media only screen and (max-width: 768px) {
+  .columns {
+    column-count: 2;
+    -moz-column-count: 2;
+    -webkit-column-count: 2;
+  } 
+}
+@media only screen and (max-width: 600px) {
   .columns {
     columns: 200px 1;
     -moz-columns: 200px 1;
@@ -527,22 +512,4 @@ function closeOffcanvas() {
   width: 100%;
 }
 
-
-.grid {
-  display: grid;
-  /* grid-template-columns: var(--col);
-  grid-template-rows: var(--row); */
-  /* grid-template-columns: 300px 1fr 2fr; */
-  gap: 15px;
-}
-.grid-1 {
-   display: grid;
-   grid-template-columns: 1fr 1fr 2fr;
-   grid-template-rows: auto;
-}
-.grid-2 {
-   display: grid;
-   grid-template-columns: 3fr, 1fr;
-   grid-template-rows: auto;
-}
 </style>
