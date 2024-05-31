@@ -159,14 +159,11 @@ function isPortraitOrientation(imgElement) {
               <div class="row">
                 <div class="col-lg-3">
                   <img src={post.featured_image.large} data-image-id={'item_' + index} class="credit-card-img" alt="">
-                  </div>  
-                  <div class="col-lg-9">
-                    <h2 class="display-3 ls-1 lh-1 text-black-50 fw-bold my-4 px-4"><Fragment set:html={post.title} /></h2>
-                    </div>
+                </div>  
+                <div class="col-lg-9 d-flex flex-column justify-content-center align-items-start">
+                  <h2 class="display-3 ls-1 lh-1 text-black-50 fw-bold my-4 px-4"><Fragment set:html={post.title} /></h2>
+                </div>
               </div>
-             
-            
-            
 
               <div class="container-fluid px-0 mt-4 mb-5">
                   <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 my-3">

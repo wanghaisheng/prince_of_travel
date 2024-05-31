@@ -5,31 +5,66 @@ import navData from '../data/sitecontent.json';
 // var loaded = false;
 ---
 <header>
-	<nav id="nav" class="navbar fixed-top animate-in">
+	<nav id="nav" class="navbar navbar-expand-lg bg-light fixed-top animate-in py-0 py-lg-2">
 		<div class="container-fluid">
-			<a class="navbar-brand me-auto mt-1 ms-2 text-body-secondary d-flex align-items-center" href="/">
-				<!-- <img style="width: 30px;" class="logo h-auto me-1" src="/images/logo-crown.png" alt="Prince Collection crown logo"> -->
-				<img class="logo h-auto me-1 p-3 bg-dark animate-in rounded-3" style="width: 50px;" src="/images/logos/pot-crown-white.png" alt="Prince of Travel logo" />		
-			</a>
 
-			<ul class="nav justify-content-end align-items-center">
+			<button class="navbar-toggler btn btn-light py-2 rounded-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+				<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-three-dots-vertical text-black-50" viewBox="0 0 16 16">
+					<path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
+				  </svg>
+			</button>
+
+			<a class="navbar-brand d-block d-md-none position-absolute top-50 start-50 translate-middle" href="/">
+				<img class="logo h-auto my-2 p-3 bg-dark animate-in rounded-3" style="width: 50px;" src="/images/logos/pot-crown-white.png" alt="Prince of Travel logo" />	
+			</a>
+			<a class="navbar-brand d-none d-md-block" href="/">
+				<img class="logo h-auto me-1 p-3 bg-dark animate-in rounded-3" style="width: 50px;" src="/images/logos/pot-crown-white.png" alt="Prince of Travel logo" />	
+			</a>
+			<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+			<div class="offcanvas-header">
+				<h5 class="offcanvas-title" id="offcanvasNavbarLabel">Prince of Travel</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			</div>
+			<div class="offcanvas-body">
+				<ul class="navbar-nav justify-content-end flex-grow-1 pe-0">
 				<li class="nav-item">
-					<a href="/book" class="p-0">
-						<button class="btn btn-dark me-2 rounded-3 px-3">
+					<a class="nav-link" href="/blog">Blog</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/credit-cards">Credit Cards</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/points-programs">Points</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/book">
+						Book travel
+						<!-- <button class="btn btn-dark me-2 rounded-3 px-3">
 							<i class="bi bi-airplane fs-5"></i>
-						</button>
+						</button> -->
 					</a>
 				</li>
 				<li class="nav-item">
-					<button class="btn btn-dark me-2 px-3 rounded-3" data-bs-toggle="modal" data-bs-target="#navSignup">
+					<button class="nav-link btn btn-light border me-2 px-3 rounded-3" data-bs-toggle="modal" data-bs-target="#navSignup">
 						<i class="bi bi-send-plus fs-5"></i>
 					</button>
 				</li>
+				</ul>
+				<!-- <form class="d-flex mt-3" role="search">
+				<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-success" type="submit">Search</button>
+				</form> -->
+			</div>
+			</div>
 
 			<!-- main menu drawer -->
-			<button data-bs-toggle="offcanvas" data-bs-target="#navDrawer2" aria-controls="offcanvasBottom" class="btn btn-dark me-2 rounded-3 px-3">
+			<div class="pb-1">
+			<button data-bs-toggle="offcanvas" data-bs-target="#navDrawer2" aria-controls="offcanvasBottom" class="btn btn-light border rounded-3 px-3 py-2">
 				<i class="bi bi-justify-left fs-5"></i>
 			</button>
+			</div>
+		</div>
+		</nav>
 
 			<Drawer drawerClass="bg-pc" drawerTitle="Prince Collection" drawerId="navDrawer" drawerAriaLabel="Prince Collection Menu">
 				<div class="container-fluid px-0">
@@ -78,9 +113,9 @@ import navData from '../data/sitecontent.json';
 						{
 						navData.navData.map((item) => (
 							<a href={item.path}>
-								<div class="d-flex text-pc-dark">
+								<div class="d-flex">
 									<i class="bi bi-arrow-up-right fs-2"></i>
-									<h3 class="display-4 font-inter fw-900 text-lowercase my-0 ms-2">{item.title}</h3>
+									<h3 class="display-4 font-inter fw-900 my-0 ms-2">{item.title}</h3>
 								</div>
 							</a>
 							))
@@ -93,9 +128,9 @@ import navData from '../data/sitecontent.json';
 		</div>
 	</nav>
 
-	<Modal modalTitle="Join Our Newsletter" modalId="navSignup" modalStyles="bg-dark text-light min-vh-500 rounded-4" modalSize="modal-lg" modalBody="d-flex flex-column justify-content-center align-items-start align-items-lg-center text-start text-lg-center">
-		<span class="badge rounded-pill fw-bold text-pc-light bg-pc-dark py-2 px-3 animate-in">Join us</span>
-		<h2 class="mb-2 mt-3 animate-in">Subscribe to the <span class="text-pc">Prince Collection</span> newsletter</h2>
+	<Modal modalTitle="Join Our Newsletter" modalId="navSignup" modalStyles="bg-light text-light min-vh-500 rounded-4" modalSize="modal-lg" modalBody="d-flex flex-column justify-content-center align-items-start align-items-lg-center text-start text-lg-center">
+		<span class="badge rounded-pill fw-bold text-body-secondary py-2 px-3 animate-in">Join us</span>
+		<h2 class="mb-2 mt-3 animate-in">Subscribe to the <span class="text-secondary">Prince Collection</span> newsletter</h2>
 		<p class="mt-2 mb-3 text-balance animate-in">You'll receive priority information about the newest luxury properties worldwide, exclusive reservations and deals through <span class="text-pc fw-bold">Prince Collection</span>, and unique destinations across the globe.</p>
 		<div class="col-lg-8 animate-in">
 			<!-- <NewsletterForm newsletterBtn="btn-pc px-4 px-lg-5" /> -->
@@ -107,7 +142,7 @@ import navData from '../data/sitecontent.json';
 				  >I'm in!</button>
 				</div>
 			</form> -->
-			<p class="small text-pc-dark-80 pt-2">By providing your email, you agree to the Prince Collection Privacy Policy</p>
+			<p class="small text-secondary pt-2">By providing your email, you agree to the Prince Collection Privacy Policy</p>
 		</div>
 	</Modal>
 
