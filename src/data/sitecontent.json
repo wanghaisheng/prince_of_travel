@@ -1,16 +1,64 @@
 {
     "navData": [
         {
-            "title": "Blog",
+            "title": "News",
             "description": "Prince Collection is a full-service travel brand with an emphasis on luxury travel.",
-            "path": "/blog",
+            "path": "/news",
             "icon": "bi-newspaper",
             "badge": "Who we are",
             "background": "bg-dutch-white"
         },
         {
-          "title": "Credit Cards",
-          "path": "/credit-cards",
+          "title": "Deals",
+          "path": "/deals",
+          "description": "Get in-depth information on hotel programs and learn more about Prince Collection’s premier brands and vendors.",
+          "icon": "bi-book",
+          "badge": "Travel tips",
+          "background": "bg-pale-dogwood"
+        },
+        {
+          "title": "Reviews",
+          "path": "/reviews",
+          "description": "Get in-depth information on hotel programs and learn more about Prince Collection’s premier brands and vendors.",
+          "icon": "bi-book",
+          "badge": "Travel tips",
+          "background": "bg-pale-dogwood"
+        },
+        {
+          "title": "Guides",
+          "path": "/guides",
+          "description": "Get in-depth information on hotel programs and learn more about Prince Collection’s premier brands and vendors.",
+          "icon": "bi-book",
+          "badge": "Travel tips",
+          "background": "bg-pale-dogwood"
+        },
+        {
+          "title": "Insights",
+          "path": "/insights",
+          "description": "Get in-depth information on hotel programs and learn more about Prince Collection’s premier brands and vendors.",
+          "icon": "bi-book",
+          "badge": "Travel tips",
+          "background": "bg-pale-dogwood"
+        },
+        {
+          "title": "Hotel Programs",
+          "path": "/hotel-programs",
+          "description": "Get in-depth information on hotel programs and learn more about Prince Collection’s premier brands and vendors.",
+          "icon": "bi-book",
+          "badge": "Travel tips",
+          "background": "bg-pale-dogwood"
+        },
+        {
+          "title": "Airlines",
+          "path": "/airlines",
+          "description": "Get in-depth information on hotel programs and learn more about Prince Collection’s premier brands and vendors.",
+          "icon": "bi-book",
+          "badge": "Travel tips",
+          "background": "bg-pale-dogwood"
+        },
+        {
+          "title": "Airports",
+          "path": "/airlines",
           "description": "Get in-depth information on hotel programs and learn more about Prince Collection’s premier brands and vendors.",
           "icon": "bi-book",
           "badge": "Travel tips",
@@ -23,30 +71,6 @@
           "icon": "bi-book",
           "badge": "Travel tips",
           "background": "bg-pale-dogwood"
-        },
-        {
-          "title": "Points",
-          "path": "/points-programs",
-          "description": "Get in-depth information on hotel programs and learn more about Prince Collection’s premier brands and vendors.",
-          "icon": "bi-book",
-          "badge": "Travel tips",
-          "background": "bg-pale-dogwood"
-        },
-        {
-          "title": "Consulting",
-          "path": "/consulting",
-          "description": "Get in-depth information on hotel programs and learn more about Prince Collection’s premier brands and vendors.",
-          "icon": "bi-book",
-          "badge": "Travel tips",
-          "background": "bg-pale-dogwood"
-        },
-        {
-          "title": "Book travel",
-          "description": "Secure your stay at the world's best hotels, enjoying exclusive benefits through Prince Collection without any additional costs.",
-          "path": "/book",
-          "icon": "bi-airplane",
-          "badge": "Your advisor",
-          "background": "bg-timberwolf"
         }
       ],
     "home": {

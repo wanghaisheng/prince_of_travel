@@ -7,7 +7,7 @@ import PostBody from '../../components/PostComponents/PostBody.astro';
 export const prerender = true;
 export async function getStaticPaths() {
     const ccEntries = await getCollection('credit-cards');
-    let data = await fetch("https://pftravelstage.wpengine.com/wp-json/pot/v1/credit-cards/all-posts");
+    let data = await fetch("https://pftraveldev.wpengine.com/wp-json/pot/v1/credit-cards?per_page=100");
     let posts = await data.json();
     const combinedArray = ccEntries.concat(posts);
 

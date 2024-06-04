@@ -26,7 +26,7 @@ import navData from '../data/sitecontent.json';
 				<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 			</div>
 			<div class="offcanvas-body">
-				<ul class="navbar-nav justify-content-end flex-grow-1 pe-0">
+				<ul class="navbar-nav justify-content-end flex-grow-1 p-0">
 				<li class="nav-item">
 					<a class="nav-link" href="/blog">Blog</a>
 				</li>
@@ -37,7 +37,7 @@ import navData from '../data/sitecontent.json';
 					<a class="nav-link" href="/points-programs">Points</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/book">
+					<a class="nav-link" href="https://princecollection.com" target="_blank">
 						Book travel
 						<!-- <button class="btn btn-dark me-2 rounded-3 px-3">
 							<i class="bi bi-airplane fs-5"></i>
@@ -115,7 +115,7 @@ import navData from '../data/sitecontent.json';
 							<a href={item.path}>
 								<div class="d-flex">
 									<i class="bi bi-arrow-up-right fs-2"></i>
-									<h3 class="display-4 font-inter fw-900 my-0 ms-2">{item.title}</h3>
+									<h2 class="fs-1 fw-bold my-0 ms-2">{item.title}</h2>
 								</div>
 							</a>
 							))
@@ -128,10 +128,10 @@ import navData from '../data/sitecontent.json';
 		</div>
 	</nav>
 
-	<Modal modalTitle="Join Our Newsletter" modalId="navSignup" modalStyles="bg-light text-light min-vh-500 rounded-4" modalSize="modal-lg" modalBody="d-flex flex-column justify-content-center align-items-start align-items-lg-center text-start text-lg-center">
-		<span class="badge rounded-pill fw-bold text-body-secondary py-2 px-3 animate-in">Join us</span>
-		<h2 class="mb-2 mt-3 animate-in">Subscribe to the <span class="text-secondary">Prince Collection</span> newsletter</h2>
-		<p class="mt-2 mb-3 text-balance animate-in">You'll receive priority information about the newest luxury properties worldwide, exclusive reservations and deals through <span class="text-pc fw-bold">Prince Collection</span>, and unique destinations across the globe.</p>
+	<Modal modalTitle="Join Our Newsletter" modalId="navSignup" modalStyles="bg-light min-vh-500 rounded-4" modalSize="modal-lg" modalBody="d-flex flex-column justify-content-center align-items-start align-items-lg-center text-start text-lg-center">
+		<span class="badge bg-dark text-light border rounded-pill fw-bold py-2 px-3 animate-in">Join us</span>
+		<h2 class="fs-1 ls-1 lh-1 fw-bold mb-2 mt-3 animate-in">Subscribe to the <span class="text-secondary">Prince of Travel</span> newsletter</h2>
+		<p class="fs-5 mt-2 mb-3 text-balance text-black-50 animate-in">You'll receive priority information about the newest luxury properties worldwide, exclusive reservations and deals through <span class="text-dark fw-bold">Prince of Travel</span>, and unique destinations across the globe.</p>
 		<div class="col-lg-8 animate-in">
 			<!-- <NewsletterForm newsletterBtn="btn-pc px-4 px-lg-5" /> -->
 			<div class="klaviyo-form-UGQNyX animate-in"></div>

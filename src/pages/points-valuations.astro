@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import data from '../data/sitecontent.json';
+import functions from '../js/functions.js';
+
+const res = await fetch('http://pftraveldev.wpengine.com/wp-json/wp/v2/pages/967');
+const pageData = await res.json();
+
+console.log(pageData);
+
+---
+<Layout title="Points Valuations | Prince of Travel" description="Prince of Travel" image="">
+    <div class="container-fluid">
+        <div class="row min-vh-100 p-5">
+            <div class="col-lg-8 offset-lg-2">
+                <h1 class="display-1 fw-bold ls-1 lh-1">{pageData.title.rendered}</h1>
+            </div>
+        </div>
+    </div>
+</Layout>

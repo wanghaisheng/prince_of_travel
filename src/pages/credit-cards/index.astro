@@ -6,6 +6,7 @@ const ccPosts = await getCollection("credit-cards");
 // astro.glob => getCollection is the difference between getting all files from a directory in pages vs. collections
 // https://docs.astro.build/en/tutorials/add-content-collections/
 import functions from '../../js/functions.js';
+import PostFetch2 from '../../components/VueComponents/PostFetch.vue';
 
 
 const { index, slug } = Astro.props
@@ -30,7 +31,7 @@ const verticalSlide = {
   backwards: slideAnim,
 }
 
-const res = await fetch("https://pftraveldev.wpengine.com/wp-json/pot/v1/credit-cards/");
+const res = await fetch("https://pftraveldev.wpengine.com/wp-json/pot/v1/credit-cards?per_page=100");
 const posts = await res.json();
 
 const combinedPosts = ccPosts.concat(posts);
@@ -61,6 +62,9 @@ function isPortraitOrientation(imgElement) {
 
 <Layout title="Prince of Travel | Credit Cards" description="Prince of Travel's latest news, deals, and happenings in the travel space." image={firstArticle.data.imageUrl}>
 	<div class="container-fluid px-0" style="background: var(--beige);">
+
+    <!-- <div class="row min-vh-100 bg-warning" id="data-container"></div> -->
+
 		<div class="row min-vh-100">
 			<div class="col-lg-6 d-flex flex-column justify-content-center align-items-center min-vh-500 text-center p-5 mt-5 mt-lg-0 animate-in">
 				<span class="badge rounded-pill fw-bold text-bg-secondary py-2 px-4">Credit Cards</span>
@@ -79,31 +83,8 @@ function isPortraitOrientation(imgElement) {
 			</div>
 		</div>
 
-    <!-- columns -->
-    <!-- <img src="" data-src={post.featured_image.large} 
-            class="card-img-top w-100 p-2"
-            alt=""> -->
-
-    <!-- <div class="columns p-3">
-      {posts?.map((post, index) => (	
-        <a href={`/news/${post.slug}/`}>
-					<div class="card bg-pc-light rounded-4 p-0 border-0 shadow mb-3" style="min-height: 500px; break-inside: avoid-column; white-space: nowrap;">
-						<div class="text-center" style="background: #d6d6d6">
-              <img src={post.featured_image.large} class="landscape" data-image-id={'item_' + index}
-            alt="">
-            </div>
-						<div class="card-body position-relative px-4 pb-4">
-							<p class="small mb-2">{post.date.toString().slice(0,10)}</p>
-							<h5 class="card-title fw-bold mb-0 text-balance"><Fragment set:html={post.title} /></h5>
-							<p class="card-text text-body-secondary pe-4">{functions.shorten(post.excerpt, 150) + '...'}</p>
-						</div>
-					</div>
-				</a>
-        ))}
-    </div> -->
-
 		<div class="columns p-3">
-			{allArticles?.map((post) => (
+			<!--{allArticles?.map((post) => (
 					<div class="card bg-pc-light rounded-4 p-0 border-0 shadow mb-3" style="min-height: 500px; break-inside: avoid-column; white-space: nowrap;">
 						<img src="" data-src={post.data.imageUrl} class="card-img-top rounded-top-4 w-100 p-2" style="object-fit: cover; height: 200px;" alt={post.data.imageAlt}>
 						<i class="bi bi-arrow-up-right-circle-fill text-pc-10 fs-1 position-absolute top-0 end-0 me-3 mt-2"></i>
@@ -119,16 +100,17 @@ function isPortraitOrientation(imgElement) {
               </div>
 						</div>
 					</div>
-			))}
+			))}-->
+
+      <!--<PostFetch2 client:visible />-->
       
-			{posts?.map((post, index) => (		
+		{posts?.map((post, index) => (		
 					<div class="card rounded-4 p-0 border-0 shadow bg-pc-light mb-3" style="min-height: 500px; break-inside: avoid-column; white-space: nowrap;">
 						<div class="text-center" style="background: #d6d6d6">
               <img src={post.featured_image.large} class="landscape" data-image-id={'item_' + index}
             alt="">
             </div>
 						<div class="card-body position-relative px-4 pb-3">
-							<!--<p class="small mb-2">{post.date.toString().slice(0,10)}</p>-->
 							<h5 class="fs-4 text-dark card-title fw-bold mb-0" style="font-size: 24px; text-wrap: pretty"><Fragment set:html={post.custom_fields.credit_card_short_name} /></h5>
               <badge class="badge position-absolute end-0 top-0 m-3">{post.custom_fields.bank_name}</badge>
               <div class="my-3">
@@ -149,7 +131,6 @@ function isPortraitOrientation(imgElement) {
 						</div>
 					</div>	
           
-          <!--card detail drawer-->
           <div class="offcanvas offcanvas-bottom mx-2 mx-lg-5 rounded-top-4" style="height: 90%" tabindex="-1" id={'item_' + index} aria-labelledby="offcanvasBottomLabel" data-product-slug={post.slug}>
             <div class="offcanvas-body position-relative rounded-top-4" style="background: var(--beige); padding: 76px">
               <svg id="offcanvasClose" role="button" class="position-absolute end-0 top-0 m-4" style="width: 40px;" data-bs-dismiss="offcanvas" aria-label="Close" xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
@@ -157,7 +138,7 @@ function isPortraitOrientation(imgElement) {
               </svg>
 
               <div class="row">
-                <div class="col-lg-3">
+                <div class="col-lg-3 d-flex justify-content-center align-items-center">
                   <img src={post.featured_image.large} data-image-id={'item_' + index} class="credit-card-img" alt="">
                 </div>  
                 <div class="col-lg-9 d-flex flex-column justify-content-center align-items-start">
@@ -229,7 +210,7 @@ function isPortraitOrientation(imgElement) {
               </div>
             </div>
         </div>
-			))}		
+			))}
       </div>
 	</div>
 </Layout>
@@ -390,67 +371,46 @@ function closeOffcanvas() {
 //   }
 // }
 
-// v4.0 using only page slug - results in error b/c astro is trying to create a dynamic
-// route to match the slug
-// document.addEventListener("DOMContentLoaded", function() {
-//   // Get all offcanvas elements
-//   var offcanvasList = document.querySelectorAll(".offcanvas");
+// document.addEventListener('DOMContentLoaded', function() {
+//             var itemsPerPage = 8; // Number of items to fetch per request
+//             var totalItemsFetched = 0; // Track the total number of items fetched
 
-//   // Loop through each offcanvas and add event listeners
-//   offcanvasList.forEach(function(offcanvas) {
-//     offcanvas.addEventListener("shown.bs.offcanvas", function() {
-//       // Get the product slug from data attribute
-//       var productSlug = offcanvas.dataset.productSlug;
-//       // Update the URL with the product slug
-//       history.pushState({}, '', '/credit-cards/' + productSlug);
-//     });
+//             // Function to fetch data from API
+//             function fetchData() {
+//                 fetch('https://pftraveldev.wpengine.com/wp-json/pot/v1/credit-cards?per_page=8')
+//                 .then(function(response) {
+//                     return response.json();
+//                 })
+//                 .then(function(data) {
+//                     // Append fetched items to the container
+//                     var container = document.getElementById('data-container');
+//                     var itemsToFetch = Math.min(itemsPerPage, data.length - totalItemsFetched);
+//                     for (var i = 0; i < itemsToFetch; i++) {
+//                         var div = document.createElement('div');
+//                         div.classList.add('item');
+//                         div.textContent = data[totalItemsFetched + i].title;
+//                         container.appendChild(div);
+//                     }
+//                     totalItemsFetched += itemsToFetch;
+//                 })
+//                 .catch(function(error) {
+//                     console.error('Error fetching data:', error);
+//                 });
+//             }
 
-//     offcanvas.addEventListener("hidden.bs.offcanvas", function() {
-//       // Revert the URL back to the previous state
-//       removeSlugFromUrl();
-//     });
-//   });
+//             // Initial data load
+//             fetchData();
 
-//   // Check if there is a slug in the URL when the page loads
-//   window.addEventListener("load", function() {
-//     var pathname = window.location.pathname;
-//     if (pathname !== '/credit-cards/' && pathname.startsWith('/credit-cards/') && pathname.length > 13) {
-//       // Remove the '/credit-cards/' prefix
-//       var productSlug = pathname.substring(13);
-//       // Find the corresponding offcanvas element and open it
-//       var offcanvas = document.querySelector('.offcanvas[data-product-slug="' + productSlug + '"]');
-//       if (offcanvas) {
-//         var offcanvasInstance = new bootstrap.Offcanvas(offcanvas);
-//         offcanvasInstance.show();
-//       }
-//     }
-//   });
-
-//   // Listen for browser back functionality
-//   window.addEventListener("popstate", function(event) {
-//     // Close the offcanvas if it's currently shown
-//     closeOffcanvas();
-//   });
-// });
-
-// function removeSlugFromUrl() {
-//   // Remove the slug from the URL while keeping the prefix
-//   var prefix = '/credit-cards/';
-//   var pathname = window.location.pathname;
-//   var newUrl = pathname.substring(0, prefix.length);
-//   history.pushState({}, document.title, newUrl);
-// }
-
-// function closeOffcanvas() {
-//   // Get the currently shown offcanvas
-//   var shownOffcanvas = document.querySelector('.offcanvas.show');
-//   // Close the offcanvas if it's currently shown
-//   if (shownOffcanvas) {
-//     var offcanvasInstance = bootstrap.Offcanvas.getInstance(shownOffcanvas);
-//     offcanvasInstance.hide();
-//   }
-// }
-
+//             // Scroll event listener
+//             window.addEventListener('scroll', function() {
+//                 if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+//                     // When user scrolls to the bottom and not all items are fetched, load more data
+//                     if (totalItemsFetched < itemsPerPage) {
+//                         fetchData();
+//                     }
+//                 }
+//             });
+//         });
 </script>
         
 <style>
