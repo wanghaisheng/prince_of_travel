@@ -6,6 +6,7 @@ const newsPosts = await getCollection("news");
 const reviewsPosts = await getCollection("reviews");
 const guidesPosts = await getCollection("guides");
 import functions from '../js/functions.js';
+import FetchData from '../components/VueComponents/FetchData.vue';
 
 function filterPost(arr) {
 	return arr.filter(item => item.data.draft === false);
@@ -36,13 +37,14 @@ function removeSpecialCharactersFromURL(url) {
 		<div class="container-fluid px-0" data-aos="fade">
 			<div class="row min-vh-100">
 				<div class="col-lg-8 offset-lg-2 d-flex flex-column justify-content-center align-items-center text-center p-5">
-					<img class="logo animate-in py-4 ps-4 pe-3 rounded-4" style="width: 100px; filter: invert(1); border: 2px solid lightgrey;" src="/images/logos/pot-crown-white.png" alt="Prince of Travel logo" />					
+					<img class="logo animate-in py-4 ps-4 pe-3 rounded-4 bg-dark" style="width: 100px;" src="/images/logos/pot-crown-white.png" alt="Prince of Travel logo" />					
+					<!-- <img class="logo animate-in py-4 ps-4 pe-3 rounded-4" style="width: 100px; filter: invert(1); border: 2px solid lightgrey;" src="/images/logos/pot-crown-white.png" alt="Prince of Travel logo" />					 -->
 					<h1 class="fw-bold lh-1 ls-1 mb-1 mt-3 animate-in" style="font-size: 13vmin;">Rewriting the travel experience.</h1>
 					<p class="fs-5">Prince of Travel provides an incredibly diverse and wide range of travel knowledge. Our expert writers, travellers, and credit card experts offer a wealth of travel experience that surfaces the most compelling, must-read content in our News, Deals, Reviews, Points and Hotel Programs collections. Vivid stories, personal reviews, credit card and points consultation: we bring each story to life in striking detail.</p>
 					<!-- <p class="fs-3 col-lg-8">Be inspired to travel <span class="fw-bold">more,</span> <span class="fw-bold">better,</span> and <span class="fw-bold">cheaper</span> with Prince of Travel's expertise in travel rewards, points programs, credit cards, and accommodation.</p> -->
 				</div>
 			</div>
-			<div class="row min-vh-100 position-relative py-4">
+			<div class="row min-vh-100 position-relative p-5">
 				<div class="position-absolute z-0 top-0 start-0 w-100 h-100" style="background: var(--lightblue);" data-aos="fade" data-aos-delay="500"></div>
 				<div class="col-lg-8 offset-lg-2 d-flex flex-column justify-content-center align-items-start position-relative rounded-5 p-5" style="background: var(--lightblue);">
 					<h1 class="fw-bold text-light lh-1 ls-1 mb-1 mt-3 animate-in" style="font-size: 13vmin;"> 
@@ -118,16 +120,130 @@ function removeSpecialCharactersFromURL(url) {
 
 		  <!-- credit cards -->
 
-		  <div class="row min-vh-100 position-relative py-4">
-			<div class="position-absolute z-0 top-0 start-0 w-100 h-100" style="background: var(--green);" data-aos="fade" data-aos-delay="500"></div>
-			<div class="col-lg-8 offset-lg-2 d-flex flex-column justify-content-center align-items-start position-relative rounded-5 p-5" style="background: var(--green);">
+		  <div class="row min-vh-100 position-relative py-5">
+			<div class="position-absolute z-0 top-0 start-0 w-100 h-100" style="background: var(--turquoise);" data-aos="fade" data-aos-delay="500"></div>
+			<div class="col-lg-8 offset-lg-2 d-flex flex-column justify-content-center align-items-start position-relative rounded-5 p-5" style="background: var(--turquoise);">
 				<h1 class="fw-bold text-light lh-1 ls-1 mb-1 mt-3 animate-in" style="font-size: 13vmin;"> 
 					Credit Cards.
 				<span class="d-block text-black-50">Everything you need to travel better.</span>
 				</h1>
 				<p class="fs-5">Prince of Travel provides an incredibly diverse and wide range of travel knowledge. Our expert writers, travellers, and credit card experts offer a wealth of travel experience that surfaces the most compelling, must-read content in our News, Deals, Reviews, Points and Hotel Programs collections. Vivid stories, personal reviews, credit card and points consultation: we bring each story to life in striking detail.</p>
 			</div>
-		</div>
+
+			<!-- <FetchData client:idle /> -->
+
+			<div class="row mx-auto g-4 px-5">
+				<div class="col-lg-3 col-md-6">
+					<div class="card rounded-4 p-0 border-0 shadow mb-3" style="min-height: 550px; break-inside: avoid-column; white-space: nowrap;">
+						<div class="text-center rounded-top-4 p-2" style="background: #d6d6d6">
+							<img src={pageData.top_offers_0_credit_card_featured_image} class="landscape" data-image-id="1" alt="">
+						</div>
+					<div class="card-body text-black-50 px-4 pb-3 pt-4">
+						<h5 class="fs-4 text-dark card-title fw-bold mb-0" style="font-size: 24px; text-wrap: pretty"><Fragment set:html={pageData.top_offers_0_credit_card.credit_card_short_name} /></h5>
+						<div class="my-3">
+							<p class="small m-0 mt-2 mb-0" ><Fragment set:html={pageData.top_offers_0_credit_card.membership_reward} /></p>
+							<p class="small m-0 my-0"><Fragment set:html={pageData.top_offers_0_credit_card.fees} /></p>
+						</div>
+						<ul class="mt-2 text-balance ps-3" style="font-size: 15px">
+							<li><Fragment set:html={pageData.top_offers_0_credit_card.features_0_feature} /></li>
+							<li><Fragment set:html={pageData.top_offers_0_credit_card.features_1_feature} /></li>
+							<li><Fragment set:html={pageData.top_offers_0_credit_card.features_2_feature} /></li>
+						</ul>
+						<div class="d-flex flex-wrap pb-3 pt-2">
+							<a href={pageData.top_offers_0_credit_card.apply_now_link} target="_blank">
+								<button class="btn btn-sm btn-secondary opacity-75 me-1 rounded-pill px-4" type="button">Apply Now</button>
+							</a>
+							<a href={`/credit-cards/${removeSpecialCharactersFromURL(pageData.top_offers_0_credit_card_slug)}`}>
+								<button class="btn btn-sm btn-secondary rounded-pill px-4 mt-2 mt-lg-0">More</button>
+							</a>
+						</div>
+					</div>		
+					</div>	
+				</div><!--end card column -->
+				<div class="col-lg-3 col-md-6">
+					<div class="card rounded-4 p-0 border-0 shadow mb-3" style="min-height: 550px; break-inside: avoid-column; white-space: nowrap;">
+						<div class="text-center rounded-top-4 p-2" style="background: #d6d6d6">
+							<img src={pageData.top_offers_1_credit_card_featured_image} class="landscape" data-image-id="1" alt="">
+						</div>
+					<div class="card-body text-black-50 px-4 pb-3 pt-4">
+						<h5 class="fs-4 text-dark card-title fw-bold mb-0" style="font-size: 24px; text-wrap: pretty"><Fragment set:html={pageData.top_offers_1_credit_card.credit_card_short_name} /></h5>
+						<div class="my-3">
+							<p class="small m-0 mt-2 mb-0"><Fragment set:html={pageData.top_offers_1_credit_card.membership_reward} /></p>
+							<p class="small m-0 my-0"><Fragment set:html={pageData.top_offers_1_credit_card.fees} /></p>
+						</div>
+						<ul class="mt-2 text-balance ps-3" style="font-size: 15px">
+							<li><Fragment set:html={pageData.top_offers_1_credit_card.features_0_feature} /></li>
+							<li><Fragment set:html={pageData.top_offers_1_credit_card.features_1_feature} /></li>
+							<li><Fragment set:html={pageData.top_offers_1_credit_card.features_2_feature} /></li>
+						</ul>
+						<div class="d-flex flex-wrap pb-3 pt-2">
+							<a href={pageData.top_offers_1_credit_card.apply_now_link} target="_blank">
+								<button class="btn btn-sm btn-secondary opacity-75 me-1 rounded-pill px-4" type="button">Apply Now</button>
+							</a>
+							<a href={`/credit-cards/${removeSpecialCharactersFromURL(pageData.top_offers_1_credit_card_slug)}`}>
+								<button class="btn btn-sm btn-secondary rounded-pill px-4 mt-2 mt-lg-0">More</button>
+							</a>
+						</div>
+					</div>		
+					</div>	
+				</div><!--end card column -->
+				<div class="col-lg-3 col-md-6">
+					<div class="card rounded-4 p-0 border-0 shadow mb-3" style="min-height: 550px; break-inside: avoid-column; white-space: nowrap;">
+						<div class="text-center rounded-top-4 p-2" style="background: #d6d6d6">
+							<img src={pageData.top_offers_2_credit_card_featured_image} class="landscape" data-image-id="3" alt="">
+						</div>
+					<div class="card-body text-black-50 px-4 pb-3 pt-4">
+						<h5 class="fs-4 text-dark card-title fw-bold mb-0" style="font-size: 24px; text-wrap: pretty"><Fragment set:html={pageData.top_offers_2_credit_card.credit_card_short_name} /></h5>
+						<div class="my-3">
+							<p class="small m-0 mt-2 mb-0"><Fragment set:html={pageData.top_offers_2_credit_card.membership_reward} /></p>
+							<p class="small m-0 my-0"><Fragment set:html={pageData.top_offers_2_credit_card.fees} /></p>
+						</div>
+						<ul class="mt-2 text-balance ps-3" style="font-size: 15px">
+							<li><Fragment set:html={pageData.top_offers_2_credit_card.features_0_feature} /></li>
+							<li><Fragment set:html={pageData.top_offers_2_credit_card.features_1_feature} /></li>
+							<li><Fragment set:html={pageData.top_offers_2_credit_card.features_2_feature} /></li>
+						</ul>
+						<div class="d-flex flex-wrap pb-3 pt-2">
+							<a href={pageData.top_offers_2_credit_card.apply_now_link} target="_blank">
+								<button class="btn btn-sm btn-secondary opacity-75 me-1 rounded-pill px-4" type="button">Apply Now</button>
+							</a>
+							<a href={`/credit-cards/${removeSpecialCharactersFromURL(pageData.top_offers_2_credit_card_slug)}`}>
+								<button class="btn btn-sm btn-secondary rounded-pill px-4 mt-2 mt-lg-0">More</button>
+							</a>
+						</div>
+					</div>		
+					</div>	
+				</div><!--end card column -->
+				<div class="col-lg-3 col-md-6">
+					<div class="card rounded-4 p-0 border-0 shadow mb-3" style="min-height: 550px; break-inside: avoid-column; white-space: nowrap;">
+						<div class="text-center rounded-top-4 p-2" style="background: #d6d6d6">
+							<img src={pageData.top_offers_3_credit_card_featured_image} class="landscape" data-image-id="4" alt="">
+						</div>
+					<div class="card-body text-black-50 px-4 pb-3 pt-4">
+						<h5 class="fs-4 text-dark card-title fw-bold mb-0" style="font-size: 24px; text-wrap: pretty"><Fragment set:html={pageData.top_offers_3_credit_card.credit_card_short_name} /></h5>
+						<div class="my-3">
+							<p class="small m-0 mt-2 mb-0"><Fragment set:html={pageData.top_offers_3_credit_card.membership_reward} /></p>
+							<p class="small m-0 my-0"><Fragment set:html={pageData.top_offers_3_credit_card.fees} /></p>
+						</div>
+						<ul class="mt-2 text-balance ps-3" style="font-size: 15px">
+							<li><Fragment set:html={pageData.top_offers_3_credit_card.features_0_feature} /></li>
+							<li><Fragment set:html={pageData.top_offers_3_credit_card.features_1_feature} /></li>
+							<li><Fragment set:html={pageData.top_offers_3_credit_card.features_2_feature} /></li>
+						</ul>
+						<div class="d-flex flex-wrap pt-2">
+							<a href={pageData.top_offers_3_credit_card.apply_now_link} target="_blank">
+								<button class="btn btn-sm btn-secondary opacity-75 me-1 rounded-pill px-4" type="button">Apply Now</button>
+							</a>
+							<a href={`/credit-cards/${removeSpecialCharactersFromURL(pageData.top_offers_3_credit_card_slug)}`}>
+								<button class="btn btn-sm btn-secondary rounded-pill px-4 mt-2 mt-lg-0">More</button>
+							</a>
+						</div>
+					</div>		
+					</div>	
+				</div><!--end card column -->
+			</div><!--end individual credit cards row -->
+
+		</div><!--end CC section -->
 
 		<!-- points -->
 
@@ -140,8 +256,6 @@ function removeSpecialCharactersFromURL(url) {
 				</h1>
 				<p class="fs-4 text-black-50"><Fragment set:html={pageData.fe_content}/></p>
 			</div>
-
-			
 			
 			<div id="points" class="col-lg-10 offset-lg-1 d-flex flex-column justify-content-center align-items-center rounded-5 position-relative">
 				<h2 class="display-3 text-center position-relative ls-1 lh-1 fw-bold text-black-50 py-4">{pageData.section_3_bottom_heading}</h2>
@@ -219,9 +333,13 @@ function removeSpecialCharactersFromURL(url) {
 					</div>
 				</div>
 			</div>
-
-			</div>
+		</div>
 		</a>
+		<div class="mt-4">
+			<a href="/points-evaluations">
+				<button class="btn btn-dark btn-lg rounded-pill px-5 py-4 fw-bold" style="color: var(--orange)">See all</button>
+			</a>
+		</div>
 		</div>
 
 		</div><!-- end points -->
@@ -240,8 +358,8 @@ function removeSpecialCharactersFromURL(url) {
 		<!-- book travel -->
 
 		<div class="row min-vh-100 position-relative py-5">
-			<div class="position-absolute z-0 top-0 start-0 w-100 h-100" style="background: var(--beige);" data-aos="fade" data-aos-delay="500"></div>
-			<div class="col-lg-8 offset-lg-2 d-flex flex-column justify-content-center align-items-start position-relative rounded-5 p-5" style="background: var(--bs-beige);">
+			<div class="position-absolute z-0 top-0 start-0 w-100 h-100" style="background: var(--lime);" data-aos="fade" data-aos-delay="500"></div>
+			<div class="col-lg-8 offset-lg-2 d-flex flex-column justify-content-center align-items-start position-relative rounded-5 p-5" style="background: var(--lime);">
 				<h1 class="fw-bold text-light lh-1 ls-1 mb-1 mt-3 animate-in" style="font-size: 13vmin;"> 
 					Book your travel.
 				<span class="d-block text-black-50">Let Prince Collection Concierge do it for you.</span>
@@ -250,7 +368,7 @@ function removeSpecialCharactersFromURL(url) {
 			</div>
 		</div>
 		
-		<!-- aout us -->
+		<!-- about us -->
 		<div class="row min-vh-100 position-relative py-5">
 			<div class="position-absolute z-0 top-0 start-0 w-100 h-100" style="background: var(--salmon);" data-aos="fade" data-aos-delay="500"></div>
 			<div class="col-lg-8 offset-lg-2 d-flex flex-column justify-content-center align-items-start position-relative rounded-5 p-5" style="background: var(--salmon);">
@@ -261,53 +379,8 @@ function removeSpecialCharactersFromURL(url) {
 				<p class="fs-5">Prince of Travel provides an incredibly diverse and wide range of travel knowledge. Our expert writers, travellers, and credit card experts offer a wealth of travel experience that surfaces the most compelling, must-read content in our News, Deals, Reviews, Points and Hotel Programs collections. Vivid stories, personal reviews, credit card and points consultation: we bring each story to life in striking detail.</p>
 			</div>
 		</div>
-
-
-			<!--book -->
-
-			<div class="row p-5">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<span class="badge rounded-pill fw-bold bg-pc-60 text-pc-dark py-2 px-3" data-aos="fade-up">{data.home.book.badge}</span>
-					<h2 class="display-4 fw-900 lh-1 my-3" data-aos="fade-up" data-aos-delay="200">{data.home.book.title}</h2>
-					<p class="fs-5 col-lg-8 offset-lg-2" data-aos="fade-up" data-aos-delay="400"><Fragment set:html={data.home.book.content}/></p>
-				</div>
-			</div>
-			
-			<div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 text-body-secondary px-4 px-lg-5 pb-5">
-				{data.home.book.list.map((item, index) => (
-					<div class="col text-black-50" data-aos="fade-up" data-aos-delay={index * 100}>
-						<div class="p-5 rounded-4 bg-pc-20 shadow" style="min-height: 420px">
-							<i class:list={["bi text-pc-dark fs-1 px-3 py-2 shadow rounded-3 bg-pc-80", item.icon]}></i>
-							<h4 class="fw-bold mb-3 mt-4 pt-1">{item.title}</h4>
-							<p class="fs-5">{item.content}</p>
-						</div>
-					</div>
-				))}
-			</div>
-
-			<div class="row p-5">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<span class="badge rounded-pill fw-bold text-pc-dark bg-pc-60 py-2 px-3" data-aos="fade-up">{data.home.exclusive.badge}</span>
-					<h2 class="display-4 fw-900 lh-1 my-3" data-aos="fade-up" data-aos-delay="200"><Fragment set:html={data.home.exclusive.title}/></h2>
-					<p class="fs-5 col-lg-10 offset-lg-1" data-aos="fade-up" data-aos-delay="400">{data.home.exclusive.content}</p>
-					<a href="/book">
-						<button class="btn btn-pc fw-bold rounded-pill px-4 shadow" data-aos="fade-up" data-aos-delay="600">{data.home.exclusive.button}</button>
-					</a>
-				</div>
-			</div>
-
-			<div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 p-5 bg-pc-10 g-4 mt-0 mt-lg-3" data-aos="fade-up">
-				{
-					data.home.logos2.map((item, index) => (
-					<div class="col d-flex my-auto text-center p-3" style="filter: brightness(0);">
-						<img src="" data-src={item.url} style={index === 0 || index === 1 || index === 4 ? 'width: 140px;' : 'width: 120px'} alt={item.alt} />
-					</div>
-				))}
-			</div>
-
-			<div class="p-4"></div>
-
-			<div class="row px-4 px-lg-5">
+		
+			<!-- <div class="row px-4 px-lg-5">
 				<div class="col-lg-12 col-xl-3">
 					<div class="d-flex flex-column justify-content-center align-items-start bg-pc-dark-80 h-100 min-vh-50 rounded-5 p-5">
 					<span class="badge rounded-pill fw-bold bg-pc-60 text-pc-dark py-2 px-3 mb-3">{data.home.reviews.badge}</span>
@@ -339,25 +412,9 @@ function removeSpecialCharactersFromURL(url) {
 					))}
 					</div>
 				</div>
-			</div>
+			</div> -->
 
-			<div class="py-0 py-lg-4"></div>
-
-			<div class="row px-4 px-lg-5">
-				<div class="col-lg-6 p-5">
-					<span class="badge rounded-pill fw-bold bg-pc-60 text-pc-dark py-2 px-3 mb-3" data-aos="fade-up">{data.home.concierge.badge}</span>
-					<h3 class="fw-bold display-4 lh-1" data-aos="fade-up" data-aos-delay="200">{data.home.concierge.title}</h3>
-					<p class="fs-5 py-1" data-aos="fade-up" data-aos-delay="400">{data.home.concierge.content}</p>
-					<a href="/concierge">
-						<button class="btn btn-pc rounded-pill px-4 fw-bold shadow" data-aos="fade-up" data-aos-delay="600">{data.home.concierge.button}</button>
-					</a>
-				</div>
-				<div class="col-lg-6" data-aos="fade-up" data-aos-delay="800">
-					<img class="w-100 h-100 rounded-4 object-fit" src="" data-src="/images/general/pc-chairs-white-balcony-ocean.avif" alt="Prince Collection Concierge" />
-				</div>
-			</div>
-
-			<div class="row p-4 p-lg-5">
+			<!-- <div class="row p-4 p-lg-5">
 				<div class="col-lg-12 col-xl-3 order-2 order-xl-1">
 					<div class="d-flex flex-column justify-content-center align-items-start bg-pale-dogwood text-body-secondary h-100 min-vh-50 rounded-5 p-5 shadow">
 					<span class="badge rounded-pill fw-bold bg-pc-dark text-pc-light py-2 px-3 mb-3">{data.home.guides.badge}</span>
@@ -390,7 +447,9 @@ function removeSpecialCharactersFromURL(url) {
 							))}
 					</div>
 				</div>
-			</div>
+			</div> -->
+
+			<!-- newsletter/contact -->
 
 			<div class="row bg-pc-80 py-5 text-body-secondary" data-aos="fade-up">
 				<div class="col-lg-8 offset-lg-2 p-5 text-center">
@@ -408,46 +467,6 @@ function removeSpecialCharactersFromURL(url) {
 <script>
 	// https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/play
 	// astro reinit script in SPA mode w/ astro:page-load => didn't work
-
-	let videoElem = document.getElementById("heroVideo");
-	const playIcon = document.getElementById("playIcon");
-	const playButton = document.getElementById("playButton");
-
-	let videoLoaded = false;
-
-	function sayHello() {
-		var video = document.getElementById('heroVideo');
-		var source = document.getElementById('videoSource');
-		source.src = "/images/video/pc-hero-video-min.mp4"; // Update the video source
-		video.load(); // Load the video
-		video.play(); 
-		videoLoaded = true;
-	}
-
-	function loadVideoOnce() {
-		if (!videoLoaded) sayHello();
-	}
-
-	[videoElem, playButton].forEach(item => {
-		item.addEventListener("click", loadVideoOnce, false);
-		// item.addEventListener("click", detectPlay, false);
-	});
-
-	videoElem.addEventListener("playing", () => {
-		playIcon.classList.remove("bi-play-circle");
-		playIcon.classList.add("opacity-25", "bi-pause-circle");
-		[videoElem, playButton].forEach(item => {
-			item.addEventListener("click", () => { videoElem.pause()});
-		})
-	});
-	videoElem.addEventListener("pause", () => {
-		playIcon.classList.remove("opacity-25", "bi-pause-circle");
-		playIcon.classList.add("bi-play-circle");
-		[videoElem, playButton].forEach(item => {
-			item.addEventListener("click", () => { videoElem.play()});
-		})
-	});
-
 </script>
 
 <style>
@@ -500,5 +519,12 @@ function removeSpecialCharactersFromURL(url) {
 	#points .card {
 	min-height: 250px;
 }	
+}
+
+li {
+  /* list-style-image: url(/right-arrow.svg); */
+  /* OR */
+  list-style-type: '✱';
+  padding-inline-start: 1ch;
 }
 </style>

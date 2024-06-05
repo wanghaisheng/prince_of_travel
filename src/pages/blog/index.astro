@@ -16,7 +16,7 @@ const blogPosts = await getCollection("blog");
 
 // for some reason the per_page field is throwing an error, initially it was when calling 100,
 // it would work at 90, but then seems to have stopped working
-const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?categories=942,941,943,16,944,325,331&per_page=50&_embed");
+const res = await fetch("https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?categories=942,941,943,16,944,325,331&per_page=100&_embed");
 const posts = await res.json();
 
 
@@ -63,7 +63,7 @@ function newsPosts(arr, category) {
             <!-- post.frontmatter.* for pages -->
             
 
-            <div class="row p-4">
+            <!-- <div class="row p-4">
                 <div class="col-lg-9 mt-5">
                     <div class="row">
                         <div class="col-lg-12 d-flex flex-column justify-content-center align-items-start text-start min-vh-50 p-5">
@@ -71,9 +71,8 @@ function newsPosts(arr, category) {
                             <p class="col-md-8 fs-5 text-body-secondary mt-3 mb-4">Prince of Travel brings you deals, news, reviews, guides, and insights into the travel space. Our expertise lies in handling the nuances of travel, ensuring a seamless and extraordinary journey from start to finish.</p>
                         </div>
                     </div>
-                    <div class="row bg-black text-light rounded-4 mx-2">
 
-                        
+                    <div class="row bg-black text-light rounded-4 mx-2">
                         <div class="col-md-6 p-0">
                             <img src="" data-src={blogPosts[0].data.imageUrl} class="card-img-top w-100 h-100 object-fit rounded-start-4" style="height: 300px;" alt="..." data-aos="fade" />
                         </div>
@@ -95,12 +94,10 @@ function newsPosts(arr, category) {
                             <div class="card bg-pc-light rounded-4 border-0 shadow mb-3" style="min-height: 500px">
                                 <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top w-100 object-fit rounded-top-4" style="height: 200px;" alt="..." data-aos="fade" />
                                 <div class="card-body px-3 position-relative">
-                                    <!--<p class="small m-0 text-secondary mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>-->
                                     <p class="small m-0 text-secondary mt-2 mb-0" style="text-transform: capitalize;">{article._embedded['wp:term'][0][0].slug}</p>
                                     <h5 class="card-title text-secondary fw-900 my-2"><Fragment set:html={article.title.rendered} /></h5>
                                     <p class="small text-secondary mt-1 mb-0">By: {article._embedded?.author[0].name}</p>
                                     <p class="small card-text text-body-secondary my-3"><Fragment set:html={functions.shorten(article.excerpt.rendered, 150)} /></p>
-                                    <!--<button class="btn btn-sm small btn-secondary rounded-pill px-4 m-0 mt-2 mb-0">Read</button>-->
                                     <i class="bi bi-arrow-up-right-circle-fill text-secondary opacity-75 fs-2 position-absolute bottom-0 end-0 m-3"></i>
                                 </div>
                             </div>
@@ -108,12 +105,12 @@ function newsPosts(arr, category) {
                     </div>
                     ))}
 
-                 <!-- <div class:list={["card rounded-5 border-0 shadow", (index + 1) % 3 ? (index + 1) % 4 ? 'bg-pc-light' : 'bg-timberwolf' : 'bg-pc']} style="min-height: 500px"></div> -->
+                 <div class:list={["card rounded-5 border-0 shadow", (index + 1) % 3 ? (index + 1) % 4 ? 'bg-pc-light' : 'bg-timberwolf' : 'bg-pc']} style="min-height: 500px"></div>
 
                 </div>    
-            </div><!--end wrapper col 8 -->
+            </div>
 
-            <!-- sidebar -->
+            sidebar
             <div class="col-lg-3 px-3 pt-5">
                 <h2>Latest</h2>
                 {
@@ -128,7 +125,6 @@ function newsPosts(arr, category) {
                                    
                                     <h6 class="card-title text-secondary fw-900 my-2"><Fragment set:html={article.title.rendered} /></h6>
                                     <p class="small text-secondary mt-1 mb-0">By: {article._embedded?.author[0].name}</p>
-                                    <!--<p class="small m-0 fw-bold text-secondary opacity-50 my-0">{article.date?.toString().slice(0,10)}</p>-->
                                     <i class="bi bi-arrow-up-right-circle-fill text-secondary opacity-75 fs-4 position-absolute bottom-0 end-0 m-1"></i>
                                     </div>
                                 </div>
@@ -136,14 +132,24 @@ function newsPosts(arr, category) {
                     </div>
                     ))}
                 </div>
-            </div><!--end row-->
+            </div> -->
+            <!--end row-->
 
-            <div class="row bg-black text-light p-4">
+            <div class="row min-vh-100">
+				<div class="col-lg-8 offset-lg-2 d-flex flex-column justify-content-center align-items-center text-center p-5">
+					<img class="logo animate-in py-4 ps-4 pe-3 rounded-4 bg-dark" style="width: 100px;" src="/images/logos/pot-crown-white.png" alt="Prince of Travel logo" />					
+					<!-- <img class="logo animate-in py-4 ps-4 pe-3 rounded-4" style="width: 100px; filter: invert(1); border: 2px solid lightgrey;" src="/images/logos/pot-crown-white.png" alt="Prince of Travel logo" />					 -->
+					<h1 class="fw-bold lh-1 ls-1 mb-1 mt-3 animate-in" style="font-size: 13vmin;">Prince Blog: Rewriting the travel experience.</h1>
+					<p class="fs-3 col-lg-8">Be inspired to travel <span class="fw-bold">more,</span> <span class="fw-bold">better,</span> and <span class="fw-bold">cheaper</span> with Prince of Travel's expertise in travel rewards, points programs, credit cards, and accommodation.</p>
+				</div>
+			</div>
+
+            <div class="row text-light p-4" style="background: var(--lightblue)">
                 <div class="col-lg-12 d-flex flex-column justify-content-center align-items-start text-start mb-3">
-                    <h1 class="display-1 font-oswald text-uppercase fw-900 ls-1 lh-1">/ Guides</h1>
+                    <h1 class="display-1 text-uppercase fw-900 ls-1 lh-1">/ News</h1>
                 </div>
                 {
-                 posts.filter(cat => cat._embedded['wp:term'][0][0].slug === 'guides').slice(0,5).map((article, index) => (
+                 posts.filter(cat => cat._embedded['wp:term'][0][0].slug === 'news').slice(0,5).map((article, index) => (
                     <div class:list={[index === 0 ? 'row pb-4' : 'd-none']}>
                         <a class="d-flex" href={`/${article._embedded['wp:term'][0][0].slug}/${article.slug}/`}>
                         <div class="col-lg-6">
@@ -152,7 +158,7 @@ function newsPosts(arr, category) {
                         <div class="col-lg-6 text-light d-flex flex-column justify-content-center align-items-start p-5">
                             <div class="card-body px-2 py-0">
                                 <p class="small m-0 mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>
-                                <h6 class="card-title display-1 font-oswald opacity-75 text-uppercase fw-900 ls-1 lh-1 fw-900 my-2"><Fragment set:html={article.title.rendered} /></h6>
+                                <h6 class="card-title display-2 text-black-50 fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
                                 <p class="small my-3">By: {article._embedded?.author[0].name}</p>
                                <!--<button class="btn btn-sm small btn-secondary rounded-pill px-4 m-0 mt-2 mb-0">Read</button>-->
                                 <i class="bi bi-arrow-up-right-circle-fill text-light opacity-50 display-5 my-3"></i>
@@ -178,8 +184,133 @@ function newsPosts(arr, category) {
                     </div>
              
                 ))}
-                </div>
             </div>
+            
+            <div class="row text-light p-4" style="background: var(--lime)">
+                <div class="col-lg-12 d-flex flex-column justify-content-center align-items-start text-start mb-3">
+                    <h1 class="display-1 text-uppercase fw-900 ls-1 lh-1">/ Deals</h1>
+                </div>
+                {
+                 posts.filter(cat => cat._embedded['wp:term'][0][0].slug === 'deals').slice(0,5).map((article, index) => (
+                    <div class:list={[index === 0 ? 'row pb-4' : 'd-none']}>
+                        <a class="d-flex" href={`/${article._embedded['wp:term'][0][0].slug}/${article.slug}/`}>
+                        <div class="col-lg-6">
+                            <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top w-100 h-100 object-fit rounded-start-4 p-0" style="min-height: 150px;" alt="..." data-aos="fade" />
+                        </div>
+                        <div class="col-lg-6 text-black-50 d-flex flex-column justify-content-center align-items-start p-5">
+                            <div class="card-body px-2 py-0">
+                                <p class="small m-0 mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>
+                                <h6 class="card-title display-2 text-balance fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
+                                <p class="small my-3">By: {article._embedded?.author[0].name}</p>
+                               <!--<button class="btn btn-sm small btn-secondary rounded-pill px-4 m-0 mt-2 mb-0">Read</button>-->
+                                <i class="bi bi-arrow-up-right-circle-fill text-black-50 display-5 my-3"></i>
+                            </div>
+                        </div> 
+                        </a>  
+                    </div>
+
+                    <div class:list={[index !== 0 ? 'col-lg-3 col-md-6' : 'd-none']}>
+                        <a href={`/${article._embedded['wp:term'][0][0].slug}/${article.slug}/`}>
+                        <div class="card bg-pc-light rounded-4 border-0 shadow mb-3" style="min-height: 500px">
+                            <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top w-100 object-fit rounded-top-4" style="height: 200px;" alt="..." data-aos="fade" />
+                            <div class="card-body p-4 position-relative">
+                                <!--<p class="small m-0 text-secondary mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>-->
+                                <p class="small m-0 text-secondary mt-2 mb-0" style="text-transform: capitalize;">{article._embedded['wp:term'][0][0].slug}</p>
+                                <h5 class="card-title text-secondary fs-4 fw-900 my-2"><Fragment set:html={article.title.rendered} /></h5>
+                                <p class="small text-secondary mt-1 mb-0">By: {article._embedded?.author[0].name}</p>
+                                <p class="card-text text-body-secondary my-3"><Fragment set:html={functions.shorten(article.excerpt.rendered, 150)} /></p>
+                                <i class="bi bi-arrow-up-right-circle-fill text-secondary opacity-75 fs-2 position-absolute top-0 end-0 m-3"></i>
+                            </div>
+                        </div>
+                   </a>
+                    </div>
+                ))}
+            </div>
+            
+            <div class="row text-light p-4" style="background: var(--royalblue)">
+                <div class="col-lg-12 d-flex flex-column justify-content-center align-items-start text-start mb-3">
+                    <h1 class="display-1 text-uppercase fw-900 ls-1 lh-1">/ Reviews</h1>
+                </div>
+                {
+                 posts.filter(cat => cat._embedded['wp:term'][0][0].slug === 'reviews').slice(0,5).map((article, index) => (
+                    <div class:list={[index === 0 ? 'row pb-4' : 'd-none']}>
+                        <a class="d-flex" href={`/${article._embedded['wp:term'][0][0].slug}/${article.slug}/`}>
+                        <div class="col-lg-6">
+                            <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top w-100 h-100 object-fit rounded-start-4 p-0" style="min-height: 150px;" alt="..." data-aos="fade" />
+                        </div>
+                        <div class="col-lg-6 text-black-50 d-flex flex-column justify-content-center align-items-start p-5">
+                            <div class="card-body px-2 py-0">
+                                <p class="small m-0 mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>
+                                <h6 class="card-title display-2 text-balance fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
+                                <p class="small my-3">By: {article._embedded?.author[0].name}</p>
+                               <!--<button class="btn btn-sm small btn-secondary rounded-pill px-4 m-0 mt-2 mb-0">Read</button>-->
+                                <i class="bi bi-arrow-up-right-circle-fill text-black-50 display-5 my-3"></i>
+                            </div>
+                        </div> 
+                        </a>  
+                    </div>
+
+                    <div class:list={[index !== 0 ? 'col-lg-3 col-md-6' : 'd-none']}>
+                        <a href={`/${article._embedded['wp:term'][0][0].slug}/${article.slug}/`}>
+                        <div class="card bg-pc-light rounded-4 border-0 shadow mb-3" style="min-height: 500px">
+                            <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top w-100 object-fit rounded-top-4" style="height: 200px;" alt="..." data-aos="fade" />
+                            <div class="card-body p-4 position-relative">
+                                <!--<p class="small m-0 text-secondary mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>-->
+                                <p class="small m-0 text-secondary mt-2 mb-0" style="text-transform: capitalize;">{article._embedded['wp:term'][0][0].slug}</p>
+                                <h5 class="card-title text-secondary fs-4 fw-900 my-2"><Fragment set:html={article.title.rendered} /></h5>
+                                <p class="small text-secondary mt-1 mb-0">By: {article._embedded?.author[0].name}</p>
+                                <p class="card-text text-body-secondary my-3"><Fragment set:html={functions.shorten(article.excerpt.rendered, 150)} /></p>
+                                <i class="bi bi-arrow-up-right-circle-fill text-secondary opacity-75 fs-2 position-absolute top-0 end-0 m-3"></i>
+                            </div>
+                        </div>
+                   </a>
+                    </div>
+                ))}
+            </div>
+            
+            <div class="row text-light p-4" style="background: var(--orange)">
+                <div class="col-lg-12 d-flex flex-column justify-content-center align-items-start text-start mb-3">
+                    <h1 class="display-1 text-uppercase fw-900 ls-1 lh-1">/ Guides</h1>
+                </div>
+                {
+                 posts.filter(cat => cat._embedded['wp:term'][0][0].slug === 'guides').slice(0,5).map((article, index) => (
+                    <div class:list={[index === 0 ? 'row pb-4' : 'd-none']}>
+                        <a class="d-flex" href={`/${article._embedded['wp:term'][0][0].slug}/${article.slug}/`}>
+                        <div class="col-lg-6">
+                            <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top w-100 h-100 object-fit rounded-start-4 p-0" style="min-height: 150px;" alt="..." data-aos="fade" />
+                        </div>
+                        <div class="col-lg-6 text-black-50 d-flex flex-column justify-content-center align-items-start p-5">
+                            <div class="card-body px-2 py-0">
+                                <p class="small m-0 mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>
+                                <h6 class="card-title display-2 text-balance fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
+                                <p class="small my-3">By: {article._embedded?.author[0].name}</p>
+                               <!--<button class="btn btn-sm small btn-secondary rounded-pill px-4 m-0 mt-2 mb-0">Read</button>-->
+                                <i class="bi bi-arrow-up-right-circle-fill text-black-50 display-5 my-3"></i>
+                            </div>
+                        </div> 
+                        </a>  
+                    </div>
+
+                    <div class:list={[index !== 0 ? 'col-lg-3 col-md-6' : 'd-none']}>
+                        <a href={`/${article._embedded['wp:term'][0][0].slug}/${article.slug}/`}>
+                        <div class="card bg-pc-light rounded-4 border-0 shadow mb-3" style="min-height: 500px">
+                            <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top w-100 object-fit rounded-top-4" style="height: 200px;" alt="..." data-aos="fade" />
+                            <div class="card-body p-4 position-relative">
+                                <!--<p class="small m-0 text-secondary mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>-->
+                                <p class="small m-0 text-secondary mt-2 mb-0" style="text-transform: capitalize;">{article._embedded['wp:term'][0][0].slug}</p>
+                                <h5 class="card-title text-secondary fs-4 fw-900 my-2"><Fragment set:html={article.title.rendered} /></h5>
+                                <p class="small text-secondary mt-1 mb-0">By: {article._embedded?.author[0].name}</p>
+                                <p class="card-text text-body-secondary my-3"><Fragment set:html={functions.shorten(article.excerpt.rendered, 150)} /></p>
+                                <i class="bi bi-arrow-up-right-circle-fill text-secondary opacity-75 fs-2 position-absolute top-0 end-0 m-3"></i>
+                            </div>
+                        </div>
+                   </a>
+                    </div>
+                ))}
+                </div>
+
+
+    </div>
 </Layout>
         
 <style>
