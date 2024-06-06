@@ -1,0 +1,357 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from "astro:content";
+// const allPosts = await Astro.glob('../../pages/blog/*.md');
+const ccPosts = await getCollection("credit-cards");
+// astro.glob => getCollection is the difference between getting all files from a directory in pages vs. collections
+// https://docs.astro.build/en/tutorials/add-content-collections/
+import functions from '../../js/functions.js';
+
+const { index, slug } = Astro.props
+
+const slideAnim = {
+  old: {
+    name: 'slideDown',
+    duration: '0.5s',
+    easing: 'ease-out',
+    fillMode: 'backwards',
+  },
+  new: {
+    name: 'slideUp',
+    duration: '0.5s',
+    delay: `${index * 0.2 + 0.1}s`,
+    easing: 'ease-out',
+    fillMode: 'backwards',
+  },
+}
+const verticalSlide = {
+  forwards: slideAnim,
+  backwards: slideAnim,
+}
+
+const res = await fetch("http://pftraveldev.wpengine.com/wp-json/pot/v1/airlines");
+const posts = await res.json();
+
+// const combinedPosts = ccPosts.concat(posts);
+
+// let filteredPosts = allPosts.filter(post => post.data.draft === false)
+// filteredPosts.sort((a, b) => b.data.pubDate - a.data.pubDate);
+// const [firstArticle, ...allArticles] = filteredPosts;
+const [firstArticle, ...allArticles] = ccPosts;
+
+// bit-alaska post had a cross at the end of the url which threw a build error in netlify
+function removeSpecialCharactersFromURL(url) {
+    // Define a regular expression to match special characters
+	const regex = /[^\w\s\-#]/gi;
+    // Replace special characters with an empty string
+    const cleanURL = url.replace(regex, '');
+    return cleanURL;
+}
+---
+
+<Layout title="Prince of Travel | Airlines" description="Prince of Travel's latest news, deals, and happenings in the travel space." image={firstArticle.data.imageUrl}>
+	<div class="container-fluid px-0" style="background: var(--beige);">
+        <div class="row min-vh-100">
+            <div class="col-lg-8 offset-lg-2 d-flex flex-column justify-content-center align-items-center text-center p-5">
+                <img class="logo animate-in py-4 ps-4 pe-3 rounded-4 bg-dark" style="width: 100px;" src="/images/logos/pot-crown-white.png" alt="Prince of Travel logo" />					
+                <h1 class="fw-bold lh-1 ls-1 mb-1 mt-3 animate-in" style="font-size: 13vmin;">Airlines.</h1>
+                <p class="fs-3 col-lg-10">Be inspired to travel <span class="fw-bold">more,</span> <span class="fw-bold">better,</span> and <span class="fw-bold">cheaper</span> with Prince of Travel's expertise in travel rewards, points programs, credit cards, and accommodation.</p>
+            </div>
+        </div>
+
+		<div class="columns p-3">
+			<!--{allArticles?.map((post) => (
+					<div class="card bg-pc-light rounded-4 p-0 border-0 shadow mb-3" style="min-height: 500px; break-inside: avoid-column; white-space: nowrap;">
+						<img src="" data-src={post.data.imageUrl} class="card-img-top rounded-top-4 w-100 p-2" style="object-fit: cover; height: 200px;" alt={post.data.imageAlt}>
+						<i class="bi bi-arrow-up-right-circle-fill text-pc-10 fs-1 position-absolute top-0 end-0 me-3 mt-2"></i>
+						<div class="card-body position-relative px-4 pb-4">
+							<p class="small mb-2">{post.data.pubDate.toString().slice(0,10)}</p>
+							<h5 class="card-title fw-bold mb-0 text-balance">{post.data.title}</h5>
+							<p class="small m-0 text-secondary mt-2 mb-0">By: {post.data.author}</p>
+              <div class="d-flex flex-wrap pb-3 pt-2">
+                <button class="btn btn-sm btn-secondary opacity-75 me-1 rounded-pill px-4" type="button" data-bs-toggle="offcanvas" data-bs-target={'#item_' + index} aria-controls="offcanvasBottom">Details</button>
+                <a href={`/credit-cards/${post.data.slug}`}>
+                <button class="btn btn-sm btn-secondary rounded-pill px-4">Review</button>
+                </a>
+              </div>
+						</div>
+					</div>
+			))}-->
+
+      <!--<PostFetch2 client:visible />-->
+      
+		{posts?.map((post, index) => (		
+		<div class="card rounded-4 p-0 border-0 shadow bg-pc-light mb-3" style="min-height: 500px; break-inside: avoid-column; white-space: nowrap;">
+            <!--<img src="" data-src={post.featured_image.large} class="w-100" alt="">-->
+			<div class="card-body position-relative px-4 pb-3">
+				<h5 class="fs-4 text-dark card-title fw-bold mb-0" style="font-size: 24px; text-wrap: pretty"><Fragment set:html={post.title.rendered} /></h5>
+              <div class="my-3">
+                <p class="small m-0 text-secondary my-0" style="font-size: 16px"><Fragment set:html={post.content.rendered.slice(0,150)} /></p>
+              </div>
+              <div class="d-flex flex-wrap pb-3 pt-2">
+                <a href={`/airlines/${post.slug}`}>
+                <button class="btn btn-sm btn-secondary rounded-pill px-4 mt-2 mt-lg-0">Review</button>
+                </a>
+              </div>
+			</div>
+		</div>	
+          
+			))}
+      </div>
+	</div>
+</Layout>
+
+
+<script>
+  
+  function isPortraitImage(imageElement, callback) {
+    const img = new Image();
+    img.onload = function() {
+        const width = this.width;
+        const height = this.height;
+        callback(width < height);
+    };
+    img.src = imageElement.src;
+}
+
+// Example usage:
+const imageElements = document.querySelectorAll('img[data-image-id]');
+imageElements.forEach(function(imageElement) {
+    isPortraitImage(imageElement, function(isPortrait) {
+        if (isPortrait) {
+            imageElement.classList.add('portrait');
+            imageElement.classList.remove('landscape');
+        }
+    });
+});
+
+// // Check if there is a hash in the URL when the page loads
+// window.addEventListener("load", function() {
+//     var hash = window.location.hash;
+//     if (hash) {
+//       // Remove the '#' symbol from the hash
+//       var productSlug = hash.substring(1);
+//       // Find the corresponding offcanvas element and open it
+//       var offcanvas = document.querySelector('.offcanvas[data-product-slug="' + productSlug + '"]');
+//       if (offcanvas) {
+//         var offcanvasInstance = new bootstrap.Offcanvas(offcanvas);
+//         offcanvasInstance.show();
+//       }
+//     }
+//   });
+// });
+
+// hash approach v2.0: this works in all ways
+
+document.addEventListener("DOMContentLoaded", function() {
+  // Get all offcanvas elements
+  var offcanvasList = document.querySelectorAll(".offcanvas");
+
+  // Loop through each offcanvas and add event listeners
+  offcanvasList.forEach(function(offcanvas) {
+    offcanvas.addEventListener("shown.bs.offcanvas", function() {
+      // Get the product slug from data attribute
+      var productSlug = offcanvas.dataset.productSlug;
+      // Update the URL with the product slug
+      history.pushState({}, '', '#' + productSlug);
+    });
+
+    offcanvas.addEventListener("hidden.bs.offcanvas", function() {
+      // Revert the URL back to the previous state
+      removeSlugFromUrl();
+    });
+  });
+
+  // Check if there is a hash in the URL when the page loads
+  window.addEventListener("load", function() {
+    var hash = window.location.hash;
+    if (hash) {
+      // Remove the '#' symbol from the hash
+      var productSlug = hash.substring(1);
+      // Find the corresponding offcanvas element and open it
+      var offcanvas = document.querySelector('.offcanvas[data-product-slug="' + productSlug + '"]');
+      if (offcanvas) {
+        var offcanvasInstance = new bootstrap.Offcanvas(offcanvas);
+        offcanvasInstance.show();
+      }
+    }
+  });
+
+  // Listen for browser back functionality
+  window.addEventListener("popstate", function(event) {
+    // Close the offcanvas if it's currently shown
+    closeOffcanvas();
+  });
+});
+
+function removeSlugFromUrl() {
+  // Remove the hash from the URL
+  history.pushState({}, document.title, window.location.pathname);
+}
+
+function closeOffcanvas() {
+  // Get the currently shown offcanvas
+  var shownOffcanvas = document.querySelector('.offcanvas.show');
+  // Close the offcanvas if it's currently shown
+  if (shownOffcanvas) {
+    var offcanvasInstance = bootstrap.Offcanvas.getInstance(shownOffcanvas);
+    offcanvasInstance.hide();
+  }
+}
+
+// v3.0
+// document.addEventListener("DOMContentLoaded", function() {
+//   // Get all offcanvas elements
+//   var offcanvasList = document.querySelectorAll(".offcanvas");
+
+//   // Loop through each offcanvas and add event listeners
+//   offcanvasList.forEach(function(offcanvas) {
+//     offcanvas.addEventListener("shown.bs.offcanvas", function() {
+//       // Get the product slug from data attribute
+//       var productSlug = offcanvas.dataset.productSlug;
+//       // Update the URL with the product slug
+//       history.pushState({}, '', '/credit-cards/' + productSlug);
+//     });
+
+//     offcanvas.addEventListener("hidden.bs.offcanvas", function() {
+//       // Revert the URL back to the previous state
+//       removeSlugFromUrl();
+//     });
+//   });
+
+//   // Check if there is a slug in the URL when the page loads
+//   window.addEventListener("load", function() {
+//     var pathname = window.location.pathname;
+//     if (pathname !== '/' && pathname.length > 1) {
+//       // Remove the '/' prefix
+//       var productSlug = pathname.substring(1);
+//       // Find the corresponding offcanvas element and open it
+//       var offcanvas = document.querySelector('.offcanvas[data-product-slug="' + productSlug + '"]');
+//       if (offcanvas) {
+//         var offcanvasInstance = new bootstrap.Offcanvas(offcanvas);
+//         offcanvasInstance.show();
+//       }
+//     }
+//   });
+
+//   // Listen for browser back functionality
+//   window.addEventListener("popstate", function(event) {
+//     // Close the offcanvas if it's currently shown
+//     closeOffcanvas();
+//   });
+// });
+
+// function removeSlugFromUrl() {
+//   // Remove the slug from the URL
+//   history.pushState({}, document.title, '/credit-cards');
+// }
+
+// function closeOffcanvas() {
+//   // Get the currently shown offcanvas
+//   var shownOffcanvas = document.querySelector('.offcanvas.show');
+//   // Close the offcanvas if it's currently shown
+//   if (shownOffcanvas) {
+//     var offcanvasInstance = bootstrap.Offcanvas.getInstance(shownOffcanvas);
+//     offcanvasInstance.hide();
+//   }
+// }
+
+// document.addEventListener('DOMContentLoaded', function() {
+//             var itemsPerPage = 8; // Number of items to fetch per request
+//             var totalItemsFetched = 0; // Track the total number of items fetched
+
+//             // Function to fetch data from API
+//             function fetchData() {
+//                 fetch('https://pftraveldev.wpengine.com/wp-json/pot/v1/credit-cards?per_page=8')
+//                 .then(function(response) {
+//                     return response.json();
+//                 })
+//                 .then(function(data) {
+//                     // Append fetched items to the container
+//                     var container = document.getElementById('data-container');
+//                     var itemsToFetch = Math.min(itemsPerPage, data.length - totalItemsFetched);
+//                     for (var i = 0; i < itemsToFetch; i++) {
+//                         var div = document.createElement('div');
+//                         div.classList.add('item');
+//                         div.textContent = data[totalItemsFetched + i].title;
+//                         container.appendChild(div);
+//                     }
+//                     totalItemsFetched += itemsToFetch;
+//                 })
+//                 .catch(function(error) {
+//                     console.error('Error fetching data:', error);
+//                 });
+//             }
+
+//             // Initial data load
+//             fetchData();
+
+//             // Scroll event listener
+//             window.addEventListener('scroll', function() {
+//                 if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+//                     // When user scrolls to the bottom and not all items are fetched, load more data
+//                     if (totalItemsFetched < itemsPerPage) {
+//                         fetchData();
+//                     }
+//                 }
+//             });
+//         });
+</script>
+        
+<style>
+  .columns {
+    column-count: 4;
+    column-gap: 15px;
+    -moz-column-count: 4;
+    -moz-column-gap: 15px;
+    -webkit-column-count: 4;
+    -webkit-column-gap: 15px;
+    writing-mode: horizontal-tb;
+
+}
+@media only screen and (min-width: 1200px) {
+  .columns {
+    column-count: 4;
+    -moz-column-count: 4;
+    -webkit-column-count: 4;
+  } 
+}
+
+@media only screen and (max-width: 992px) {
+  .columns {
+    column-count: 3;
+    -moz-column-count: 3;
+    -webkit-column-count: 3;
+  } 
+}
+@media only screen and (max-width: 768px) {
+  .columns {
+    column-count: 2;
+    -moz-column-count: 2;
+    -webkit-column-count: 2;
+  } 
+}
+@media only screen and (max-width: 600px) {
+  .columns {
+    columns: 200px 1;
+    -moz-columns: 200px 1;
+    -webkit-columns: 200px 1;
+  } 
+}
+
+.portrait {
+  /* Styles for portrait images */
+  height: 300px;
+  width: 200px;
+  background-color: #d6d6d6;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.landscape {
+  /* Styles for landscape images */
+  padding: 10px;
+  width: 100%;
+}
+
+</style>
