@@ -86,7 +86,7 @@ function removeSpecialCharactersFromURL(url) {
 			<div class="card-body position-relative px-4 pb-3">
 				<h5 class="fs-4 text-dark card-title fw-bold mb-0" style="font-size: 24px; text-wrap: pretty"><Fragment set:html={post.title.rendered} /></h5>
               <div class="my-3">
-                <p class="small m-0 text-secondary my-0" style="font-size: 16px"><Fragment set:html={post.content.rendered.slice(0,150)} /></p>
+                <p class="small m-0 text-secondary my-0" style="font-size: 16px"><Fragment set:html={post.content.rendered} /></p>
               </div>
               <div class="d-flex flex-wrap pb-3 pt-2">
                 <a href={`/airlines/${post.slug}`}>
