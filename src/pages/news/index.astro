@@ -32,7 +32,7 @@ const verticalSlide = {
 }
 
 
-const res = await fetch("https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?categories=942,1&_embed&per_page=100");
+const res = await fetch("https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?categories=942&per_page=80&_embed");
 const posts = await res.json();
 
 // const combinedPosts = allPosts.concat(posts);
