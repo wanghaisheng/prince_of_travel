@@ -6,7 +6,7 @@ import PostBody from '../../components/PostComponents/PostBody.astro';
 export const prerender = true;
 export async function getStaticPaths() {
     const newsEntries = await getCollection('news');
-    let data = await fetch("https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?categories=942&per_page=80&_embed");
+    let data = await fetch("https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?categories=942,1&per_page=80&_embed");
     let posts = await data.json();
     const combinedArray = newsEntries.concat(posts);
 
@@ -42,7 +42,7 @@ function wordCount(str) {
 // fb share btn
 function fbShare() {
   const fbShare = "https://www.facebook.com/sharer/sharer.php?u=";
-  const url = `https://princecollection.com${Astro.url.pathname}`;
+  const url = `https://princeoftravel.com${Astro.url.pathname}`;
   const shareButton = fbShare + url;
   return shareButton;
 }
@@ -50,7 +50,7 @@ function fbShare() {
 // twitter/X share btn
 function tweetCurrentPage(title) {
   const twShare = "https://twitter.com/share?url=";
-  const url = encodeURIComponent(`https://princecollection.com${Astro.url.pathname}`);
+  const url = encodeURIComponent(`https://princeoftravel.com${Astro.url.pathname}`);
   const twShareButton = twShare + url + '&text=' + title;
   return twShareButton;
 }

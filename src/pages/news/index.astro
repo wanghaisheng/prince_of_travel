@@ -31,8 +31,8 @@ const verticalSlide = {
   backwards: slideAnim,
 }
 
-
-const res = await fetch("https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?categories=942&per_page=80&_embed");
+// RBC Changes Earning Rates on the RBC® British Airways Visa Infinite†
+const res = await fetch("https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?categories=942,1&per_page=80&_embed");
 const posts = await res.json();
 
 // const combinedPosts = allPosts.concat(posts);
@@ -44,12 +44,16 @@ const [firstArticle, ...allArticles] = newsPosts;
 
 // bit-alaska post had a cross at the end of the url which threw a build error in netlify
 function removeSpecialCharactersFromURL(url) {
+    // Decode the URL
+    const decodedURL = decodeURIComponent(url);
     // Define a regular expression to match special characters
-	const regex = /[^\w\s\-#]/gi;
+    const regex = /[^a-zA-Z0-9\s\-#./]/gu;
     // Replace special characters with an empty string
-    const cleanURL = url.replace(regex, '');
+    const cleanURL = decodedURL.replace(regex, '');
     return cleanURL;
 }
+
+
 ---
 
 <Layout title="Prince Collection | News" description="Prince Collection's latest news, deals, and happenings in the travel space." image={firstArticle.data.imageUrl}>
@@ -67,6 +71,7 @@ function removeSpecialCharactersFromURL(url) {
 					{posts.slice(0,5).map((item, index) => (
 					<div class="col-lg-12 p-4">
 						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
+						<p>{item._embedded['wp:term'][0][0].slug}</p>
 						<h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4">{item.title.rendered}</h1>
 						<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt.rendered, 150)} /></div>
 						<div class="py-2">
@@ -153,7 +158,8 @@ function removeSpecialCharactersFromURL(url) {
 
 			{posts?.map((post) => (		
 			<div class="col">
-				<a href={`/news/${removeSpecialCharactersFromURL(post.slug)}/`}>
+				<a href={`/news/${post.slug}/`}>
+				<!--<a href={`/news/${removeSpecialCharactersFromURL(post.slug)}/`}>-->
 					<div class="card bg-pc-light rounded-4 p-0 border-0 shadow" style="min-height: 500px">
 						<img src="" data-src={post._embedded['wp:featuredmedia'][0].source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top rounded-top-4 w-100" style="object-fit: cover; height: 200px; filter: brightness(70%)" alt="">
 						<i class="bi bi-arrow-up-right-circle-fill text-pc-10 fs-1 position-absolute top-0 end-0 me-3 mt-2"></i>

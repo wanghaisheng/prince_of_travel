@@ -239,9 +239,9 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                     <h1 class="display-1 text-uppercase fw-900 ls-1 lh-1">/ News</h1>
                 </div>
                 {
-                 posts.filter(cat => cat._embedded['wp:term'][0][0].slug === 'news').map((article, index) => (
+                 posts.filter(cat => cat._embedded['wp:term'][0][0].slug === 'news' && cat.category_name === 'news').map((article, index) => (
                     <div class:list={[index === 0 ? 'row pb-4' : 'd-none']}>
-                        <a class="d-flex" href={`/${article._embedded['wp:term'][0][0].slug}/${article.slug}/`}>
+                        <a class="d-flex" href={`/${article.category_name}/${article.slug}/`}>
                         <div class="col-lg-6">
                             <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top w-100 h-100 object-fit rounded-start-4 p-0" style="min-height: 150px;" alt="..." data-aos="fade" />
                         </div>

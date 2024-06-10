@@ -10,5 +10,8 @@ export default defineConfig({
   output: "static",
   adapter: netlify(),
   site: 'https://princecollection.com',
-  integrations: [mdx(), sitemap(), vue()]
+  integrations: [mdx(), sitemap(), vue()],
+  prefetch: {
+    prefetchAll: true
+  }
 });
