@@ -178,7 +178,7 @@ const [firstArticle, ...allArticles] = newsPosts;
 							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {item._embedded?.author[0].name || item.data.author}</p>
 							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
 						</div>
-						<a href={`/news/${encodeURIComponent(item.slug)}/`}>
+						<a href={`/news/${item.slug}/`}>
 							<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
 						</a>
 					</div>
@@ -200,7 +200,7 @@ const [firstArticle, ...allArticles] = newsPosts;
 							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {item._embedded?.author[0].name || item.data.author}</p>
 							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
 						</div>-->
-						<a href={`/reviews/${encodeURIComponent(item.slug)}/`}>
+						<a href={`/news/${encodeURIComponent(item.slug)}/`}>
 							<button class="btn btn-dark rounded-pill px-4 mt-2">Read article</button>
 						</a>
 					</div>
@@ -221,7 +221,7 @@ const [firstArticle, ...allArticles] = newsPosts;
 							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {item._embedded?.author[0].name || item.data.author}</p>
 							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
 						</div>
-						<a href={`/reviews/${encodeURIComponent(item.slug)}/`}>
+						<a href={`/news/${encodeURIComponent(item.slug)}/`}>
 							<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
 						</a>
 			</div>
