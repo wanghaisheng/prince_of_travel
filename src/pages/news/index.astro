@@ -48,6 +48,18 @@ const [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts] = 
 // const [firstArticle, ...allArticles] = filteredPosts;
 const [firstArticle, ...allArticles] = newsPosts;
 
+function removeSpecialCharactersFromURL(url) {
+    let cleanURL = '';
+    for (let i = 0; i < url.length; i++) {
+        const char = url.charAt(i);
+        // Encode the character and append it to the clean URL
+        cleanURL += encodeURIComponent(char).replace(/[!'()*]/g, (c) => {
+            // Preserve certain characters that are allowed in URLs
+            return '%' + c.charCodeAt(0).toString(16);
+        });
+    }
+    return cleanURL;
+}
 ---
 
 <Layout title="Prince of Travel | News" description="Prince of Travel's latest news on everything from new hotel properties, to flights and airline deals, airports, credit cards, and more." image="">
@@ -150,7 +162,7 @@ const [firstArticle, ...allArticles] = newsPosts;
 		<div class="row min-vh-100">
 			{fifth3.map((item, index) => (
 				<div class="col-lg-4 p-3">
-					<a href={`/news/${encodeURIComponent(item.slug)}/`}>
+					<a href={`/news/${removeSpecialCharactersFromURL(item.slug)}/`}>
 					<div class="pb-3">
 						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
 						<h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
@@ -178,7 +190,7 @@ const [firstArticle, ...allArticles] = newsPosts;
 							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {item._embedded?.author[0].name || item.data.author}</p>
 							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
 						</div>
-						<a href={`/news/${item.slug}/`}>
+						<a href={`/news/${encodeURIComponent(item.slug)}/`}>
 							<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
 						</a>
 					</div>
