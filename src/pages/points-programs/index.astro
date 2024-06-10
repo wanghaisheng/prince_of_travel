@@ -6,7 +6,7 @@ const guidesPosts = await getCollection("guides");
 // https://docs.astro.build/en/tutorials/add-content-collections/
 import functions from '../../js/functions.js';
 
-const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/pot/v1/points';
+const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=news&_embed';
 const perPage = 51; // Number of posts per page
 let posts = [];
 let currentPage = 1;
