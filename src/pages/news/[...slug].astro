@@ -6,7 +6,7 @@ import PostBody from '../../components/PostComponents/PostBody.astro';
 export const prerender = true;
 export async function getStaticPaths() {
     const newsEntries = await getCollection('news');
-    let data = await fetch("https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?categories=942,1&per_page=80&_embed");
+    let data = await fetch("https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=news&_embed&per_page=51");
     let posts = await data.json();
     const combinedArray = newsEntries.concat(posts);
 

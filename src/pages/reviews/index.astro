@@ -3,20 +3,19 @@ import Layout from '../../layouts/Layout.astro';
 import { getCollection } from "astro:content";
 // const allPosts = await Astro.glob('../../pages/blog/*.md');
 const reviewsPosts = await getCollection("reviews");
+import PostDetail from '../../components/VueComponents/PostDetail.vue';
 // astro.glob => getCollection is the difference between getting all files from a directory in pages vs. collections
 // https://docs.astro.build/en/tutorials/add-content-collections/
 import functions from '../../js/functions.js';
 
-const { index, slug } = Astro.props
+// const { index, slug } = Astro.props
 
 const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=reviews&_embed';
-const perPage = 50; // Number of posts per page
+const perPage = 51; // Number of posts per page
 let posts = [];
 let currentPage = 1;
 let totalFetchedPosts = 0;
-// const res = await fetch("https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=reviews&_embed&per_page=50");
-// const posts = await res.json();
-while (totalFetchedPosts < 50) { // Stop when reaching 100 posts
+while (totalFetchedPosts < 50) { // Stop when reaching 50 posts
 const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
 const data = await response.json();
 // console.log('Received posts:', data);
@@ -26,8 +25,8 @@ if (data.length === 0) {
 }
 
 posts = posts.concat(data);
+console.log('Data type of array:', typeof posts);
 totalFetchedPosts += posts.length; // Update total fetched posts
-// console.log('Total posts so far:', posts.length);
 currentPage++;
 }
 
@@ -37,56 +36,14 @@ function destructureArray(array) {
     const third3 = array.slice(6, 9);
     const fourth3 = array.slice(9, 12);
     const fifth3 = array.slice(12, 15);
-    const sixth3 = array.slice(15, 3);
-    const nextSixteen = array.slice(5, 21);
-    const restOfPosts = array.slice(21);
+    const sixth5 = array.slice(15, 19);
+    const next16 = array.slice(19, 31);
+    const restOfPosts = array.slice(31);
 
-    return [first3, second3, third3, fourth3, fifth3, sixth3, nextSixteen, restOfPosts];
+    return [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts];
 }
 
-// Example usage
-// const originalArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
-const [first3, second3, third3, fourth3, restOfPosts] = destructureArray(posts);
-
-
-
-// const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=reviews';
-// const perPage = 50; // Number of posts per page
-// let allPosts = [];
-// let currentPage = 1;
-// let totalFetchedPosts = 0;
-
-// async function fetchPosts() {
-//     try {
-//         console.log('Fetching posts from page', currentPage);
-//         while (totalFetchedPosts < 100) { // Stop when reaching 200 posts
-//             const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
-//             const posts = await response.json();
-//             console.log('Received posts:', posts);
-//             if (posts.length === 0) {
-//                 console.log('No more posts, exiting loop');
-//                 break; // No more posts, exit loop
-//             }
-
-//             allPosts = allPosts.concat(posts);
-//             totalFetchedPosts += posts.length; // Update total fetched posts
-//             console.log('Total posts so far:', allPosts.length);
-//             currentPage++;
-//         }
-
-//         displayPosts();
-//     } catch (error) {
-//         console.error('Error fetching posts:', error);
-//     }
-// }
-
-// function displayPosts() {
-//     console.log('All posts:', allPosts);
-// }
-
-// // Call the function to fetch and log posts
-// fetchPosts();
-
+const [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts] = destructureArray(posts);
 
 // const combinedPosts = allPosts.concat(posts);
 
@@ -106,28 +63,23 @@ function removeSpecialCharactersFromURL(url) {
 
 ---
 
-<Layout title="Prince Collection | Reviews" description="Prince Collection's latest news, deals, and happenings in the travel space." image={firstArticle.data.imageUrl}>
-	
-
-	<!-- style={{ backgroundImage: `url(${item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl})`, backgroundSize: "cover"}} -->
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-lg-6 p-5 d-flex flex-column justify-content-center align-items-start">
-				<h5 class="fs-5 mb-0">Topic</h5>
-				<h1 class="display-1 fw-bold lh-1 ls-1 my-3">Reviews</h1>
-				<p class="fs-5 mt-0">Prince of travel reviews of hotels, airlines, and much more.</p>
+<Layout title="Prince of Travel | Reviews" description="Prince of Travel's latest reviews spanning hotels, airports and airlines, credit cards, and more." image="">
+	<div class="container-fluid" style="background: ##fffbf8">
+		<div class="row pt-5 mt-5">
+			<div class="col-md-6 p-5 d-flex flex-column justify-content-center align-items-start">
+				<div class="m-3 py-5">
+					<h5 class="fs-5 mb-0">Topic</h5>
+					<h1 class="display-1 fw-bold lh-1 ls-1 my-3">Reviews</h1>
+					<p class="fs-5 mt-0 col-lg-10 text-black-50">Welcome to our reviews section, your ultimate destination for insightful and comprehensive evaluations of hotels, airlines, airports, credit cards, and more. Whether you're a seasoned jetsetter or planning your very first trip, our curated collection of reviews aims to be your trusted companion in navigating the vast world of travel.</p>
+				</div>
 			</div>
 			{first3.map((item, index) => (
-			<div class="col-lg-6 p-5">
-				<a href={`/reviews/${removeSpecialCharactersFromURL(item.slug)}/`}>
+			<div class="col-md-6 p-4">
+				<a href={`/reviews/${encodeURIComponent(item.slug)}/`}>
 					<div class="pb-3">
-						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
+						<img src="" data-src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover; height: 350px" alt="">
 						<h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
 						<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt.rendered, 150)} /></div>
-						<!--<div class="py-2">
-							<p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {item._embedded?.author[0].name || item.data.author}</p>
-							<p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
-						</div>-->
 						<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
 					</div>
 				</a>
@@ -135,18 +87,14 @@ function removeSpecialCharactersFromURL(url) {
 			))}
 		</div><!--end row -->
 
-		<div class="row position-relative min-vh-100">
+		<div class="row min-vh-100">
 			{second3.map((item, index) => (
-				<div class="col-lg-4 p-3">
-					<a href={`/reviews/${removeSpecialCharactersFromURL(item.slug)}/`}>
+				<div class="col-md-4 p-3">
+					<a href={`/reviews/${encodeURIComponent(item.slug)}/`}>
 					<div class="pb-3">
 						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
 						<h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
 						<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt.rendered, 150)} /></div>
-						<!--<div class="py-2">
-							<p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {item._embedded?.author[0].name || item.data.author}</p>
-							<p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
-						</div>-->
 						<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
 					</div>
 				</a>
@@ -154,144 +102,141 @@ function removeSpecialCharactersFromURL(url) {
 			))}
 		</div>
 
-		<div class="row position-relative">	
+		<div class="row">	
 			{third3.map((item, index) => (	
-							
-			<div class="col-lg-6 p-5">
-				<a href={`/reviews/${removeSpecialCharactersFromURL(item.slug)}/`}>
+			<div class:list={[index === 0 ? "col-md-6" : "col-md-3", "p-4"]}>
+				<a href={`/reviews/${encodeURIComponent(item.slug)}/`}>
 					<div class="pb-3">
 						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
-						<h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
+						<h1 class:list={[index !== 0 ? "fs-3" : "", "text-body-secondary fw-bold lh-1 mb-3 mt-4"]}><Fragment set:html={item.title.rendered} /></h1>
 						<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt.rendered, 150)} /></div>
 						<!--<div class="py-2">
-							<p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {item._embedded?.author[0].name || item.data.author}</p>
-							<p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
+							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {item._embedded?.author[0].name || item.data.author}</p>
+							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
 						</div>-->
 						<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
 					</div>
 				</a>
 			</div>
 			))}
-			<div class="col-lg-6 p-5 position-sticky d-flex flex-column justify-content-center align-items-start order-2">
-				<h5 class="fs-5 mb-0">Newsletter</h5>
-				<h1 class="display-3 fw-bold lh-1 ls-1 my-3">Sign up for our Newsletter</h1>
-				<p class="fs-5 mt-0">Prince of travel reviews of hotels, airlines, and much more.</p>
-			</div>
 		</div><!--end row -->
-	</div>
 
-	<div class="container-fluid">
+		<div class="row">	
+			{fourth3.map((item, index) => (	
+			index === 0 ? 
 		
+			<div class="col-lg-6 p-4">
+				<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
+			</div>
 
-		<!-- {#each allPosts as post} -->
+			<div class="col-lg-6 p-5 d-flex flex-column justify-content-center align-items-start">
+				<a href={`/reviews/${encodeURIComponent(item.slug)}/`}>
+				<h1 class="text-body-secondary fw-bold text-balance lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
+				<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt.rendered, 150)} /></div>
+				<div class="py-2">
+					<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {item._embedded?.author[0].name || item.data.author}</p>
+					<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
+				</div>
+				<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
+				</a>
+			</div>
+			
+			:
+				
+			<div class="col-lg-6 p-4">
+				<a href={`/reviews/${encodeURIComponent(item.slug)}/`}>
+					<div class="pb-3">
+						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
+						<h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
+						<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt.rendered, 150)} /></div>
+						<!--<div class="py-2">
+							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {item._embedded?.author[0].name || item.data.author}</p>
+							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
+						</div>-->
+						<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
+					</div>
+				</a>
+			</div>
+			))}
+		</div><!--end row -->
+
+		<div class="row min-vh-100">
+			{fifth3.map((item, index) => (
+			<div class="col-lg-4 p-3">
+				<a href={`/reviews/${encodeURIComponent(item.slug)}/`}>
+				<div class="pb-3">
+					<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
+					<h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
+					<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt.rendered, 150)} /></div>
+					<!--<div class="py-2">
+						<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {item._embedded?.author[0].name || item.data.author}</p>
+						<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
+					</div>-->
+					<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
+				</div>
+				</a>
+			</div>
+			))}
+		</div>
 		
-		<div class="row" id="scrollEffect">
-			<div class="col-lg-6 left-side">
-
+		<div class="row">
+			<div class="col-lg-6">
 				<div class="row p-3">
-					{posts.slice(0,5).map((item, index) => (
+					{sixth5.map((item, index) => (
 					<div class="col-lg-12 p-4">
+						<a href={`/reviews/${encodeURIComponent(item.slug)}/`}>
 						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
 						<h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
 						<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt.rendered, 150)} /></div>
 						<div class="py-2">
-							<p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {item._embedded?.author[0].name || item.data.author}</p>
-							<p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
+							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {item._embedded?.author[0].name || item.data.author}</p>
+							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
 						</div>
-						<a href={`/reviews/${removeSpecialCharactersFromURL(item.slug)}/`}>
-							<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
+						<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
 						</a>
 					</div>
 					))}
-					
 				</div>
 			</div>
 
-			<div class="col-lg-6 p-5 right-side">
+			<div class="col-lg-6 p-5 order-1 order-lg-2">
 				<div class="col-lg-12 py-5">
-					<h1 class="display-2 fw-bold">Reviews</h1>
+					<h1 class="display-2 fw-bold">More reviews</h1>
 				</div>
 				<div class="row g-5">
-					{posts.slice(5,14).map((item, index) => (
+					{next16.map((item, index) => (
 					<div class="col-lg-6">
-						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100 rounded-top-4" style="object-fit: cover;" alt="">
+						<a href={`/reviews/${encodeURIComponent(item.slug)}/`}>
+						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
 						<h1 class="fs-5 text-body-secondary fw-bold"><Fragment set:html={item.title.rendered} /></h1>
 						<p class="col-md-8 fs-5 text-body-secondary my-0"><Fragment set:html={functions.shorten(item.excerpt.rendered, 100) + '...'}/></p>
-						<div class="py-2">
-							<p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {item._embedded?.author[0].name || item.data.author}</p>
-							<p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
-						</div>
-						<a href={`/reviews/${removeSpecialCharactersFromURL(item.slug)}/`}>
-							<button class="btn btn-dark rounded-pill px-4 mt-2">Read article</button>
+						<!--<div class="py-2">
+							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {item._embedded?.author[0].name || item.data.author}</p>
+							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
+						</div>-->
+						<button class="btn btn-dark rounded-pill px-4 mt-2">Read article</button>
 						</a>
 					</div>
 					))}
-					
 				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="container-fluid px-0 content-below">
-		<div class="row min-vh-100 bg-light">
-			<div class="col-lg-6 d-flex flex-column justify-content-center align-items-center min-vh-500 text-center p-5 mt-5 mt-lg-0 animate-in">
-				<span class="badge rounded-pill fw-bold text-bg-secondary py-2 px-4">News</span>
-				<h1 class="col-lg-10 text-body-secondary fw-bold lh-1 mb-2" style="font-size: 11vmin;">{firstArticle.data.title}</h1>
-				<p class="col-md-8 fs-5 text-body-secondary mt-0 mb-2">{functions.shorten(firstArticle.data.description, 150) + '...'}</p>
-				<div class="py-2">
-					<p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {firstArticle.data.author}</p>
-					<p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {firstArticle.data.pubDate.toString().slice(0,10)}</p>
-				</div>
-				<a href={`/news/${removeSpecialCharactersFromURL(firstArticle.slug)}/`}>
-					<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
-				</a>
-			</div>
-			<div class="col-lg-6">
-				<img src={firstArticle.data.imageUrl} class="w-100 h-100" style="object-fit: cover;" alt={firstArticle.data.imageAlt}>
 			</div>
 		</div>
 
 		<div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-3 p-4">
-			{allArticles?.map((post) => (
-			<div class="col">
-				<a href={`/news/${post.slug}/`}>
-					<div class="card bg-pc-light rounded-4 p-0 border-0 shadow" style="min-height: 500px">
-						<img src="" data-src={post.data.imageUrl} class="card-img-top rounded-top-4 w-100" style="object-fit: cover; height: 200px; filter: brightness(70%)" alt={post.data.imageAlt}>
-						<i class="bi bi-arrow-up-right-circle-fill text-pc-10 fs-1 position-absolute top-0 end-0 me-3 mt-2"></i>
-						<div class="card-body position-relative px-4 pb-4">
-							<p class="small mb-2">{post.data.pubDate.toString().slice(0,10)}</p>
-							<h5 class="card-title fw-bold mb-0">{post.data.title}</h5>
-							<p class="small m-0 text-secondary mt-2 mb-0">By: {post.data.author}</p>
-							<p class="card-text text-body-secondary pe-4">{functions.shorten(post.data.description, 150) + '...'}</p>
-						</div>
-						<div class="card-footer p-3">
-							<div class="d-flex flex-row flex-wrap" style="text-wrap: pretty;">
-							{post.data.tags.map((tag) => (
-								<p class="small text-pc-dark-80 me-1 my-0">#{tag}</p>
-							))}
-							</div>
-						</div>
-					</div>
+			{restOfPosts?.map((item) => (
+			<div class="col p-3">
+				<a href={`/reviews/${encodeURIComponent(item.slug)}/`}>
+				<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data?.imageUrl} class="w-100" style="object-fit: cover;" alt="">
+				<h1 class="fs-3 text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
+				<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt.rendered, 150)} /></div>
+				<div class="py-2">
+					<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {item._embedded?.author[0].name || item.data.author}</p>
+					<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
+				</div>					
+				<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
 				</a>
 			</div>
-			))}
-
-			{posts?.map((post) => (		
-			<div class="col">
-				<a href={`/news/${removeSpecialCharactersFromURL(post.slug)}/`}>
-					<div class="card bg-pc-light rounded-4 p-0 border-0 shadow" style="min-height: 500px">
-						<img src="" data-src={post._embedded['wp:featuredmedia'][0].source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top rounded-top-4 w-100" style="object-fit: cover; height: 200px; filter: brightness(70%)" alt="">
-						<i class="bi bi-arrow-up-right-circle-fill text-pc-10 fs-1 position-absolute top-0 end-0 me-3 mt-2"></i>
-						<div class="card-body position-relative px-4 pb-4">
-							<p class="small mb-2">{post.date.toString().slice(0,10)}</p>
-							<h5 class="card-title fw-bold mb-0"><Fragment set:html={post.title.rendered} /></h5>
-							<p class="small m-0 text-secondary mt-2 mb-0">By: {post._embedded?.author[0].name}</p>
-							<p class="card-text text-body-secondary pe-4">{functions.shorten(post.excerpt.rendered, 150) + '...'}</p>
-						</div>
-					</div>
-				</a>
-			</div>
-			))}		
+			))}	
 		</div>
 	</div>
 </Layout>
