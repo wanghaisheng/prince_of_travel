@@ -49,15 +49,10 @@ const [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts] = 
 const [firstArticle, ...allArticles] = newsPosts;
 
 function removeSpecialCharactersFromURL(url) {
-    let cleanURL = '';
-    for (let i = 0; i < url.length; i++) {
-        const char = url.charAt(i);
-        // Encode the character and append it to the clean URL
-        cleanURL += encodeURIComponent(char).replace(/[!'()*]/g, (c) => {
-            // Preserve certain characters that are allowed in URLs
-            return '%' + c.charCodeAt(0).toString(16);
-        });
-    }
+    // Define a regular expression to match special characters
+	const regex = /[^\w\s\-#]/gi;
+    // Replace special characters with an empty string
+    const cleanURL = url.replace(regex, '');
     return cleanURL;
 }
 ---
@@ -162,7 +157,7 @@ function removeSpecialCharactersFromURL(url) {
 		<div class="row min-vh-100">
 			{fifth3.map((item, index) => (
 				<div class="col-lg-4 p-3">
-					<a href={`/news/${removeSpecialCharactersFromURL(item.slug)}/`}>
+					<a href={`/news/${encodeURIComponent(item.slug)}/`}>
 					<div class="pb-3">
 						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
 						<h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
