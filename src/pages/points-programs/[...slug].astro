@@ -6,7 +6,7 @@ import PostBody from '../../components/PostComponents/PostBody.astro';
 export const prerender = true;
 export async function getStaticPaths() {
     const newsEntries = await getCollection('news');
-    let data = await fetch("https://pftravelstage.wpengine.com/wp-json/pot/v1/points?per_page=50");
+    let data = await fetch("https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=news&_embed&per_page=51");
     let posts = await data.json();
     const combinedArray = newsEntries.concat(posts);
 
@@ -42,7 +42,7 @@ function wordCount(str) {
 // fb share btn
 function fbShare() {
   const fbShare = "https://www.facebook.com/sharer/sharer.php?u=";
-  const url = `https://princecollection.com${Astro.url.pathname}`;
+  const url = `https://princeoftravel.com${Astro.url.pathname}`;
   const shareButton = fbShare + url;
   return shareButton;
 }
@@ -50,7 +50,7 @@ function fbShare() {
 // twitter/X share btn
 function tweetCurrentPage(title) {
   const twShare = "https://twitter.com/share?url=";
-  const url = encodeURIComponent(`https://princecollection.com${Astro.url.pathname}`);
+  const url = encodeURIComponent(`https://princeoftravel.com${Astro.url.pathname}`);
   const twShareButton = twShare + url + '&text=' + title;
   return twShareButton;
 }
@@ -59,7 +59,7 @@ function tweetCurrentPage(title) {
 function emailPage(title) {
   const href = "mailto:?";
   const url = encodeURIComponent(Astro.url.pathname);
-  const emailShare = href + 'subject=' +  title + '&body=' + 'Check out this great post I found from returnofthelivingdad.com: ' + url;
+  const emailShare = href + 'subject=' +  title + '&body=' + 'Check out this great post I found from princeoftravel.com: ' + url;
   return emailShare;
 }
 const url = encodeURIComponent(Astro.url.pathname);
