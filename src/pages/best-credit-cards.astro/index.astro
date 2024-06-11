@@ -7,43 +7,6 @@ const bccPosts = await getCollection("best-credit-cards");
 // https://docs.astro.build/en/tutorials/add-content-collections/
 import functions from '../../js/functions.js';
 
-const { index, slug } = Astro.props
-
-const slideAnim = {
-  old: {
-    name: 'slideDown',
-    duration: '0.5s',
-    easing: 'ease-out',
-    fillMode: 'backwards',
-  },
-  new: {
-    name: 'slideUp',
-    duration: '0.5s',
-    delay: `${index * 0.2 + 0.1}s`,
-    easing: 'ease-out',
-    fillMode: 'backwards',
-  },
-}
-const verticalSlide = {
-  forwards: slideAnim,
-  backwards: slideAnim,
-}
-
-// credit cards
-// https://princeoftravel.com/wp-json/wp/v2/posts?categories=313 best deals (&300+ value)
-// https://princeoftravel.com/wp-json/wp/v2/posts?categories=441 No Fee / First Year Free
-// https://princeoftravel.com/wp-json/wp/v2/posts?categories=311 Best travel benefits
-// https://princeoftravel.com/wp-json/wp/v2/posts?categories=442 Business Credit Cards
-// 310 US Credit Cards Currently 0 posts with this cat
-// Tags 17 (credit cards = 287), 121 (US credit cards = 61)
-
-// fetch('https://princeoftravel.com/wp-json/wp/v2/posts&_embed=true&per_page=20')
-//  .then(response => response.json())
-//  .then(posts => {
-//     const filteredPosts = posts.filter(post => post.slug.startsWith('credit-cards'));
-//     console.log(filteredPosts);
-//  });
-
 // const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?filter[name]=best-credit-cards&per_page=50&_embed=true");
 // const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?tax_query[0][taxonomy]=category&tax_query[0][field]=term_id&tax_query[0][terms]=313,311,%20442,%20441&tax_query[1][taxonomy]=post_tag&tax_query[1][field]=term_id&tax_query[1][terms]=17,121&per_page=50&_embed=true");
 // const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?tags=17&per_page=50&_embed");
@@ -51,15 +14,7 @@ const verticalSlide = {
 // const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?categories=313,441,311,442&_embed=true&per_page=50");
 
 const res = await fetch("https://pftravelstage.wpengine.com/wp-json/pot/v1/best-credit-cards?per_page=100");
-// const res = await fetch("https://pftravelstage.wpengine.com/wp-json/pot/v1/credit-cards?per_page=100");
-
-// const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/pages?per_page=50&_embed=true");
-// const res = await fetch("https://princeoftravel.com/wp-json/wp/v2/posts?categories=441&_embed=true&per_page=30");
 const posts = await res.json();
-// doesn't work? // doesn't work? the credit-cards and best-credit-cards portion of the slug are dynamic
-// const filteredPosts = posts.filter(post => post.slug.startsWith('amex'));
-// console.log(filteredPosts.slice(0,5));
-
 const combinedPosts = bccPosts.concat(posts);
 
 // let filteredPosts = allPosts.filter(post => post.data.draft === false)
@@ -90,7 +45,7 @@ const [firstArticle, ...allArticles] = combinedPosts;
 		</div>
 
 		<div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-3 p-4">
-			{ bccPosts?.map((post) => (
+			<!-- { bccPosts?.map((post) => (
 			<div class="col">
 				<a href={`/${post.data.category}/${post.slug}/`}>
 					<div class="card bg-pc-light rounded-4 p-0 border-0 shadow" style="min-height: 500px">
@@ -112,7 +67,7 @@ const [firstArticle, ...allArticles] = combinedPosts;
 					</div>
 				</a>
 			</div>
-			))}
+			))} -->
 
 			<!--post._embedded['wp:term'][1][0].slug == 'credit-cards' &&-->
 
