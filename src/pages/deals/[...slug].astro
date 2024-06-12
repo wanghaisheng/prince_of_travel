@@ -127,46 +127,7 @@ function shorten(text, max) {
     <!--body/sidebar-->
     <div class="container w-100 mx-auto">
         <div id="content" class="row p-4">
-            <!-- sidebar -->
-            <!-- <div class="d-none d-xl-flex flex-column col-lg-2 col-lg-3 pt-5">
-                <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {post._embedded?.author[0].name || post.data.author}</p>
-                    <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {post.date?.toString().slice(0,10) || post.data.pubDate.toString().slice(0,10)}</p>
-                    <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Read time </span> {wordCount(post.content?.rendered || post.body)} mins</p>
-                <hr>
-                <p><span class="fw-bold text-pc-dark">Prince of Travel</span> is a non-traditional, full service travel concierge designed exclusively for companies and individuals who require exclusive travel arrangements. We handle the nuances of travel ensuring a seamless and extraordinary journey from start to finish.</p>
-                <hr>
-                <div>
-                    <h4 class="fs-5 fw-bold text-pc-dark">Newsletter</h4>
-                    <p>Join the Prince Collection newsletter to get weekly updates delivered straight to your inbox.</p>
-                    <div class="klaviyo-form-UGQNyX"></div>
-                </div>
-                <hr>
-                <div>
-                    <h4 class="fs-5 fw-bold text-pc-dark">Book your travel</h4>
-                    <p>Let Prince Collection’s Travel Concierge handle your exclusive travel arrangements. Get started by filling out some basic info about your trip.</p>
-                    <a href="https://princecollection.com" target="_blank">
-                        <button class="btn btn-pc">Book now</button>
-                    </a>
-                </div>
-                <hr>
-                <h2 class="text-secondary mb-3">More posts</h2>
-    
-            </div> -->
             <div class="content-body col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 px-4 py-5">
-                <!--table of contents check and loop-->
-                { post.contents &&
-                <details class="bg-body-secondary p-3 mb-4 rounded-3" style="transition: all .3s ease-in-out;">
-                    <summary class="fs-5 fw-bold text-black-50">What's in this post</summary>
-                    <div class="px-3 py-2">
-                        {post.contents.map((item) => (
-                        <a href={'#' +  item}>
-                            <p class="my-2" style="font-size: 17px"><i class="bi bi-diamond text-secondary fw-bold me-1"></i> {item}</p>
-                        </a>
-                        ))}
-                    </div>
-                </details>
-                }
-               <!--<Content />-->
                {post.content?.rendered ?
                 <Fragment id="postContent" set:html={post.content?.rendered} /> 
                 :
