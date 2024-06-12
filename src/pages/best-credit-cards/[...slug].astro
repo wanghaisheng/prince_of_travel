@@ -120,7 +120,7 @@ function shorten(text, max) {
     date={post.date?.toString().slice(0,10) || post.data.pubDate.toString().slice(0,10)}
     description={post.excerpt || post.data?.description}
     readTime={wordCount(post.content) || wordCount(post.body)}
-    featuredImage={post.featured_image.large || post.data?.imageUrl}
+    featuredImage={post.featured_image?.large || post.data?.imageUrl}
     carousel=""
     tags={post.data?.tags}
     toc={post.data?.contents}

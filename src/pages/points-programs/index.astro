@@ -9,7 +9,7 @@ import functions from '../../js/functions.js';
 // const data = await 'https://pftraveldev.wpengine.com/wp-json/pot/v1/points&_embed';
 // const posts = await data.json();
 
-const res = await fetch("https://pftraveldev.wpengine.com/wp-json/pot/v1/points");
+const res = await fetch("https://pftraveldev.wpengine.com/wp-json/pot/v1/points?per_page=100");
 const posts = await res.json();
 
 // const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/pot/v1/points&_embed';
