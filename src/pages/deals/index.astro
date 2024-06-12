@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from "astro:content";
-const dealsPosts = await getCollection("deals");
+// import { getCollection } from "astro:content";
+// const dealsPosts = await getCollection("deals");
 import functions from '../../js/functions.js';
 
 const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=deals&_embed';
@@ -44,7 +44,7 @@ const [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts] = 
 // let filteredPosts = allPosts.filter(post => post.data.draft === false)
 // filteredPosts.sort((a, b) => b.data.pubDate - a.data.pubDate);
 // const [firstArticle, ...allArticles] = filteredPosts;
-const [firstArticle, ...allArticles] = dealsPosts;
+// const [firstArticle, ...allArticles] = dealsPosts;
 
 ---
 
