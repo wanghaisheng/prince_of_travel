@@ -1,0 +1,205 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+// import { Markdown } from '@astropub/md'
+import PostBody from '../../components/PostComponents/PostBody.astro';
+
+export const prerender = true;
+export async function getStaticPaths() {
+    const ccEntries = await getCollection('credit-cards');
+    const response = await fetch("http://pftravelstage.wpengine.com/wp-json/pot/v1/best-credit-cards");
+    const posts = await response.json();
+    const combinedArray = ccEntries.concat(posts);
+
+  return combinedArray.map(post => ({
+    params: { slug: post.slug }, 
+    props: { post }
+  }));
+  
+  // return combinedArray.map(post => ({
+  //   params: { slug: post.slug }, 
+  //   props: { post }
+  // }));
+}
+
+const { post } = Astro.props;
+
+// const allPosts = await getCollection("best-credit-cards");
+// let filteredPosts = allPosts.filter(post => post.data.draft === false)
+// const { Content } = await post.render();
+
+// Remove space, add hyphens to titles, convert to lowerCase to be used for hyperlinks
+function tableOfContents(str) {
+    // Convert the string to lowercase
+    let lowercaseStr = str.toLowerCase();
+    // Replace spaces with hyphens
+    let hyphenatedStr = lowercaseStr.replace(/ /g, '-');
+    return hyphenatedStr;
+}
+
+// get read time
+// function wordCount(str) {
+//   const words = str.match(/(\w+)/g).length;
+//   const readMins = Math.trunc(words / 250);
+//   return readMins;
+// }
+
+function wordCount(str) {
+  if (!str || typeof str !== 'string') {
+    return 0; // Return 0 if str is undefined, null, or not a string
+  }
+  const words = str.match(/(\w+)/g);
+  if (!words) {
+    return 0; // Return 0 if no words are found in the string
+  }
+  const readMins = Math.trunc(words.length / 250);
+  return readMins;
+}
+
+// share
+// fb share btn
+function fbShare() {
+  const fbShare = "https://www.facebook.com/sharer/sharer.php?u=";
+  const url = `https://princecollection.com${Astro.url.pathname}`;
+  const shareButton = fbShare + url;
+  return shareButton;
+}
+
+// twitter/X share btn
+function tweetCurrentPage(title) {
+  const twShare = "https://twitter.com/share?url=";
+  const url = encodeURIComponent(`https://princecollection.com${Astro.url.pathname}`);
+  const twShareButton = twShare + url + '&text=' + title;
+  return twShareButton;
+}
+
+// email page
+function emailPage(title) {
+  const href = "mailto:?";
+  const url = encodeURIComponent(Astro.url.pathname);
+  const emailShare = href + 'subject=' +  title + '&body=' + 'Check out this great post I found from princeoftravel.com: ' + url;
+  return emailShare;
+}
+const url = encodeURIComponent(Astro.url.pathname);
+
+const { index } = Astro.props
+const slideAnim = {
+  old: {
+    name: 'slideDown',
+    duration: '0.7s',
+    easing: 'linear',
+    fillMode: 'forwards',
+  },
+  new: {
+    name: 'slideUp',
+    duration: '0.7s',
+    delay: `${index * 0.2 + 0.1}s`,
+    easing: 'ease-in-out',
+    fillMode: 'backwards',
+  },
+}
+const verticalSlide = {
+  forwards: slideAnim,
+  backwards: slideAnim,
+}
+
+// reduce length of post description to closest full word
+function shorten(text, max) {
+  return text && text.length > max ? text.slice(0, max).split(' ').slice(0, -1).join(' ') : text
+}
+---
+
+<Layout title={post.title || post.data.title} description="" image="">
+
+    <PostBody
+    category="best-credit-cards"
+    title={post.title || post.data.title}
+    backToUrl="best-credit-cards"
+    backToText="Best Credit Cards"
+    author={post.author || post.data.author}
+    date={post.date?.toString().slice(0,10) || post.data.pubDate.toString().slice(0,10)}
+    description={post.excerpt || post.data?.description}
+    readTime={wordCount(post.content) || wordCount(post.body)}
+    featuredImage={post.featured_image.large || post.data?.imageUrl}
+    carousel=""
+    tags={post.data?.tags}
+    toc={post.data?.contents}
+    postContent={post.content}
+    postBody={post.body}
+    fbShare={fbShare()}
+    tweetCurrentPage={tweetCurrentPage(post.title)}
+    emailPage={emailPage(post.title)}
+    />
+
+    <div class="container-fluid px-0 pt-3">
+        <div class="row min-vh-500 bg-gold-2 pt-5">
+          <div class="col-lg-6 d-flex flex-column justify-content-end align-items-start text-start p-5">
+            <a href="/best-credit-cards">
+                <div class="d-flex align-items-center" data-aos="fade-up">
+                    <i class="bi bi-arrow-left text-black-50 fs-1"></i>
+                    <h6 class="ms-2 my-0 text-black-50 fw-light">Back to Best Credit Cards</h6>
+                </div>
+            </a>
+            <h1 class="text-secondary fw-bold my-3" style="font-size: 12vmin;" data-aos="fade-up" data-aos-delay="200">{post.title || post.data?.title}</h1>
+            <!-- <p class="fs-5 col-md-7 text-body-secondary mb-3 mt-3" data-aos="fade-up" data-aos-delay="400">{post.description}</p> -->
+            <div data-aos="fade-up" data-aos-delay="600">
+                <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {post.pubDate?.toString().slice(0,10) || post.date?.toString().slice(0,10)}</p>
+                <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Read time </span>  {wordCount(post.body) || wordCount(post.content)} mins</p>
+            </div>
+        </div>
+
+            <div class="col-lg-12 d-flex flex-column justify-content-center align-items-center pt-5">
+              <img class="w-100 object-fit" style="height: 500px" src="" data-src={post.data?.imageUrl || post.featured_large} alt={post.data?.imageAlt} />
+            </div>
+        </div>
+    </div>
+
+
+    <!-- body -->
+    <div class="container w-100 mx-auto">
+        <div id="content" class="row p-4">
+            <div class="content-body col-lg-12 col-xl-9 p-4 p-lg-5">
+            </div>
+            
+            <div class="col-lg-12 d-block d-xl-none border-top p-4">
+                <div class="py-2">
+                <p><span class="fw-bold text-pc-dark">Prince of Travel</span> is a non-traditional, full service travel concierge designed exclusively for companies and individuals who require exclusive travel arrangements. We handle the nuances of travel ensuring a seamless and extraordinary journey from start to finish.</p>
+                </div>
+                <hr>
+                <div class="py-2">
+                    <h4 class="fs-5 fw-bold text-pc-dark">Newsletter</h4>
+                    <p>Join the Prince Collection newsletter to get weekly updates delivered straight to your inbox.</p>
+                    <div class="klaviyo-form-UGQNyX"></div>
+                </div>
+                <hr>
+                <div class="py-2">
+                    <h4 class="fs-5 fw-bold text-pc-dark">Book your travel</h4>
+                    <p>Let Prince Collection’s Travel Concierge handle your exclusive travel arrangements. Get started by filling out some basic info about your trip.</p>
+                    <a href="/book">
+                        <button class="btn btn-pc">Book now</button>
+                    </a>
+                </div>
+                <hr>
+                <div class="container-fluid">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</Layout>
+
+<script>
+// var targetParagraph = document.querySelector('#content .content-body p:nth-of-type(3)');
+// var dynamicContent = '<div id="custom-div" class="bg-primary text-light">Nostrud elit qui amet nisi nulla ea ullamco. Nulla aliqua aute et deserunt mollit et deserunt dolor duis Lorem nulla aliquip. Veniam sit voluptate velit quis dolor pariatur anim culpa reprehenderit irure qui sint. Veniam qui sunt proident velit incididunt tempor Lorem in sit laborum officia exercitation culpa dolor.</div>';
+// targetParagraph.insertAdjacentHTML('afterend', dynamicContent);
+
+    const toastTrigger = document.getElementById('liveToastBtn');
+    const toastLiveExample = document.getElementById('liveToast');
+        if (toastTrigger) {
+        toastTrigger.addEventListener('click', () => {
+            const toast = new bootstrap.Toast(toastLiveExample)
+            toast.show();
+            navigator.clipboard.writeText("https://princecollection.com" + window.location.pathname);
+        })
+    }
+  </script>

@@ -29,10 +29,10 @@ import { Markdown } from '@astropub/md';
 
         <div class="row">
 
-{ slider ?
+{ !slider ?
               
     <div class="col-lg-12 d-flex flex-column justify-content-center align-items-center px-0">
-    <img class="w-100 object-fit" style="height: 65vh" src={featuredImage} alt="" />
+    <img class="w-100 object-fit" style="height: 65vh" src="" data-src={featuredImage} alt="" />
     </div>
   
     :
@@ -123,7 +123,7 @@ import { Markdown } from '@astropub/md';
             }
            <!--<Content />-->
            {postContent ?
-            <Fragment set:html={postContent} /> 
+            <Fragment id="postContent" set:html={postContent} /> 
             :
             <Markdown of={postBody} />
             }

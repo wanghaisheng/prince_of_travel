@@ -1,0 +1,161 @@
+---
+import Layout from '../../layouts/Layout.astro';
+// import { getCollection } from "astro:content";
+// const bccPosts = await getCollection("best-credit-cards");
+// astro.glob => getCollection is the difference between getting all files from a directory in pages vs. collections
+// https://docs.astro.build/en/tutorials/add-content-collections/
+import functions from '../../js/functions.js';
+
+const response = await fetch("http://pftravelstage.wpengine.com/wp-json/pot/v1/best-credit-cards");
+const posts = await response.json();
+
+// const apiUrl = 'http://pftravelstage.wpengine.com/wp-json/pot/v1/best-credit-cards';
+// const perPage = 51; // Number of posts per page
+// let posts = [];
+// let currentPage = 1;
+// let totalFetchedPosts = 0;
+// while (totalFetchedPosts < 50) { // Stop when reaching 50 posts
+// const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
+// const data = await response.json();
+// // console.log('Received posts:', data);
+// if (data.length === 0) {
+// 	console.log('No more posts, exiting loop');
+// 	break; // No more posts, exit loop
+// }
+
+// posts = posts.concat(data);
+// console.log('Data type of array:', typeof posts);
+// totalFetchedPosts += posts.length; // Update total fetched posts
+// currentPage++;
+// }
+
+function destructureArray(array) {
+    const first3 = array.slice(0, 3);
+    const second3 = array.slice(3, 6);
+    const third3 = array.slice(6, 9);
+    const fourth3 = array.slice(9, 12);
+    const fifth3 = array.slice(12, 15);
+    const sixth5 = array.slice(15, 19);
+    const next16 = array.slice(19, 31);
+    const restOfPosts = array.slice(31);
+
+    return [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts];
+}
+
+const [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts] = destructureArray(posts);
+
+// const combinedPosts = allPosts.concat(posts);
+
+// let filteredPosts = allPosts.filter(post => post.data.draft === false)
+// filteredPosts.sort((a, b) => b.data.pubDate - a.data.pubDate);
+// const [firstArticle, ...allArticles] = filteredPosts;
+// const [firstArticle, ...allArticles] = bccPosts;
+
+function removeSpecialCharactersFromURL(url) {
+    // Define a regular expression to match special characters
+	const regex = /[^\w\s\-#]/gi;
+    // Replace special characters with an empty string
+    const cleanURL = url.replace(regex, '');
+    return cleanURL;
+}
+---
+
+<Layout title="Prince of Travel | Best Credit Cards" description="Prince of Travel's latest best-credit-cards on everything from new hotel properties, to flights and airline deals, airports, credit cards, and more." image="">
+	<div class="container-fluid" style="background: ##fffbf8">
+		<div class="row pt-5 mt-5">
+			<div class="col-md-6 p-5 d-flex flex-column justify-content-center align-items-start">
+				<div class="m-3 py-5">
+					<h5 class="fs-5 mb-0">Topic</h5>
+					<h1 class="display-1 fw-bold lh-1 ls-1 my-3">Best Credit Cards</h1>
+					<p class="fs-5 mt-0 col-lg-10 text-black-50">Explore Canada's premier credit card offerings and delve into comprehensive reviews detailing the top cards for travel, hotels, cash back, points, and more. Stay ahead of the curve, optimize rewards, and find your ideal financial companion for every adventure, all with our expert guidance.</p>
+				</div>
+			</div>
+			{first3.map((item, index) => (
+			<div class="col-md-6 p-4">
+				<a href={`/best-credit-cards/${encodeURIComponent(item.slug)}/`}>
+					<div class="pb-3">
+						<img src="" data-src={item.featured_image.large || item.data.imageUrl} class="w-100" style="object-fit: cover; height: 350px" alt="">
+						<h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title} /></h1>
+						<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt, 150)} /></div>
+						<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
+					</div>
+				</a>
+			</div>
+			))}
+		</div><!--end row -->
+
+		<div class="row min-vh-100">
+			{second3.map((item, index) => (
+				<div class="col-md-4 p-3">
+					<a href={`/best-credit-cards/${encodeURIComponent(item.slug)}/`}>
+					<div class="pb-3">
+						<img src={item.featured_image.large || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
+						<h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title} /></h1>
+						<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt, 150)} /></div>
+						<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
+					</div>
+				</a>
+				</div>
+			))}
+		</div>
+
+        <div class="row">	
+			{third3.map((item, index) => (	
+                <div class="col-lg-6 p-4">
+                    <img src="" data-src={item.featured_image.large || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
+                </div>
+
+                <div class="col-lg-6 p-5 d-flex flex-column justify-content-center align-items-start">
+                    <a href={`/reviews/${encodeURIComponent(item.slug)}/`}>
+                    <h1 class="text-body-secondary fw-bold text-balance lh-1 mb-3 mt-4"><Fragment set:html={item.title} /></h1>
+                    <div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt, 150)} /></div>
+                    <div class="py-2">
+                        <p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
+                    </div>
+                    <button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
+                    </a>
+                </div>
+
+		
+			))}
+		</div><!--end row -->
+
+		<div class="row">	
+			{fourth3.map((item, index) => (	
+				
+			<div class="col-lg-4 p-4">
+				<a href={`/best-credit-cards/${encodeURIComponent(item.slug)}/`}>
+					<div class="pb-3">
+						<img src="" data-src={item.featured_image.large || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
+						<h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title} /></h1>
+						<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt, 150)} /></div>
+						<div class="py-2">
+                            <p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
+                        </div>
+						<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
+					</div>
+				</a>
+			</div>
+			))}
+		</div><!--end row -->
+		
+		<div class="row min-vh-100">
+			{fifth3.map((item, index) => (
+				<div class="col-lg-6 p-3">
+					<a href={`/best-credit-cards/${encodeURIComponent(item.slug)}/`}>
+					<div class="pb-3">
+						<img src="" data-src={item.featured_image.large || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
+						<h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title} /></h1>
+						<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt, 150)} /></div>
+						<div class="py-2">
+                            <p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
+                        </div>
+						<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
+					</div>
+				</a>
+				</div>
+			))}
+		</div>
+		
+	</div>
+</Layout>
