@@ -191,7 +191,7 @@ function shorten(text, max) {
                 </details>
                 }
                <!--<Content />-->
-               {post.content ?
+               {post.content?.rendered ?
                 <Fragment id="postContent" set:html={post.content.rendered} /> 
                 :
                 <Markdown of={post.body} />
