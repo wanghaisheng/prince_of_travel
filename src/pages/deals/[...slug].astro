@@ -128,11 +128,12 @@ function shorten(text, max) {
     <div class="container w-100 mx-auto">
         <div id="content" class="row p-4">
             <div class="content-body col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 px-4 py-5">
-               {post.content?.rendered ?
+                <div class=""><Fragment set:html={post.content?.rendered} /></div>
+               <!-- {post.content?.rendered ?
                 <Fragment id="postContent" set:html={post.content?.rendered} /> 
                 :
                 <Markdown of={post.body} />
-                }
+                } -->
                 <!-- share -->
                 <div class="d-flex border-top py-3 mt-4">
                     <h6 class="ms-2 my-0 text-black-50 fw-bold">Share this post</h6>
@@ -202,7 +203,7 @@ function shorten(text, max) {
         toastTrigger.addEventListener('click', () => {
             const toast = new bootstrap.Toast(toastLiveExample)
             toast.show();
-            navigator.clipboard.writeText("https://princecollection.com" + window.location.pathname);
+            navigator.clipboard.writeText("https://princeoftravel.com" + window.location.pathname);
         })
     }
   </script>
