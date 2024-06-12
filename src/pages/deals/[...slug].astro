@@ -1,16 +1,17 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import { Markdown } from '@astropub/md';
+// import { Markdown } from '@astropub/md';
 
 export const prerender = true;
 export async function getStaticPaths() {
     const dealsEntries = await getCollection('deals');
     let data = await fetch("https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=deals&_embed&per_page=51");
     let posts = await data.json();
-    const combinedArray = dealsEntries.concat(posts);
+    // const combinedArray = dealsEntries.concat(posts);
 
-  return combinedArray.map(post => ({
+//   return combinedArray.map(post => ({
+  return posts.map(post => ({
     params: { slug: post.slug }, 
     props: { post }
   }));
@@ -103,10 +104,10 @@ function shorten(text, max) {
                 </a>
     
                 <h1 class="fw-bold text-body-secondary lh-2 ls-1 mb-4 mt-2" style="font-size: 12vmin;">
-                    <Fragment set:html={post.title.rendered} />
+                    <Fragment set:html={post.title?.rendered} />
                 </h1>
                 <div class="fs-4 text-body-secondary" data-aos="fade-up" data-aos-delay="400">
-                    <Fragment class="my-0" set:html={post.excerpt.rendered} />
+                    <Fragment class="my-0" set:html={post.excerpt?.rendered} />
                 </div>
     
                 <div class="mt-3" data-aos="fade-up" data-aos-delay="600">
