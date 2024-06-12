@@ -1,3 +1,9 @@
+/* post index pages */
+
+.post-category-title {
+  font-size: 8vmax;
+  color: rgba(0, 0, 0, .5) !important;
+}
 /* post content  */
 
 #content, 

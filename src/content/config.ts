@@ -77,6 +77,25 @@ const blog = defineCollection({
     })
   });
   
+  const deals = defineCollection({
+    type: 'content',
+    schema: z.object({
+      title: z.string(),
+      pubDate: z.date(),
+      description: z.string(),
+      SEOdescription: z.string(),
+      author: z.string(),
+      imageUrl: z.string(),
+      imageAlt: z.string(),
+      category: z.string(),
+      tags: z.array(z.string()),
+      featured: z.string(),
+      contents: z.array(z.object()),
+      carousel: z.array(z.object()),
+      gallery: z.array(z.object())
+    })
+  });
+  
   const credit_cards = defineCollection({
     type: 'content',
     schema: z.object({

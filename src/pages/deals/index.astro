@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-// import { getCollection } from "astro:content";
-// const dealsPosts = await getCollection("deals");
+import { getCollection } from "astro:content";
+const dealsPosts = await getCollection("deals");
 import functions from '../../js/functions.js';
 
 const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=deals&_embed';
@@ -60,7 +60,7 @@ const [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts] = 
 			</div>
 			{first3.map((item, index) => (
 			<div class="col-md-6 p-4">
-				<a href={`/news/${encodeURIComponent(item.slug)}/`}>
+				<a href={`/deals/${encodeURIComponent(item.slug)}/`}>
 					<div class="pb-3">
 						<img src="" data-src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover; height: 350px" alt="">
 						<h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
@@ -75,7 +75,7 @@ const [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts] = 
 		<div class="row min-vh-100">
 			{second3.map((item, index) => (
 				<div class="col-md-4 p-3">
-					<a href={`/news/${encodeURIComponent(item.slug)}/`}>
+					<a href={`/deals/${encodeURIComponent(item.slug)}/`}>
 					<div class="pb-3">
 						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
 						<h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
@@ -90,7 +90,7 @@ const [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts] = 
 		<div class="row">	
 			{third3.map((item, index) => (	
 			<div class:list={[index === 0 ? "col-md-6" : "col-md-3", "p-4"]}>
-				<a href={`/news/${encodeURIComponent(item.slug)}/`}>
+				<a href={`/deals/${encodeURIComponent(item.slug)}/`}>
 					<div class="pb-3">
 						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
 						<h1 class:list={[index !== 0 ? "fs-3" : "", "text-body-secondary fw-bold lh-1 mb-3 mt-4"]}><Fragment set:html={item.title.rendered} /></h1>
@@ -115,7 +115,7 @@ const [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts] = 
 			</div>
 
 			<div class="col-lg-6 p-5 d-flex flex-column justify-content-center align-items-start">
-				<a href={`/news/${encodeURIComponent(item.slug)}/`}>
+				<a href={`/deals/${encodeURIComponent(item.slug)}/`}>
 				<h1 class="text-body-secondary fw-bold text-balance lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
 				<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt.rendered, 150)} /></div>
 				<div class="py-2">
@@ -129,7 +129,7 @@ const [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts] = 
 			:
 				
 			<div class="col-lg-6 p-4">
-				<a href={`/news/${encodeURIComponent(item.slug)}/`}>
+				<a href={`/deals/${encodeURIComponent(item.slug)}/`}>
 					<div class="pb-3">
 						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
 						<h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
@@ -148,7 +148,7 @@ const [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts] = 
 		<div class="row min-vh-100">
 			{fifth3.map((item, index) => (
 				<div class="col-lg-4 p-3">
-					<a href={`/news/${encodeURIComponent(item.slug)}/`}>
+					<a href={`/deals/${encodeURIComponent(item.slug)}/`}>
 					<div class="pb-3">
 						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
 						<h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>

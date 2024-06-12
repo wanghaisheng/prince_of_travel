@@ -48,16 +48,23 @@ const [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts] = 
 // const [firstArticle, ...allArticles] = filteredPosts;
 const [firstArticle, ...allArticles] = guidesPosts;
 
+function removeSpecialCharactersFromURL(url) {
+    // Define a regular expression to match special characters
+	const regex = /[^\w\s\-#]/gi;
+    // Replace special characters with an empty string
+    const cleanURL = url.replace(regex, '');
+    return cleanURL;
+}
 ---
 
-<Layout title="Prince of Travel | News" description="Prince of Travel's latest news on everything from new hotel properties, to flights and airline deals, airports, credit cards, and more." image="">
+<Layout title="Prince of Travel | Guides" description="Prince of Travel's latest guides on everything from new hotel properties, to flights and airline deals, airports, credit cards, and more." image="">
 	<div class="container-fluid" style="background: ##fffbf8">
 		<div class="row pt-5 mt-5">
 			<div class="col-md-6 p-5 d-flex flex-column justify-content-center align-items-start">
 				<div class="m-3 py-5">
 					<h5 class="fs-5 mb-0">Topic</h5>
 					<h1 class="display-1 fw-bold lh-1 ls-1 my-3">Guides</h1>
-					<p class="fs-5 mt-0 col-lg-10 text-black-50">Explore Prince of Travel's comprehensive travel guides, packed with essential information on using and collecting points, how to fly, bank and credit card tips, and more, ensuring you make the most of your time away. Delve into our travel tips and hacks, offering insider knowledge on navigating airports, packing like a pro, and staying safe while abroad.</p>
+					<p class="fs-5 mt-0 col-lg-10 text-black-50">Step into our guides realm, a dynamic space where stories unfold and insights abound. Check the pulse of the world with our captivating articles spanning the travel space from global events to niche discoveries. Whether you're a wanderlust-driven soul or an avid explorer, our carefully curated stories provide an in-depth look into the trends and insights shaping the travel sphere.</p>
 				</div>
 			</div>
 			{first3.map((item, index) => (
@@ -171,7 +178,6 @@ const [firstArticle, ...allArticles] = guidesPosts;
 				<div class="row p-3">
 					{sixth5.map((item, index) => (
 					<div class="col-lg-12 p-4">
-						<a href={`/guides/${encodeURIComponent(item.slug)}/`}>
 						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
 						<h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
 						<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt.rendered, 150)} /></div>
@@ -179,7 +185,8 @@ const [firstArticle, ...allArticles] = guidesPosts;
 							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {item._embedded?.author[0].name || item.data.author}</p>
 							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
 						</div>
-						<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
+						<a href={`/guides/${encodeURIComponent(item.slug)}/`}>
+							<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
 						</a>
 					</div>
 					))}
@@ -193,7 +200,6 @@ const [firstArticle, ...allArticles] = guidesPosts;
 				<div class="row g-5">
 					{next16.map((item, index) => (
 					<div class="col-lg-6">
-						<a href={`/guides/${encodeURIComponent(item.slug)}/`}>
 						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
 						<h1 class="fs-5 text-body-secondary fw-bold"><Fragment set:html={item.title.rendered} /></h1>
 						<p class="col-md-8 fs-5 text-body-secondary my-0"><Fragment set:html={functions.shorten(item.excerpt.rendered, 100) + '...'}/></p>
@@ -201,10 +207,12 @@ const [firstArticle, ...allArticles] = guidesPosts;
 							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {item._embedded?.author[0].name || item.data.author}</p>
 							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
 						</div>-->
-						<button class="btn btn-dark rounded-pill px-4 mt-2">Read article</button>
+						<a href={`/guides/${encodeURIComponent(item.slug)}/`}>
+							<button class="btn btn-dark rounded-pill px-4 mt-2">Read article</button>
 						</a>
 					</div>
 					))}
+					
 				</div>
 			</div>
 		</div>
@@ -213,16 +221,16 @@ const [firstArticle, ...allArticles] = guidesPosts;
 		<div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-3 p-4">
 			{restOfPosts?.map((item) => (
 			<div class="col p-3">
-				<a href={`/guides/${encodeURIComponent(item.slug)}/`}>
 				<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data?.imageUrl} class="w-100" style="object-fit: cover;" alt="">
-				<h1 class="fs-3 text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
-				<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt.rendered, 150)} /></div>
-				<div class="py-2">
-					<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {item._embedded?.author[0].name || item.data.author}</p>
-					<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
-				</div>
-				<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
-				</a>
+						<h1 class="fs-3 text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
+						<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt.rendered, 150)} /></div>
+						<div class="py-2">
+							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {item._embedded?.author[0].name || item.data.author}</p>
+							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
+						</div>
+						<a href={`/guides/${encodeURIComponent(item.slug)}/`}>
+							<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
+						</a>
 			</div>
 			))}	
 		</div>

@@ -5,7 +5,7 @@ import navData from '../data/sitecontent.json';
 // var loaded = false;
 ---
 <header>
-	<nav id="nav" class="navbar navbar-expand-lg bg-light fixed-top animate-in py-0 py-lg-2">
+	<nav id="nav" class="navbar navbar-expand-lg bg-light fixed-top animate-in py-2">
 		<div class="container-fluid">
 
 			<button class="navbar-toggler btn btn-light py-2 rounded-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
@@ -58,7 +58,7 @@ import navData from '../data/sitecontent.json';
 			</div>
 
 			<!-- main menu drawer -->
-			<div class="pb-1">
+			<div class="">
 			<button data-bs-toggle="offcanvas" data-bs-target="#navDrawer2" aria-controls="offcanvasBottom" class="btn btn-light border rounded-3 px-3 py-2">
 				<i class="bi bi-justify-left fs-5"></i>
 			</button>
@@ -109,12 +109,12 @@ import navData from '../data/sitecontent.json';
 			<Drawer drawerTitle="PrinceCollection" drawerId="navDrawer2" drawerAriaLabel="Prince of Travel">
 				<div class="container-fluid px-0">
 					<div class="row p-5">
-						<div class="col-lg-12 d-flex flex-column justify-content-end align-items-end">
+						<div class="col-lg-12 d-flex flex-column justify-content-end align-items-end text-end">
 						{
 						navData.navData.map((item) => (
 							<a href={item.path}>
 								<div class="d-flex">
-									<i class="bi bi-arrow-up-right fs-2"></i>
+									<!--<i class="bi bi-arrow-up-right fs-2"></i>-->
 									<h2 class="display-5 fw-bold my-0 ms-2">{item.title}</h2>
 								</div>
 							</a>

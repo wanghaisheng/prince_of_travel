@@ -1,12 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from "astro:content";
-const newsPosts = await getCollection("news");
-// astro.glob => getCollection is the difference between getting all files from a directory in pages vs. collections
-// https://docs.astro.build/en/tutorials/add-content-collections/
+// import { getCollection } from "astro:content";
+// const insightsPosts = await getCollection("insights");
 import functions from '../../js/functions.js';
 
-const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=news&_embed';
+const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=insights&_embed';
 const perPage = 51; // Number of posts per page
 let posts = [];
 let currentPage = 1;
@@ -46,33 +44,25 @@ const [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts] = 
 // let filteredPosts = allPosts.filter(post => post.data.draft === false)
 // filteredPosts.sort((a, b) => b.data.pubDate - a.data.pubDate);
 // const [firstArticle, ...allArticles] = filteredPosts;
-const [firstArticle, ...allArticles] = newsPosts;
+// const [firstArticle, ...allArticles] = insightsPosts;
 
-function removeSpecialCharactersFromURL(url) {
-    // Define a regular expression to match special characters
-	const regex = /[^\w\s\-#]/gi;
-    // Replace special characters with an empty string
-    const cleanURL = url.replace(regex, '');
-    return cleanURL;
-}
 ---
 
-<Layout title="Prince of Travel | News" description="Prince of Travel's latest news on everything from new hotel properties, to flights and airline deals, airports, credit cards, and more." image="">
+<Layout title="Prince of Travel | Insights" description="Prince of Travel's latest insights on everything from new hotel properties, to flights and airline insights, airports, credit cards, and more." image="">
 	<div class="container-fluid" style="background: ##fffbf8">
 		<div class="row pt-5 mt-5">
 			<div class="col-md-6 p-5 d-flex flex-column justify-content-center align-items-start">
 				<div class="m-3 py-5">
 					<h5 class="fs-5 mb-0">Topic</h5>
-					<h1 class="post-category-title fw-bold lh-1 ls-1 my-3">News</h1>
-					<!-- class="display-1 -->
-					<p class="fs-5 mt-0 col-lg-10 text-black-50">Step into our news realm, a dynamic space where stories unfold and insights abound. Check the pulse of the world with our captivating articles spanning the travel space from global events to niche discoveries. Whether you're a wanderlust-driven soul or an avid explorer, our carefully curated stories provide an in-depth look into the trends and insights shaping the travel sphere.</p>
+					<h1 class="display-1 fw-bold lh-1 ls-1 my-3">Insights</h1>
+					<p class="fs-5 mt-0 col-lg-10 text-black-50">Welcome to our insights section, your gateway to exclusive savings and unbeatable offers on travel experiences around the globe, curated to bring you the best value for your money. Dive into a world of discounts and promotions tailored to every type of traveler, ensuring that you can explore the world without breaking the bank.</p>
 				</div>
 			</div>
 			{first3.map((item, index) => (
 			<div class="col-md-6 p-4">
-				<a href={`/news/${encodeURIComponent(item.slug)}/`}>
+				<a href={`/insights/${encodeURIComponent(item.slug)}/`}>
 					<div class="pb-3">
-						<img src="" data-src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover; height: 350px" alt="">
+						<img src="" data-src={item._embedded['wp:featuredmedia'][0].source_url || item.data?.imageUrl} class="w-100" style="object-fit: cover; height: 350px" alt="">
 						<h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
 						<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt.rendered, 150)} /></div>
 						<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
@@ -85,9 +75,9 @@ function removeSpecialCharactersFromURL(url) {
 		<div class="row min-vh-100">
 			{second3.map((item, index) => (
 				<div class="col-md-4 p-3">
-					<a href={`/news/${encodeURIComponent(item.slug)}/`}>
+					<a href={`/insights/${encodeURIComponent(item.slug)}/`}>
 					<div class="pb-3">
-						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
+						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data?.imageUrl} class="w-100" style="object-fit: cover;" alt="">
 						<h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
 						<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt.rendered, 150)} /></div>
 						<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
@@ -100,9 +90,9 @@ function removeSpecialCharactersFromURL(url) {
 		<div class="row">	
 			{third3.map((item, index) => (	
 			<div class:list={[index === 0 ? "col-md-6" : "col-md-3", "p-4"]}>
-				<a href={`/news/${encodeURIComponent(item.slug)}/`}>
+				<a href={`/insights/${encodeURIComponent(item.slug)}/`}>
 					<div class="pb-3">
-						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
+						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data?.imageUrl} class="w-100" style="object-fit: cover;" alt="">
 						<h1 class:list={[index !== 0 ? "fs-3" : "", "text-body-secondary fw-bold lh-1 mb-3 mt-4"]}><Fragment set:html={item.title.rendered} /></h1>
 						<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt.rendered, 150)} /></div>
 						<!--<div class="py-2">
@@ -121,11 +111,11 @@ function removeSpecialCharactersFromURL(url) {
 			index === 0 ? 
 		
 			<div class="col-lg-6 p-4">
-				<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
+				<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data?.imageUrl} class="w-100" style="object-fit: cover;" alt="">
 			</div>
 
 			<div class="col-lg-6 p-5 d-flex flex-column justify-content-center align-items-start">
-				<a href={`/news/${encodeURIComponent(item.slug)}/`}>
+				<a href={`/insights/${encodeURIComponent(item.slug)}/`}>
 				<h1 class="text-body-secondary fw-bold text-balance lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
 				<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt.rendered, 150)} /></div>
 				<div class="py-2">
@@ -139,9 +129,9 @@ function removeSpecialCharactersFromURL(url) {
 			:
 				
 			<div class="col-lg-6 p-4">
-				<a href={`/news/${encodeURIComponent(item.slug)}/`}>
+				<a href={`/insights/${encodeURIComponent(item.slug)}/`}>
 					<div class="pb-3">
-						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
+						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data?.imageUrl} class="w-100" style="object-fit: cover;" alt="">
 						<h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
 						<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt.rendered, 150)} /></div>
 						<!--<div class="py-2">
@@ -158,9 +148,9 @@ function removeSpecialCharactersFromURL(url) {
 		<div class="row min-vh-100">
 			{fifth3.map((item, index) => (
 				<div class="col-lg-4 p-3">
-					<a href={`/news/${encodeURIComponent(item.slug)}/`}>
+					<a href={`/insights/${encodeURIComponent(item.slug)}/`}>
 					<div class="pb-3">
-						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
+						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data?.imageUrl} class="w-100" style="object-fit: cover;" alt="">
 						<h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
 						<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt.rendered, 150)} /></div>
 						<!--<div class="py-2">
@@ -179,15 +169,15 @@ function removeSpecialCharactersFromURL(url) {
 				<div class="row p-3">
 					{sixth5.map((item, index) => (
 					<div class="col-lg-12 p-4">
-						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
+                        <a href={`/insights/${encodeURIComponent(item.slug)}/`}>
+						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data?.imageUrl} class="w-100" style="object-fit: cover;" alt="">
 						<h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
 						<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt.rendered, 150)} /></div>
 						<div class="py-2">
 							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {item._embedded?.author[0].name || item.data.author}</p>
 							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
 						</div>
-						<a href={`/news/${encodeURIComponent(item.slug)}/`}>
-							<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
+						<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
 						</a>
 					</div>
 					))}
@@ -196,24 +186,23 @@ function removeSpecialCharactersFromURL(url) {
 
 			<div class="col-lg-6 p-5 order-1 order-lg-2">
 				<div class="col-lg-12 py-5">
-					<h1 class="display-2 fw-bold">More news</h1>
+					<h1 class="display-2 fw-bold">More insights</h1>
 				</div>
 				<div class="row g-5">
 					{next16.map((item, index) => (
 					<div class="col-lg-6">
-						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
+                        <a href={`/insights/${encodeURIComponent(item.slug)}/`}>
+						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data?.imageUrl} class="w-100" style="object-fit: cover;" alt="">
 						<h1 class="fs-5 text-body-secondary fw-bold"><Fragment set:html={item.title.rendered} /></h1>
 						<p class="col-md-8 fs-5 text-body-secondary my-0"><Fragment set:html={functions.shorten(item.excerpt.rendered, 100) + '...'}/></p>
 						<!--<div class="py-2">
 							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {item._embedded?.author[0].name || item.data.author}</p>
 							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
 						</div>-->
-						<a href={`/news/${encodeURIComponent(item.slug)}/`}>
-							<button class="btn btn-dark rounded-pill px-4 mt-2">Read article</button>
+						<button class="btn btn-dark rounded-pill px-4 mt-2">Read article</button>
 						</a>
 					</div>
 					))}
-					
 				</div>
 			</div>
 		</div>
@@ -222,16 +211,16 @@ function removeSpecialCharactersFromURL(url) {
 		<div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-3 p-4">
 			{restOfPosts?.map((item) => (
 			<div class="col p-3">
+                <a href={`/insights/${encodeURIComponent(item.slug)}/`}>
 				<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data?.imageUrl} class="w-100" style="object-fit: cover;" alt="">
-						<h1 class="fs-3 text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
-						<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt.rendered, 150)} /></div>
-						<div class="py-2">
-							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {item._embedded?.author[0].name || item.data.author}</p>
-							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
-						</div>
-						<a href={`/news/${encodeURIComponent(item.slug)}/`}>
-							<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
-						</a>
+				<h1 class="fs-3 text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
+				<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt.rendered, 150)} /></div>
+				<div class="py-2">
+					<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {item._embedded?.author[0].name || item.data.author}</p>
+					<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
+				</div>
+				<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
+				</a>
 			</div>
 			))}	
 		</div>
