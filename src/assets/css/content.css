@@ -20,7 +20,7 @@
 #content h2,  
 #content h3,
 #content h4 {
-  font-weight: 900;
+  font-weight: bold;
 }
 
 #content h4 {
@@ -52,6 +52,7 @@
 #content > .content-body figure img,
 #content > .content-body p img {
   border-radius: 23px;
+  border-radius: 10px;
   width: 100% !important;
   height: 100%;
   object-fit: cover;

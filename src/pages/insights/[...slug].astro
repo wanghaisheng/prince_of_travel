@@ -1,8 +1,8 @@
 ---
-import { getCollection } from 'astro:content';
+// import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import { Markdown } from '@astropub/md';
-import PostBody from '../../components/PostComponents/PostBody.astro';
+// import { Markdown } from '@astropub/md';
+// import PostBody from '../../components/PostComponents/PostBody.astro';
 
 export const prerender = true;
 export async function getStaticPaths() {
@@ -66,27 +66,6 @@ function emailPage(title) {
 }
 const url = encodeURIComponent(Astro.url.pathname);
 
-const { index } = Astro.props
-const slideAnim = {
-  old: {
-    name: 'slideDown',
-    duration: '0.7s',
-    easing: 'linear',
-    fillMode: 'forwards',
-  },
-  new: {
-    name: 'slideUp',
-    duration: '0.7s',
-    delay: `${index * 0.2 + 0.1}s`,
-    easing: 'ease-in-out',
-    fillMode: 'backwards',
-  },
-}
-const verticalSlide = {
-  forwards: slideAnim,
-  backwards: slideAnim,
-}
-
 // reduce length of post description to closest full word
 function shorten(text, max) {
   return text && text.length > max ? text.slice(0, max).split(' ').slice(0, -1).join(' ') : text
@@ -94,28 +73,6 @@ function shorten(text, max) {
 ---
 
 <Layout title={post.title?.rendered || post.data.title} description={post.excerpt?.rendered || post.data.description} image={post.data?.imageUrl || post._embedded['wp:featuredmedia'][0]?.source_url}>
-
-    <!-- <PostBody
-    category="deals"
-    title={post.title?.rendered || post.data.title}
-    backToUrl="deals"
-    backToText="deals"
-    author={post._embedded?.author[0].name || post.data.author}
-    date={post.date?.toString().slice(0,10) || post.data.pubDate.toString().slice(0,10)}
-    description={post.excerpt?.rendered || post.data?.description}
-    content={wordCount(post.content?.rendered || post.body)} 
-    slider=""
-    featuredImage={post.data?.imageUrl || post._embedded['wp:featuredmedia'][0].source_url}
-    carouselImages={post.data?.carousel}
-    tags={post.data?.tags}
-    toc={post.data?.contents}
-    postContent={post.content?.rendered}
-    postBody={post.body}
-    fbShare={fbShare()}
-    tweetCurrentPage={tweetCurrentPage(post.title?.rendered || post.title)}
-    emailPage={emailPage(post.title?.rendered || post.title)}
-    /> -->
-
     <div class="container-fluid px-0 pt-3">
         <div class="row py-3">
             <div class="col-lg-8 min-vh-500 d-flex flex-column justify-content-center align-items-start text-start p-5">
@@ -134,16 +91,16 @@ function shorten(text, max) {
                 </div>
     
                 <div class="mt-3" data-aos="fade-up" data-aos-delay="600">
-                    <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {post._embedded?.author[0].name || post.data.author}</p>
-                    <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {post.date?.toString().slice(0,10) || post.data.pubDate.toString().slice(0,10)}</p>
-                    <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Read time </span> {wordCount(post.content?.rendered || post.body)} mins</p>
+                    <p class="small text-body-secondary text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {post._embedded?.author[0].name || post.data.author}</p>
+                    <p class="small text-body-secondary text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {post.date?.toString().slice(0,10) || post.data.pubDate.toString().slice(0,10)}</p>
+                    <p class="small text-body-secondary text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Read time </span> {wordCount(post.content?.rendered || post.body)} mins</p>
                 </div>
             </div>
         </div>
     
         <div class="row">
             <div class="col-lg-12 d-flex flex-column justify-content-center align-items-center px-0">
-                <img class="w-100 object-fit" style="height: 65vh" src="" data-src={post._embedded['wp:featuredmedia'][0].source_url || post.data?.imageUrl} alt="" />
+                <img class="w-100 object-fit" style="height: 65vh; object-position: center " src="" data-src={post._embedded['wp:featuredmedia'][0].source_url || post.data?.imageUrl} alt="" />
             </div>
         </div>
     </div>
@@ -153,20 +110,20 @@ function shorten(text, max) {
         <div id="content" class="row p-4">
             <!-- sidebar -->
             <!-- <div class="d-none d-xl-flex flex-column col-lg-2 col-lg-3 pt-5">
-                <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {post._embedded?.author[0].name || post.data.author}</p>
-                    <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {post.date?.toString().slice(0,10) || post.data.pubDate.toString().slice(0,10)}</p>
-                    <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Read time </span> {wordCount(post.content?.rendered || post.body)} mins</p>
+                <p class="small text-body-secondary text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {post._embedded?.author[0].name || post.data.author}</p>
+                    <p class="small text-body-secondary text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {post.date?.toString().slice(0,10) || post.data.pubDate.toString().slice(0,10)}</p>
+                    <p class="small text-body-secondary text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Read time </span> {wordCount(post.content?.rendered || post.body)} mins</p>
                 <hr>
-                <p><span class="fw-bold text-pc-dark">Prince of Travel</span> is a non-traditional, full service travel concierge designed exclusively for companies and individuals who require exclusive travel arrangements. We handle the nuances of travel ensuring a seamless and extraordinary journey from start to finish.</p>
+                <p><span class="fw-bold text-body-secondary">Prince of Travel</span> is a non-traditional, full service travel concierge designed exclusively for companies and individuals who require exclusive travel arrangements. We handle the nuances of travel ensuring a seamless and extraordinary journey from start to finish.</p>
                 <hr>
                 <div>
-                    <h4 class="fs-5 fw-bold text-pc-dark">Newsletter</h4>
+                    <h4 class="fs-5 fw-bold text-body-secondary">Newsletter</h4>
                     <p>Join the Prince Collection newsletter to get weekly updates delivered straight to your inbox.</p>
                     <div class="klaviyo-form-UGQNyX"></div>
                 </div>
                 <hr>
                 <div>
-                    <h4 class="fs-5 fw-bold text-pc-dark">Book your travel</h4>
+                    <h4 class="fs-5 fw-bold text-body-secondary">Book your travel</h4>
                     <p>Let Prince Collection’s Travel Concierge handle your exclusive travel arrangements. Get started by filling out some basic info about your trip.</p>
                     <a href="https://princecollection.com" target="_blank">
                         <button class="btn btn-pc">Book now</button>
@@ -231,17 +188,17 @@ function shorten(text, max) {
             
             <div class="col-lg-12 d-block d-xl-none border-top p-4">
                 <div class="py-2">
-                <p><span class="fw-bold text-pc-dark">Prince Collection</span> is a non-traditional, full service travel concierge designed exclusively for companies and individuals who require exclusive travel arrangements. We handle the nuances of travel ensuring a seamless and extraordinary journey from start to finish.</p>
+                <p><span class="fw-bold text-body-secondary">Prince Collection</span> is a non-traditional, full service travel concierge designed exclusively for companies and individuals who require exclusive travel arrangements. We handle the nuances of travel ensuring a seamless and extraordinary journey from start to finish.</p>
                 </div>
                 <hr>
                 <div class="py-2">
-                    <h4 class="fs-5 fw-bold text-pc-dark">Newsletter</h4>
+                    <h4 class="fs-5 fw-bold text-body-secondary">Newsletter</h4>
                     <p>Join the Prince Collection newsletter to get weekly updates delivered straight to your inbox.</p>
                     <div class="klaviyo-form-UGQNyX"></div>
                 </div>
                 <hr>
                 <div class="py-2">
-                    <h4 class="fs-5 fw-bold text-pc-dark">Book your travel</h4>
+                    <h4 class="fs-5 fw-bold text-body-secondary">Book your travel</h4>
                     <p>Let Prince Collection’s Travel Concierge handle your exclusive travel arrangements. Get started by filling out some basic info about your trip.</p>
                     <a href="/book">
                         <button class="btn btn-pc">Book now</button>
