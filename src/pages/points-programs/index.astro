@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from "astro:content";
-const guidesPosts = await getCollection("guides");
+// const guidesPosts = await getCollection("guides");
 // astro.glob => getCollection is the difference between getting all files from a directory in pages vs. collections
 // https://docs.astro.build/en/tutorials/add-content-collections/
 import functions from '../../js/functions.js';
@@ -12,7 +12,28 @@ import functions from '../../js/functions.js';
 const res = await fetch("https://pftraveldev.wpengine.com/wp-json/pot/v1/points?per_page=100");
 const posts = await res.json();
 
-// const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/pot/v1/points&_embed';
+// const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/pot/v1/points';
+// const perPage = 51; // Number of posts per page
+// let posts = [];
+// let currentPage = 1;
+// let totalFetchedPosts = 0;
+// while (totalFetchedPosts < 50) { // Stop when reaching 50 posts
+// const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
+// const data = await response.json();
+// // console.log('Received posts:', data);
+// if (data.length === 0) {
+// 	console.log('No more posts, exiting loop');
+// 	break; // No more posts, exit loop
+// }
+
+// posts = posts.concat(data);
+// console.log('Data type of array:', typeof posts);
+// totalFetchedPosts += posts.length; // Update total fetched posts
+// currentPage++;
+// }
+
+
+// const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/pot/v1/points';
 // const perPage = 51; // Number of posts per page
 // let posts = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
 // let currentPage = 1;
@@ -52,11 +73,11 @@ const posts = await res.json();
 // let filteredPosts = allPosts.filter(post => post.data.draft === false)
 // filteredPosts.sort((a, b) => b.data.pubDate - a.data.pubDate);
 // const [firstArticle, ...allArticles] = filteredPosts;
-const [firstArticle, ...allArticles] = guidesPosts;
+// const [firstArticle, ...allArticles] = guidesPosts;
 
 ---
 
-<Layout title="Prince of Travel | News" description="Prince of Travel's latest news on everything from new hotel properties, to flights and airline deals, airports, credit cards, and more." image="">
+<Layout title="Prince of Travel | Point Programs" description="Prince of Travel's latest news on everything from new hotel properties, to flights and airline deals, airports, credit cards, and more." image="">
 	<div class="container-fluid" style="background: ##fffbf8">
 		<div class="row">
 			<div class="col-lg-12">
@@ -64,21 +85,42 @@ const [firstArticle, ...allArticles] = guidesPosts;
 				<p class="fs-5 text-black-50">Voluptate deserunt aliqua ex deserunt culpa sit cupidatat cupidatat tempor quis eu. Consectetur proident ipsum cupidatat enim ut voluptate commodo occaecat cillum eiusmod. Deserunt ad labore aute ullamco et pariatur nisi sit laboris anim sit exercitation. Tempor deserunt veniam exercitation nulla reprehenderit deserunt sunt qui sit velit commodo aute. Commodo elit officia deserunt elit magna nostrud exercitation commodo aliquip velit eiusmod esse ea. Ad cillum nulla ut elit duis et proident occaecat culpa. Veniam nulla duis ut fugiat cupidatat sunt duis.</p>
 			</div>
 		</div>
-		<div class="row p-4 g-4">
+
+		<!-- <div class="p-4">
+			<a href={`/points-programs/${encodeURIComponent(item.slug)}/`}>
+				<img src="" data-src={item.featured_image.large || item.data.imageUrl} class="p-3" style="width: 300px; height: auto" alt="">
+				<h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.custom_fields.short_ttl} /></h1>
+				<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={item.custom_fields.short_description} /></div>
+				<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
+			</a>						
+		</div>	 -->
+
+		<div class="row p-4 g-3">
 			{posts.map((item, index) => (
-				<div class="col-lg-4">
-					<div class="p-4">
-						<a href={`/points-programs/${encodeURIComponent(item.slug)}/`}>
-						<img src={item.featured_image?.large || item.data?.imageUrl} class="w-100" style="object-fit: cover;" alt="">
-						<h1 class="fs-3 text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title} /></h1>
-						<div class="py-2">
-							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
+				<div class="col-lg-6">
+					<a href={`/points-programs/${encodeURIComponent(item.slug)}/`}>
+					<div class="card d-flex flex-column justify-content-center align-items-start mb-2 rounded-4 bg-light border-light shadow" style="min-height: 250px">
+							<div class="row g-0 p-3">
+								<div class="col-md-4 d-flex flex-column justify-content-center align-items-center rounded-3" style="background: #eee; min-height: 200px">
+									<!--includes("world")-->
+									<img src="" data-src={item.featured_image.large || item.data.imageUrl} class="p-3 w-100" style="" alt="">
+								</div>
+								<div class="col-md-8 my-auto">
+									<div class="card-body">
+										<h5 class="card-title fs-4 text-body-secondary fw-bold lh-1">
+											<Fragment set:html={item.custom_fields.short_ttl} />
+										</h5>
+										<p class="card-text">
+											<Fragment set:html={item.custom_fields.short_description} />
+										</p>
+										<button class="btn btn-secondary opacity-75 fw-bold rounded-pill px-4 position-absolute bottom-0 end-0 m-3">Learn more</button>
+									</div>
+								</div>
+							</div>
 						</div>
-						<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
-						</a>						
-					</div>	
+					</a>
 				</div>
-			))}
+				))}
+			</div>
 		</div>
-	</div>
 </Layout>

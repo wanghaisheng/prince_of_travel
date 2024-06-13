@@ -1,16 +1,18 @@
 ---
-import { getCollection } from 'astro:content';
+// import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import PostBody from '../../components/PostComponents/PostBody.astro';
+// import { Markdown } from '@astropub/md';
 
+// if there is no .md/collection content, do not use the combinedArray, will throw build errors
 export const prerender = true;
 export async function getStaticPaths() {
-    const newsEntries = await getCollection('news');
-    let data = await fetch("https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=news&_embed&per_page=51");
+    // const newsEntries = await getCollection('points-programs');
+    let data = await fetch("https://pftraveldev.wpengine.com/wp-json/pot/v1/points?per_page=100");
     let posts = await data.json();
-    const combinedArray = newsEntries.concat(posts);
+    // const combinedArray = dealsEntries.concat(posts);
 
-  return combinedArray.map(post => ({
+//   return combinedArray.map(post => ({
+  return posts.map(post => ({
     params: { slug: post.slug }, 
     props: { post }
   }));
@@ -18,8 +20,8 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 
-const allPosts = await getCollection("news");
-let filteredPosts = allPosts.filter(post => post.data.draft === false)
+// const allPosts = await getCollection("news");
+// let filteredPosts = allPosts.filter(post => post.data.draft === false)
 // const { Content } = await post.render();
 
 // Remove space, add hyphens to titles, convert to lowerCase to be used for hyperlinks
@@ -91,90 +93,50 @@ function shorten(text, max) {
 }
 ---
 
-<Layout title={post.title?.rendered || post.data.title} description={post.excerpt?.rendered || post.data.description} image={post.data?.imageUrl || post._embedded['wp:featuredmedia'][0]?.source_url}>
-
-    <PostBody
-    category="news"
-    title={post.title?.rendered || post.data.title}
-    backToUrl="points-programs"
-    backToText="Points Programs"
-    author={post._embedded?.author[0].name || post.data.author}
-    date={post.date?.toString().slice(0,10) || post.data.pubDate.toString().slice(0,10)}
-    description={post.excerpt?.rendered || post.data?.description}
-    content={wordCount(post.content?.rendered || post.body)} 
-    slider={post.data?.carousel == undefined || post.data?.carousel == '' }
-    featuredImage={post.data?.imageUrl || post._embedded['wp:featuredmedia'][0].source_url}
-    carouselImages={post.data?.carousel}
-    tags={post.data?.tags}
-    toc={post.data?.contents}
-    postContent={post.content?.rendered}
-    postBody={post.body}
-    fbShare={fbShare()}
-    tweetCurrentPage={tweetCurrentPage(post.title?.rendered || post.title)}
-    emailPage={emailPage(post.title?.rendered || post.title)}
-    />
-
-          
-
-    
-    <!--<div class="container w-100 mx-auto">
-        <div id="content" class="row p-4">
-       
-            <div class="d-none d-xl-flex flex-column col-lg-2 col-lg-3 pt-5">
-                <div class="d-flex justify-content center-align-items-center">
-                     
-                 
-                    
-                    {
-                        post.data?.tags &&
-                        post.data.tags.map((tag) =>(
-                        <span class="badge bg-pc-10 text-pc-dark me-1 mb-2">#{tag}</span>
-                        ))
-                    }
-                </div>
-                <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {post._embedded?.author[0].name || post.data.author}</p>
-                <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {post.date?.toString().slice(0,10) || post.data.pubDate.toString().slice(0,10)}</p>
-                <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Read time </span>  {wordCount(post.content?.rendered || post.body)} mins</p>
-                <hr>
-                <p><span class="fw-bold text-pc-dark">Prince Collection</span> is a non-traditional, full service travel concierge designed exclusively for companies and individuals who require exclusive travel arrangements. We handle the nuances of travel ensuring a seamless and extraordinary journey from start to finish.</p>
-                <hr>
-                <div>
-                    <h4 class="fs-5 fw-bold text-pc-dark">Newsletter</h4>
-                    <p>Join the Prince Collection newsletter to get weekly updates delivered straight to your inbox.</p>
-                    <div class="klaviyo-form-UGQNyX"></div>
-                </div>
-                <hr>
-                <div>
-                    <h4 class="fs-5 fw-bold text-pc-dark">Book your travel</h4>
-                    <p>Let Prince Collection’s Travel Concierge handle your exclusive travel arrangements. Get started by filling out some basic info about your trip.</p>
-                    <a href="/book">
-                        <button class="btn btn-pc">Book now</button>
-                    </a>
-                </div>
-                <hr>
-                <h2 class="text-secondary mb-3">More posts</h2>
-
-            </div>
-            <div class="content-body col-lg-12 col-xl-9 p-4 p-lg-5">
-                { post.data?.contents &&
-                <details class="bg-body-secondary p-3 mb-4 rounded-3" style="transition: all .3s ease-in-out;">
-                    <summary class="fs-5 fw-bold text-black-50">What's in this post</summary>
-                    <div class="px-3 py-2">
-                        {post.data.contents.map((item) => (
-                        <a href={'#' +  tableOfContents(item)}>
-                            <p class="my-2" style="font-size: 17px"><i class="bi bi-diamond text-secondary fw-bold me-1"></i> {item}</p>
-                        </a>
-                        ))}
+<Layout title="" description="" image="">
+    <div class="container-fluid px-0 pt-3">
+        <div class="row py-3">
+            <div class="col-lg-8 min-vh-500 d-flex flex-column justify-content-center align-items-start text-start p-5">
+                <a href="/points-programs">
+                    <div class="d-flex align-items-center" data-aos="fade-up">
+                        <i class="bi bi-arrow-left text-black-50 fs-1"></i>
+                        <h6 class="ms-2 my-0 text-black-50 fw-light">Back to Points Programs</h6>
                     </div>
-                </details>
-                }
-           
-               {post.content?.rendered ?
-                <Fragment set:html={post.content.rendered} /> 
+                </a>
+    
+                <h1 class="fw-bold text-body-secondary lh-2 ls-1 mb-4 mt-2" style="font-size: 10vmin;">
+                    <Fragment set:html={post.title} />
+                </h1>
+                <div class="fs-4 text-body-secondary" data-aos="fade-up" data-aos-delay="400">
+                    <Fragment class="my-0" set:html={post.custom_fields.short_description} />
+                </div>
+    
+                <div class="mt-3" data-aos="fade-up" data-aos-delay="600">
+                    <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {post.author || post.data.author}</p>
+                    <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {post.date?.toString().slice(0,10) || post.data.pubDate.toString().slice(0,10)}</p>
+                    <!-- <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Read time </span> {wordCount(post.point_content_1_c_content)} mins</p> -->
+                </div>
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="col-lg-12 d-flex flex-column justify-content-center align-items-center px-0">
+                <img class="w-100 object-fit" style="height: 65vh" src="" data-src={post.featured_image.large || post.data?.imageUrl} alt="" />
+            </div>
+        </div>
+    </div>
+    
+    <!--body/sidebar-->
+    <div class="container w-100 mx-auto">
+        <div id="content" class="row p-4">
+            <div class="content-body col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 px-4 py-5">
+                <div class=""><Fragment set:html={post.content} /></div>
+               <!-- {post.content?.rendered ?
+                <Fragment id="postContent" set:html={post.content?.rendered} /> 
                 :
                 <Markdown of={post.body} />
-                }
-         
+                } -->
+                <!-- share -->
                 <div class="d-flex border-top py-3 mt-4">
                     <h6 class="ms-2 my-0 text-black-50 fw-bold">Share this post</h6>
                 </div>
@@ -184,12 +146,12 @@ function shorten(text, max) {
                     <i class="bi bi-facebook fs-5"></i>
                   </button>
                 </a>
-                <a href={tweetCurrentPage(post.title)} target="_blank">
+                <a href={tweetCurrentPage(post.title?.rendered || post.title)} target="_blank">
                   <button class="btn btn-light text-black-50 px-3 py-2 fw-900 fs-5 me-2" style="background: #d6d6d680;">
                     <i class="bi bi-twitter-x fs-5"></i>
                   </button>
                 </a>
-                <a href={emailPage(post.title)}>
+                <a href={emailPage(post.title?.rendered || post.title)}>
                   <button class="btn btn-light text-black-50 px-3 py-2 fw-900 fs-5 me-2" style="background: #d6d6d680;">
                     <i class="bi bi-envelope fs-5"></i>
                   </button>
@@ -209,7 +171,7 @@ function shorten(text, max) {
             
             <div class="col-lg-12 d-block d-xl-none border-top p-4">
                 <div class="py-2">
-                <p><span class="fw-bold text-pc-dark">Prince Collection</span> is a non-traditional, full service travel concierge designed exclusively for companies and individuals who require exclusive travel arrangements. We handle the nuances of travel ensuring a seamless and extraordinary journey from start to finish.</p>
+                <p><span class="fw-bold text-pc-dark">Prince of Travel</span> is a non-traditional, full service travel concierge designed exclusively for companies and individuals who require exclusive travel arrangements. We handle the nuances of travel ensuring a seamless and extraordinary journey from start to finish.</p>
                 </div>
                 <hr>
                 <div class="py-2">
@@ -226,10 +188,10 @@ function shorten(text, max) {
                     </a>
                 </div>
                 <hr>
-
+    
             </div>
         </div>
-    </div>-->
+    </div>
 </Layout>
 
 <script>
@@ -243,7 +205,7 @@ function shorten(text, max) {
         toastTrigger.addEventListener('click', () => {
             const toast = new bootstrap.Toast(toastLiveExample)
             toast.show();
-            navigator.clipboard.writeText("https://princecollection.com" + window.location.pathname);
+            navigator.clipboard.writeText("https://princeoftravel.com" + window.location.pathname);
         })
     }
   </script>

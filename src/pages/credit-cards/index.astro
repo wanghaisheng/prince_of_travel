@@ -61,11 +61,26 @@ function isPortraitOrientation(imgElement) {
 ---
 
 <Layout title="Prince of Travel | Credit Cards" description="Prince of Travel's latest news, deals, and happenings in the travel space." image={firstArticle.data.imageUrl}>
-	<div class="container-fluid px-0" style="background: var(--beige);">
+	<div class="container-fluid px-0" >
+      <div class="row pt-5">
+        <div class="col-lg-6 min-vh-50 d-flex flex-column justify-content-end align-items-start text-start p-5">
+          <h1 class="text-secondary fw-bold ls-1 lh-1" style="font-size: 12vmin;" data-aos="fade-up" data-aos-delay="200">Credit Cards</h1>
+          <div data-aos="fade-up" data-aos-delay="600">
+             <!-- <p class="fs-4 mt-0">Below are the top credit cards in the Canadian marketplace for the purposes of earning points and maximizing rewards.</p> -->
+             <p class="fs-4 text-body-secondary">Explore Canada's premiere credit card offerings across a variety of categories from points, to travel, rewards, rates, and more.</p>
+          </div>
+      </div>
 
-    <!-- <div class="row min-vh-100 bg-warning" id="data-container"></div> -->
+          <div class="col-lg-12 d-flex flex-column justify-content-center align-items-center pt-5">
+            <!-- ad concept, banner shows placement card? -->
+            <!-- <img class="w-100 object-fit" style="height: 500px" src="" data-src="https://images.unsplash.com/photo-1589758438368-0ad531db3366?q=80&w=2832&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" /> -->
+            <img class="w-100 object-fit" style="height: 500px" src="https://plus.unsplash.com/premium_photo-1681819806346-16caebd8b2d3?q=80&w=2966&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+            <!-- <img class="w-100 object-fit" style="height: 500px" src="" data-src="https://images.unsplash.com/photo-1613243555988-441166d4d6fd?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" /> -->
+          </div>
+      </div>
 
-		<div class="row min-vh-100">
+		<!-- Featured card? 
+      <div class="row min-vh-100">
 			<div class="col-lg-6 d-flex flex-column justify-content-center align-items-center min-vh-500 text-center p-5 mt-5 mt-lg-0 animate-in">
 				<span class="badge rounded-pill fw-bold text-bg-secondary py-2 px-4">Credit Cards</span>
 				<h1 class="text-body-secondary fw-bold lh-1 ls-1 mb-4" style="font-size: 9vmin;">{firstArticle.data.title}</h1>
@@ -81,9 +96,9 @@ function isPortraitOrientation(imgElement) {
 			<div class="col-lg-6">
 				<img src={firstArticle.data.imageUrl} class="w-100 h-100" style="object-fit: cover;" alt={firstArticle.data.imageAlt}>
 			</div>
-		</div>
+		</div> -->
 
-		<div class="columns p-3">
+		<div class="columns p-3" style="background: #eee">
 			<!--{allArticles?.map((post) => (
 					<div class="card bg-pc-light rounded-4 p-0 border-0 shadow mb-3" style="min-height: 500px; break-inside: avoid-column; white-space: nowrap;">
 						<img src="" data-src={post.data.imageUrl} class="card-img-top rounded-top-4 w-100 p-2" style="object-fit: cover; height: 200px;" alt={post.data.imageAlt}>
@@ -216,7 +231,7 @@ function isPortraitOrientation(imgElement) {
 </Layout>
 
 
-<script>
+<script is:inline>
   
   function isPortraitImage(imageElement, callback) {
     const img = new Image();
@@ -238,22 +253,6 @@ imageElements.forEach(function(imageElement) {
         }
     });
 });
-
-// // Check if there is a hash in the URL when the page loads
-// window.addEventListener("load", function() {
-//     var hash = window.location.hash;
-//     if (hash) {
-//       // Remove the '#' symbol from the hash
-//       var productSlug = hash.substring(1);
-//       // Find the corresponding offcanvas element and open it
-//       var offcanvas = document.querySelector('.offcanvas[data-product-slug="' + productSlug + '"]');
-//       if (offcanvas) {
-//         var offcanvasInstance = new bootstrap.Offcanvas(offcanvas);
-//         offcanvasInstance.show();
-//       }
-//     }
-//   });
-// });
 
 // hash approach v2.0: this works in all ways
 
@@ -312,104 +311,6 @@ function closeOffcanvas() {
     offcanvasInstance.hide();
   }
 }
-
-// v3.0
-// document.addEventListener("DOMContentLoaded", function() {
-//   // Get all offcanvas elements
-//   var offcanvasList = document.querySelectorAll(".offcanvas");
-
-//   // Loop through each offcanvas and add event listeners
-//   offcanvasList.forEach(function(offcanvas) {
-//     offcanvas.addEventListener("shown.bs.offcanvas", function() {
-//       // Get the product slug from data attribute
-//       var productSlug = offcanvas.dataset.productSlug;
-//       // Update the URL with the product slug
-//       history.pushState({}, '', '/credit-cards/' + productSlug);
-//     });
-
-//     offcanvas.addEventListener("hidden.bs.offcanvas", function() {
-//       // Revert the URL back to the previous state
-//       removeSlugFromUrl();
-//     });
-//   });
-
-//   // Check if there is a slug in the URL when the page loads
-//   window.addEventListener("load", function() {
-//     var pathname = window.location.pathname;
-//     if (pathname !== '/' && pathname.length > 1) {
-//       // Remove the '/' prefix
-//       var productSlug = pathname.substring(1);
-//       // Find the corresponding offcanvas element and open it
-//       var offcanvas = document.querySelector('.offcanvas[data-product-slug="' + productSlug + '"]');
-//       if (offcanvas) {
-//         var offcanvasInstance = new bootstrap.Offcanvas(offcanvas);
-//         offcanvasInstance.show();
-//       }
-//     }
-//   });
-
-//   // Listen for browser back functionality
-//   window.addEventListener("popstate", function(event) {
-//     // Close the offcanvas if it's currently shown
-//     closeOffcanvas();
-//   });
-// });
-
-// function removeSlugFromUrl() {
-//   // Remove the slug from the URL
-//   history.pushState({}, document.title, '/credit-cards');
-// }
-
-// function closeOffcanvas() {
-//   // Get the currently shown offcanvas
-//   var shownOffcanvas = document.querySelector('.offcanvas.show');
-//   // Close the offcanvas if it's currently shown
-//   if (shownOffcanvas) {
-//     var offcanvasInstance = bootstrap.Offcanvas.getInstance(shownOffcanvas);
-//     offcanvasInstance.hide();
-//   }
-// }
-
-// document.addEventListener('DOMContentLoaded', function() {
-//             var itemsPerPage = 8; // Number of items to fetch per request
-//             var totalItemsFetched = 0; // Track the total number of items fetched
-
-//             // Function to fetch data from API
-//             function fetchData() {
-//                 fetch('https://pftraveldev.wpengine.com/wp-json/pot/v1/credit-cards?per_page=8')
-//                 .then(function(response) {
-//                     return response.json();
-//                 })
-//                 .then(function(data) {
-//                     // Append fetched items to the container
-//                     var container = document.getElementById('data-container');
-//                     var itemsToFetch = Math.min(itemsPerPage, data.length - totalItemsFetched);
-//                     for (var i = 0; i < itemsToFetch; i++) {
-//                         var div = document.createElement('div');
-//                         div.classList.add('item');
-//                         div.textContent = data[totalItemsFetched + i].title;
-//                         container.appendChild(div);
-//                     }
-//                     totalItemsFetched += itemsToFetch;
-//                 })
-//                 .catch(function(error) {
-//                     console.error('Error fetching data:', error);
-//                 });
-//             }
-
-//             // Initial data load
-//             fetchData();
-
-//             // Scroll event listener
-//             window.addEventListener('scroll', function() {
-//                 if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-//                     // When user scrolls to the bottom and not all items are fetched, load more data
-//                     if (totalItemsFetched < itemsPerPage) {
-//                         fetchData();
-//                     }
-//                 }
-//             });
-//         });
 </script>
         
 <style>
