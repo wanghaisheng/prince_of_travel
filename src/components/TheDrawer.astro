@@ -2,7 +2,8 @@
 const { drawerTitle, drawerId, drawerClass, drawerAriaLabel } = Astro.props;
 ---
 
-<div class:list={["offcanvas offcanvas-end w-100", drawerClass]} tabindex="-1" id={drawerId} aria-labelledby={drawerAriaLabel}>
+<div class:list={["offcanvas offcanvas-end w-100", drawerClass]} tabindex="-1" id={drawerId} aria-labelledby={drawerAriaLabel}
+style="background: #eee;">
     <div class="offcanvas-header">
         <div class="d-flex justify-content-center align-items-center py-2">
             <img class="logo m-0 me-1" style="width: 25px; height: auto; filter: invert(1)" src="/images/logos/pot-crown-white.png" alt="Prince of Travel logo" />	
@@ -12,7 +13,7 @@ const { drawerTitle, drawerId, drawerClass, drawerAriaLabel } = Astro.props;
         </div>
         <i class="bi bi-x-circle-fill position-absolute top-0 end-0 fs-1 me-3 mt-3 mt-lg-2 text-black-50" role="button" data-bs-dismiss="offcanvas" aria-label="Close"></i>
     </div>
-    <div class="offcanvas-body">
+    <div class="offcanvas-body pt-0 px-0">
     <!-- <div class="offcanvas-body d-flex flex-column justify-content-end"> for title only menu -->
         <slot />
     </div>

@@ -108,18 +108,57 @@ import navData from '../data/sitecontent.json';
 			
 			<Drawer drawerTitle="PrinceCollection" drawerId="navDrawer2" drawerAriaLabel="Prince of Travel">
 				<div class="container-fluid px-0">
-					<div class="row p-5">
-						<div class="col-lg-12 d-flex flex-column justify-content-end align-items-end text-end">
+					<div class="row px-3">
+						<div class="col-lg-6">
+							<div class="h-100 min-vh-500 d-flex flex-column justify-content-end align-items-start px-5 py-4 rounded-4 mb-2" style="background: var(--beige);">
+								<img class="logo h-auto mx-0 animate-in" style="width: 60px; filter: invert(1); opacity: 0.6" src="/images/logos/pot-crown-white.png" alt="Prince of Travel logo" />	
+								<h1 class="display-4 text-black-50 fw-bold ls-1 mt-0">Prince of Travel</h1>
+							</div>
+							<!-- <div class="d-flex flex-column justify-content-end align-items-start px-3 py-2 rounded-3 mb-2" style="background: var(--lime);">
+								<h1>News</h1>
+							</div>
+							<div class="d-flex flex-column justify-content-end align-items-start px-3 py-2 rounded-3 mb-2" style="background: var(--royalblue);">
+								<h1>Deals</h1>
+							</div>
+							<div class="d-flex flex-column justify-content-end align-items-start px-3 py-2 rounded-3 mb-2" style="background: var(--peach);">
+								<h1>Guides</h1>
+							</div>
+							<div class="d-flex flex-column justify-content-end align-items-start px-3 py-2 rounded-3 mb-2" style="background: var(--beige);">
+								<h1>Reviews</h1>
+							</div>
+							<div class="d-flex flex-column justify-content-end align-items-start px-3 py-2 rounded-3 mb-2" style="background: var(--orange);">
+								<h1>Insights</h1>
+							</div> -->
+						</div>
+						<!-- {
+							"title": "About us",
+							"path": "/about",
+							"description": "Get in-depth information on hotel programs and learn more about Prince Collection’s premier brands and vendors.",
+							"icon": "bi-book",
+							"badge": "Travel tips",
+							"background": "bg-pale-dogwood"
+						  },
+						  {
+							"title": "Contact",
+							"path": "/contact",
+							"description": "Get in-depth information on hotel programs and learn more about Prince Collection’s premier brands and vendors.",
+							"icon": "bi-book",
+							"badge": "Travel tips",
+							"background": "bg-pale-dogwood"
+						  } -->
+						<div class="col-lg-6">
+							<div class="h-100 d-flex flex-column justify-content-end align-items-start p-4 rounded-4 bg-secondary" style="color: var(--beige);">
 						{
 						navData.navData.map((item) => (
-							<a href={item.path} data-bs-dismiss="offcanvas">
-								<div class="d-flex">
+							<a href={item.path}>
+								<div class="d-flex" data-bs-dismiss="offcanvas">
 									<!--<i class="bi bi-arrow-up-right fs-2"></i>-->
-									<h2 class="display-5 fw-bold my-0 ms-2">{item.title}</h2>
+									<h2 class="display-6 fw-bold my-0 ms-2">{item.title}</h2>
 								</div>
 							</a>
 							))
 						}
+						</div>
 						</div>
 					</div>
 				</div>

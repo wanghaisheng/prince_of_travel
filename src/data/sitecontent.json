@@ -49,6 +49,14 @@
           "background": "bg-pale-dogwood"
         },
         {
+          "title": "Points Programs",
+          "path": "/points-programs",
+          "description": "Get in-depth information on hotel programs and learn more about Prince Collection’s premier brands and vendors.",
+          "icon": "bi-book",
+          "badge": "Travel tips",
+          "background": "bg-pale-dogwood"
+        },
+        {
           "title": "Airlines",
           "path": "/airlines",
           "description": "Get in-depth information on hotel programs and learn more about Prince Collection’s premier brands and vendors.",
@@ -67,6 +75,22 @@
         {
           "title": "Best Credit Cards",
           "path": "/best-credit-cards",
+          "description": "Get in-depth information on hotel programs and learn more about Prince Collection’s premier brands and vendors.",
+          "icon": "bi-book",
+          "badge": "Travel tips",
+          "background": "bg-pale-dogwood"
+        },
+        {
+          "title": "About us",
+          "path": "/about",
+          "description": "Get in-depth information on hotel programs and learn more about Prince Collection’s premier brands and vendors.",
+          "icon": "bi-book",
+          "badge": "Travel tips",
+          "background": "bg-pale-dogwood"
+        },
+        {
+          "title": "Contact",
+          "path": "/contact",
           "description": "Get in-depth information on hotel programs and learn more about Prince Collection’s premier brands and vendors.",
           "icon": "bi-book",
           "badge": "Travel tips",
