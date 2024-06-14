@@ -95,47 +95,84 @@ function shorten(text, max) {
 
 <Layout title="" description="" image="">
     <div class="container-fluid px-0 pt-3">
-        <div class="row py-3">
-            <div class="col-lg-8 min-vh-500 d-flex flex-column justify-content-center align-items-start text-start p-5">
+        <div class="row py-3 position-relative">
+            <div class="col-lg-8 offset-lg-2 d-flex flex-column justify-content-center align-items-center text-center p-5">
                 <a href="/points-programs">
-                    <div class="d-flex align-items-center" data-aos="fade-up">
+                    <div class="d-flex align-items-center aos-init aos-animate position-absolute start-0 top-25 ms-4" data-aos="fade-up">
                         <i class="bi bi-arrow-left text-black-50 fs-1"></i>
-                        <h6 class="ms-2 my-0 text-black-50 fw-light">Back to Points Programs</h6>
+                        <h6 class="ms-2 my-0 text-black-50 fw-light">Back</h6>
                     </div>
                 </a>
-    
+                <img class="h-auto mx-0 rounded-4 p-4 mb-3" style="width: 200px; background: #eee" src="" data-src={post.featured_image.large || post.data?.imageUrl} alt="" />
+                <h5>{post.custom_fields.subtitle}</h5>
                 <h1 class="fw-bold text-body-secondary lh-2 ls-1 mb-4 mt-2" style="font-size: 10vmin;">
-                    <Fragment set:html={post.title} />
+                    <Fragment set:html={post.custom_fields.p_title_h4} />
                 </h1>
                 <div class="fs-4 text-body-secondary" data-aos="fade-up" data-aos-delay="400">
                     <Fragment class="my-0" set:html={post.custom_fields.short_description} />
                 </div>
     
                 <div class="mt-3" data-aos="fade-up" data-aos-delay="600">
-                    <p class="small text-body-secondary text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {post.author || post.data.author}</p>
-                    <p class="small text-body-secondary text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {post.date?.toString().slice(0,10) || post.data.pubDate.toString().slice(0,10)}</p>
-                    <!-- <p class="small text-body-secondary text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Read time </span> {wordCount(post.point_content_1_c_content)} mins</p> -->
+                    <p class="small text-body-secondary text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Updated on:</span> {post.date?.toString().slice(0,10) || post.data?.pubDate.toString().slice(0,10)}</p>
                 </div>
             </div>
+
+            <div class="col-lg-10 offset-lg-1 d-flex flex-column justify-content-center align-items-center px-5">
+              <div class="row">
+                <div class="col-lg-6 mb-2">
+                  <div class="p-4 rounded-4 text-black-50" style="min-height: 300px; background: #eee;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-credit-card-2-front" viewBox="0 0 16 16">
+                      <path d="M14 3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/>
+                      <path d="M2 5.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5"/>
+                    </svg>
+                    <h3 class="fw-bold my-3">{post.custom_fields.point_benefits_0_b_title}</h3>
+                    <p class="fs-5 m-0"><Fragment set:html={post.custom_fields.point_benefits_0_b_content} /></p>
+                  </div>
+                </div>
+                <div class="col-lg-6 mb-2">
+                  <div class="p-4 rounded-4 text-black-50" style="min-height: 300px; background: #eee;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8m5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0"/>
+                      <path d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195z"/>
+                      <path d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083q.088-.517.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1z"/>
+                      <path d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 6 6 0 0 1 3.13-1.567"/>
+                    </svg>
+                    <h3 class="fw-bold my-3">{post.custom_fields.point_benefits_1_b_title}</h3>
+                    <p class="fs-5 m-0"><Fragment set:html={post.custom_fields.point_benefits_1_b_content} /></p>
+                  </div>
+                </div>
+              </div>
+          </div>
         </div>
-    
-        <div class="row">
-            <div class="col-lg-12 d-flex flex-column justify-content-center align-items-center px-0">
-                <img class="w-100 object-fit" style="height: 65vh" src="" data-src={post.featured_image.large || post.data?.imageUrl} alt="" />
-            </div>
+
+        <div class="row" id="content">
+          <div class="content-body col-lg-8 offset-lg-2">
+        <hr class="mx-auto my-4">
+
+            <p class="fs-5 fst-italic text-black-50"><Fragment set:html={post.custom_fields.point_content_0_c_content} /></p>
+        <hr class="mx-auto my-4">
+
+            <h2>{post.custom_fields.point_content_1_c_title}</h2>
+            <p><Fragment set:html={post.custom_fields.point_content_1_c_content} /></p>
+            <h2>{post.custom_fields.point_content_2_c_title}</h2>
+            <p><Fragment set:html={post.custom_fields.point_content_2_c_content} /></p>
+            <h2>{post.custom_fields.point_content_3_c_title}</h2>
+            <p><Fragment set:html={post.custom_fields.point_content_3_c_content} /></p>
+            <h2>{post.custom_fields.point_content_4_c_title}</h2>
+            <p><Fragment set:html={post.custom_fields.point_content_4_c_content} /></p>
+            <h2>{post.custom_fields.point_content_5_c_title}</h2>
+            <p><Fragment set:html={post.custom_fields.point_content_5_c_content} /></p>
+          </div>
         </div>
     </div>
     
     <!--body/sidebar-->
     <div class="container w-100 mx-auto">
-        <div id="content" class="row p-4">
+        <div class="row p-4">
             <div class="content-body col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 px-4 py-5">
                 <div class=""><Fragment set:html={post.content} /></div>
-               <!-- {post.content?.rendered ?
-                <Fragment id="postContent" set:html={post.content?.rendered} /> 
-                :
-                <Markdown of={post.body} />
-                } -->
+                <!-- <Markdown of={post.body} /> -->
+            
                 <!-- share -->
                 <div class="d-flex border-top py-3 mt-4">
                     <h6 class="ms-2 my-0 text-black-50 fw-bold">Share this post</h6>

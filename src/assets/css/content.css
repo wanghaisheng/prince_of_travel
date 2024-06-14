@@ -54,8 +54,9 @@
   border-radius: 23px;
   border-radius: 10px;
   width: 100% !important;
-  height: 100%;
-  object-fit: cover;
+  /* height: 100%; */
+  height: auto;
+  /* object-fit: cover; */
   margin: 20px auto;
 }
 
