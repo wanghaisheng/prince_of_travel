@@ -112,7 +112,7 @@ import navData from '../data/sitecontent.json';
 						<div class="col-lg-12 d-flex flex-column justify-content-end align-items-end text-end">
 						{
 						navData.navData.map((item) => (
-							<a href={item.path}>
+							<a href={item.path} data-bs-dismiss="offcanvas">
 								<div class="d-flex">
 									<!--<i class="bi bi-arrow-up-right fs-2"></i>-->
 									<h2 class="display-5 fw-bold my-0 ms-2">{item.title}</h2>
