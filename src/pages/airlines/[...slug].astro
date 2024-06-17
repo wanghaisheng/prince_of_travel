@@ -1,16 +1,18 @@
 ---
-import { getCollection } from 'astro:content';
+// import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import PostBody from '../../components/PostComponents/PostBody.astro';
+// import { Markdown } from '@astropub/md';
 
+// if there is no .md/collection content, do not use the combinedArray, will throw build errors
 export const prerender = true;
 export async function getStaticPaths() {
-    const reviewsEntries = await getCollection('reviews');
-    let data = await fetch("http://pftraveldev.wpengine.com/wp-json/pot/v1/airlines");
+    // const newsEntries = await getCollection('points-programs');
+    let data = await fetch("https://pftraveldev.wpengine.com/wp-json/pot/v1/airlines?per_page=100");
     let posts = await data.json();
-    const combinedArray = reviewsEntries.concat(posts);
+    // const combinedArray = dealsEntries.concat(posts);
 
-  return combinedArray.map(post => ({
+//   return combinedArray.map(post => ({
+  return posts.map(post => ({
     params: { slug: post.slug }, 
     props: { post }
   }));
@@ -18,18 +20,18 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 
-const allPosts = await getCollection("reviews");
-let filteredPosts = allPosts.filter(post => post.data.draft === false)
+// const allPosts = await getCollection("news");
+// let filteredPosts = allPosts.filter(post => post.data.draft === false)
 // const { Content } = await post.render();
 
 // Remove space, add hyphens to titles, convert to lowerCase to be used for hyperlinks
-function tableOfContents(str) {
-    // Convert the string to lowercase
-    let lowercaseStr = str.toLowerCase();
-    // Replace spaces with hyphens
-    let hyphenatedStr = lowercaseStr.replace(/ /g, '-');
-    return hyphenatedStr;
-}
+// function tableOfContents(str) {
+//     // Convert the string to lowercase
+//     let lowercaseStr = str.toLowerCase();
+//     // Replace spaces with hyphens
+//     let hyphenatedStr = lowercaseStr.replace(/ /g, '-');
+//     return hyphenatedStr;
+// }
 
 // get read time
 function wordCount(str) {
@@ -42,7 +44,7 @@ function wordCount(str) {
 // fb share btn
 function fbShare() {
   const fbShare = "https://www.facebook.com/sharer/sharer.php?u=";
-  const url = `https://princecollection.com${Astro.url.pathname}`;
+  const url = `https://princeoftravel.com${Astro.url.pathname}`;
   const shareButton = fbShare + url;
   return shareButton;
 }
@@ -50,7 +52,7 @@ function fbShare() {
 // twitter/X share btn
 function tweetCurrentPage(title) {
   const twShare = "https://twitter.com/share?url=";
-  const url = encodeURIComponent(`https://princecollection.com${Astro.url.pathname}`);
+  const url = encodeURIComponent(`https://princeoftravel.com${Astro.url.pathname}`);
   const twShareButton = twShare + url + '&text=' + title;
   return twShareButton;
 }
@@ -91,90 +93,85 @@ function shorten(text, max) {
 }
 ---
 
-<Layout title={post.title || post.data.title} description="This is the airlines description" image={post.data?.imageUrl || post.featured_image.large}>
-
-    <PostBody
-    category="reviews"
-    title={post.title || post.data.title}
-    backToUrl="reviews"
-    backToText="Reviews"
-    author={post.author || post.data.author}
-    date={post.date?.toString().slice(0,10) || post.data.pubDate.toString().slice(0,10)}
-    description={'This is the description' || post.data.description}
-    content={wordCount(post.content || post.body)} 
-    slider={post.data?.carousel == undefined || post.data?.carousel == '' }
-    featuredImage={post.data?.imageUrl || post.featured_image.large}
-    carouselImages={post.data?.carousel}
-    tags={post.data?.tags}
-    toc={post.data?.contents}
-    postContent={post.content}
-    postBody={post.body}
-    fbShare={fbShare()}
-    tweetCurrentPage={tweetCurrentPage(post.title || post.title)}
-    emailPage={emailPage(post.title || post.title)}
-    />
-
-          
-
-    
-    <!--<div class="container w-100 mx-auto">
-        <div id="content" class="row p-4">
-       
-            <div class="d-none d-xl-flex flex-column col-lg-2 col-lg-3 pt-5">
-                <div class="d-flex justify-content center-align-items-center">
-                     
-                 
-                    
-                    {
-                        post.data?.tags &&
-                        post.data.tags.map((tag) =>(
-                        <span class="badge bg-pc-10 text-pc-dark me-1 mb-2">#{tag}</span>
-                        ))
-                    }
-                </div>
-                <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {post._embedded?.author[0].name || post.data.author}</p>
-                <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {post.date?.toString().slice(0,10) || post.data.pubDate.toString().slice(0,10)}</p>
-                <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Read time </span>  {wordCount(post.content?.rendered || post.body)} mins</p>
-                <hr>
-                <p><span class="fw-bold text-pc-dark">Prince Collection</span> is a non-traditional, full service travel concierge designed exclusively for companies and individuals who require exclusive travel arrangements. We handle the nuances of travel ensuring a seamless and extraordinary journey from start to finish.</p>
-                <hr>
-                <div>
-                    <h4 class="fs-5 fw-bold text-pc-dark">Newsletter</h4>
-                    <p>Join the Prince Collection newsletter to get weekly updates delivered straight to your inbox.</p>
-                    <div class="klaviyo-form-UGQNyX"></div>
-                </div>
-                <hr>
-                <div>
-                    <h4 class="fs-5 fw-bold text-pc-dark">Book your travel</h4>
-                    <p>Let Prince Collection’s Travel Concierge handle your exclusive travel arrangements. Get started by filling out some basic info about your trip.</p>
-                    <a href="/book">
-                        <button class="btn btn-pc">Book now</button>
-                    </a>
-                </div>
-                <hr>
-                <h2 class="text-secondary mb-3">More posts</h2>
-
-            </div>
-            <div class="content-body col-lg-12 col-xl-9 p-4 p-lg-5">
-                { post.data?.contents &&
-                <details class="bg-body-secondary p-3 mb-4 rounded-3" style="transition: all .3s ease-in-out;">
-                    <summary class="fs-5 fw-bold text-black-50">What's in this post</summary>
-                    <div class="px-3 py-2">
-                        {post.data.contents.map((item) => (
-                        <a href={'#' +  tableOfContents(item)}>
-                            <p class="my-2" style="font-size: 17px"><i class="bi bi-diamond text-secondary fw-bold me-1"></i> {item}</p>
-                        </a>
-                        ))}
+<Layout title="" description="" image="">
+    <div class="container-fluid px-0 pt-3">
+        <div class="row py-3 position-relative">
+            <div class="col-lg-8 offset-lg-2 d-flex flex-column justify-content-center align-items-center text-center p-5">
+                <a href="/airlines">
+                    <div class="d-flex align-items-center aos-init aos-animate position-absolute start-0 top-25 ms-4" data-aos="fade-up">
+                        <i class="bi bi-arrow-left text-black-50 fs-1"></i>
+                        <h6 class="ms-2 my-0 text-black-50 fw-light">Back</h6>
                     </div>
-                </details>
-                }
-           
-               {post.content?.rendered ?
-                <Fragment set:html={post.content.rendered} /> 
-                :
-                <Markdown of={post.body} />
-                }
-         
+                </a>
+                <img class="h-auto mx-0 rounded-4 p-4 mb-3" style="width: 200px; background: #eee" src="" data-src={post.featured_image.large || post.data?.imageUrl} alt="" />
+                <h5>{post.custom_fields.subtitle}</h5>
+                <h1 class="fw-bold text-body-secondary lh-2 ls-1 mb-4 mt-2" style="font-size: 10vmin;">
+                    <Fragment set:html={post.custom_fields.p_title_h4} />
+                </h1>
+                <div class="fs-4 text-body-secondary" data-aos="fade-up" data-aos-delay="400">
+                    <Fragment class="my-0" set:html={post.custom_fields.short_description} />
+                </div>
+    
+                <div class="mt-3" data-aos="fade-up" data-aos-delay="600">
+                    <p class="small text-body-secondary text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Updated on:</span> {post.date?.toString().slice(0,10) || post.data?.pubDate.toString().slice(0,10)}</p>
+                </div>
+            </div>
+
+            <div class="col-lg-10 offset-lg-1 d-flex flex-column justify-content-center align-items-center px-5">
+              <div class="row">
+                <div class="col-lg-6 mb-2">
+                  <div class="p-4 rounded-4 text-black-50" style="min-height: 300px; background: #eee;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-credit-card-2-front" viewBox="0 0 16 16">
+                      <path d="M14 3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/>
+                      <path d="M2 5.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5"/>
+                    </svg>
+                    <h3 class="fw-bold my-3">{post.custom_fields.point_benefits_0_b_title}</h3>
+                    <p class="fs-5 m-0"><Fragment set:html={post.custom_fields.point_benefits_0_b_content} /></p>
+                  </div>
+                </div>
+                <div class="col-lg-6 mb-2">
+                  <div class="p-4 rounded-4 text-black-50" style="min-height: 300px; background: #eee;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8m5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0"/>
+                      <path d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195z"/>
+                      <path d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083q.088-.517.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1z"/>
+                      <path d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 6 6 0 0 1 3.13-1.567"/>
+                    </svg>
+                    <h3 class="fw-bold my-3">{post.custom_fields.point_benefits_1_b_title}</h3>
+                    <p class="fs-5 m-0"><Fragment set:html={post.custom_fields.point_benefits_1_b_content} /></p>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+
+        <div class="row" id="content">
+          <div class="content-body col-lg-8 offset-lg-2">
+            <hr class="mx-auto my-4">
+            <p class="fs-5 fst-italic text-black-50"><Fragment set:html={post.custom_fields.point_content_0_c_content} /></p>
+            <hr class="mx-auto my-4">
+            <h2>{post.custom_fields.point_content_1_c_title}</h2>
+            <p><Fragment set:html={post.custom_fields.point_content_1_c_content} /></p>
+            <h2>{post.custom_fields.point_content_2_c_title}</h2>
+            <p><Fragment set:html={post.custom_fields.point_content_2_c_content} /></p>
+            <h2>{post.custom_fields.point_content_3_c_title}</h2>
+            <p><Fragment set:html={post.custom_fields.point_content_3_c_content} /></p>
+            <h2>{post.custom_fields.point_content_4_c_title}</h2>
+            <p><Fragment set:html={post.custom_fields.point_content_4_c_content} /></p>
+            <h2>{post.custom_fields.point_content_5_c_title}</h2>
+            <p><Fragment set:html={post.custom_fields.point_content_5_c_content} /></p>
+          </div>
+        </div>
+    </div>
+    
+    <!--body/sidebar-->
+    <div class="container w-100 mx-auto">
+        <div class="row p-4">
+            <div class="content-body col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 px-4 py-5">
+                <div class=""><Fragment set:html={post.content} /></div>
+                <!-- <Markdown of={post.body} /> -->
+            
+                <!-- share -->
                 <div class="d-flex border-top py-3 mt-4">
                     <h6 class="ms-2 my-0 text-black-50 fw-bold">Share this post</h6>
                 </div>
@@ -184,12 +181,12 @@ function shorten(text, max) {
                     <i class="bi bi-facebook fs-5"></i>
                   </button>
                 </a>
-                <a href={tweetCurrentPage(post.title)} target="_blank">
+                <a href={tweetCurrentPage(post.title?.rendered || post.title)} target="_blank">
                   <button class="btn btn-light text-black-50 px-3 py-2 fw-900 fs-5 me-2" style="background: #d6d6d680;">
                     <i class="bi bi-twitter-x fs-5"></i>
                   </button>
                 </a>
-                <a href={emailPage(post.title)}>
+                <a href={emailPage(post.title?.rendered || post.title)}>
                   <button class="btn btn-light text-black-50 px-3 py-2 fw-900 fs-5 me-2" style="background: #d6d6d680;">
                     <i class="bi bi-envelope fs-5"></i>
                   </button>
@@ -209,27 +206,27 @@ function shorten(text, max) {
             
             <div class="col-lg-12 d-block d-xl-none border-top p-4">
                 <div class="py-2">
-                <p><span class="fw-bold text-pc-dark">Prince Collection</span> is a non-traditional, full service travel concierge designed exclusively for companies and individuals who require exclusive travel arrangements. We handle the nuances of travel ensuring a seamless and extraordinary journey from start to finish.</p>
+                <p><span class="fw-bold text-body-secondary">Prince of Travel</span> is a non-traditional, full service travel concierge designed exclusively for companies and individuals who require exclusive travel arrangements. We handle the nuances of travel ensuring a seamless and extraordinary journey from start to finish.</p>
                 </div>
                 <hr>
                 <div class="py-2">
-                    <h4 class="fs-5 fw-bold text-pc-dark">Newsletter</h4>
+                    <h4 class="fs-5 fw-bold text-body-secondary">Newsletter</h4>
                     <p>Join the Prince Collection newsletter to get weekly updates delivered straight to your inbox.</p>
                     <div class="klaviyo-form-UGQNyX"></div>
                 </div>
                 <hr>
                 <div class="py-2">
-                    <h4 class="fs-5 fw-bold text-pc-dark">Book your travel</h4>
+                    <h4 class="fs-5 fw-bold text-body-secondary">Book your travel</h4>
                     <p>Let Prince Collection’s Travel Concierge handle your exclusive travel arrangements. Get started by filling out some basic info about your trip.</p>
                     <a href="/book">
                         <button class="btn btn-pc">Book now</button>
                     </a>
                 </div>
                 <hr>
-
+    
             </div>
         </div>
-    </div>-->
+    </div>
 </Layout>
 
 <script>
@@ -243,7 +240,7 @@ function shorten(text, max) {
         toastTrigger.addEventListener('click', () => {
             const toast = new bootstrap.Toast(toastLiveExample)
             toast.show();
-            navigator.clipboard.writeText("https://princecollection.com" + window.location.pathname);
+            navigator.clipboard.writeText("https://princeoftravel.com" + window.location.pathname);
         })
     }
   </script>

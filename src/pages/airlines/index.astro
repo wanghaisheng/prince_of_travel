@@ -1,357 +1,138 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from "astro:content";
-// const allPosts = await Astro.glob('../../pages/blog/*.md');
-const ccPosts = await getCollection("credit-cards");
+// import { getCollection } from "astro:content";
+// const guidesPosts = await getCollection("guides");
 // astro.glob => getCollection is the difference between getting all files from a directory in pages vs. collections
 // https://docs.astro.build/en/tutorials/add-content-collections/
 import functions from '../../js/functions.js';
 
-const { index, slug } = Astro.props
-
-const slideAnim = {
-  old: {
-    name: 'slideDown',
-    duration: '0.5s',
-    easing: 'ease-out',
-    fillMode: 'backwards',
-  },
-  new: {
-    name: 'slideUp',
-    duration: '0.5s',
-    delay: `${index * 0.2 + 0.1}s`,
-    easing: 'ease-out',
-    fillMode: 'backwards',
-  },
-}
-const verticalSlide = {
-  forwards: slideAnim,
-  backwards: slideAnim,
-}
-
-const res = await fetch("http://pftraveldev.wpengine.com/wp-json/pot/v1/airlines");
+// const data = await 'https://pftraveldev.wpengine.com/wp-json/pot/v1/points&_embed';
+// const posts = await data.json();
+const res = await fetch("https://pftraveldev.wpengine.com/wp-json/pot/v1/airlines?per_page=100");
 const posts = await res.json();
 
-// const combinedPosts = ccPosts.concat(posts);
+// const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/pot/v1/points';
+// const perPage = 51; // Number of posts per page
+// let posts = [];
+// let currentPage = 1;
+// let totalFetchedPosts = 0;
+// while (totalFetchedPosts < 50) { // Stop when reaching 50 posts
+// const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
+// const data = await response.json();
+// // console.log('Received posts:', data);
+// if (data.length === 0) {
+// 	console.log('No more posts, exiting loop');
+// 	break; // No more posts, exit loop
+// }
+
+// posts = posts.concat(data);
+// console.log('Data type of array:', typeof posts);
+// totalFetchedPosts += posts.length; // Update total fetched posts
+// currentPage++;
+// }
+
+
+// const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/pot/v1/points';
+// const perPage = 51; // Number of posts per page
+// let posts = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
+// let currentPage = 1;
+// let totalFetchedPosts = 0;
+// while (totalFetchedPosts < 50) { // Stop when reaching 50 posts
+// const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
+// const data = await response.json();
+// // console.log('Received posts:', data);
+// if (data.length === 0) {
+// 	console.log('No more posts, exiting loop');
+// 	break; // No more posts, exit loop
+// }
+
+// posts = posts.concat(data);
+// console.log('Data type of array:', typeof posts);
+// totalFetchedPosts += posts.length; // Update total fetched posts
+// currentPage++;
+// }
+
+// function destructureArray(array) {
+//     const first3 = array.slice(0, 3);
+//     const second3 = array.slice(3, 6);
+//     const third3 = array.slice(6, 9);
+//     const fourth3 = array.slice(9, 12);
+//     const fifth3 = array.slice(12, 15);
+//     const sixth5 = array.slice(15, 19);
+//     const next16 = array.slice(19, 31);
+//     const restOfPosts = array.slice(31);
+
+//     return [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts];
+// }
+
+// const [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts] = destructureArray(posts);
+
+// const combinedPosts = allPosts.concat(posts);
 
 // let filteredPosts = allPosts.filter(post => post.data.draft === false)
 // filteredPosts.sort((a, b) => b.data.pubDate - a.data.pubDate);
 // const [firstArticle, ...allArticles] = filteredPosts;
-const [firstArticle, ...allArticles] = ccPosts;
+// const [firstArticle, ...allArticles] = guidesPosts;
 
-// bit-alaska post had a cross at the end of the url which threw a build error in netlify
-function removeSpecialCharactersFromURL(url) {
-    // Define a regular expression to match special characters
-	const regex = /[^\w\s\-#]/gi;
-    // Replace special characters with an empty string
-    const cleanURL = url.replace(regex, '');
-    return cleanURL;
-}
+
+// const points2 = posts.filter(item => 
+// frequentFlyer.some(substring => item.includes(substring))
+// );
+// const points3 = posts.filter(item => 
+// hotelLoyalty.some(substring => item.includes(substring))
+// );
+// const points4 = posts.filter(item => 
+// other.some(substring => item.includes(substring))
+// );
+
 ---
 
-<Layout title="Prince of Travel | Airlines" description="Prince of Travel's latest news, deals, and happenings in the travel space." image={firstArticle.data.imageUrl}>
-	<div class="container-fluid px-0" style="background: var(--beige);">
-        <div class="row min-vh-100">
-            <div class="col-lg-8 offset-lg-2 d-flex flex-column justify-content-center align-items-center text-center p-5">
-                <img class="logo animate-in py-4 ps-4 pe-3 rounded-4 bg-dark" style="width: 100px;" src="/images/logos/pot-crown-white.png" alt="Prince of Travel logo" />					
-                <h1 class="fw-bold lh-1 ls-1 mb-1 mt-3 animate-in" style="font-size: 13vmin;">Airlines.</h1>
-                <p class="fs-3 col-lg-10">Be inspired to travel <span class="fw-bold">more,</span> <span class="fw-bold">better,</span> and <span class="fw-bold">cheaper</span> with Prince of Travel's expertise in travel rewards, points programs, credit cards, and accommodation.</p>
-            </div>
-        </div>
+<Layout title="Prince of Travel | Point Programs" description="Prince of Travel's latest news on everything from new hotel properties, to flights and airline deals, airports, credit cards, and more." image="">
+	<div class="container-fluid" style="background: ##fffbf8">
+		<div class="row pt-5">
+			<div class="col-lg-6 min-vh-50 d-flex flex-column justify-content-end align-items-start text-start p-5">
+			  <h1 class="text-secondary fw-bold ls-1 lh-1" style="font-size: 12vmin;" data-aos="fade-up" data-aos-delay="200">Airline Products</h1>
+				 <!-- <p class="fs-4 mt-0">Below are the top credit cards in the Canadian marketplace for the purposes of earning points and maximizing rewards.</p> -->
+				 <p class="fs-4 text-body-secondary mt-2" data-aos="fade-up" data-aos-delay="600">Here are our guides to the best premium aviation experiences in the world.</p>
+		  </div>
+		  <div class="col-lg-12 d-flex flex-column justify-content-center align-items-center pt-5 px-0">
+            <!-- ad concept, banner shows placement card? -->
+            <!-- <img class="w-100 object-fit" style="height: 500px" src="" data-src="https://images.pexels.com/photos/459402/pexels-photo-459402.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" /> -->
+           <!-- Qatar - potential ad strategy -->
+            <!-- <img class="w-100 object-fit" style="height: 500px" src="https://images.pexels.com/photos/674783/pexels-photo-674783.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" /> -->
+            <!-- <img class="w-100 object-fit" style="height: 500px" src="" data-src="https://images.pexels.com/photos/163792/model-planes-airplanes-miniatur-wunderland-hamburg-163792.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" /> -->
+            <img class="w-100 object-fit" style="height: 500px; filter: grayscale(100%);" src="" data-src="https://images.unsplash.com/photo-1531045535792-b515d59c3d1f?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+          </div>
+		</div>
 
-		<div class="columns p-3">
-			<!--{allArticles?.map((post) => (
-					<div class="card bg-pc-light rounded-4 p-0 border-0 shadow mb-3" style="min-height: 500px; break-inside: avoid-column; white-space: nowrap;">
-						<img src="" data-src={post.data.imageUrl} class="card-img-top rounded-top-4 w-100 p-2" style="object-fit: cover; height: 200px;" alt={post.data.imageAlt}>
-						<i class="bi bi-arrow-up-right-circle-fill text-pc-10 fs-1 position-absolute top-0 end-0 me-3 mt-2"></i>
-						<div class="card-body position-relative px-4 pb-4">
-							<p class="small mb-2">{post.data.pubDate.toString().slice(0,10)}</p>
-							<h5 class="card-title fw-bold mb-0 text-balance">{post.data.title}</h5>
-							<p class="small m-0 text-secondary mt-2 mb-0">By: {post.data.author}</p>
-              <div class="d-flex flex-wrap pb-3 pt-2">
-                <button class="btn btn-sm btn-secondary opacity-75 me-1 rounded-pill px-4" type="button" data-bs-toggle="offcanvas" data-bs-target={'#item_' + index} aria-controls="offcanvasBottom">Details</button>
-                <a href={`/credit-cards/${post.data.slug}`}>
-                <button class="btn btn-sm btn-secondary rounded-pill px-4">Review</button>
-                </a>
-              </div>
+		<div class="row p-4 g-3">
+			{posts.map((item, index) => (
+				<div class="col-lg-6">	
+					<div class="card d-flex flex-column justify-content-center align-items-start mb-2 rounded-4 bg-light border-light shadow" style="min-height: 240px">
+						<div class="row g-0 p-3">
+							<div class="col-md-4 d-flex flex-column justify-content-center align-items-center" style="min-height: 240px">
+								<img src="" data-src={item.featured_image.large || item.data.imageUrl} class="w-100 h-100 object-fit rounded-4" style="aspect-ratio: 16/9; object-position: center" alt="">
+							</div>
+							<div class="col-md-8 my-auto">
+                                <div class="card-body p-4">
+                                    <h5 class="card-title fs-4 text-body-secondary fw-bold lh-1">
+                                        <Fragment set:html={item.title} />
+                                    </h5>
+                                    <p class="card-text text-black-50">
+                                        <Fragment set:html={item.content.slice(0,150) + '...'} />
+                                    </p>
+                                    <a href={`/airlines/${encodeURIComponent(item.slug)}/`}>
+                                        <div class="pt-3">
+                                            <button class="btn btn-secondary opacity-75 fw-bold rounded-pill px-4 position-absolute bottom-0 end-0 m-3">Learn more</button>
+                                        </div>
+                                    </a>
+                                </div>
+							</div>
 						</div>
 					</div>
-			))}-->
-
-      <!--<PostFetch2 client:visible />-->
-      
-		{posts?.map((post, index) => (		
-		<div class="card rounded-4 p-0 border-0 shadow bg-pc-light mb-3" style="min-height: 500px; break-inside: avoid-column; white-space: nowrap;">
-            <!--<img src="" data-src={post.featured_image.large} class="w-100" alt="">-->
-			<div class="card-body position-relative px-4 pb-3">
-				<h5 class="fs-4 text-dark card-title fw-bold mb-0" style="font-size: 24px; text-wrap: pretty"><Fragment set:html={post.title.rendered} /></h5>
-              <div class="my-3">
-                <p class="small m-0 text-secondary my-0" style="font-size: 16px"><Fragment set:html={post.content.rendered} /></p>
-              </div>
-              <div class="d-flex flex-wrap pb-3 pt-2">
-                <a href={`/airlines/${post.slug}`}>
-                <button class="btn btn-sm btn-secondary rounded-pill px-4 mt-2 mt-lg-0">Review</button>
-                </a>
-              </div>
-			</div>
-		</div>	
-          
+                 
+				</div>
 			))}
-      </div>
+		</div>
 	</div>
 </Layout>
-
-
-<script>
-  
-  function isPortraitImage(imageElement, callback) {
-    const img = new Image();
-    img.onload = function() {
-        const width = this.width;
-        const height = this.height;
-        callback(width < height);
-    };
-    img.src = imageElement.src;
-}
-
-// Example usage:
-const imageElements = document.querySelectorAll('img[data-image-id]');
-imageElements.forEach(function(imageElement) {
-    isPortraitImage(imageElement, function(isPortrait) {
-        if (isPortrait) {
-            imageElement.classList.add('portrait');
-            imageElement.classList.remove('landscape');
-        }
-    });
-});
-
-// // Check if there is a hash in the URL when the page loads
-// window.addEventListener("load", function() {
-//     var hash = window.location.hash;
-//     if (hash) {
-//       // Remove the '#' symbol from the hash
-//       var productSlug = hash.substring(1);
-//       // Find the corresponding offcanvas element and open it
-//       var offcanvas = document.querySelector('.offcanvas[data-product-slug="' + productSlug + '"]');
-//       if (offcanvas) {
-//         var offcanvasInstance = new bootstrap.Offcanvas(offcanvas);
-//         offcanvasInstance.show();
-//       }
-//     }
-//   });
-// });
-
-// hash approach v2.0: this works in all ways
-
-document.addEventListener("DOMContentLoaded", function() {
-  // Get all offcanvas elements
-  var offcanvasList = document.querySelectorAll(".offcanvas");
-
-  // Loop through each offcanvas and add event listeners
-  offcanvasList.forEach(function(offcanvas) {
-    offcanvas.addEventListener("shown.bs.offcanvas", function() {
-      // Get the product slug from data attribute
-      var productSlug = offcanvas.dataset.productSlug;
-      // Update the URL with the product slug
-      history.pushState({}, '', '#' + productSlug);
-    });
-
-    offcanvas.addEventListener("hidden.bs.offcanvas", function() {
-      // Revert the URL back to the previous state
-      removeSlugFromUrl();
-    });
-  });
-
-  // Check if there is a hash in the URL when the page loads
-  window.addEventListener("load", function() {
-    var hash = window.location.hash;
-    if (hash) {
-      // Remove the '#' symbol from the hash
-      var productSlug = hash.substring(1);
-      // Find the corresponding offcanvas element and open it
-      var offcanvas = document.querySelector('.offcanvas[data-product-slug="' + productSlug + '"]');
-      if (offcanvas) {
-        var offcanvasInstance = new bootstrap.Offcanvas(offcanvas);
-        offcanvasInstance.show();
-      }
-    }
-  });
-
-  // Listen for browser back functionality
-  window.addEventListener("popstate", function(event) {
-    // Close the offcanvas if it's currently shown
-    closeOffcanvas();
-  });
-});
-
-function removeSlugFromUrl() {
-  // Remove the hash from the URL
-  history.pushState({}, document.title, window.location.pathname);
-}
-
-function closeOffcanvas() {
-  // Get the currently shown offcanvas
-  var shownOffcanvas = document.querySelector('.offcanvas.show');
-  // Close the offcanvas if it's currently shown
-  if (shownOffcanvas) {
-    var offcanvasInstance = bootstrap.Offcanvas.getInstance(shownOffcanvas);
-    offcanvasInstance.hide();
-  }
-}
-
-// v3.0
-// document.addEventListener("DOMContentLoaded", function() {
-//   // Get all offcanvas elements
-//   var offcanvasList = document.querySelectorAll(".offcanvas");
-
-//   // Loop through each offcanvas and add event listeners
-//   offcanvasList.forEach(function(offcanvas) {
-//     offcanvas.addEventListener("shown.bs.offcanvas", function() {
-//       // Get the product slug from data attribute
-//       var productSlug = offcanvas.dataset.productSlug;
-//       // Update the URL with the product slug
-//       history.pushState({}, '', '/credit-cards/' + productSlug);
-//     });
-
-//     offcanvas.addEventListener("hidden.bs.offcanvas", function() {
-//       // Revert the URL back to the previous state
-//       removeSlugFromUrl();
-//     });
-//   });
-
-//   // Check if there is a slug in the URL when the page loads
-//   window.addEventListener("load", function() {
-//     var pathname = window.location.pathname;
-//     if (pathname !== '/' && pathname.length > 1) {
-//       // Remove the '/' prefix
-//       var productSlug = pathname.substring(1);
-//       // Find the corresponding offcanvas element and open it
-//       var offcanvas = document.querySelector('.offcanvas[data-product-slug="' + productSlug + '"]');
-//       if (offcanvas) {
-//         var offcanvasInstance = new bootstrap.Offcanvas(offcanvas);
-//         offcanvasInstance.show();
-//       }
-//     }
-//   });
-
-//   // Listen for browser back functionality
-//   window.addEventListener("popstate", function(event) {
-//     // Close the offcanvas if it's currently shown
-//     closeOffcanvas();
-//   });
-// });
-
-// function removeSlugFromUrl() {
-//   // Remove the slug from the URL
-//   history.pushState({}, document.title, '/credit-cards');
-// }
-
-// function closeOffcanvas() {
-//   // Get the currently shown offcanvas
-//   var shownOffcanvas = document.querySelector('.offcanvas.show');
-//   // Close the offcanvas if it's currently shown
-//   if (shownOffcanvas) {
-//     var offcanvasInstance = bootstrap.Offcanvas.getInstance(shownOffcanvas);
-//     offcanvasInstance.hide();
-//   }
-// }
-
-// document.addEventListener('DOMContentLoaded', function() {
-//             var itemsPerPage = 8; // Number of items to fetch per request
-//             var totalItemsFetched = 0; // Track the total number of items fetched
-
-//             // Function to fetch data from API
-//             function fetchData() {
-//                 fetch('https://pftraveldev.wpengine.com/wp-json/pot/v1/credit-cards?per_page=8')
-//                 .then(function(response) {
-//                     return response.json();
-//                 })
-//                 .then(function(data) {
-//                     // Append fetched items to the container
-//                     var container = document.getElementById('data-container');
-//                     var itemsToFetch = Math.min(itemsPerPage, data.length - totalItemsFetched);
-//                     for (var i = 0; i < itemsToFetch; i++) {
-//                         var div = document.createElement('div');
-//                         div.classList.add('item');
-//                         div.textContent = data[totalItemsFetched + i].title;
-//                         container.appendChild(div);
-//                     }
-//                     totalItemsFetched += itemsToFetch;
-//                 })
-//                 .catch(function(error) {
-//                     console.error('Error fetching data:', error);
-//                 });
-//             }
-
-//             // Initial data load
-//             fetchData();
-
-//             // Scroll event listener
-//             window.addEventListener('scroll', function() {
-//                 if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-//                     // When user scrolls to the bottom and not all items are fetched, load more data
-//                     if (totalItemsFetched < itemsPerPage) {
-//                         fetchData();
-//                     }
-//                 }
-//             });
-//         });
-</script>
-        
-<style>
-  .columns {
-    column-count: 4;
-    column-gap: 15px;
-    -moz-column-count: 4;
-    -moz-column-gap: 15px;
-    -webkit-column-count: 4;
-    -webkit-column-gap: 15px;
-    writing-mode: horizontal-tb;
-
-}
-@media only screen and (min-width: 1200px) {
-  .columns {
-    column-count: 4;
-    -moz-column-count: 4;
-    -webkit-column-count: 4;
-  } 
-}
-
-@media only screen and (max-width: 992px) {
-  .columns {
-    column-count: 3;
-    -moz-column-count: 3;
-    -webkit-column-count: 3;
-  } 
-}
-@media only screen and (max-width: 768px) {
-  .columns {
-    column-count: 2;
-    -moz-column-count: 2;
-    -webkit-column-count: 2;
-  } 
-}
-@media only screen and (max-width: 600px) {
-  .columns {
-    columns: 200px 1;
-    -moz-columns: 200px 1;
-    -webkit-columns: 200px 1;
-  } 
-}
-
-.portrait {
-  /* Styles for portrait images */
-  height: 300px;
-  width: 200px;
-  background-color: #d6d6d6;
-  text-align: center;
-  margin: 20px 0;
-}
-
-.landscape {
-  /* Styles for landscape images */
-  padding: 10px;
-  width: 100%;
-}
-
-</style>
