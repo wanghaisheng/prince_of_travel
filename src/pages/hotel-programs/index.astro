@@ -1,165 +1,156 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+// import { getCollection } from "astro:content";
+// const guidesPosts = await getCollection("guides");
+// astro.glob => getCollection is the difference between getting all files from a directory in pages vs. collections
+// https://docs.astro.build/en/tutorials/add-content-collections/
+import functions from '../../js/functions.js';
+
+const res = await fetch("https://pftraveldev.wpengine.com/wp-json/pot/v1/hotel-programs?per_page=100");
+const posts = await res.json();
+
+// const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/pot/v1/points';
+// const perPage = 51; // Number of posts per page
+// let posts = [];
+// let currentPage = 1;
+// let totalFetchedPosts = 0;
+// while (totalFetchedPosts < 50) { // Stop when reaching 50 posts
+// const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
+// const data = await response.json();
+// // console.log('Received posts:', data);
+// if (data.length === 0) {
+// 	console.log('No more posts, exiting loop');
+// 	break; // No more posts, exit loop
+// }
+
+// posts = posts.concat(data);
+// console.log('Data type of array:', typeof posts);
+// totalFetchedPosts += posts.length; // Update total fetched posts
+// currentPage++;
+// }
+
+
+// const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/pot/v1/points';
+// const perPage = 51; // Number of posts per page
+// let posts = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
+// let currentPage = 1;
+// let totalFetchedPosts = 0;
+// while (totalFetchedPosts < 50) { // Stop when reaching 50 posts
+// const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
+// const data = await response.json();
+// // console.log('Received posts:', data);
+// if (data.length === 0) {
+// 	console.log('No more posts, exiting loop');
+// 	break; // No more posts, exit loop
+// }
+
+// posts = posts.concat(data);
+// console.log('Data type of array:', typeof posts);
+// totalFetchedPosts += posts.length; // Update total fetched posts
+// currentPage++;
+// }
+
+// function destructureArray(array) {
+//     const first3 = array.slice(0, 3);
+//     const second3 = array.slice(3, 6);
+//     const third3 = array.slice(6, 9);
+//     const fourth3 = array.slice(9, 12);
+//     const fifth3 = array.slice(12, 15);
+//     const sixth5 = array.slice(15, 19);
+//     const next16 = array.slice(19, 31);
+//     const restOfPosts = array.slice(31);
+
+//     return [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts];
+// }
+
+// const [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts] = destructureArray(posts);
+
+// const combinedPosts = allPosts.concat(posts);
+
+// let filteredPosts = allPosts.filter(post => post.data.draft === false)
+// filteredPosts.sort((a, b) => b.data.pubDate - a.data.pubDate);
+// const [firstArticle, ...allArticles] = filteredPosts;
+// const [firstArticle, ...allArticles] = guidesPosts;
+
+
+// const points2 = posts.filter(item => 
+// frequentFlyer.some(substring => item.includes(substring))
+// );
+// const points3 = posts.filter(item => 
+// hotelLoyalty.some(substring => item.includes(substring))
+// );
+// const points4 = posts.filter(item => 
+// other.some(substring => item.includes(substring))
+// );
+
+
+function filterAndOrganize(response) {
+    // Filter titles that start with "The Complete Guide to"
+    let filteredTitles = response.filter(item => item.title.startsWith("The Complete Guide to"));
+
+    // Remove "The Complete Guide to" prefix from titles
+    filteredTitles = filteredTitles.map(item => {
+        item.title = item.title.replace("The Complete Guide to", "").trim();
+        return item;
+    });
+
+    // // Organize into two groups: Business Class and First Class
+    // let businessClass = filteredTitles.filter(item => item.title.toLowerCase().includes("business class"));
+    // let firstClass = filteredTitles.filter(item => item.title.toLowerCase().includes("first class"));
+
+    // return { businessClass, firstClass };
+}
+
+const organizedResults = filterAndOrganize(posts);
+
 ---
-<style>
-    /* .container {
-      display: flex;
-    } */
-    .scroll-div {
-      overflow-y: scroll;
-      /* margin-right: 20px; */
-    }
 
-    .container {
-    display: flex;
-    width: 100%;
-    /* overflow: hidden; */
-    /* overflow-y: auto; */
-}
+<Layout title="Prince of Travel | Hotel Programs" description="Prince of Travel's latest news on everything from new hotel properties, to flights and airline deals, airports, credit cards, and more." image="">
+	<div class="container-fluid" style="background: ##fffbf8">
+		<div class="row pt-5">
+			<div class="col-lg-6 min-vh-50 d-flex flex-column justify-content-end align-items-start text-start p-5">
+			  <h1 class="text-secondary fw-bold ls-1 lh-1" style="font-size: 12vmin;" data-aos="fade-up" data-aos-delay="200">Hotel Programs</h1>
+				 <!-- <p class="fs-4 mt-0">Below are the top credit cards in the Canadian marketplace for the purposes of earning points and maximizing rewards.</p> -->
+				 <p class="fs-4 text-body-secondary mt-2" data-aos="fade-up" data-aos-delay="600">Here are our guides to the best premium aviation experiences in the world.</p>
+		  </div>
+		  <div class="col-lg-12 d-flex flex-column justify-content-center align-items-center pt-5 px-0">
+            <!-- ad concept, banner shows placement card? -->
+            <!-- <img class="w-100 object-fit" style="height: 500px" src="" data-src="https://images.pexels.com/photos/459402/pexels-photo-459402.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" /> -->
+           <!-- Qatar - potential ad strategy -->
+            <!-- <img class="w-100 object-fit" style="height: 500px" src="https://images.pexels.com/photos/674783/pexels-photo-674783.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" /> -->
+            <!-- <img class="w-100 object-fit" style="height: 500px" src="" data-src="https://images.pexels.com/photos/163792/model-planes-airplanes-miniatur-wunderland-hamburg-163792.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" /> -->
+            <img class="w-100 object-fit" style="height: 500px;" src="" data-src="https://images.unsplash.com/photo-1498503182468-3b51cbb6cb24?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+          </div>
+		</div>
 
-.slow-scroll, .fast-scroll {
-    /* width: 50%; Each div occupies 50% of the container width */
-    height: 100vh;
-    /* overflow: hidden; Hide scrollbar */
-    overflow-y: auto;
-    -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-/* Hide scrollbar for Chrome, Safari and Opera */
-.slow-scroll::-webkit-scrollbar, 
-.fast-scroll::-webkit-scrollbar {
-  display: none;
-}
-  </style>
-<Layout title='' description='' image=''>
-
-<div class="container-fluid h-100">
-    <div class="row h-100">
-        <div class="scroll-div col-lg-6 bg-primary slow-scroll">
-            <!-- id="scrollDiv1" -->
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="div p-4 border rounded-5 shadow mb-2">
-                        <h5 class="fw-bold">Title</h5>
-                        <p>Sit reprehenderit laborum esse mollit ullamco cillum id aliqua pariatur. Magna adipisicing qui aute culpa aliqua consectetur culpa do eiusmod in pariatur esse voluptate aute. Officia mollit exercitation laborum ipsum.</p>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="div p-4 border rounded-5 shadow mb-2">
-                        <h5 class="fw-bold">Title</h5>
-                        <p>Sit reprehenderit laborum esse mollit ullamco cillum id aliqua pariatur. Magna adipisicing qui aute culpa aliqua consectetur culpa do eiusmod in pariatur esse voluptate aute. Officia mollit exercitation laborum ipsum.</p>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="div p-4 border rounded-5 shadow mb-2">
-                        <h5 class="fw-bold">Title</h5>
-                        <p>Sit reprehenderit laborum esse mollit ullamco cillum id aliqua pariatur. Magna adipisicing qui aute culpa aliqua consectetur culpa do eiusmod in pariatur esse voluptate aute. Officia mollit exercitation laborum ipsum.</p>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="div p-4 border rounded-5 shadow mb-2">
-                        <h5 class="fw-bold">Title</h5>
-                        <p>Sit reprehenderit laborum esse mollit ullamco cillum id aliqua pariatur. Magna adipisicing qui aute culpa aliqua consectetur culpa do eiusmod in pariatur esse voluptate aute. Officia mollit exercitation laborum ipsum.</p>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="div p-4 border rounded-5 shadow mb-2">
-                        <h5 class="fw-bold">Title</h5>
-                        <p>Sit reprehenderit laborum esse mollit ullamco cillum id aliqua pariatur. Magna adipisicing qui aute culpa aliqua consectetur culpa do eiusmod in pariatur esse voluptate aute. Officia mollit exercitation laborum ipsum.</p>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="div p-4 border rounded-5 shadow mb-2">
-                        <h5 class="fw-bold">Title</h5>
-                        <p>Sit reprehenderit laborum esse mollit ullamco cillum id aliqua pariatur. Magna adipisicing qui aute culpa aliqua consectetur culpa do eiusmod in pariatur esse voluptate aute. Officia mollit exercitation laborum ipsum.</p>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="div p-4 border rounded-5 shadow mb-2">
-                        <h5 class="fw-bold">Title</h5>
-                        <p>Sit reprehenderit laborum esse mollit ullamco cillum id aliqua pariatur. Magna adipisicing qui aute culpa aliqua consectetur culpa do eiusmod in pariatur esse voluptate aute. Officia mollit exercitation laborum ipsum.</p>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="div p-4 border rounded-5 shadow mb-2">
-                        <h5 class="fw-bold">Title</h5>
-                        <p>Sit reprehenderit laborum esse mollit ullamco cillum id aliqua pariatur. Magna adipisicing qui aute culpa aliqua consectetur culpa do eiusmod in pariatur esse voluptate aute. Officia mollit exercitation laborum ipsum.</p>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="div p-4 border rounded-5 shadow mb-2">
-                        <h5 class="fw-bold">Title</h5>
-                        <p>Sit reprehenderit laborum esse mollit ullamco cillum id aliqua pariatur. Magna adipisicing qui aute culpa aliqua consectetur culpa do eiusmod in pariatur esse voluptate aute. Officia mollit exercitation laborum ipsum.</p>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="div p-4 border rounded-5 shadow mb-2">
-                        <h5 class="fw-bold">Title</h5>
-                        <p>Sit reprehenderit laborum esse mollit ullamco cillum id aliqua pariatur. Magna adipisicing qui aute culpa aliqua consectetur culpa do eiusmod in pariatur esse voluptate aute. Officia mollit exercitation laborum ipsum.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="scroll-div col-lg-6 bg-warning fast-scroll">
-            <!-- id="scrollDiv2" -->
-            <h1>Dolor non officia tempor irure dolor ea qui.</h1>
-            <p>Ipsum exercitation mollit non magna esse anim enim laborum ut deserunt nulla incididunt. Nisi pariatur Lorem eiusmod elit ad duis culpa voluptate ad in pariatur. Aute in laboris ipsum do tempor ipsum quis nulla esse occaecat officia consequat ad. Nulla aliqua ad in aliquip velit laborum qui deserunt et magna officia excepteur. Esse ad culpa deserunt quis sint fugiat incididunt eu ex aute cillum.</p>
-            <p>Ipsum exercitation mollit non magna esse anim enim laborum ut deserunt nulla incididunt. Nisi pariatur Lorem eiusmod elit ad duis culpa voluptate ad in pariatur. Aute in laboris ipsum do tempor ipsum quis nulla esse occaecat officia consequat ad. Nulla aliqua ad in aliquip velit laborum qui deserunt et magna officia excepteur. Esse ad culpa deserunt quis sint fugiat incididunt eu ex aute cillum.</p>
-            <h2>Fugiat sint pariatur nostrud magna.</h2>
-            <p>Pariatur duis consectetur mollit nisi exercitation laboris officia incididunt. Sit mollit occaecat pariatur mollit cupidatat sit tempor nostrud enim. Occaecat tempor qui nisi duis nostrud voluptate exercitation cupidatat id non.</p>
-            <p>Pariatur duis consectetur mollit nisi exercitation laboris officia incididunt. Sit mollit occaecat pariatur mollit cupidatat sit tempor nostrud enim. Occaecat tempor qui nisi duis nostrud voluptate exercitation cupidatat id non.</p>
-            <p>Pariatur duis consectetur mollit nisi exercitation laboris officia incididunt. Sit mollit occaecat pariatur mollit cupidatat sit tempor nostrud enim. Occaecat tempor qui nisi duis nostrud voluptate exercitation cupidatat id non.</p>
-            <p>Pariatur duis consectetur mollit nisi exercitation laboris officia incididunt. Sit mollit occaecat pariatur mollit cupidatat sit tempor nostrud enim. Occaecat tempor qui nisi duis nostrud voluptate exercitation cupidatat id non.</p>
-           <p>Dolor veniam nulla consectetur ad minim qui do velit ad cupidatat laborum deserunt sit. Ex adipisicing duis nisi mollit dolore. Nostrud veniam ea eiusmod velit velit labore reprehenderit esse fugiat Lorem adipisicing sint. Aliqua in veniam cillum sunt sint est dolor nulla elit laboris aliqua occaecat. Ea enim exercitation in et aliquip veniam eiusmod. Eiusmod aute ad aute veniam eu et nisi cillum.</p>
-           <p>Dolor veniam nulla consectetur ad minim qui do velit ad cupidatat laborum deserunt sit. Ex adipisicing duis nisi mollit dolore. Nostrud veniam ea eiusmod velit velit labore reprehenderit esse fugiat Lorem adipisicing sint. Aliqua in veniam cillum sunt sint est dolor nulla elit laboris aliqua occaecat. Ea enim exercitation in et aliquip veniam eiusmod. Eiusmod aute ad aute veniam eu et nisi cillum.</p>
-           <p>Dolor veniam nulla consectetur ad minim qui do velit ad cupidatat laborum deserunt sit. Ex adipisicing duis nisi mollit dolore. Nostrud veniam ea eiusmod velit velit labore reprehenderit esse fugiat Lorem adipisicing sint. Aliqua in veniam cillum sunt sint est dolor nulla elit laboris aliqua occaecat. Ea enim exercitation in et aliquip veniam eiusmod. Eiusmod aute ad aute veniam eu et nisi cillum.</p>
-           <p>Dolor veniam nulla consectetur ad minim qui do velit ad cupidatat laborum deserunt sit. Ex adipisicing duis nisi mollit dolore. Nostrud veniam ea eiusmod velit velit labore reprehenderit esse fugiat Lorem adipisicing sint. Aliqua in veniam cillum sunt sint est dolor nulla elit laboris aliqua occaecat. Ea enim exercitation in et aliquip veniam eiusmod. Eiusmod aute ad aute veniam eu et nisi cillum.</p>
-           <p>Dolor veniam nulla consectetur ad minim qui do velit ad cupidatat laborum deserunt sit. Ex adipisicing duis nisi mollit dolore. Nostrud veniam ea eiusmod velit velit labore reprehenderit esse fugiat Lorem adipisicing sint. Aliqua in veniam cillum sunt sint est dolor nulla elit laboris aliqua occaecat. Ea enim exercitation in et aliquip veniam eiusmod. Eiusmod aute ad aute veniam eu et nisi cillum.</p>
-           <p>Dolor veniam nulla consectetur ad minim qui do velit ad cupidatat laborum deserunt sit. Ex adipisicing duis nisi mollit dolore. Nostrud veniam ea eiusmod velit velit labore reprehenderit esse fugiat Lorem adipisicing sint. Aliqua in veniam cillum sunt sint est dolor nulla elit laboris aliqua occaecat. Ea enim exercitation in et aliquip veniam eiusmod. Eiusmod aute ad aute veniam eu et nisi cillum.</p>
-            
-            
-        </div>
-  </div>
-</div>
+		<div class="row p-4 g-3">
+			{posts.map((item, index) => (
+				<div class="col-lg-6">	
+					<div class="card d-flex flex-column justify-content-center align-items-start mb-2 rounded-4 bg-light border-light shadow" style="min-height: 240px">
+						<div class="row g-0 p-3">
+							<div class="col-md-4 d-flex flex-column justify-content-center align-items-center" style="min-height: 240px">
+								<img src="" data-src={item.featured_image.large || item.data.imageUrl} class="w-100 h-100 object-fit rounded-4" style="aspect-ratio: 16/9; object-position: center" alt="">
+							</div>
+							<div class="col-md-8 my-auto">
+                                <div class="card-body p-4">
+                                    <h5 class="card-title fs-4 text-body-secondary fw-bold lh-1">
+                                        <Fragment set:html={item.title} />
+                                    </h5>
+                                    <p class="card-text text-black-50">
+                                        <Fragment set:html={functions.shortenToClosestPeriod(item.content, 200)} />
+                                    </p>
+                                    <a href={`/hotel-programs/${encodeURIComponent(item.slug)}/`}>
+                                        <div class="pt-3">
+                                            <button class="btn btn-secondary opacity-75 fw-bold rounded-pill px-4 position-absolute bottom-0 end-0 m-3">Learn more</button>
+                                        </div>
+                                    </a>
+                                </div>
+							</div>
+						</div>
+					</div>
+                 
+				</div>
+			))}
+		</div>
+	</div>
 </Layout>
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-
-    if (window.innerWidth > 768) {
-        var slowScrollDiv = document.querySelector(".slow-scroll");
-        var fastScrollDiv = document.querySelector(".fast-scroll");
-
-        slowScrollDiv.addEventListener('scroll', function() {
-            // Sync div2 scroll position with div1
-            fastScrollDiv.scrollTop = slowScrollDiv.scrollTop * 0.5; // Adjust scroll speed as needed
-        });
-
-        // Add scroll event listener to div2
-        fastScrollDiv.addEventListener('scroll', function() {
-            // Sync div1 scroll position with div2
-            slowScrollDiv.scrollTop = fastScrollDiv.scrollTop * 2; // Adjust scroll speed as needed
-        });
-    } else {
-        return;
-    }
-    console.log(window.innerWidth);
-});
-
-  // Get references to the divs
-  const div1 = document.getElementById('scrollDiv1');
-  const div2 = document.getElementById('scrollDiv2');
-
-  // Add scroll event listener to div1
-  div1.addEventListener('scroll', function() {
-    // Sync div2 scroll position with div1
-    div2.scrollTop = div1.scrollTop * 0.5; // Adjust scroll speed as needed
-  });
-
-  // Add scroll event listener to div2
-  div2.addEventListener('scroll', function() {
-    // Sync div1 scroll position with div2
-    div1.scrollTop = div2.scrollTop * 2; // Adjust scroll speed as needed
-  });
-</script>
-

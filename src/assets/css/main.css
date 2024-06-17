@@ -20,6 +20,8 @@ body {
   line-height: 1.4;
   transition: all 0.5s ease-in-out;
   margin: 0 auto;
+  /* font-size: 19px; */
+  margin-block: 1.3rlh;
 }
 
 body,
@@ -33,9 +35,9 @@ a {
   color: inherit;
 }
 
-a:hover {
+/* a:hover {
   text-decoration: underline;
-}
+} */
 
 /* general spacing setup */
 

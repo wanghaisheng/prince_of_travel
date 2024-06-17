@@ -3,6 +3,31 @@ export default {
     shorten: (text, max) => {
         return text && text.length > max ? text.slice(0, max).split(' ').slice(0, -1).join(' ') : text
     },
+    shortenToClosestPeriod: (str, maxLength) => {
+        // Check if the string is longer than the maxLength
+    // Check if the string length is greater than the maxLength
+    if (str.length > maxLength) {
+        // Find the index of the first period within the specified maxLength
+        let periodIndex = -1;
+        for (let i = 0; i < maxLength; i++) {
+            if (str[i] === '.') {
+                periodIndex = i;
+                break;
+            }
+        }
+
+        // If period is found within maxLength, truncate at the period
+        if (periodIndex !== -1) {
+            return str.slice(0, periodIndex + 1); // Include the period in the result
+        } else {
+            // If no period is found within maxLength, truncate at maxLength and add ellipsis
+            return str.slice(0, maxLength) + "...";
+        }
+    } else {
+        // If the string length is less than or equal to maxLength, return the original string
+        return str;
+    }
+    },
     thanks: (inputID, modalID) => {
         const inpObj = document.getElementById(inputID);
         if (inpObj.checkValidity() === false) {
@@ -28,7 +53,24 @@ export default {
         const height = imgSrc.naturalHeight || imgSrc.height;
         // Check if the image is in portrait orientation
         return height > width;
-    }
-   };
+    },
+    removeShortcodes: (text) => {
+        // Regular expression to match any shortcode pattern inside square brackets
+        const shortcodeRegex = /\[[^\]]+\]/gi;
 
- 
+        // Remove all matched shortcodes from the text
+        return text.replace(shortcodeRegex, '');
+    }
+    // addPTagsToText: (text) => {
+    //     // Split the text into paragraphs using \r\n\r\n as delimiter
+    //     let paragraphs = text.split(/\r\n\r\n/);
+    
+    //     // Map over each paragraph to wrap them in <p> tags
+    //     let paragraphsWithTag = paragraphs.map(paragraph => `<p>${paragraph}</p>`);
+    
+    //     // Join paragraphs into a single string with <p> tags
+    //     let textWithTag = paragraphsWithTag.join('');
+    
+    //     return textWithTag;
+    // }
+   };

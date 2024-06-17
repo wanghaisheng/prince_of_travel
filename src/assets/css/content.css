@@ -26,18 +26,18 @@
 #content h4 {
   color: rgba(0,0,0,.4)!important;
 }
-
+/* 
 .content-body h1:first-of-type,
 .content-body h2:first-of-type,
 .content-body p:first-of-type {
   margin-top: 0;
-}
+} */
 
 /* #content .content-body p:first-of-type { 
   margin-top: 0;
 } */
 
-#content .content-body p { 
+#content .content-body p, #content .content-body div { 
   font-size: 19px;
   line-height: 32px;
 }

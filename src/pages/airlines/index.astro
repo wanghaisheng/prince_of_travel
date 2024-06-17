@@ -6,8 +6,6 @@ import Layout from '../../layouts/Layout.astro';
 // https://docs.astro.build/en/tutorials/add-content-collections/
 import functions from '../../js/functions.js';
 
-// const data = await 'https://pftraveldev.wpengine.com/wp-json/pot/v1/points&_embed';
-// const posts = await data.json();
 const res = await fetch("https://pftraveldev.wpengine.com/wp-json/pot/v1/airlines?per_page=100");
 const posts = await res.json();
 
@@ -85,6 +83,26 @@ const posts = await res.json();
 // other.some(substring => item.includes(substring))
 // );
 
+
+function filterAndOrganize(response) {
+    // Filter titles that start with "The Complete Guide to"
+    let filteredTitles = response.filter(item => item.title.startsWith("The Complete Guide to"));
+
+    // Remove "The Complete Guide to" prefix from titles
+    filteredTitles = filteredTitles.map(item => {
+        item.title = item.title.replace("The Complete Guide to", "").trim();
+        return item;
+    });
+
+    // Organize into two groups: Business Class and First Class
+    let businessClass = filteredTitles.filter(item => item.title.toLowerCase().includes("business class"));
+    let firstClass = filteredTitles.filter(item => item.title.toLowerCase().includes("first class"));
+
+    return { businessClass, firstClass };
+}
+
+const organizedResults = filterAndOrganize(posts);
+
 ---
 
 <Layout title="Prince of Travel | Point Programs" description="Prince of Travel's latest news on everything from new hotel properties, to flights and airline deals, airports, credit cards, and more." image="">
@@ -106,7 +124,8 @@ const posts = await res.json();
 		</div>
 
 		<div class="row p-4 g-3">
-			{posts.map((item, index) => (
+            <h2 class="display-4 text-black-50 fw-bold ls-1">Business Class</h2>
+			{organizedResults.businessClass.map((item, index) => (
 				<div class="col-lg-6">	
 					<div class="card d-flex flex-column justify-content-center align-items-start mb-2 rounded-4 bg-light border-light shadow" style="min-height: 240px">
 						<div class="row g-0 p-3">
@@ -119,7 +138,7 @@ const posts = await res.json();
                                         <Fragment set:html={item.title} />
                                     </h5>
                                     <p class="card-text text-black-50">
-                                        <Fragment set:html={item.content.slice(0,150) + '...'} />
+                                        <Fragment set:html={functions.shortenToClosestPeriod(item.content, 200)} />
                                     </p>
                                     <a href={`/airlines/${encodeURIComponent(item.slug)}/`}>
                                         <div class="pt-3">
@@ -130,7 +149,34 @@ const posts = await res.json();
 							</div>
 						</div>
 					</div>
-                 
+				</div>
+			))}
+
+            <h2 class="display-4 text-black-50 fw-bold ls-1">First Class</h2>
+            {organizedResults.firstClass.map((item, index) => (
+				<div class="col-lg-6">	
+					<div class="card d-flex flex-column justify-content-center align-items-start mb-2 rounded-4 bg-light border-light shadow" style="min-height: 240px">
+						<div class="row g-0 p-3">
+							<div class="col-md-4 d-flex flex-column justify-content-center align-items-center" style="min-height: 240px">
+								<img src="" data-src={item.featured_image.large || item.data.imageUrl} class="w-100 h-100 object-fit rounded-4" style="aspect-ratio: 16/9; object-position: center" alt="">
+							</div>
+							<div class="col-md-8 my-auto">
+                                <div class="card-body p-4">
+                                    <h5 class="card-title fs-4 text-body-secondary fw-bold lh-1">
+                                        <Fragment set:html={item.title} />
+                                    </h5>
+                                    <p class="card-text text-black-50">
+                                        <Fragment set:html={functions.shortenToClosestPeriod(item.content, 200)} />
+                                    </p>
+                                    <a href={`/airlines/${encodeURIComponent(item.slug)}/`}>
+                                        <div class="pt-3">
+                                            <button class="btn btn-secondary opacity-75 fw-bold rounded-pill px-4 position-absolute bottom-0 end-0 m-3">Learn more</button>
+                                        </div>
+                                    </a>
+                                </div>
+							</div>
+						</div>
+					</div>
 				</div>
 			))}
 		</div>
