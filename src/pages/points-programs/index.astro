@@ -50,12 +50,13 @@ const posts = await res.json();
 ---
 
 <Layout title="Prince of Travel | Point Programs" description="Explore Prince of Travel's in-depth guides to maximizing Canada’s best points programs for booking travel." image="">
-	<div class="container-fluid" style="background: ##fffbf8">
+	<div class="container-fluid">
 		<div class="row pt-5">
 			<div class="col-lg-6 min-vh-50 d-flex flex-column justify-content-end align-items-start text-start p-5">
 			  <h1 class="text-secondary fw-bold ls-1 lh-1" style="font-size: 12vmin;" data-aos="fade-up" data-aos-delay="200">Points Programs</h1>
-				 <p class="fs-4 text-body-secondary mt-2" data-aos="fade-up" data-aos-delay="600">Below are some in-depth guides to taking advantage of Canada’s best points programs for booking travel.</p>
-			
+				 <p class="fs-4 text-body-secondary mt-2 mb-0" data-aos="fade-up" data-aos-delay="600">Explore our guides to credit card points programs, covering how to earn points and maximize benefits, tips and tricks, how to achieve elite status and get exclusive travel perks. Explore effective methods for points redemption ensuring you make the most of your travel using points programs.
+				 </p>
+				 <!-- Below are some in-depth guides to taking advantage of Canada’s best points programs for booking travel. -->
 		  </div>
 		  <div class="col-lg-12 d-flex flex-column justify-content-center align-items-center pt-5">
             <!-- ad concept, banner shows placement card? -->
@@ -65,10 +66,10 @@ const posts = await res.json();
           </div>
 		</div>
 
-		<div class="row p-4 g-3">
+		<div class="row p-4 g-3" style="background: #eee">
 			{posts.map((item, index) => (
 				<div class="col-lg-6">	
-					<div class="card d-flex flex-column justify-content-center align-items-start mb-2 rounded-4 bg-light border-light shadow" style="min-height: 250px">
+					<div class="card d-flex flex-column justify-content-center align-items-start mb-2 rounded-4 border-0" style="min-height: 250px">
 						<div class="row g-0 p-3">
 							<div class="col-md-4 d-flex flex-column justify-content-center align-items-center rounded-3" style="background: #eee; min-height: 200px">
 								<img src="" data-src={item.featured_image.large || item.data.imageUrl} class="p-3 w-100" style="" alt="">
