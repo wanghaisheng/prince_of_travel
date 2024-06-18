@@ -1,30 +1,27 @@
 ---
-import { getCollection } from 'astro:content';
+// import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-// import { Markdown } from '@astropub/md'
-import PostBody from '../../components/PostComponents/PostBody.astro';
+// import { Markdown } from '@astropub/md';
+import functions from '../../js/functions.js';
 
+// if there is no .md/collection content, do not use the combinedArray, will throw build errors
 export const prerender = true;
 export async function getStaticPaths() {
-    const ccEntries = await getCollection('credit-cards');
-    const response = await fetch("http://pftravelstage.wpengine.com/wp-json/pot/v1/best-credit-cards");
-    const posts = await response.json();
-    const combinedArray = ccEntries.concat(posts);
+    // const creditCardsEntries = await getCollection('credit-cards');
+    let data = await fetch("https://pftraveldev.wpengine.com/wp-json/pot/v1/best-credit-cards?per_page=100");
+    let posts = await data.json();
+    // const combinedArray = dealsEntries.concat(posts);
 
-  return combinedArray.map(post => ({
+//   return combinedArray.map(post => ({
+  return posts.map(post => ({
     params: { slug: post.slug }, 
     props: { post }
   }));
-  
-  // return combinedArray.map(post => ({
-  //   params: { slug: post.slug }, 
-  //   props: { post }
-  // }));
 }
 
 const { post } = Astro.props;
 
-// const allPosts = await getCollection("best-credit-cards");
+// const allPosts = await getCollection("guides");
 // let filteredPosts = allPosts.filter(post => post.data.draft === false)
 // const { Content } = await post.render();
 
@@ -38,21 +35,9 @@ function tableOfContents(str) {
 }
 
 // get read time
-// function wordCount(str) {
-//   const words = str.match(/(\w+)/g).length;
-//   const readMins = Math.trunc(words / 250);
-//   return readMins;
-// }
-
 function wordCount(str) {
-  if (!str || typeof str !== 'string') {
-    return 0; // Return 0 if str is undefined, null, or not a string
-  }
-  const words = str.match(/(\w+)/g);
-  if (!words) {
-    return 0; // Return 0 if no words are found in the string
-  }
-  const readMins = Math.trunc(words.length / 250);
+  const words = str.match(/(\w+)/g).length;
+  const readMins = Math.trunc(words / 250);
   return readMins;
 }
 
@@ -60,7 +45,7 @@ function wordCount(str) {
 // fb share btn
 function fbShare() {
   const fbShare = "https://www.facebook.com/sharer/sharer.php?u=";
-  const url = `https://princecollection.com${Astro.url.pathname}`;
+  const url = `https://princeoftravel.com${Astro.url.pathname}`;
   const shareButton = fbShare + url;
   return shareButton;
 }
@@ -68,7 +53,7 @@ function fbShare() {
 // twitter/X share btn
 function tweetCurrentPage(title) {
   const twShare = "https://twitter.com/share?url=";
-  const url = encodeURIComponent(`https://princecollection.com${Astro.url.pathname}`);
+  const url = encodeURIComponent(`https://princeoftravel.com${Astro.url.pathname}`);
   const twShareButton = twShare + url + '&text=' + title;
   return twShareButton;
 }
@@ -81,89 +66,84 @@ function emailPage(title) {
   return emailShare;
 }
 const url = encodeURIComponent(Astro.url.pathname);
-
-const { index } = Astro.props
-const slideAnim = {
-  old: {
-    name: 'slideDown',
-    duration: '0.7s',
-    easing: 'linear',
-    fillMode: 'forwards',
-  },
-  new: {
-    name: 'slideUp',
-    duration: '0.7s',
-    delay: `${index * 0.2 + 0.1}s`,
-    easing: 'ease-in-out',
-    fillMode: 'backwards',
-  },
-}
-const verticalSlide = {
-  forwards: slideAnim,
-  backwards: slideAnim,
-}
-
-// reduce length of post description to closest full word
-function shorten(text, max) {
-  return text && text.length > max ? text.slice(0, max).split(' ').slice(0, -1).join(' ') : text
-}
 ---
 
-<Layout title={post.title || post.data.title} description="" image="">
-
-    <PostBody
-    category="best-credit-cards"
-    title={post.title || post.data.title}
-    backToUrl="best-credit-cards"
-    backToText="Best Credit Cards"
-    author={post.author || post.data.author}
-    date={post.date?.toString().slice(0,10) || post.data.pubDate.toString().slice(0,10)}
-    description={post.excerpt || post.data?.description}
-    readTime={wordCount(post.content) || wordCount(post.body)}
-    featuredImage={post.featured_image?.large || post.data?.imageUrl}
-    carousel=""
-    tags={post.data?.tags}
-    toc={post.data?.contents}
-    postContent={post.content}
-    postBody={post.body}
-    fbShare={fbShare()}
-    tweetCurrentPage={tweetCurrentPage(post.title)}
-    emailPage={emailPage(post.title)}
-    />
-
+<Layout title="Prince of Travel | Airline Products" description="" image="">
     <div class="container-fluid px-0 pt-3">
-        <div class="row min-vh-500 bg-gold-2 pt-5">
-          <div class="col-lg-6 d-flex flex-column justify-content-end align-items-start text-start p-5">
-            <a href="/best-credit-cards">
-                <div class="d-flex align-items-center" data-aos="fade-up">
-                    <i class="bi bi-arrow-left text-black-50 fs-1"></i>
-                    <h6 class="ms-2 my-0 text-black-50 fw-light">Back to Best Credit Cards</h6>
+        <div class="row py-3">
+            <div class="col-lg-8 min-vh-500 d-flex flex-column justify-content-center align-items-start text-start p-5">
+                <a href="/best-credit-cards">
+                    <div class="d-flex align-items-center" data-aos="fade-up">
+                        <i class="bi bi-arrow-left text-black-50 fs-1"></i>
+                        <h6 class="ms-2 my-0 text-black-50 fw-light">Back to Best Credit Cards</h6>
+                    </div>
+                </a>
+    
+                <h1 class="fw-bold text-body-secondary lh-2 ls-1 my-2" data-aos="fade-up" data-aos-delay="200" style="font-size: 10vmin;">
+                    <Fragment set:html={post.title} />
+                </h1>
+                
+                <div class="mt-3 text-body-secondary" data-aos="fade-up" data-aos-delay="600">
+                    <p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Last updated:</span> {post.date.toString().slice(0,10) || post.data.pubDate.toString().slice(0,10)}</p>
+                    <p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Read time</span> {wordCount(post.content || post.body)} mins</p>
                 </div>
-            </a>
-            <h1 class="text-secondary fw-bold my-3" style="font-size: 12vmin;" data-aos="fade-up" data-aos-delay="200">{post.title || post.data?.title}</h1>
-            <!-- <p class="fs-5 col-md-7 text-body-secondary mb-3 mt-3" data-aos="fade-up" data-aos-delay="400">{post.description}</p> -->
-            <div data-aos="fade-up" data-aos-delay="600">
-                <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {post.pubDate?.toString().slice(0,10) || post.date?.toString().slice(0,10)}</p>
-                <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Read time </span>  {wordCount(post.body) || wordCount(post.content)} mins</p>
             </div>
         </div>
-
-            <div class="col-lg-12 d-flex flex-column justify-content-center align-items-center pt-5">
-              <img class="w-100 object-fit" style="height: 500px" src="" data-src={post.data?.imageUrl || post.featured_large} alt={post.data?.imageAlt} />
+    
+        <div class="row">
+            <div class="col-lg-12 d-flex flex-column justify-content-center align-items-center px-0">
+                <img class="w-100 object-fit" style="height: 65vh" src="" data-src={post.featured_image?.large || post.data?.imageUrl} alt="" />
             </div>
         </div>
     </div>
-
-
-    <!-- body -->
+    
+    <!--body/sidebar-->
     <div class="container w-100 mx-auto">
         <div id="content" class="row p-4">
-            <div class="content-body col-lg-12 col-xl-9 p-4 p-lg-5">
+            <div class="content-body col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 px-4 py-5">
+                <div><Fragment set:html={post.content} /></div>
+                <!-- <div><Fragment set:html={functions.removeShortcodes(post.content)} /></div> -->
+               <!-- {post.content?.rendered ?
+                <Fragment id="postContent" set:html={post.content?.rendered} /> 
+                :
+                <Markdown of={post.body} />
+                } -->
+                <!-- share -->
+                <div class="d-flex border-top py-3 mt-4">
+                    <h6 class="ms-2 my-0 text-black-50 fw-bold">Share this post</h6>
+                </div>
+                <div class="d-flex">
+                <a href={fbShare()} target="_blank">
+                    <button class="btn btn-light text-black-50 px-3 py-2 fw-900 fs-5 me-2" style="background: #d6d6d680;">
+                    <i class="bi bi-facebook fs-5"></i>
+                  </button>
+                </a>
+                <a href={tweetCurrentPage(post.title?.rendered || post.title)} target="_blank">
+                  <button class="btn btn-light text-black-50 px-3 py-2 fw-900 fs-5 me-2" style="background: #d6d6d680;">
+                    <i class="bi bi-twitter-x fs-5"></i>
+                  </button>
+                </a>
+                <a href={emailPage(post.title?.rendered || post.title)}>
+                  <button class="btn btn-light text-black-50 px-3 py-2 fw-900 fs-5 me-2" style="background: #d6d6d680;">
+                    <i class="bi bi-envelope fs-5"></i>
+                  </button>
+                </a>
+                <button class="btn btn-light text-black-50 px-3 py-2 fw-900 fs-5 me-2" style="background: #d6d6d680;" type="button" id="liveToastBtn">
+                    <i class="bi bi-link-45deg fs-5"></i>
+                </button>
+                <div class="toast-container position-fixed top-50 start-50 translate-middle p-3">
+                    <div id="liveToast" class="toast text-bg-light border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="1500">
+                        <div class="toast-body p-2 d-flex align-items-center text-secondary">
+                            <i class="bi bi-check-circle-fill text-success fs-5"></i> <p class="ms-2 my-0">Copied to clipboard!</p>
+                        </div>
+                    </div>
+                </div>
+              </div>
             </div>
             
             <div class="col-lg-12 d-block d-xl-none border-top p-4">
                 <div class="py-2">
-                <p><span class="fw-bold text-pc-dark">Prince of Travel</span> is a non-traditional, full service travel concierge designed exclusively for companies and individuals who require exclusive travel arrangements. We handle the nuances of travel ensuring a seamless and extraordinary journey from start to finish.</p>
+                <p><span class="fw-bold text-pc-dark">Prince Collection</span> is a non-traditional, full service travel concierge designed exclusively for companies and individuals who require exclusive travel arrangements. We handle the nuances of travel ensuring a seamless and extraordinary journey from start to finish.</p>
                 </div>
                 <hr>
                 <div class="py-2">
@@ -180,9 +160,7 @@ function shorten(text, max) {
                     </a>
                 </div>
                 <hr>
-                <div class="container-fluid">
-
-                </div>
+    
             </div>
         </div>
     </div>
@@ -199,7 +177,7 @@ function shorten(text, max) {
         toastTrigger.addEventListener('click', () => {
             const toast = new bootstrap.Toast(toastLiveExample)
             toast.show();
-            navigator.clipboard.writeText("https://princecollection.com" + window.location.pathname);
+            navigator.clipboard.writeText("https://princeoftravel.com" + window.location.pathname);
         })
     }
   </script>

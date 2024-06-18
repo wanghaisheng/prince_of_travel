@@ -8,7 +8,7 @@ import functions from '../../js/functions.js';
 export const prerender = true;
 export async function getStaticPaths() {
     // const airlinesEntries = await getCollection('airlines');
-    let data = await fetch("https://pftraveldev.wpengine.com/wp-json/pot/v1/airlines?per_page=100");
+    let data = await fetch("https://pftraveldev.wpengine.com/wp-json/pot/v1/airports?per_page=100");
     let posts = await data.json();
     // const combinedArray = dealsEntries.concat(posts);
 
@@ -72,10 +72,10 @@ function emailPage(title) {
     <div class="container-fluid px-0 pt-3">
         <div class="row py-3">
             <div class="col-lg-8 min-vh-500 d-flex flex-column justify-content-center align-items-start text-start p-5">
-                <a href="/airlines">
+                <a href="/airports">
                     <div class="d-flex align-items-center" data-aos="fade-up">
                         <i class="bi bi-arrow-left text-black-50 fs-1"></i>
-                        <h6 class="ms-2 my-0 text-black-50 fw-light">Back to Airlines</h6>
+                        <h6 class="ms-2 my-0 text-black-50 fw-light">Back to Airports</h6>
                     </div>
                 </a>
     
@@ -94,7 +94,7 @@ function emailPage(title) {
     
         <div class="row">
             <div class="col-lg-12 d-flex flex-column justify-content-center align-items-center px-0">
-                <img class="w-100 object-fit" style="height: 65vh" src="" data-src={post.featured_image?.large || post.data?.imageUrl} alt="" />
+                <img class="w-100 object-fit" style="height: 65vh;" src="" data-src={post.featured_image?.large || post.data?.imageUrl} alt="" />
             </div>
         </div>
     </div>

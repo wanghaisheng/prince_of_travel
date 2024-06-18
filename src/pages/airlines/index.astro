@@ -111,34 +111,94 @@ const organizedResults = filterAndOrganize(posts);
 			<div class="col-lg-6 min-vh-50 d-flex flex-column justify-content-end align-items-start text-start p-5">
 			  <h1 class="text-secondary fw-bold ls-1 lh-1" style="font-size: 12vmin;" data-aos="fade-up" data-aos-delay="200">Airline Products</h1>
 				 <!-- <p class="fs-4 mt-0">Below are the top credit cards in the Canadian marketplace for the purposes of earning points and maximizing rewards.</p> -->
-				 <p class="fs-4 text-body-secondary mt-2" data-aos="fade-up" data-aos-delay="600">Here are our guides to the best premium aviation experiences in the world.</p>
+				 <p class="fs-4 text-body-secondary mt-2 mb-0" data-aos="fade-up" data-aos-delay="600">Explore our comprehensive guides to the best aviation experiences worldwide. Get insight into first-class cabins, exclusive routes, effective points redemption strategies, and navigate award availability. Benefit from insider tips and tricks for luxurious travel with a range of premier airlines.
+                 </p>
 		  </div>
 		  <div class="col-lg-12 d-flex flex-column justify-content-center align-items-center pt-5 px-0">
             <!-- ad concept, banner shows placement card? -->
             <!-- <img class="w-100 object-fit" style="height: 500px" src="" data-src="https://images.pexels.com/photos/459402/pexels-photo-459402.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" /> -->
            <!-- Qatar - potential ad strategy -->
             <!-- <img class="w-100 object-fit" style="height: 500px" src="https://images.pexels.com/photos/674783/pexels-photo-674783.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" /> -->
-            <!-- <img class="w-100 object-fit" style="height: 500px" src="" data-src="https://images.pexels.com/photos/163792/model-planes-airplanes-miniatur-wunderland-hamburg-163792.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" /> -->
             <img class="w-100 object-fit" style="height: 500px; filter: grayscale(100%);" src="" data-src="https://images.unsplash.com/photo-1531045535792-b515d59c3d1f?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
           </div>
 		</div>
 
+        <div class="row p-4 g-3">
+            <div class="col-lg-6">	
+                <div class="card d-flex justify-content-center align-items-start mb-2 border-0 rounded-4 shadow p-5" style="min-height: 240px; background: #eee">
+                    <div class="object-fit rounded-4 p-4" style="background: var(--beige);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                        </svg>
+                    </div>
+                    <h2 class="display-5 text-black-50 fw-bold ls-1 mt-2 mb-3">First Class</h2>
+                </div>
+            </div>
+            {organizedResults.firstClass.map((item, index) => (
+            <div class="col-lg-6">	
+                <div class="card d-flex flex-column justify-content-center align-items-start mb-2 rounded-4 border shadow" style="min-height: 240px">
+                    <div class="row g-0 p-3">
+                        <div class="col-md-4 d-flex flex-column justify-content-center align-items-center position-relative" style="min-height: 240px">
+                            <div class="btn text-light rounded-3 position-absolute top-0 start-0 m-2 opacity-75 shadow" style="background: var(--orange);">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                </svg>
+                            </div>
+                            <img src="" data-src={item.featured_image.large || item.data.imageUrl} class="w-100 h-100 object-fit rounded-4" style="aspect-ratio: 16/9; object-position: center" alt="">
+                        </div>
+                        <div class="col-md-8 my-auto">
+                            <div class="card-body p-4">
+                                <h5 class="card-title fs-4 text-body-secondary fw-bold lh-1">
+                                    <Fragment set:html={item.title} />
+                                </h5>
+                                <p class="card-text text-black-50">
+                                    <Fragment set:html={item.content.slice(0,100) + '...'} />
+                                </p>
+                                <a href={`/airlines/${encodeURIComponent(item.slug)}/`}>
+                                    <div class="pt-3">
+                                        <button class="btn btn-secondary opacity-75 fw-bold rounded-pill px-4 position-absolute bottom-0 end-0 m-3">Learn more</button>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        ))}
+        </div>
+
 		<div class="row p-4 g-3">
-            <h2 class="display-4 text-black-50 fw-bold ls-1">Business Class</h2>
+            <div class="col-lg-6">	
+                <div class="card d-flex justify-content-center align-items-start mb-2 border-0 rounded-4 shadow p-5" style="min-height: 240px; background: #eee">
+                    <div class="object-fit rounded-4 p-4" style="background: var(--beige);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" class="bi bi-briefcase-fill" viewBox="0 0 16 16">
+                            <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v1.384l7.614 2.03a1.5 1.5 0 0 0 .772 0L16 5.884V4.5A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5"/>
+                            <path d="M0 12.5A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5V6.85L8.129 8.947a.5.5 0 0 1-.258 0L0 6.85z"/>
+                          </svg>
+                    </div>
+                    <h2 class="display-5 text-black-50 fw-bold ls-1 mt-2 mb-3">Business Class</h2>
+                </div>
+            </div>
 			{organizedResults.businessClass.map((item, index) => (
 				<div class="col-lg-6">	
 					<div class="card d-flex flex-column justify-content-center align-items-start mb-2 rounded-4 bg-light border-light shadow" style="min-height: 240px">
 						<div class="row g-0 p-3">
-							<div class="col-md-4 d-flex flex-column justify-content-center align-items-center" style="min-height: 240px">
+							<div class="col-md-4 d-flex flex-column justify-content-center align-items-center position-relative" style="min-height: 240px">
+                                <div class="btn btn-light rounded-3 position-absolute top-0 start-0 m-2 opacity-75 shadow">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-briefcase-fill" viewBox="0 0 16 16">
+                                    <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v1.384l7.614 2.03a1.5 1.5 0 0 0 .772 0L16 5.884V4.5A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5"/>
+                                    <path d="M0 12.5A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5V6.85L8.129 8.947a.5.5 0 0 1-.258 0L0 6.85z"/>
+                                    </svg>
+                                </div>
 								<img src="" data-src={item.featured_image.large || item.data.imageUrl} class="w-100 h-100 object-fit rounded-4" style="aspect-ratio: 16/9; object-position: center" alt="">
 							</div>
 							<div class="col-md-8 my-auto">
                                 <div class="card-body p-4">
-                                    <h5 class="card-title fs-4 text-body-secondary fw-bold lh-1">
+                                    <h4 class="card-title text-body-secondary fw-bold lh-1">
                                         <Fragment set:html={item.title} />
-                                    </h5>
+                                    </h4>
                                     <p class="card-text text-black-50">
-                                        <Fragment set:html={functions.shortenToClosestPeriod(item.content, 200)} />
+                                        <Fragment set:html={item.content.slice(0,100) + '...'} />
                                     </p>
                                     <a href={`/airlines/${encodeURIComponent(item.slug)}/`}>
                                         <div class="pt-3">
@@ -151,34 +211,6 @@ const organizedResults = filterAndOrganize(posts);
 					</div>
 				</div>
 			))}
-
-            <h2 class="display-4 text-black-50 fw-bold ls-1">First Class</h2>
-            {organizedResults.firstClass.map((item, index) => (
-				<div class="col-lg-6">	
-					<div class="card d-flex flex-column justify-content-center align-items-start mb-2 rounded-4 bg-light border-light shadow" style="min-height: 240px">
-						<div class="row g-0 p-3">
-							<div class="col-md-4 d-flex flex-column justify-content-center align-items-center" style="min-height: 240px">
-								<img src="" data-src={item.featured_image.large || item.data.imageUrl} class="w-100 h-100 object-fit rounded-4" style="aspect-ratio: 16/9; object-position: center" alt="">
-							</div>
-							<div class="col-md-8 my-auto">
-                                <div class="card-body p-4">
-                                    <h5 class="card-title fs-4 text-body-secondary fw-bold lh-1">
-                                        <Fragment set:html={item.title} />
-                                    </h5>
-                                    <p class="card-text text-black-50">
-                                        <Fragment set:html={functions.shortenToClosestPeriod(item.content, 200)} />
-                                    </p>
-                                    <a href={`/airlines/${encodeURIComponent(item.slug)}/`}>
-                                        <div class="pt-3">
-                                            <button class="btn btn-secondary opacity-75 fw-bold rounded-pill px-4 position-absolute bottom-0 end-0 m-3">Learn more</button>
-                                        </div>
-                                    </a>
-                                </div>
-							</div>
-						</div>
-					</div>
-				</div>
-			))}
-		</div>
+            </div>
 	</div>
 </Layout>

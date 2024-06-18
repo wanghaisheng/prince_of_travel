@@ -6,9 +6,6 @@ import Layout from '../../layouts/Layout.astro';
 // https://docs.astro.build/en/tutorials/add-content-collections/
 import functions from '../../js/functions.js';
 
-// const data = await 'https://pftraveldev.wpengine.com/wp-json/pot/v1/points&_embed';
-// const posts = await data.json();
-
 const res = await fetch("https://pftraveldev.wpengine.com/wp-json/pot/v1/points?per_page=100");
 const posts = await res.json();
 
@@ -32,42 +29,6 @@ const posts = await res.json();
 // currentPage++;
 // }
 
-
-// const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/pot/v1/points';
-// const perPage = 51; // Number of posts per page
-// let posts = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
-// let currentPage = 1;
-// let totalFetchedPosts = 0;
-// while (totalFetchedPosts < 50) { // Stop when reaching 50 posts
-// const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
-// const data = await response.json();
-// // console.log('Received posts:', data);
-// if (data.length === 0) {
-// 	console.log('No more posts, exiting loop');
-// 	break; // No more posts, exit loop
-// }
-
-// posts = posts.concat(data);
-// console.log('Data type of array:', typeof posts);
-// totalFetchedPosts += posts.length; // Update total fetched posts
-// currentPage++;
-// }
-
-// function destructureArray(array) {
-//     const first3 = array.slice(0, 3);
-//     const second3 = array.slice(3, 6);
-//     const third3 = array.slice(6, 9);
-//     const fourth3 = array.slice(9, 12);
-//     const fifth3 = array.slice(12, 15);
-//     const sixth5 = array.slice(15, 19);
-//     const next16 = array.slice(19, 31);
-//     const restOfPosts = array.slice(31);
-
-//     return [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts];
-// }
-
-// const [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts] = destructureArray(posts);
-
 // const combinedPosts = allPosts.concat(posts);
 
 // let filteredPosts = allPosts.filter(post => post.data.draft === false)
@@ -88,13 +49,12 @@ const posts = await res.json();
 
 ---
 
-<Layout title="Prince of Travel | Point Programs" description="Prince of Travel's latest news on everything from new hotel properties, to flights and airline deals, airports, credit cards, and more." image="">
+<Layout title="Prince of Travel | Point Programs" description="Explore Prince of Travel's in-depth guides to maximizing Canada’s best points programs for booking travel." image="">
 	<div class="container-fluid" style="background: ##fffbf8">
 		<div class="row pt-5">
 			<div class="col-lg-6 min-vh-50 d-flex flex-column justify-content-end align-items-start text-start p-5">
 			  <h1 class="text-secondary fw-bold ls-1 lh-1" style="font-size: 12vmin;" data-aos="fade-up" data-aos-delay="200">Points Programs</h1>
-				 <!-- <p class="fs-4 mt-0">Below are the top credit cards in the Canadian marketplace for the purposes of earning points and maximizing rewards.</p> -->
-				 <p class="fs-4 text-body-secondary mt-2" data-aos="fade-up" data-aos-delay="600">Explore Canada's premiere credit card offerings across a variety of categories from points, to travel, rewards, rates, and more.</p>
+				 <p class="fs-4 text-body-secondary mt-2" data-aos="fade-up" data-aos-delay="600">Below are some in-depth guides to taking advantage of Canada’s best points programs for booking travel.</p>
 			
 		  </div>
 		  <div class="col-lg-12 d-flex flex-column justify-content-center align-items-center pt-5">
@@ -104,15 +64,6 @@ const posts = await res.json();
             <img class="w-100 object-fit" style="height: 500px" src="" data-src="https://images.unsplash.com/photo-1613243555988-441166d4d6fd?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
           </div>
 		</div>
-
-		<!-- <div class="p-4">
-			<a href={`/points-programs/${encodeURIComponent(item.slug)}/`}>
-				<img src="" data-src={item.featured_image.large || item.data.imageUrl} class="p-3" style="width: 300px; height: auto" alt="">
-				<h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.custom_fields.short_ttl} /></h1>
-				<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={item.custom_fields.short_description} /></div>
-				<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
-			</a>						
-		</div>	 -->
 
 		<div class="row p-4 g-3">
 			{posts.map((item, index) => (

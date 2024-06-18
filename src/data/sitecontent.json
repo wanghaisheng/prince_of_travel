@@ -66,7 +66,7 @@
         },
         {
           "title": "Airports",
-          "path": "/airlines",
+          "path": "/airports",
           "description": "Get in-depth information on hotel programs and learn more about Prince Collection’s premier brands and vendors.",
           "icon": "bi-book",
           "badge": "Travel tips",
