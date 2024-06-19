@@ -83,14 +83,14 @@ function shorten(text, max) {
                     </div>
                 </a>
     
-                <h1 class="fw-bold text-body-secondary lh-2 ls-1 mb-4 mt-2" style="font-size: 10vmin;">
+                <h1 class="fw-bold text-body-secondary lh-2 ls-1 mb-0 mt-2" style="font-size: 10vmin;">
                     <Fragment set:html={post.title.rendered} />
                 </h1>
                 <div class="fs-4 text-body-secondary" data-aos="fade-up" data-aos-delay="400">
                     <Fragment class="my-0" set:html={post.excerpt.rendered} />
                 </div>
     
-                <div class="mt-3" data-aos="fade-up" data-aos-delay="600">
+                <div data-aos="fade-up" data-aos-delay="600">
                     <p class="small text-body-secondary text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {post._embedded?.author[0].name || post.data.author}</p>
                     <p class="small text-body-secondary text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {post.date?.toString().slice(0,10) || post.data.pubDate.toString().slice(0,10)}</p>
                     <p class="small text-body-secondary text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Read time </span> {wordCount(post.content?.rendered || post.body)} mins</p>
@@ -133,7 +133,7 @@ function shorten(text, max) {
                 <h2 class="text-secondary mb-3">More posts</h2>
     
             </div> -->
-            <div class="content-body col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 px-4 py-5">
+            <div class="content-body col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 p-4">
                 <!--table of contents check and loop-->
                 { post.contents &&
                 <details class="bg-body-secondary p-3 mb-4 rounded-3" style="transition: all .3s ease-in-out;">

@@ -83,7 +83,7 @@ const url = encodeURIComponent(Astro.url.pathname);
                     <Fragment set:html={post.title} />
                 </h1>
                 
-                <div class="mt-3 text-body-secondary" data-aos="fade-up" data-aos-delay="600">
+                <div class="mt-4 text-body-secondary" data-aos="fade-up" data-aos-delay="600">
                     <p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Last updated:</span> {post.date.toString().slice(0,10) || post.data.pubDate.toString().slice(0,10)}</p>
                     <p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Read time</span> {wordCount(post.content || post.body)} mins</p>
                 </div>

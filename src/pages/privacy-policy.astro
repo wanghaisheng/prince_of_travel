@@ -19,9 +19,15 @@ const pageData = await res.json();
 		</div>
 
         <div class="row">
-            <div class="col-lg-8 offset-lg-2 p-5 text-black-50">
-               <div class="fs-5"><Fragment set:html={pageData[0].content.rendered} /></div>
+            <div id="content" class="col-lg-8 offset-lg-2 p-5 text-black-50">
+                <!-- <p class="fs-5">Prince Of Travel Found At www.princeoftravel.com (“Website”) Is Governed By The Following Privacy Policy (“Privacy Policy”).</p> -->
+               <div class="content-body fs-5"><Fragment set:html={pageData[0].content.rendered} /></div>
             </div>
         </div>
     </div>
 </Layout>
+<style scoped>
+.content-body > p:first-of-type {
+    display: none;
+}
+</style>

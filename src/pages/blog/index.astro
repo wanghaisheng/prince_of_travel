@@ -226,37 +226,43 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
 
             <div class="row min-vh-100">
 				<div class="col-lg-8 offset-lg-2 d-flex flex-column justify-content-center align-items-center text-center p-5">
-                    <div class="rounded-4" style="background: var(--beige);">
-					<img class="logo animate-in py-4 ps-4 pe-3" style="width: 90px; filter: invert(1);" src="/images/logos/pot-crown-white.png" alt="Prince of Travel logo" />	
+                    <div class="rounded-4" style="background: var(--beige);" data-aos="fade-up">
+					    <img class="logo animate-in py-4 ps-4 pe-3" style="width: 90px; filter: invert(1);" src="/images/logos/pot-crown-white.png" alt="Prince of Travel logo" />	
                     </div>				
 					<!-- <img class="logo animate-in py-4 ps-4 pe-3 rounded-4" style="width: 100px; filter: invert(1); border: 2px solid lightgrey;" src="/images/logos/pot-crown-white.png" alt="Prince of Travel logo" />					 -->
-					<h1 class="fw-bold lh-1 ls-1 mb-1 mt-4 animate-in" style="font-size: 13vmin; font-size: 120px;">Prince <span style="color: var(--beige)">Blog</span></h1>
-					<p class="fs-3 col-lg-10">Be inspired to travel <span class="fw-bold">more,</span> <span class="fw-bold">better,</span> and <span class="fw-bold">cheaper</span> with Prince of Travel's expertise in travel rewards, points programs, credit cards, and accommodation.</p>
+					<h1 class="fw-bold lh-1 ls-1 mb-1 mt-3" style="font-size: 12vmin;" data-aos="fade-up" data-aos-delay="200">Prince <span style="color: var(--beige)">Blog</span></h1>
+					<p class="fs-3 col-lg-10 mt-3 text-black-50" data-aos="fade-up" data-aos-delay="400">Be inspired to travel <span class="fw-bold">more,</span> <span class="fw-bold">better,</span> and <span class="fw-bold">cheaper</span> with Prince of Travel's expertise in travel rewards, points programs, credit cards, and accommodation.</p>
+                    <div data-aos="fade-up" data-aos-delay="600">
+						<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="currentColor" class="bi bi-chevron-down text-black-50" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+                        </svg>
+					</div>
 				</div>
 			</div>
 
 
-            <div class="row text-light p-4" style="background: var(--lightblue)">
+            <div class="row text-light p-4 mx-0" style="background: var(--lightblue)">
                 <div class="col-lg-12 d-flex flex-column justify-content-center align-items-start text-start mb-3">
                     <h1 class="display-1 text-uppercase fw-900 ls-1 lh-1">/ News</h1>
                 </div>
                 {
                  posts.filter(cat => cat._embedded['wp:term'][0][0].slug === 'news' && cat.category_name === 'news').map((article, index) => (
-                    <div class:list={[index === 0 ? 'row pb-4' : 'd-none']}>
-                        <a class="d-flex" href={`/${article.category_name}/${article.slug}/`}>
-                        <div class="col-lg-6">
-                            <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top w-100 h-100 object-fit rounded-start-4 p-0" style="min-height: 150px;" alt="..." data-aos="fade" />
+                    <div class:list={[index === 0 ? 'row px-0 mx-0 mb-3 rounded-5' : 'd-none']} style="background: rgba(0, 0, 0, 0.09);">
+                        
+                        <div class="col-lg-6 d-flex justify-content-center align-items-center my-auto p-3">
+                            <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="w-100 object-fit rounded-5 min-vh-500" style="aspect-ratio: 16/9; " alt="..." data-aos="fade" />
                         </div>
-                        <div class="col-lg-6 text-light d-flex flex-column justify-content-center align-items-start p-5">
-                            <div class="card-body px-2 py-0">
-                                <p class="small m-0 mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>
-                                <h6 class="card-title display-2 text-black-50 fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
-                                <p class="small my-3">By: {article._embedded?.author[0].name}</p>
-                               <!--<button class="btn btn-sm small btn-secondary rounded-pill px-4 m-0 mt-2 mb-0">Read</button>-->
-                                <i class="bi bi-arrow-up-right-circle-fill text-light opacity-50 display-5 my-3"></i>
+                        <div class="col-lg-6 text-light d-flex flex-column justify-content-center align-items-start rounded-4 p-5 position-relative">
+                            <a class="d-flex" href={`/${article.category_name}/${article.slug}/`}>
+                            <div class="card-body px-2 py-0 d-flex flex-column justify-content-center align-items-start">
+                                <h6 class="card-title display-3 text-black-50 fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
+                                <p class="m-0 mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>
+                                <p class="mb-3 mt-0">By: {article._embedded?.author[0].name}</p>
+                                <i class="bi bi-arrow-up-right-circle-fill text-light opacity-50 display-5 m-3 position-absolute end-0 bottom-0"></i>
                             </div>
+                            </a>
                         </div> 
-                        </a>  
+                     
                     </div>
 
                     <div class:list={[index !== 0 ? 'col-lg-3 col-md-6' : 'd-none']}>
@@ -292,7 +298,7 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                         <div class="col-lg-6 text-black-50 d-flex flex-column justify-content-center align-items-start p-5">
                             <div class="card-body px-2 py-0">
                                 <p class="small m-0 mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>
-                                <h6 class="card-title display-2 text-balance fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
+                                <h6 class="card-title display-3 text-balance fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
                                 <p class="small my-3">By: {article._embedded?.author[0].name}</p>
                                <!--<button class="btn btn-sm small btn-secondary rounded-pill px-4 m-0 mt-2 mb-0">Read</button>-->
                                 <i class="bi bi-arrow-up-right-circle-fill text-black-50 display-5 my-3"></i>
@@ -333,7 +339,7 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                         <div class="col-lg-6 text-black-50 d-flex flex-column justify-content-center align-items-start p-5">
                             <div class="card-body px-2 py-0">
                                 <p class="small m-0 mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>
-                                <h6 class="card-title display-2 text-balance fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
+                                <h6 class="card-title display-3 text-balance fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
                                 <p class="small my-3">By: {article._embedded?.author[0].name}</p>
                                <!--<button class="btn btn-sm small btn-secondary rounded-pill px-4 m-0 mt-2 mb-0">Read</button>-->
                                 <i class="bi bi-arrow-up-right-circle-fill text-black-50 display-5 my-3"></i>
@@ -374,7 +380,7 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                         <div class="col-lg-6 text-black-50 d-flex flex-column justify-content-center align-items-start p-5">
                             <div class="card-body px-2 py-0">
                                 <p class="small m-0 mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>
-                                <h6 class="card-title display-2 text-balance fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
+                                <h6 class="card-title display-3 text-balance fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
                                 <p class="small my-3">By: {article._embedded?.author[0].name}</p>
                                <!--<button class="btn btn-sm small btn-secondary rounded-pill px-4 m-0 mt-2 mb-0">Read</button>-->
                                 <i class="bi bi-arrow-up-right-circle-fill text-black-50 display-5 my-3"></i>
@@ -415,7 +421,7 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                         <div class="col-lg-6 text-black-50 d-flex flex-column justify-content-center align-items-start p-5">
                             <div class="card-body px-2 py-0">
                                 <p class="small m-0 mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>
-                                <h6 class="card-title display-2 text-balance fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
+                                <h6 class="card-title display-3 text-balance fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
                                 <p class="small my-3">By: {article._embedded?.author[0].name}</p>
                                <!--<button class="btn btn-sm small btn-secondary rounded-pill px-4 m-0 mt-2 mb-0">Read</button>-->
                                 <i class="bi bi-arrow-up-right-circle-fill text-black-50 display-5 my-3"></i>
@@ -456,7 +462,7 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                         <div class="col-lg-6 text-black-50 d-flex flex-column justify-content-center align-items-start p-5">
                             <div class="card-body px-2 py-0">
                                 <p class="small m-0 mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>
-                                <h6 class="card-title display-2 text-balance fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
+                                <h6 class="card-title display-3 text-balance fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
                                 <p class="small my-3">By: {article._embedded?.author[0].name}</p>
                                <!--<button class="btn btn-sm small btn-secondary rounded-pill px-4 m-0 mt-2 mb-0">Read</button>-->
                                 <i class="bi bi-arrow-up-right-circle-fill text-black-50 display-5 my-3"></i>
@@ -497,7 +503,7 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                         <div class="col-lg-6 text-black-50 d-flex flex-column justify-content-center align-items-start p-5">
                             <div class="card-body px-2 py-0">
                                 <p class="small m-0 mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>
-                                <h6 class="card-title display-2 text-balance fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
+                                <h6 class="card-title display-3 text-balance fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
                                 <p class="small my-3">By: {article._embedded?.author[0].name}</p>
                                <!--<button class="btn btn-sm small btn-secondary rounded-pill px-4 m-0 mt-2 mb-0">Read</button>-->
                                 <i class="bi bi-arrow-up-right-circle-fill text-black-50 display-5 my-3"></i>
