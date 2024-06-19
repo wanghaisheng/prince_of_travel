@@ -1,17 +1,16 @@
 ---
-import { getCollection } from 'astro:content';
+// import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import { Markdown } from '@astropub/md'
-import PostBody from '../../components/PostComponents/PostBody.astro';
+// import { Markdown } from '@astropub/md'
 
 export const prerender = true;
 export async function getStaticPaths() {
-    const ccEntries = await getCollection('credit-cards');
+    // const ccEntries = await getCollection('credit-cards');
     let data = await fetch("https://pftraveldev.wpengine.com/wp-json/pot/v1/credit-cards?per_page=100");
     let posts = await data.json();
-    const combinedArray = ccEntries.concat(posts);
+    // const combinedArray = ccEntries.concat(posts);
 
-  return combinedArray.map(post => ({
+  return posts.map(post => ({
     params: { slug: post.slug }, 
     props: { post }
   }));
@@ -24,8 +23,7 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 
-const allPosts = await getCollection("credit-cards");
-let filteredPosts = allPosts.filter(post => post.data.draft === false)
+// const allPosts = await getCollection("credit-cards");
 // const { Content } = await post.render();
 
 // Remove space, add hyphens to titles, convert to lowerCase to be used for hyperlinks
@@ -70,73 +68,75 @@ function emailPage(title) {
 }
 const url = encodeURIComponent(Astro.url.pathname);
 
-const { index } = Astro.props
-const slideAnim = {
-  old: {
-    name: 'slideDown',
-    duration: '0.7s',
-    easing: 'linear',
-    fillMode: 'forwards',
-  },
-  new: {
-    name: 'slideUp',
-    duration: '0.7s',
-    delay: `${index * 0.2 + 0.1}s`,
-    easing: 'ease-in-out',
-    fillMode: 'backwards',
-  },
-}
-const verticalSlide = {
-  forwards: slideAnim,
-  backwards: slideAnim,
-}
+function toSentenceCase(str) {
+    // Split the string into sentences using periods followed by spaces or newlines
+    let sentences = str.split(/(\. +|\.\n+)/);
 
-// reduce length of post description to closest full word
-function shorten(text, max) {
-  return text && text.length > max ? text.slice(0, max).split(' ').slice(0, -1).join(' ') : text
+    // Function to determine if a word is a proper noun (assumed here for simplicity)
+    function isProperNoun(word) {
+        // You may need a more sophisticated check based on your data or use external libraries/databases
+        // For simplicity, we assume proper nouns are capitalized words
+        return word.charAt(0) === word.charAt(0).toUpperCase();
+    }
+
+    // Function to capitalize only the first letter of each sentence
+    let result = sentences.map(sentence => {
+        // If the sentence is a delimiter (period followed by space or newline), return it as-is
+        if (/(\. +|\.\n+)/.test(sentence)) {
+            return sentence;
+        }
+
+        // Trim any leading or trailing whitespace
+        sentence = sentence.trim();
+
+        // If the sentence is not empty, capitalize the first letter if not a proper noun
+        if (sentence.length > 0) {
+            let words = sentence.split(' ');
+            let capitalizedSentence = words.map((word, index) => {
+                // Capitalize the first word or any word that isn't a proper noun
+                if (index === 0 || !isProperNoun(word)) {
+                    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+                } else {
+                    return word; // Preserve proper nouns
+                }
+            }).join(' ');
+
+            return capitalizedSentence;
+        } else {
+            return sentence; // Return empty string if sentence is empty
+        }
+    });
+
+    // Join the sentences back together with the original sentence delimiters
+    return result.join('');
 }
 ---
 
 <Layout title={post.title || post.data.title} description="" image="">
 
-    <!-- <PostBody
-    category="credit-cards"
-    title={post.title || post.data.title}
-    backToUrl="credit-cards"
-    backToText="Credit Cards"
-    author={post.author || post.data.author}
-    date={post.date?.toString().slice(0,10) || post.data.pubDate.toString().slice(0,10)}
-    description={post.excerpt || post.data?.description}
-    readTime={post.content ? wordCount(post.content) : wordCount(post.body)}  || wordcount(post.content)
-    featuredImage={post.featured_image?.large || post.data?.imageUrl}
-    tags={post.data?.tags}
-    toc={post.data?.contents}
-    postContent={post.content}
-    postBody={post.body}
-    fbShare={fbShare()}
-    tweetCurrentPage={tweetCurrentPage(post.title)}
-    emailPage={emailPage(post.title)}
-    /> -->
-
     <div class="container-fluid px-0 pt-3">
-        <div class="row min-vh-500 bg-gold-2 pt-5">
-          <div class="col-lg-6 d-flex flex-column justify-content-end align-items-start text-start p-5">
-            <a href="/guides">
+        <div class="row min-vh-500 pt-5">
+          <div class="col-lg-7 d-flex flex-column justify-content-end align-items-start text-start p-5">
+            <a href="/credit-cards">
                 <div class="d-flex align-items-center" data-aos="fade-up">
                     <i class="bi bi-arrow-left text-black-50 fs-1"></i>
                     <h6 class="ms-2 my-0 text-black-50 fw-light">Back to Credit Cards</h6>
                 </div>
             </a>
-            <h1 class="font-windsong text-secondary fw-bold my-3" style="font-size: 12vmin;" data-aos="fade-up" data-aos-delay="200">{post.title || post.data?.title}</h1>
-            <!-- <p class="fs-5 col-md-7 text-body-secondary mb-3 mt-3" data-aos="fade-up" data-aos-delay="400">{post.description}</p> -->
-            <div data-aos="fade-up" data-aos-delay="600">
-                <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {post.pubDate?.toString().slice(0,10) || post.date?.toString().slice(0,10)}</p>
+            <h1 class="fw-bold text-body-secondary lh-2 ls-1 my-2" data-aos="fade-up" data-aos-delay="200" style="font-size: 10vmin;">
+              <Fragment set:html={post.title} />
+            </h1>
+            <div class="fs-4 text-body-secondary my-3" data-aos="fade-up" data-aos-delay="400">
+              <Fragment class="my-0" set:html={post.excerpt} />
+          </div>
+            <div class="mt-3" data-aos="fade-up" data-aos-delay="600">
+                <p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Updated on:</span> {post.pubDate?.toString().slice(0,10) || post.date?.toString().slice(0,10)}</p>
                 <!-- <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Read time </span>  {wordCount(post.body) || wordCount(post.content)} mins</p> -->
             </div>
         </div>
 
-            <div class="col-lg-12 d-flex flex-column justify-content-center align-items-center pt-5">
-              <img class="w-100 object-fit" style="height: 500px" src="" data-src={post.data?.imageUrl || post.featured_large} alt={post.data?.imageAlt} />
+            <div class="col-lg-12 d-flex flex-column justify-content-center align-items-center pt-5 px-0">
+              <img class="w-100 object-fit" style="height: 500px" src="" data-src={post.data?.imageUrl || post.featured_image.large} alt={post.data?.imageAlt} />
             </div>
         </div>
     </div>
@@ -145,12 +145,57 @@ function shorten(text, max) {
     <!-- body -->
     <div class="container w-100 mx-auto">
         <div id="content" class="row p-4">
-            <div class="content-body col-lg-12 col-xl-9 p-4 p-lg-5">
+            <div class="content-body col-lg-10 offset-lg-1 p-4 p-lg-5">
+              <p><Fragment set:html={toSentenceCase(post.custom_fields.card_content_0_c_content)} /></p>
+              <p><Fragment set:html={toSentenceCase(post.custom_fields.card_content_0_c_content)}/></>
+              <h2 class="fw-bold lh-1 ls-1">{post.custom_fields.card_content_1_c_title}</h2>
+              <p><Fragment set:html={post.custom_fields.card_content_1_c_content}</p>
+              <h2 class="fw-bold lh-1 ls-1">{post.custom_fields.card_content_2_c_title}</h2>
+              <p><Fragment set:html={post.custom_fields.card_content_2_c_content}</p>
+              <h2 class="fw-bold lh-1 ls-1">{post.custom_fields.card_content_3_c_title}</h2>
+              <p><Fragment set:html={post.custom_fields.card_content_3_c_content}</p>
+              <h2 class="fw-bold lh-1 ls-1">{post.custom_fields.card_content_4_c_title}</h2>
+              <p><Fragment set:html={post.custom_fields.card_content_4_c_content}</p>
+              <h2 class="fw-bold lh-1 ls-1">{post.custom_fields.card_content_5_c_title}</h2>
+              <p><Fragment set:html={post.custom_fields.card_content_5_c_content}</p>
+
+              <!-- share -->
+              <div class="d-flex border-top py-3 mt-4">
+                <h6 class="ms-2 my-0 text-black-50 fw-bold">Share this post</h6>
             </div>
+            <div class="d-flex">
+            <a href={fbShare()} target="_blank">
+                <button class="btn btn-light text-black-50 px-3 py-2 fw-900 fs-5 me-2" style="background: #d6d6d680;">
+                <i class="bi bi-facebook fs-5"></i>
+              </button>
+            </a>
+            <a href={tweetCurrentPage(post.title?.rendered || post.title)} target="_blank">
+              <button class="btn btn-light text-black-50 px-3 py-2 fw-900 fs-5 me-2" style="background: #d6d6d680;">
+                <i class="bi bi-twitter-x fs-5"></i>
+              </button>
+            </a>
+            <a href={emailPage(post.title?.rendered || post.title)}>
+              <button class="btn btn-light text-black-50 px-3 py-2 fw-900 fs-5 me-2" style="background: #d6d6d680;">
+                <i class="bi bi-envelope fs-5"></i>
+              </button>
+            </a>
+            <button class="btn btn-light text-black-50 px-3 py-2 fw-900 fs-5 me-2" style="background: #d6d6d680;" type="button" id="liveToastBtn">
+                <i class="bi bi-link-45deg fs-5"></i>
+            </button>
+            <div class="toast-container position-fixed top-50 start-50 translate-middle p-3">
+                <div id="liveToast" class="toast text-bg-light border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="1500">
+                    <div class="toast-body p-2 d-flex align-items-center text-secondary">
+                        <i class="bi bi-check-circle-fill text-success fs-5"></i> <p class="ms-2 my-0">Copied to clipboard!</p>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+
             
             <div class="col-lg-12 d-block d-xl-none border-top p-4">
                 <div class="py-2">
-                <p><span class="fw-bold text-pc-dark">Prince Collection</span> is a non-traditional, full service travel concierge designed exclusively for companies and individuals who require exclusive travel arrangements. We handle the nuances of travel ensuring a seamless and extraordinary journey from start to finish.</p>
+                <p><span class="fw-bold text-pc-dark">Prince of Travel</span> is a non-traditional, full service travel concierge designed exclusively for companies and individuals who require exclusive travel arrangements. We handle the nuances of travel ensuring a seamless and extraordinary journey from start to finish.</p>
                 </div>
                 <hr>
                 <div class="py-2">

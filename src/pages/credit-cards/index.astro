@@ -1,8 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from "astro:content";
+// import { getCollection } from "astro:content";
 // const allPosts = await Astro.glob('../../pages/blog/*.md');
-const ccPosts = await getCollection("credit-cards");
+// const ccPosts = await getCollection("credit-cards");
 // astro.glob => getCollection is the difference between getting all files from a directory in pages vs. collections
 // https://docs.astro.build/en/tutorials/add-content-collections/
 import functions from '../../js/functions.js';
@@ -34,12 +34,12 @@ const verticalSlide = {
 const res = await fetch("https://pftraveldev.wpengine.com/wp-json/pot/v1/credit-cards?per_page=100");
 const posts = await res.json();
 
-const combinedPosts = ccPosts.concat(posts);
+// const combinedPosts = ccPosts.concat(posts);
 
 // let filteredPosts = allPosts.filter(post => post.data.draft === false)
 // filteredPosts.sort((a, b) => b.data.pubDate - a.data.pubDate);
 // const [firstArticle, ...allArticles] = filteredPosts;
-const [firstArticle, ...allArticles] = ccPosts;
+// const [firstArticle, ...allArticles] = ccPosts;
 
 // bit-alaska post had a cross at the end of the url which threw a build error in netlify
 function removeSpecialCharactersFromURL(url) {
@@ -60,12 +60,12 @@ function isPortraitOrientation(imgElement) {
 }
 ---
 
-<Layout title="Prince of Travel | Credit Cards" description="Prince of Travel's latest news, deals, and happenings in the travel space." image={firstArticle.data.imageUrl}>
+<Layout title="Prince of Travel | Credit Cards" description="Prince of Travel's latest news, deals, and happenings in the travel space." image="">
 	<div class="container-fluid px-0" >
       <div class="row pt-5">
         <div class="col-lg-6 min-vh-50 d-flex flex-column justify-content-end align-items-start text-start p-5">
-          <h1 class="text-secondary fw-bold ls-1 lh-1" style="font-size: 12vmin;" data-aos="fade-up" data-aos-delay="200">Credit Cards</h1>
-          <div data-aos="fade-up" data-aos-delay="600">
+          <h1 class="text-secondary fw-bold ls-1 lh-1 animate-in" style="font-size: 12vmin;">Credit Cards</h1>
+          <div>
              <!-- <p class="fs-4 mt-0">Below are the top credit cards in the Canadian marketplace for the purposes of earning points and maximizing rewards.</p> -->
              <p class="fs-4 text-body-secondary my-0">Explore Canada's premiere credit card offerings across a variety of categories from points, to travel, rewards, rates, and more.</p>
           </div>
