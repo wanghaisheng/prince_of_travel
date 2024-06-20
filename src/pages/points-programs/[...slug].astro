@@ -102,12 +102,12 @@ function shorten(text, max) {
                         <h6 class="ms-2 my-0 text-black-50 fw-light">Back</h6>
                     </div>
                 </a>
-                <img class="h-auto mx-0 rounded-4 p-4 mb-3" style="width: 200px; background: #eee" src="" data-src={post.featured_image.large || post.data?.imageUrl} alt="" />
+                <img class="h-auto mx-0 rounded-4 p-4 mb-4" style="width: 200px; background: #eee" src="" data-src={post.featured_image.large || post.data?.imageUrl} alt="" />
                 <h5>{post.custom_fields.subtitle}</h5>
                 <h1 class="fw-bold text-body-secondary lh-2 ls-1 mb-0 mt-2" style="font-size: 10vmin;">
                     <Fragment set:html={post.custom_fields.p_title_h4} />
                 </h1>
-                <div class="fs-4 text-body-secondary" data-aos="fade-up" data-aos-delay="400">
+                <div class="fs-4 text-body-secondary my-4" data-aos="fade-up" data-aos-delay="400">
                     <Fragment class="my-0" set:html={post.custom_fields.short_description} />
                 </div>
     

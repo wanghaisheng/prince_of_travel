@@ -67,49 +67,6 @@ function emailPage(title) {
   return emailShare;
 }
 const url = encodeURIComponent(Astro.url.pathname);
-
-function toSentenceCase(str) {
-    // Split the string into sentences using periods followed by spaces or newlines
-    let sentences = str.split(/(\. +|\.\n+)/);
-
-    // Function to determine if a word is a proper noun (assumed here for simplicity)
-    function isProperNoun(word) {
-        // You may need a more sophisticated check based on your data or use external libraries/databases
-        // For simplicity, we assume proper nouns are capitalized words
-        return word.charAt(0) === word.charAt(0).toUpperCase();
-    }
-
-    // Function to capitalize only the first letter of each sentence
-    let result = sentences.map(sentence => {
-        // If the sentence is a delimiter (period followed by space or newline), return it as-is
-        if (/(\. +|\.\n+)/.test(sentence)) {
-            return sentence;
-        }
-
-        // Trim any leading or trailing whitespace
-        sentence = sentence.trim();
-
-        // If the sentence is not empty, capitalize the first letter if not a proper noun
-        if (sentence.length > 0) {
-            let words = sentence.split(' ');
-            let capitalizedSentence = words.map((word, index) => {
-                // Capitalize the first word or any word that isn't a proper noun
-                if (index === 0 || !isProperNoun(word)) {
-                    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-                } else {
-                    return word; // Preserve proper nouns
-                }
-            }).join(' ');
-
-            return capitalizedSentence;
-        } else {
-            return sentence; // Return empty string if sentence is empty
-        }
-    });
-
-    // Join the sentences back together with the original sentence delimiters
-    return result.join('');
-}
 ---
 
 <Layout title={post.title || post.data.title} description="" image="">
@@ -145,18 +102,17 @@ function toSentenceCase(str) {
     <!-- body -->
     <div class="container w-100 mx-auto">
         <div id="content" class="row p-4">
-            <div class="content-body col-lg-10 offset-lg-1 p-4 p-lg-5">
-              <p><Fragment set:html={toSentenceCase(post.custom_fields.card_content_0_c_content)} /></p>
-              <p><Fragment set:html={toSentenceCase(post.custom_fields.card_content_0_c_content)}/></>
-              <h2 class="fw-bold lh-1 ls-1">{post.custom_fields.card_content_1_c_title}</h2>
+            <div class="content-body col-lg-8 offset-lg-2 px-4 pb-3 pt-0">
+              <p><Fragment set:html={post.custom_fields.card_content_0_c_content} /></p>
+              <h2 class="fw-bold lh-1 ls-1"><Fragment set:html={post.custom_fields.card_content_1_c_title}/></h2>
               <p><Fragment set:html={post.custom_fields.card_content_1_c_content}</p>
-              <h2 class="fw-bold lh-1 ls-1">{post.custom_fields.card_content_2_c_title}</h2>
+              <h2 class="fw-bold lh-1 ls-1"><Fragment set:html={post.custom_fields.card_content_2_c_title}/></h2>
               <p><Fragment set:html={post.custom_fields.card_content_2_c_content}</p>
-              <h2 class="fw-bold lh-1 ls-1">{post.custom_fields.card_content_3_c_title}</h2>
+              <h2 class="fw-bold lh-1 ls-1"><Fragment set:html={post.custom_fields.card_content_3_c_title}/></h2>
               <p><Fragment set:html={post.custom_fields.card_content_3_c_content}</p>
-              <h2 class="fw-bold lh-1 ls-1">{post.custom_fields.card_content_4_c_title}</h2>
+              <h2 class="fw-bold lh-1 ls-1"><Fragment set:html={post.custom_fields.card_content_4_c_title}/></h2>
               <p><Fragment set:html={post.custom_fields.card_content_4_c_content}</p>
-              <h2 class="fw-bold lh-1 ls-1">{post.custom_fields.card_content_5_c_title}</h2>
+              <h2 class="fw-bold lh-1 ls-1"><Fragment set:html={post.custom_fields.card_content_5_c_title}/></h2>
               <p><Fragment set:html={post.custom_fields.card_content_5_c_content}</p>
 
               <!-- share -->
@@ -190,8 +146,6 @@ function toSentenceCase(str) {
                 </div>
             </div>
             </div>
-
-
             
             <div class="col-lg-12 d-block d-xl-none border-top p-4">
                 <div class="py-2">

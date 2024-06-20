@@ -112,9 +112,9 @@ function shorten(text, max) {
                 </div>
     
                 <div data-aos="fade-up" data-aos-delay="600">
-                    <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {post._embedded?.author[0].name || post.data.author}</p>
-                    <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {post.date?.toString().slice(0,10) || post.data.pubDate.toString().slice(0,10)}</p>
-                    <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Read time </span> {wordCount(post.content?.rendered || post.body)} mins</p>
+                    <p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {post._embedded?.author[0].name || post.data.author}</p>
+                    <p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {post.date?.toString().slice(0,10) || post.data.pubDate.toString().slice(0,10)}</p>
+                    <p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Read time </span> {wordCount(post.content?.rendered || post.body)} mins</p>
                 </div>
             </div>
         </div>
@@ -171,17 +171,17 @@ function shorten(text, max) {
             
             <div class="col-lg-12 d-block d-xl-none border-top p-4">
                 <div class="py-2">
-                <p><span class="fw-bold text-pc-dark">Prince Collection</span> is a non-traditional, full service travel concierge designed exclusively for companies and individuals who require exclusive travel arrangements. We handle the nuances of travel ensuring a seamless and extraordinary journey from start to finish.</p>
+                <p><span class="fw-bold">Prince Collection</span> is a non-traditional, full service travel concierge designed exclusively for companies and individuals who require exclusive travel arrangements. We handle the nuances of travel ensuring a seamless and extraordinary journey from start to finish.</p>
                 </div>
                 <hr>
                 <div class="py-2">
-                    <h4 class="fs-5 fw-bold text-pc-dark">Newsletter</h4>
+                    <h4 class="fs-5 fw-bold">Newsletter</h4>
                     <p>Join the Prince Collection newsletter to get weekly updates delivered straight to your inbox.</p>
                     <div class="klaviyo-form-UGQNyX"></div>
                 </div>
                 <hr>
                 <div class="py-2">
-                    <h4 class="fs-5 fw-bold text-pc-dark">Book your travel</h4>
+                    <h4 class="fs-5 fw-bold">Book your travel</h4>
                     <p>Let Prince Collection’s Travel Concierge handle your exclusive travel arrangements. Get started by filling out some basic info about your trip.</p>
                     <a href="/book">
                         <button class="btn btn-pc">Book now</button>

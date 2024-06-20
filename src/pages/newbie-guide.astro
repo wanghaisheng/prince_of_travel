@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 // import data from '../data/sitecontent.json';
 import functions from '../js/functions.js';
 
-const res = await fetch('https://pftraveldev.wpengine.com/wp-json/wp/v2/pages?slug=points-valuations');
+const res = await fetch('https://pftraveldev.wpengine.com/wp-json/wp/v2/pages?slug=newbie-guide');
 const pageData = await res.json();
 console.log(pageData);
 
@@ -17,13 +17,12 @@ console.log(pageData);
             </div>
             <div class="col-lg-12 p-0">
                 <!-- <img class="w-100" src="https://images.unsplash.com/photo-1613243555978-636c48dc653c?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt=""> -->
-                <!-- <img class="w-100 object-fit" style="height: 600px;" src="https://images.unsplash.com/photo-1613243555988-441166d4d6fd?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt=""> -->
-                <img class="w-100 object-fit" style="height: 600px; filter: grayscale(100%)" src="https://princeoftravel.com/wp-content/uploads/2020/06/ScreenShot2019-06-04at11.jpg" alt="">
+                <img class="w-100 object-fit" style="height: 600px;" src="https://images.unsplash.com/photo-1613243555988-441166d4d6fd?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
             </div>
         </div>
         <div id="content" class="row">
             <div class="content-body col-lg-8 offset-lg-2 px-4 pb-3 pt-0">
-                <Fragment set:html={functions.removeShortcodes(pageData[0].content.rendered)} />
+                <Fragment set:html={pageData[0].content.rendered} />
             </div>
         </div>
     </div>
