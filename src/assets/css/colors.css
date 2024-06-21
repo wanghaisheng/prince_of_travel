@@ -2,6 +2,7 @@
 
 :root {
     --pot: #61002A;
+    /* 600229 */
     --pc-dark: #a1655c;
     --pc-light: #f6f1eb;
     /* CSS menu palette HEX */
@@ -18,15 +19,21 @@
     --light-grey: hsl(60, 12%, 90%);
     
     --beige: rgb(217, 214, 204);
---lightblue: rgb(50, 149, 201);
---turquoise: #41bbb8;
---yellow: #ffe045;
---orange: rgb(252, 173, 0);
---peach: #ff791b;
---lime: #06a263;
---green: rgb(80, 190, 61);
---salmon: rgb(242, 109, 95);
---royalblue: rgb(0, 122, 255);
+    --lightblue: rgb(50, 149, 201);
+    --turquoise: #41bbb8;
+    --yellow: #ffe045;
+    --orange: rgb(252, 173, 0);
+    --peach: #ff791b;
+    --lime: #06a263;
+    --green: rgb(80, 190, 61);
+    --salmon: rgb(242, 109, 95);
+    --royalblue: rgb(0, 122, 255);
+
+    --navy: #001D3F;
+--soft-blue: #96BDC6;
+--gold: #E2B666;
+--ivory: #F2E9D8;
+--ivory-light: #F8F5F1;
 }
 
 .palette {
@@ -43,12 +50,47 @@ color: rgba(51, 51, 54, 0.4);
 --royalblue: rgb(0, 122, 255);
 }
 
-.bg-pc-light {
-    background: var(--pc-light);
+/* POT bg */
+
+.bg-pot {
+    background: var(--pot);
+}
+.bg-navy {
+    background: var(--navy);
+}
+.bg-lightblue {
+    background: var(--softblue);
+}
+.bg-gold {
+    background: var(--gold);
+}
+.bg-ivory {
+    background: var(--ivory);
+}
+.bg-ivory-light {
+    background: var(--ivory-light);
 }
 
-.text-pc-light {
-    color: var(--pc-light);
+/* POT text */
+
+.text-pot {
+    color: var(--pot);
+}
+
+.text-navy {
+    color: var(--navy);
+}
+.text-lightblue {
+    color: var(--softblue);
+}
+.text-gold {
+    color: var(--gold);
+}
+.text-ivory {
+    color: var(--ivory);
+}
+.text-ivory-light {
+    color: var(--ivory-light);
 }
 
 /* pc dark brand */

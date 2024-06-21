@@ -15,6 +15,7 @@ html {
 body {
   background: #ffffff;
   font-family: 'Inter Tight', Helvetica, Arial, sans-serif;
+  font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
   max-width: 1900px;
   overflow-x: hidden;
   line-height: 1.4;
@@ -51,9 +52,10 @@ h1, h2, h3, h4, p {
 
 h1, .h1,
 h2, .h2,
-h3, .h3 {
+h3, .h3,
+h4, .h4 {
   font-family: 'Inter Tight', Helvetica, Arial, sans-serif;
-  /* font-family: 'Oswald', Helvetica, Arial, sans-serif; */
+  /* font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif; */
   font-weight: bold;
   letter-spacing: 0;
   /* text-transform: uppercase; */

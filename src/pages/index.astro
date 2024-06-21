@@ -68,7 +68,7 @@ function encodeURIComponent(url) {
 				<div class="col-lg-12 p-4">
 					<div class="row g-3">
 					{posts.map((post, index) => (
-						<div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay={index * 200}>
+						<div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay={index * 100}>
 							<a href={`/${post.category_name}/${post.slug}/`}>
 								<div class="card rounded-5 border-0 shadow">
 									<img src="" data-src={post._embedded['wp:featuredmedia'][0].source_url } class="card-img-top position-absolute top-0 start-0 z-0 w-100 h-100 object-fit rounded-5" style="filter: brightness(0.4)" alt="..." />
@@ -138,6 +138,11 @@ function encodeURIComponent(url) {
 					<span class="d-block text-black-50">Everything you need to travel better.</span>
 					</h1>
 					<p class="fs-4 text-black-50">From earning points on every travel expense to enjoying priority boarding and complimentary hotel stays, learn how the right credit card can amplify your adventures. Whether you're chasing dream destinations or seeking unforgettable experiences, equip yourself with the ultimate tool for seamless payments and unparalleled travel privileges. Embark on a journey towards boundless exploration and remarkable travel rewards today.</p>
+					<div class="mt-3">
+                        <a href="/credit-cards">
+                            <button class="btn btn-lg btn-light opacity-50 rounded-pill px-5 py-3 fw-bold">See more</button>
+                        </a>
+                    </div>
 				</div>
 			</div>
 
@@ -518,7 +523,7 @@ function encodeURIComponent(url) {
 		</div>
 		</a>
 		<div class="mt-5">
-			<a href="/points-evaluations">
+			<a href="/points-valuations">
 				<button class="btn btn-dark btn-lg rounded-pill px-5 py-3 fw-bold" style="color: var(--orange)">See all</button>
 			</a>
 		</div>
