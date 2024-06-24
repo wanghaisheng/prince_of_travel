@@ -68,7 +68,7 @@ function isPortraitOrientation(imgElement) {
           <div>
              <p class="fs-4 text-body-secondary my-0">Explore Canada's premiere credit card offerings across a variety of categories from points, to travel, rewards, rates, and more.</p>
           </div>
-      </div>
+        </div>
 
           <!-- <div class="col-lg-12 d-flex flex-column justify-content-center align-items-center p-5" style="background: var(--lightblue);">
             <div class="position-relative text-light d-flex flex-column justify-content-end align=items-start shadow p-5" style="width: 640px; height: 400px; border-radius: 40px; filter: blur(5); background: linear-gradient(to bottom left, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));">
@@ -106,63 +106,65 @@ function isPortraitOrientation(imgElement) {
 			</div>
 		</div> -->
 
-		<div class="columns p-4" style="background: #eee">
-			<!--{allArticles?.map((post) => (
-					<div class="card bg-pc-light rounded-4 p-0 border-0 shadow mb-3" style="min-height: 500px; break-inside: avoid-column; white-space: nowrap;">
-						<img src="" data-src={post.data.imageUrl} class="card-img-top rounded-top-4 w-100 p-2" style="object-fit: cover; height: 200px;" alt={post.data.imageAlt}>
-						<i class="bi bi-arrow-up-right-circle-fill text-pc-10 fs-1 position-absolute top-0 end-0 me-3 mt-2"></i>
-						<div class="card-body position-relative px-4 pb-4">
-							<p class="small mb-2">{post.data.pubDate.toString().slice(0,10)}</p>
-							<h5 class="card-title fw-bold mb-0 text-balance">{post.data.title}</h5>
-							<p class="small m-0 text-secondary mt-2 mb-0">By: {post.data.author}</p>
-              <div class="d-flex flex-wrap pb-3 pt-2">
-                <button class="btn btn-sm btn-secondary opacity-75 me-1 rounded-pill px-4" type="button" data-bs-toggle="offcanvas" data-bs-target={'#item_' + index} aria-controls="offcanvasBottom">Details</button>
-                <a href={`/credit-cards/${post.data.slug}`}>
-                <button class="btn btn-sm btn-secondary rounded-pill px-4">Review</button>
-                </a>
+    <div class="row p-4">
+      {posts?.map((post, index) => (	
+      <div class="col-lg-6 px-2">
+        <div class="card mb-3 rounded-5 shadow position-relative d-flex justify-content-center" style="background: rgba(255,255,255,0.6); min-height: 350px;">
+          <!--style="min-height: 300px;"-->
+          <div class="row g-0">
+            <div class="col-sm-5 d-flex justify-content-center align-items-center p-3 rounded-5 position-relative">
+            <div class="position-absolute z-0 rounded-circle top-50 start-50 translate-middle" style="height: 200px; width: 200px; background: #00000050"></div>
+            <!--height: 15vw; width: 15vw;-->
+              <div class="text-center mx-auto position-relative">
+                <img src={post.featured_image.large} class="landscape" data-image-id={'item_' + index}
+              alt="">
               </div>
-						</div>
-					</div>
-			))}-->
-
-      <!--<PostFetch2 client:visible />-->
-      
-		{posts?.map((post, index) => (		
-					<div class="card rounded-4 p-0 border-0 shadow bg-pc-light mb-3" style="min-height: 500px; break-inside: avoid-column; white-space: nowrap;">
-						<div class="text-center rounded-top-4" style="background: #d6d6d6">
-              <img src={post.featured_image.large} class="landscape" data-image-id={'item_' + index}
-            alt="">
             </div>
-						<div class="card-body position-relative px-4 pb-3">
-							<h5 class="fs-4 text-dark card-title fw-bold mb-0" style="font-size: 24px; text-wrap: pretty"><Fragment set:html={post.custom_fields.credit_card_short_name} /></h5>
-              <badge class="badge position-absolute end-0 top-0 m-3">{post.custom_fields.bank_name}</badge>
-              <div class="my-3">
-							  <p class="small m-0 text-secondary mt-2 mb-0" style="font-size: 16px"><Fragment set:html={post.custom_fields.reward_points} /></p>
-                <p class="small m-0 text-secondary my-0" style="font-size: 16px"><Fragment set:html={post.custom_fields.fees} /></p>
+            <div class="col-sm-7 px-3 py-4">
+              <div class="card-body position-relative py-2 px-0">
+                <h5 class="fs-4 text-dark card-title fw-bold mb-0" style="font-size: 24px; text-wrap: pretty"><Fragment set:html={post.custom_fields.credit_card_short_name} /></h5>
+                <badge class="badge position-absolute end-0 top-0 m-3">{post.custom_fields.bank_name}</badge>
+                <div class="my-3">
+                  <p class="small m-0 text-secondary mt-2 mb-0" style="font-size: 16px"><Fragment set:html={post.custom_fields.reward_points} /></p>
+                  <p class="small m-0 text-secondary my-0" style="font-size: 16px"><Fragment set:html={post.custom_fields.fees} /></p>
+                </div>
+                <ul class="text-black-50 mt-2 text-balance" style="font-size: 15px">
+                  <li><Fragment set:html={post.custom_fields.features_0_feature} /></li>
+                  { post.custom_fields.features_1_feature && 
+                  <li><Fragment set:html={post.custom_fields.features_1_feature} /></li>
+                  }
+                  { post.custom_fields.features_2_feature &&
+                  <li><Fragment set:html={post.custom_fields.features_2_feature} /></li>
+                  }
+                </ul>
+                <div class="d-flex flex-wrap pb-3 pt-2">
+                  <button class="btn btn-sm btn-secondary opacity-75 me-1 rounded-pill px-4" type="button" data-bs-toggle="offcanvas" data-bs-target={'#item_' + index} aria-controls="offcanvasBottom">Details</button>
+                  <a href={`/credit-cards/${removeSpecialCharactersFromURL(post.slug)}`}>
+                  <button class="btn btn-sm btn-secondary rounded-pill px-4 mt-2 mt-lg-0">Review</button>
+                  </a>
+                </div>
               </div>
-              <ul class="text-black-50 mt-2 text-balance" style="font-size: 16px">
-                <li><Fragment set:html={post.custom_fields.features_0_feature} /></li>
-                <li><Fragment set:html={post.custom_fields.features_1_feature} /></li>
-                <li><Fragment set:html={post.custom_fields.features_2_feature} /></li>
-              </ul>
-              <div class="d-flex flex-wrap pb-3 pt-2">
-                <button class="btn btn-sm btn-secondary opacity-75 me-1 rounded-pill px-4" type="button" data-bs-toggle="offcanvas" data-bs-target={'#item_' + index} aria-controls="offcanvasBottom">Details</button>
-                <a href={`/credit-cards/${removeSpecialCharactersFromURL(post.slug)}`}>
-                <button class="btn btn-sm btn-secondary rounded-pill px-4 mt-2 mt-lg-0">Review</button>
-                </a>
-              </div>
-						</div>
-					</div>	
-          
-          <div class="offcanvas offcanvas-bottom mx-2 mx-lg-5 rounded-top-4" style="height: 90%" tabindex="-1" id={'item_' + index} aria-labelledby="offcanvasBottomLabel" data-product-slug={post.slug}>
-            <div class="offcanvas-body position-relative rounded-top-4" style="background: var(--beige); padding: 76px">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="offcanvas offcanvas-bottom mx-auto rounded-top-4 px-0" style="width: 95%; height: 90%" tabindex="-1" id={'item_' + index} aria-labelledby="offcanvasBottomLabel" data-product-slug={post.slug}>
+            <div class="offcanvas-body position-relative rounded-top-4 bg-ivory-light" style="padding: 76px">
               <svg id="offcanvasClose" role="button" class="position-absolute end-0 top-0 m-4" style="width: 40px;" data-bs-dismiss="offcanvas" aria-label="Close" xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
               </svg>
 
               <div class="row">
                 <div class="col-lg-3 d-flex justify-content-center align-items-center">
-                  <img src={post.featured_image.large} data-image-id={'item_' + index} class="credit-card-img" alt="">
+                  <!--<img src={post.featured_image.large} data-image-id={'item_' + index} class="credit-card-img" alt="">-->
+                  <div class="col-sm-5 d-flex justify-content-center align-items-center p-3 rounded-5 position-relative">
+                    <div class="position-absolute z-0 rounded-circle top-50 start-50 translate-middle" style="height: 15vw; width: 15vw; background: #00000050"></div>
+                    <div class="text-center position-relative">
+                      <img src={post.featured_image.large} class="landscape" data-image-id={'item_' + index}
+                    alt="">
+                    </div>
+                  </div>
                 </div>  
                 <div class="col-lg-9 d-flex flex-column justify-content-center align-items-start">
                   <h2 class="display-3 ls-1 lh-1 text-black-50 fw-bold my-4 px-4"><Fragment set:html={post.title} /></h2>
@@ -225,7 +227,7 @@ function isPortraitOrientation(imgElement) {
               </div>
               <div class="d-flex mt-5 pt-4 justify-content-end border-top border-secondary">
                 <a href={post.custom_fields.colum_block_0_col1_button_link} target="_blank">
-                  <button class="btn btn-secondary rounded-pill px-4 me-2">Apply Now</button>
+                  <button class="btn btn-secondary rounded-pill px-4 me-2">Apply</button>
                 </a>
                 <a href={`/credit-cards/${removeSpecialCharactersFromURL(post.slug)}/`}>
                   <button class="btn btn-secondary rounded-pill px-4">Read More</button>
@@ -233,8 +235,58 @@ function isPortraitOrientation(imgElement) {
               </div>
             </div>
         </div>
+    ))}
+    </div>
+
+    
+
+		<!--<div class="columns p-4" style="background: #eee">
+			{allArticles?.map((post) => (
+					<div class="card bg-pc-light rounded-4 p-0 border-0 shadow mb-3" style="min-height: 500px; break-inside: avoid-column; white-space: nowrap;">
+						<img src="" data-src={post.data.imageUrl} class="card-img-top rounded-top-4 w-100 p-2" style="object-fit: cover; height: 200px;" alt={post.data.imageAlt}>
+						<i class="bi bi-arrow-up-right-circle-fill text-pc-10 fs-1 position-absolute top-0 end-0 me-3 mt-2"></i>
+						<div class="card-body position-relative px-4 pb-4">
+							<p class="small mb-2">{post.data.pubDate.toString().slice(0,10)}</p>
+							<h5 class="card-title fw-bold mb-0 text-balance">{post.data.title}</h5>
+							<p class="small m-0 text-secondary mt-2 mb-0">By: {post.data.author}</p>
+              <div class="d-flex flex-wrap pb-3 pt-2">
+                <button class="btn btn-sm btn-secondary opacity-75 me-1 rounded-pill px-4" type="button" data-bs-toggle="offcanvas" data-bs-target={'#item_' + index} aria-controls="offcanvasBottom">Details</button>
+                <a href={`/credit-cards/${post.data.slug}`}>
+                <button class="btn btn-sm btn-secondary rounded-pill px-4">Review</button>
+                </a>
+              </div>
+						</div>
+					</div>
 			))}
-      </div>
+      
+		{posts?.map((post, index) => (		
+					<div class="card rounded-4 p-0 border-0 shadow bg-pc-light mb-3" style="min-height: 500px; break-inside: avoid-column; white-space: nowrap;">
+						<div class="text-center rounded-top-4" style="background: #d6d6d6">
+              <img src={post.featured_image.large} class="landscape" data-image-id={'item_' + index}
+            alt="">
+            </div>
+						<div class="card-body position-relative px-4 pb-3">
+							<h5 class="fs-4 text-dark card-title fw-bold mb-0" style="font-size: 24px; text-wrap: pretty"><Fragment set:html={post.custom_fields.credit_card_short_name} /></h5>
+              <badge class="badge position-absolute end-0 top-0 m-3">{post.custom_fields.bank_name}</badge>
+              <div class="my-3">
+							  <p class="small m-0 text-secondary mt-2 mb-0" style="font-size: 16px"><Fragment set:html={post.custom_fields.reward_points} /></p>
+                <p class="small m-0 text-secondary my-0" style="font-size: 16px"><Fragment set:html={post.custom_fields.fees} /></p>
+              </div>
+              <ul class="text-black-50 mt-2 text-balance" style="font-size: 16px">
+                <li><Fragment set:html={post.custom_fields.features_0_feature} /></li>
+                <li><Fragment set:html={post.custom_fields.features_1_feature} /></li>
+                <li><Fragment set:html={post.custom_fields.features_2_feature} /></li>
+              </ul>
+              <div class="d-flex flex-wrap pb-3 pt-2">
+                <button class="btn btn-sm btn-secondary opacity-75 me-1 rounded-pill px-4" type="button" data-bs-toggle="offcanvas" data-bs-target={'#item_' + index} aria-controls="offcanvasBottom">Details</button>
+                <a href={`/credit-cards/${removeSpecialCharactersFromURL(post.slug)}`}>
+                <button class="btn btn-sm btn-secondary rounded-pill px-4 mt-2 mt-lg-0">Review</button>
+                </a>
+              </div>
+						</div>
+					</div>	
+			))}
+      </div>-->
 	</div>
 </Layout>
 
@@ -364,17 +416,31 @@ function closeOffcanvas() {
 
 .portrait {
   /* Styles for portrait images */
+  height: 240px;
+  width: 150px;
+  text-align: center;
+
+  // for masonry
+  // height: 300px;
+  // margin: 20px 0;
+  // background-color: #d6d6d6;
+}
+
+.portrait-detail {
   height: 300px;
   width: 200px;
-  background-color: #d6d6d6;
-  text-align: center;
   margin: 20px 0;
 }
 
 .landscape {
   /* Styles for landscape images */
-  padding: 10px;
   width: 100%;
+  padding: 0 10px;
+  // width: 250px;
+
+  // for masonry
+  // padding: 10px;
+  // width: 100%;
 }
 
 </style>

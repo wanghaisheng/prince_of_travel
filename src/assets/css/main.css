@@ -31,14 +31,18 @@ nav,
   max-width: 1900px;
 }
 
+#nav, nav {
+  margin: 0 auto;
+}
+
 a {
   text-decoration: none;
   color: inherit;
 }
 
-/* a:hover {
+a:hover {
   text-decoration: underline;
-} */
+}
 
 /* general spacing setup */
 
