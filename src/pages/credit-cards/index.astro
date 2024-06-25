@@ -58,16 +58,24 @@ function isPortraitOrientation(imgElement) {
   // Check if the image is in portrait orientation
   return height > width;
 }
+
+
+    // State for filtered cards
+    let filteredCards = [];
+
+    // Function to filter cards by type
+    const filterCards = (type) => {
+      filteredCards = posts.filter(card => card.type === type);
+    };
+
 ---
 
-<Layout title="Prince of Travel | Credit Cards" description="Prince of Travel's latest news, deals, and happenings in the travel space." image="">
+<Layout title="Prince of Travel | Credit Cards" description="Explore Canada's premiere credit card offerings across a variety of categories from points, to travel, rewards, rates, and more." image="">
 	<div class="container-fluid px-0" >
       <div class="row pt-5">
         <div class="col-lg-6 min-vh-50 d-flex flex-column justify-content-end align-items-start text-start p-5">
-          <h1 class="text-secondary fw-bold ls-1 lh-1 animate-in" style="font-size: 12vmin;">Credit Cards</h1>
-          <div>
-             <p class="fs-4 text-body-secondary my-0">Explore Canada's premiere credit card offerings across a variety of categories from points, to travel, rewards, rates, and more.</p>
-          </div>
+          <h1 class="text-secondary fw-bold ls-1 lh-1" style="font-size: 12vmin;" data-aos="fade-up">Credit Cards</h1>
+            <p class="fs-4 text-body-secondary my-0" data-aos="fade-up" data-aos-delay="200">Explore Canada's premiere credit card offerings across a variety of categories from points, to travel, rewards, rates, and more.</p>
         </div>
 
           <!-- <div class="col-lg-12 d-flex flex-column justify-content-center align-items-center p-5" style="background: var(--lightblue);">
@@ -108,39 +116,40 @@ function isPortraitOrientation(imgElement) {
 
     <div class="row p-4">
       {posts?.map((post, index) => (	
-      <div class="col-lg-6 px-2">
+      <div class="col-xl-6 px-2">
         <div class="card mb-3 rounded-5 shadow position-relative d-flex justify-content-center" style="background: rgba(255,255,255,0.6); min-height: 350px;">
           <!--style="min-height: 300px;"-->
-          <div class="row g-0">
-            <div class="col-sm-5 d-flex justify-content-center align-items-center p-3 rounded-5 position-relative">
+          <div class="row g-0 p-2">
+            <div class="col-md-5 d-flex flex-column justify-content-center align-items-center text-start p-3 rounded-5 position-relative" style="background: #00000020;">
+            
             <div class="position-absolute z-0 rounded-circle top-50 start-50 translate-middle" style="height: 200px; width: 200px; background: #00000050"></div>
-            <!--height: 15vw; width: 15vw;-->
               <div class="text-center mx-auto position-relative">
                 <img src={post.featured_image.large} class="landscape" data-image-id={'item_' + index}
               alt="">
               </div>
             </div>
-            <div class="col-sm-7 px-3 py-4">
-              <div class="card-body position-relative py-2 px-0">
-                <h5 class="fs-4 text-dark card-title fw-bold mb-0" style="font-size: 24px; text-wrap: pretty"><Fragment set:html={post.custom_fields.credit_card_short_name} /></h5>
-                <badge class="badge position-absolute end-0 top-0 m-3">{post.custom_fields.bank_name}</badge>
+            <div class="col-md-7 p-4">
+              <div class="card-body position-relative py-0 px-0">
+                <h5 class="fs-4 card-title fw-bold mb-0" style="text-wrap: pretty"><Fragment set:html={post.title} /></h5>
+                <!--<badge class="badge position-absolute end-0 top-0 m-3">{post.custom_fields.bank_name}</badge>-->
                 <div class="my-3">
-                  <p class="small m-0 text-secondary mt-2 mb-0" style="font-size: 16px"><Fragment set:html={post.custom_fields.reward_points} /></p>
-                  <p class="small m-0 text-secondary my-0" style="font-size: 16px"><Fragment set:html={post.custom_fields.fees} /></p>
+                  <!--<p class="small m-0 mt-2 mb-0" style="font-size: 16px"><Fragment set:html={post.custom_fields.reward_points} /></p>-->
+                  <p class="small m-0 mt-2 mb-0 fw-bold" style="font-size: 15px"><Fragment set:html={post.custom_fields.membership_reward} /></p>
+                  <p class="small m-0 my-0 fw-bold" style="font-size: 15px"><span class="fw-bold">$<Fragment set:html={post.custom_fields.welcome_bonus_value} /></span> First year value</p>
                 </div>
-                <ul class="text-black-50 mt-2 text-balance" style="font-size: 15px">
-                  <li><Fragment set:html={post.custom_fields.features_0_feature} /></li>
+                <ul class="text-body-secondary mt-2 list-unstyled pe-3" style="font-size: 15px">
+                  <li class="border-bottom mb-1 pb-2"><Fragment set:html={post.custom_fields.features_0_feature} /></li>
                   { post.custom_fields.features_1_feature && 
-                  <li><Fragment set:html={post.custom_fields.features_1_feature} /></li>
+                  <li class="border-bottom mb-1 pb-2"><Fragment set:html={post.custom_fields.features_1_feature} /></li>
                   }
                   { post.custom_fields.features_2_feature &&
-                  <li><Fragment set:html={post.custom_fields.features_2_feature} /></li>
+                  <li class="border-bottom mb-1 pb-1"><Fragment set:html={post.custom_fields.features_2_feature} /></li>
                   }
                 </ul>
-                <div class="d-flex flex-wrap pb-3 pt-2">
-                  <button class="btn btn-sm btn-secondary opacity-75 me-1 rounded-pill px-4" type="button" data-bs-toggle="offcanvas" data-bs-target={'#item_' + index} aria-controls="offcanvasBottom">Details</button>
+                <div class="d-flex flex-wrap pt-2">
+                  <button class="btn btn-sm btn-secondary fw-bold opacity-75 me-1 rounded-pill px-4 py-2" type="button" data-bs-toggle="offcanvas" data-bs-target={'#item_' + index} aria-controls="offcanvasBottom">Details</button>
                   <a href={`/credit-cards/${removeSpecialCharactersFromURL(post.slug)}`}>
-                  <button class="btn btn-sm btn-secondary rounded-pill px-4 mt-2 mt-lg-0">Review</button>
+                    <button class="btn btn-sm btn-dark fw-bold rounded-pill px-4 py-2">Review</button>
                   </a>
                 </div>
               </div>
@@ -149,88 +158,106 @@ function isPortraitOrientation(imgElement) {
         </div>
       </div>
 
-      <div class="offcanvas offcanvas-bottom mx-auto rounded-top-4 px-0" style="width: 95%; height: 90%" tabindex="-1" id={'item_' + index} aria-labelledby="offcanvasBottomLabel" data-product-slug={post.slug}>
+      <div class="offcanvas offcanvas-bottom mx-auto rounded-top-4 px-0" style="width: 90%; height: 90%" tabindex="-1" id={'item_' + index} aria-labelledby="offcanvasBottomLabel" data-product-slug={post.slug}>
             <div class="offcanvas-body position-relative rounded-top-4 bg-ivory-light" style="padding: 76px">
               <svg id="offcanvasClose" role="button" class="position-absolute end-0 top-0 m-4" style="width: 40px;" data-bs-dismiss="offcanvas" aria-label="Close" xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
               </svg>
 
-              <div class="row">
+              <div class="row px-3">
                 <div class="col-lg-3 d-flex justify-content-center align-items-center">
                   <!--<img src={post.featured_image.large} data-image-id={'item_' + index} class="credit-card-img" alt="">-->
                   <div class="col-sm-5 d-flex justify-content-center align-items-center p-3 rounded-5 position-relative">
                     <div class="position-absolute z-0 rounded-circle top-50 start-50 translate-middle" style="height: 15vw; width: 15vw; background: #00000050"></div>
                     <div class="text-center position-relative">
-                      <img src={post.featured_image.large} class="landscape" data-image-id={'item_' + index}
+                      <img src={post.featured_image.large} class="credit-card-img" data-image-id={'item_' + index}
                     alt="">
                     </div>
                   </div>
                 </div>  
-                <div class="col-lg-9 d-flex flex-column justify-content-center align-items-start">
-                  <h2 class="display-3 ls-1 lh-1 text-black-50 fw-bold my-4 px-4"><Fragment set:html={post.title} /></h2>
+                <div class="col-lg-9 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
+                  <h2 class="display-3 ls-1 lh-1 text-black-50 fw-bold mt-4 mb-2 mb-lg-4 px-4"><Fragment set:html={post.title} /></h2>
                 </div>
               </div>
 
               <div class="container-fluid px-0 mt-4 mb-5">
                   <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 my-3">
                     <div class="col">
-                      <div class="bg-light rounded-4 shadow" style="min-height: 214px; padding: 2.5rem; --bs-bg-opacity: 0.5;">
+                      <div class="bg-light rounded-4 shadow" style="min-height: 240px; padding: 2.5rem; --bs-bg-opacity: 0.5;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-award text-black-50 mb-2" viewBox="0 0 16 16">
                           <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702z"/>
                           <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1z"/>
                         </svg>
-                        <h5 class="fs-3 fw-bold">MR Points</h5>
+                        <h5 class="fs-4 fw-bold">MR Points</h5>
+                        { post.custom_fields.membership_reward == '' || post.custom_fields.membership_reward == null ?
+                        <p class="my-0 text-black-50" style="font-size: 17px;">N/A</p>
+                        :
                         <p class="my-0 text-black-50" style="font-size: 17px;"><Fragment set:html={post.custom_fields.membership_reward}/></p>
+                      }
                       </div>
                     </div>
                     <div class="col">  
-                      <div class="bg-light rounded-4 shadow"  style="min-height: 214px; padding: 2.5rem; --bs-bg-opacity: 0.5;">
+                      <div class="bg-light rounded-4 shadow"  style="min-height: 240px; padding: 2.5rem; --bs-bg-opacity: 0.5;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-credit-card-2-back text-black-50 mb-2" viewBox="0 0 16 16">
                           <path d="M11 5.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5z"/>
                           <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm13 2v5H1V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1m-1 9H2a1 1 0 0 1-1-1v-1h14v1a1 1 0 0 1-1 1"/>
                         </svg>
-                        <h5 class="fs-3 fw-bold">1st Year Value</h5>
-                        <p class="my-0 text-black-50" style="font-size: 17px;"><Fragment set:html={post.custom_fields.fees}/></p>
+                        <h5 class="fs-4 fw-bold">1st Year Value</h5>
+                        { !post.custom_fields.welcome_bonus_value || post.custom_fields.welcome_bonus_value === '0' ?
+                        <p class="my-0 text-black-50" style="font-size: 17px;">N/A</p>
+                        
+                        :
+                        <p class="my-0 text-black-50" style="font-size: 17px;">$<Fragment set:html={post.custom_fields.welcome_bonus_value}/></p>
+                      }
                       </div>  
                       </div>
                       <div class="col">
-                      <div class="bg-light rounded-4 shadow"  style="min-height: 214px; padding: 2.5rem; --bs-bg-opacity: 0.5;" >
+                      <div class="bg-light rounded-4 shadow"  style="min-height: 240px; padding: 2.5rem; --bs-bg-opacity: 0.5;" >
                         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-coin text-black-50 mb-2" viewBox="0 0 16 16">
                           <path d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518z"/>
                           <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
                           <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11m0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12"/>
                         </svg>
-                        <h5 class="fs-3 fw-bold">Fees</h5>
+                        <h5 class="fs-4 fw-bold">Fees</h5>
                         <p class="my-0 text-black-50" style="font-size: 17px;"><Fragment set:html={'$' + post.custom_fields.annual_fee + ' Annual fee'}/></p>
                       </div>  
                       </div>
                       <div class="col">
-                      <div class="bg-light rounded-4 shadow"  style="min-height: 214px; padding: 2.5rem; --bs-bg-opacity: 0.5;">
+                      <div class="bg-light rounded-4 shadow"  style="min-height: 240px; padding: 2.5rem; --bs-bg-opacity: 0.5;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-patch-check text-black-50 mb-2" viewBox="0 0 16 16">
                           <path fill-rule="evenodd" d="M10.354 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
                           <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911z"/>
                         </svg>
-                        <h5 class="fs-3 fw-bold">Perks</h5>
+                        <h5 class="fs-4 fw-bold">Perks</h5>
                         <p class="my-0 text-black-50" style="font-size: 17px;"><Fragment set:html={post.custom_fields.features_1_feature} /></p>
                       </div>  
                       </div>
                     </div>  
                   </div>
               
-              <div class="display-5 fw-bold my-4 text-black-50"><Fragment set:html={post.custom_fields.card_content_1_c_title} /></div>
+              { post.custom_fields.card_content_1_c_content && 
+              <div class="display-5 fw-bold my-4 text-black-50 ls-1"><Fragment set:html={post.custom_fields.card_content_1_c_title} /></div>
               <div class="fs-5 text-body-secondary">
                 <p><Fragment set:html={post.custom_fields.card_content_1_c_content} /></p>
               </div>
-              <div class="display-5 fw-bold my-4 text-black-50"><Fragment set:html={post.custom_fields.card_content_4_c_title} /></div>
+            }
+            { post.custom_fields.card_content_4_c_content &&
+              <div class="display-5 fw-bold my-4 text-black-50 ls-1"><Fragment set:html={post.custom_fields.card_content_4_c_title} /></div>
               <div class="fs-5">
                 <p><Fragment set:html={post.custom_fields.card_content_4_c_content} /></p>
               </div>
-              <div class="d-flex mt-5 pt-4 justify-content-end border-top border-secondary">
+            }
+              { post.custom_fields.legal_disclaimers && 
+              <div class="border-top">
+                <p class="my-0"><Fragment set:html={post.custom_fields.legal_disclaimers} /></p>
+              </div>
+            }
+              <div class="d-flex mt-4 pt-4 justify-content-start border-top">
                 <a href={post.custom_fields.colum_block_0_col1_button_link} target="_blank">
-                  <button class="btn btn-secondary rounded-pill px-4 me-2">Apply</button>
+                  <button class="btn btn-dark rounded-3 px-4 me-1">Apply</button>
                 </a>
                 <a href={`/credit-cards/${removeSpecialCharactersFromURL(post.slug)}/`}>
-                  <button class="btn btn-secondary rounded-pill px-4">Read More</button>
+                  <button class="btn btn-secondary opacity-75 rounded-3 px-4 me-1">Details</button>
                 </a>
               </div>
             </div>
@@ -435,7 +462,8 @@ function closeOffcanvas() {
 .landscape {
   /* Styles for landscape images */
   width: 100%;
-  padding: 0 10px;
+  padding: 20px;
+  margin: 0 auto;
   // width: 250px;
 
   // for masonry

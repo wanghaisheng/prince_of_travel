@@ -323,56 +323,13 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                 ))}
             </div>
 
-            <div class="row p-4 mx-0 bg-ivory">
-                <div class="col-lg-12 d-flex flex-column justify-content-center align-items-start text-start mb-3">
-                    <h1 class="display-1 text-uppercase fw-900 ls-1 lh-1">/ Reviews</h1>
-                </div>
-                {
-                 posts.filter(cat => cat._embedded['wp:term'][0][0].slug === 'reviews' && cat.category_name === 'reviews').slice(0,5).map((article, index) => (
-                    <div class:list={[index === 0 ? 'row px-0 mx-0 mb-3 rounded-5' : 'd-none']} style="background: rgba(0, 0, 0, 0.09);">
-                        
-                        <div class="col-lg-6 d-flex justify-content-center align-items-center my-auto p-3">
-                            <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="w-100 object-fit rounded-5 min-vh-500" style="aspect-ratio: 16/9; " alt="..." data-aos="fade" />
-                        </div>
-                        <div class="col-lg-6 d-flex flex-column justify-content-center align-items-start rounded-4 p-5 position-relative">
-                            <a class="d-flex" href={`/${article.category_name}/${article.slug}/`}>
-                            <div class="card-body px-2 py-0 d-flex flex-column justify-content-center align-items-start">
-                                <h6 class="card-title display-3 text-black-50 fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
-                                <p class="m-0 mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>
-                                <p class="mb-3 mt-0">By: {article._embedded?.author[0].name}</p>
-                                <i class="bi bi-arrow-up-right-circle-fill opacity-50 display-5 m-3 position-absolute end-0 bottom-0"></i>
-                            </div>
-                            </a>
-                        </div> 
-                    </div>
-
-                    <div class:list={[index !== 0 ? 'col-lg-3 col-md-6' : 'd-none']}>
-                        <a href={`/${article._embedded['wp:term'][0][0].slug}/${article.slug}/`}>
-                        <div class="card bg-pc-light rounded-4 border-0 shadow mb-3" style="min-height: 500px">
-                            <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top w-100 object-fit rounded-top-4" style="height: 200px;" alt="..." data-aos="fade" />
-                            <div class="card-body p-4 position-relative">
-                                <!--<p class="small m-0 text-secondary mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>-->
-                                <p class="small m-0 text-secondary mt-2 mb-0" style="text-transform: capitalize;">{article._embedded['wp:term'][0][0].slug}</p>
-                                <h5 class="card-title text-secondary fs-4 fw-900 my-2"><Fragment set:html={article.title.rendered} /></h5>
-                                <p class="small text-secondary mt-1 mb-0">By: {article._embedded?.author[0].name}</p>
-                                <p class="card-text text-body-secondary my-3"><Fragment set:html={functions.shorten(article.excerpt.rendered, 150)} /></p>
-                                <i class="bi bi-arrow-up-right-circle-fill text-secondary opacity-75 fs-2 position-absolute top-0 end-0 m-3"></i>
-                            </div>
-                        </div>
-                   </a>
-                    </div>
-             
-                ))}
-            </div>
-
             <div class="row p-4 mx-0 bg-lightblue">
                 <div class="col-lg-12 d-flex flex-column justify-content-center align-items-start text-start mb-3">
                     <h1 class="display-1 text-uppercase fw-900 ls-1 lh-1">/ Guides</h1>
                 </div>
                 {
                  posts.filter(cat => cat._embedded['wp:term'][0][0].slug === 'guides' && cat.category_name === 'guides').map((article, index) => (
-                    <div class:list={[index === 0 ? 'row px-0 mx-0 mb-3 rounded-5' : 'd-none']} style="background: rgba(0, 0, 0, 0.09);">
-                        
+                    <div class:list={[index === 0 ? 'row px-0 mx-0 mb-3 rounded-5' : 'd-none']} style="background: rgba(0, 0, 0, 0.09);">          
                         <div class="col-lg-6 d-flex justify-content-center align-items-center my-auto p-3">
                             <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="w-100 object-fit rounded-5 min-vh-500" style="aspect-ratio: 16/9; " alt="..." data-aos="fade" />
                         </div>
@@ -406,9 +363,6 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
              
                 ))}
             </div>
-
-            
-          
 
             <div class="row text-light p-4" style="background: var(--green)">
                 <div class="col-lg-12 d-flex flex-column justify-content-center align-items-start text-start mb-3">
@@ -451,7 +405,49 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                 ))}
             </div>
 
-            <div class="row text-light p-4" style="background: var(--peach)">
+            <div class="row p-4 mx-0 bg-ivory">
+                <div class="col-lg-12 d-flex flex-column justify-content-center align-items-start text-start mb-3">
+                    <h1 class="display-1 text-uppercase fw-900 ls-1 lh-1">/ Reviews</h1>
+                </div>
+                {
+                 posts.filter(cat => cat._embedded['wp:term'][0][0].slug === 'reviews' && cat.category_name === 'reviews').slice(0,5).map((article, index) => (
+                    <div class:list={[index === 0 ? 'row px-0 mx-0 mb-3 rounded-5' : 'd-none']} style="background: rgba(0, 0, 0, 0.09);">
+                        
+                        <div class="col-lg-6 d-flex justify-content-center align-items-center my-auto p-3">
+                            <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="w-100 object-fit rounded-5 min-vh-500" style="aspect-ratio: 16/9; " alt="..." data-aos="fade" />
+                        </div>
+                        <div class="col-lg-6 d-flex flex-column justify-content-center align-items-start rounded-4 p-5 position-relative">
+                            <a class="d-flex" href={`/${article.category_name}/${article.slug}/`}>
+                            <div class="card-body px-2 py-0 d-flex flex-column justify-content-center align-items-start">
+                                <h6 class="card-title display-3 text-black-50 fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
+                                <p class="m-0 mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>
+                                <p class="mb-3 mt-0">By: {article._embedded?.author[0].name}</p>
+                                <i class="bi bi-arrow-up-right-circle-fill opacity-50 display-5 m-3 position-absolute end-0 bottom-0"></i>
+                            </div>
+                            </a>
+                        </div> 
+                    </div>
+
+                    <div class:list={[index !== 0 ? 'col-lg-3 col-md-6' : 'd-none']}>
+                        <a href={`/${article._embedded['wp:term'][0][0].slug}/${article.slug}/`}>
+                        <div class="card bg-pc-light rounded-4 border-0 shadow mb-3" style="min-height: 500px">
+                            <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top w-100 object-fit rounded-top-4" style="height: 200px;" alt="..." data-aos="fade" />
+                            <div class="card-body p-4 position-relative">
+                                <!--<p class="small m-0 text-secondary mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>-->
+                                <p class="small m-0 text-secondary mt-2 mb-0" style="text-transform: capitalize;">{article._embedded['wp:term'][0][0].slug}</p>
+                                <h5 class="card-title text-secondary fs-4 fw-900 my-2"><Fragment set:html={article.title.rendered} /></h5>
+                                <p class="small text-secondary mt-1 mb-0">By: {article._embedded?.author[0].name}</p>
+                                <p class="card-text text-body-secondary my-3"><Fragment set:html={functions.shorten(article.excerpt.rendered, 150)} /></p>
+                                <i class="bi bi-arrow-up-right-circle-fill text-secondary opacity-75 fs-2 position-absolute top-0 end-0 m-3"></i>
+                            </div>
+                        </div>
+                   </a>
+                    </div>
+             
+                ))}
+            </div>
+
+            <!-- <div class="row text-light p-4" style="background: var(--peach)">
                 <div class="col-lg-12 d-flex flex-column justify-content-center align-items-start text-start mb-3">
                     <h1 class="display-1 text-uppercase fw-900 ls-1 lh-1">/ Hotels</h1>
                 </div>
@@ -467,7 +463,7 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                                 <p class="small m-0 mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>
                                 <h6 class="card-title display-3 text-balance fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
                                 <p class="small my-3">By: {article._embedded?.author[0].name}</p>
-                               <!--<button class="btn btn-sm small btn-secondary rounded-pill px-4 m-0 mt-2 mb-0">Read</button>-->
+                               <button class="btn btn-sm small btn-secondary rounded-pill px-4 m-0 mt-2 mb-0">Read</button>
                                 <i class="bi bi-arrow-up-right-circle-fill text-black-50 display-5 my-3"></i>
                             </div>
                         </div> 
@@ -479,7 +475,7 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                         <div class="card bg-pc-light rounded-4 border-0 shadow mb-3" style="min-height: 500px">
                             <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top w-100 object-fit rounded-top-4" style="height: 200px;" alt="..." data-aos="fade" />
                             <div class="card-body p-4 position-relative">
-                                <!--<p class="small m-0 text-secondary mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>-->
+                                <p class="small m-0 text-secondary mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>
                                 <p class="small m-0 text-secondary mt-2 mb-0" style="text-transform: capitalize;">{article._embedded['wp:term'][0][0].slug}</p>
                                 <h5 class="card-title text-secondary fs-4 fw-900 my-2"><Fragment set:html={article.title.rendered} /></h5>
                                 <p class="small text-secondary mt-1 mb-0">By: {article._embedded?.author[0].name}</p>
@@ -490,9 +486,9 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                    </a>
                     </div>
                 ))}
-            </div>
+            </div> -->
 
-            <div class="row text-light p-4" style="background: var(--green)">
+            <!-- <div class="row text-light p-4" style="background: var(--green)">
                 <div class="col-lg-12 d-flex flex-column justify-content-center align-items-start text-start mb-3">
                     <h1 class="display-1 text-uppercase fw-900 ls-1 lh-1">/ Airlines</h1>
                 </div>
@@ -508,7 +504,7 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                                 <p class="small m-0 mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>
                                 <h6 class="card-title display-3 text-balance fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
                                 <p class="small my-3">By: {article._embedded?.author[0].name}</p>
-                               <!--<button class="btn btn-sm small btn-secondary rounded-pill px-4 m-0 mt-2 mb-0">Read</button>-->
+                               <button class="btn btn-sm small btn-secondary rounded-pill px-4 m-0 mt-2 mb-0">Read</button>
                                 <i class="bi bi-arrow-up-right-circle-fill text-black-50 display-5 my-3"></i>
                             </div>
                         </div> 
@@ -520,7 +516,6 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                         <div class="card bg-pc-light rounded-4 border-0 shadow mb-3" style="min-height: 500px">
                             <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top w-100 object-fit rounded-top-4" style="height: 200px;" alt="..." data-aos="fade" />
                             <div class="card-body p-4 position-relative">
-                                <!--<p class="small m-0 text-secondary mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>-->
                                 <p class="small m-0 text-secondary mt-2 mb-0" style="text-transform: capitalize;">{article._embedded['wp:term'][0][0].slug}</p>
                                 <h5 class="card-title text-secondary fs-4 fw-900 my-2"><Fragment set:html={article.title.rendered} /></h5>
                                 <p class="small text-secondary mt-1 mb-0">By: {article._embedded?.author[0].name}</p>
@@ -531,8 +526,7 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                    </a>
                     </div>
                 ))}
-            </div>
-
+            </div> -->
 
     </div>
 </Layout>

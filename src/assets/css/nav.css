@@ -1,0 +1,8 @@
+#nav, 
+nav {
+  margin: 0 auto;
+}
+
+.offcanvas ul li.nav-item {
+  margin-bottom: 0;
+}
