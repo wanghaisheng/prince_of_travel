@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import functions from '../../js/functions';
 // import { Markdown } from '@astropub/md';
 
 // if there is no .md/collection content, do not use the combinedArray, will throw build errors
@@ -130,7 +131,7 @@ function shorten(text, max) {
     <div class="container w-100 mx-auto">
         <div id="content" class="row p-4">
             <div class="content-body col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 p-4">
-                <div class=""><Fragment set:html={post.content?.rendered} /></div>
+                <div class=""><Fragment set:html={functions.removeShortcodes(post.content?.rendered)} /></div>
                <!-- {post.content?.rendered ?
                 <Fragment id="postContent" set:html={post.content?.rendered} /> 
                 :

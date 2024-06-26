@@ -6,7 +6,7 @@ import Layout from '../../layouts/Layout.astro';
 // astro.glob => getCollection is the difference between getting all files from a directory in pages vs. collections
 // https://docs.astro.build/en/tutorials/add-content-collections/
 import functions from '../../js/functions.js';
-import PostFetch2 from '../../components/VueComponents/PostFetch.vue';
+// import FetchData from '../../components/VueComponents/FetchData.vue';
 
 
 const { index, slug } = Astro.props
@@ -91,7 +91,6 @@ function isPortraitOrientation(imgElement) {
             <!-- <img class="w-100 object-fit" style="height: 500px" src="" data-src="https://images.unsplash.com/photo-1589758438368-0ad531db3366?q=80&w=2832&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" /> -->
             <!-- https://wallpapers.com/background/credit-card-6501-x-4339-background-jt8qlzra45asmy6q.html attribution -->
             <img class="w-100 object-fit" style="height: 500px; filter:grayscale(100%)" src="https://wallpapers.com/images/high/credit-card-6501-x-4339-background-jt8qlzra45asmy6q.webp" alt="" />
-            <!-- <img class="w-100 object-fit" style="height: 500px" src="" data-src="https://images.unsplash.com/photo-1613243555988-441166d4d6fd?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" /> -->
           </div>
       </div>
 
@@ -114,11 +113,12 @@ function isPortraitOrientation(imgElement) {
 			</div>
 		</div> -->
 
+      <!-- <FetchData client:idle /> -->
+
     <div class="row p-4">
       {posts?.map((post, index) => (	
-      <div class="col-xl-6 px-2">
+      <div class="col-xl-6 px-2 credit-card-item" data-id={index + 1}>
         <div class="card mb-3 rounded-5 shadow position-relative d-flex justify-content-center" style="background: rgba(255,255,255,0.6); min-height: 350px;">
-          <!--style="min-height: 300px;"-->
           <div class="row g-0 p-2">
             <div class="col-md-5 d-flex flex-column justify-content-center align-items-center text-start p-3 rounded-5 position-relative" style="background: #00000020;">
             
@@ -451,12 +451,6 @@ function closeOffcanvas() {
   // height: 300px;
   // margin: 20px 0;
   // background-color: #d6d6d6;
-}
-
-.portrait-detail {
-  height: 300px;
-  width: 200px;
-  margin: 20px 0;
 }
 
 .landscape {

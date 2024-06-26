@@ -1,251 +1,208 @@
 <template>
-    <div>
-    <div v-if="posts" class="container-fluid">
-        <div class="row g-4 p-4">
-            <div class="col-md-6 col-lg-3" v-for="(post, index) in posts" :key="index">
-		<div class="card rounded-4 p-0 border-0 shadow bg-pc-light mb-3" 
-        style="min-height: 500px; break-inside: avoid-column; white-space: nowrap;">
-			<div class="text-center">
-              <img ref="images" :src="post.featured_image.large"
-              class="landscape"
-              :data-image-id="'item_' + index"
-            alt="">
-            <!-- :data-image-id="'item_' + index" -->
-            </div>
-				<div class="card-body position-relative px-4 pb-3">
-				<h5 class="fs-4 text-dark card-title fw-bold mb-0" style="font-size: 24px; text-wrap: pretty" v-html="post.custom_fields.credit_card_short_name"></h5>
-              <span class="badge position-absolute end-0 top-0 m-3">{{post.custom_fields.bank_name}}</span>
-              <div class="my-3">
-			     <p class="small m-0 text-secondary mt-2 mb-0" style="font-size: 16px" v-html="post.custom_fields.reward_points"></p>
-                <p class="small m-0 text-secondary my-0" style="font-size: 16px" v-html="post.custom_fields.fees"></p>
-              </div>
-              <ul class="text-black-50 mt-2 text-balance" style="font-size: 16px">
-                <li v-html="post.custom_fields.features_0_feature"></li>
-                <li v-html="post.custom_fields.features_1_feature"></li>
-                <li v-html="post.custom_fields.features_2_feature"></li>
-              </ul>
-              <div class="d-flex flex-wrap pb-3 pt-2">
-                <button class="btn btn-sm btn-secondary opacity-75 me-1 rounded-pill px-4" type="button" data-bs-toggle="offcanvas" :data-bs-target="'#item_' + index" aria-controls="offcanvasBottom">Details</button>
-                <!-- <a :href="`/credit-cards/${removeSpecialCharactersFromURL(post.slug)`">
-                <button class="btn btn-sm btn-secondary rounded-pill px-4 mt-2 mt-lg-0">Review</button>
-                </a> -->
-
-                <a :href="'/credit-cards/' + removeSpecialCharactersFromURL(post.slug)">
-                <button class="btn btn-sm btn-secondary rounded-pill px-4 mt-2 mt-lg-0">Learn more</button>
-                </a>
-              </div>
-			</div>
-        </div>	
+  <div>
+    <div class="container-fluid">
+      <div class="row px-4">
+        <div class="col-lg-10 offset-lg-1 p-3 bg-light rounded-4 border mt-3">
+          <!-- <h6 class="fs-5 text-secondary p-2">Filter cards</h6> -->
+          <ul class="nav nav-pills nav-fill">
+            <li class="nav-item me-2 mb-2 mb-md-0">
+              <form class="form-floating">
+                <input type="text" class="form-control rounded-3 border border-secondary" id="floatingInputValue"
+                v-model="bankFilter" placeholder="Search by Bank Name">
+                <label for="floatingInputValue" class="small text-secondary">Bank (i.e. BMO)</label>
+              </form>
+            </li>
+            <li class="nav-item me-2 mb-2 mb-md-0">
+              <form class="form-floating">
+                <input type="text" class="form-control rounded-3 border border-secondary" id="floatingInputValue"
+                v-model="providerFilter" placeholder="Search by Credit Card Provider">
+                <label for="floatingInputValue" class="small text-secondary">Issuer (i.e. VISA)</label>
+              </form>
+            </li>
+            <li class="nav-item me-2">
+              <button @click="toggleAnnualFeeFilter" class="btn btn-dark rounded-3 w-100 py-3">No annual fee</button>
+            </li>
+            <li class="nav-item me-2">
+              <button @click="toggleFirstYearValue" class="btn btn-dark rounded-3 w-100 py-3">First year value</button>
+            </li>
+            <li class="nav-item me-2">
+              <button @click="resetFilters" class="btn btn-dark rounded-3 w-100 py-3">Reset</button>
+            </li>
+          </ul>
         </div>
         </div>
-          
 
     </div>
-    <div v-else>
-      Loading...
-    </div>
-</div>
-  </template>
-  
-  <script>
 
+    <!-- <input v-model="bankFilter" placeholder="Filter by Bank Name" /> -->
+    <!-- <input v-model="providerFilter" placeholder="Filter by Credit Card Provider" /> -->
+
+    <div class="container-fluid">
+      <div class="row p-4">
+        <div class="col-lg-3 p-5" v-for="item in filteredData" :key="item.id">
+          <img :src="item.featured_image.large" alt="" :class="[isPortrait(item.imageURL) ? 'portrait' : 'landscape']">
+          <h5 class="">{{item.title}}</h5>
+        </div>
+      </div>
+    </div>
+    <ul>
+      <!-- <li v-for="item in filteredData" :key="item.id">
+        {{ item.custom_fields.bank_name }} - {{ item.custom_fields.payment_network_name }}
+      </li> -->
+    </ul>
+  </div>
+</template>
+
+<script setup>
+import { ref, computed, onMounted } from 'vue';
+
+const bankFilter = ref('');
+const providerFilter = ref('');
+let data = ref([]);
+const annualFeeFilter = ref(false); 
+const firstYearValueFilter = ref(false); 
+
+async function fetchData() {
+  try {
+    const response = await fetch('https://pftraveldev.wpengine.com/wp-json/pot/v1/credit-cards?per_page=100');
+    if (!response.ok) throw new Error(`HTTP error status: ${response.status}`);
+    data.value = await response.json(); // Populate data with fetched cards
+  } catch (error) {
+    console.error("Failed to fetch data:", error);
+  }
+}
+
+onMounted(fetchData);
+
+const filteredData = computed(() => {
+  // Show all cards initially; apply filters only after the initial load
+  let result = [...data.value]; // Start with all cards
+  if (bankFilter.value) {
+    result = result.filter(item =>
+      item.custom_fields.bank_name.toLowerCase().includes(bankFilter.value.toLowerCase())
+    );
+  }
+  if (providerFilter.value) {
+    result = result.filter(item =>
+      item.custom_fields.payment_network_name.toLowerCase().includes(providerFilter.value.toLowerCase())
+    );
+  }
+  if (annualFeeFilter.value) {
+    result = result.filter(item => item.custom_fields.annual_fee === '0');
+  }
+  if (firstYearValueFilter.value) {
+    result = result.filter(item => item.custom_fields.welcome_bonus_value > '150');
+  }
+  return result;
+});
+
+const toggleAnnualFeeFilter = () => {
+  annualFeeFilter.value =!annualFeeFilter.value;
+  filteredData.value = filteredData.value; // Force update to apply the new filter
+};
+const toggleFirstYearValue = () => {
+  firstYearValueFilter.value =!firstYearValueFilter.value;
+  filteredData.value = filteredData.value; // Force update to apply the new filter
+};
+
+const resetFilters = () => {
+  bankFilter.value = '';
+  providerFilter.value = '';
+  annualFeeFilter.value = false;
+  firstYearValueFilter.value = false;
+  filteredData.value = [...data.value]; // Reset filteredData to original data
+};
+
+
+function isPortrait(imageUrl) {
+  // Fetch the image metadata to check its orientation
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = function() {
+      resolve(this.height > this.width);
+    };
+    img.src = imageUrl;
+    console.log(imageUrl + ' = portrait')
+  });
+}
+</script>
+
+<!-- <style>
+.portrait {
+  /* Styles for portrait images */
+  height: 240px;
+  width: 150px;
+  text-align: center;
+}
+
+.landscape {
+  /* Styles for landscape images */
+  width: 100%;
+  padding: 20px;
+  margin: 0 auto;
+}
+</style> -->
+
+
+
+
+<!-- <template>
+  <div>
+    <button @click="filterCards(post.custom_fields.annual_fee === '0')">Filter Visa Cards</button>
+    <ul>
+      <li v-for="post in filteredCards" :key="post.id">
+        {{ post.title }} 
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script>
 import { ref, onMounted } from 'vue';
 
-const images = ref([]);
-
-// bit-alaska post had a cross at the end of the url which threw a build error in netlify
-const removeSpecialCharactersFromURL = (url) => {
-      // Define a regular expression to match special characters
-      const regex = /[^\w\s\-#]/gi;
-      // Replace special characters with an empty string
-      const cleanURL = url.replace(regex, '');
-      return cleanURL;
-    };
-
 export default {
+  name: 'CreditCardList',
   setup() {
-    const posts = ref(null);
-    const isLoading = ref(true);
-    const imageElements = ref([]);
-    
+    // Sample credit card data
+    const posts = ref([]);
 
     const fetchData = async () => {
       try {
-        const response = await fetch('https://pftraveldev.wpengine.com/wp-json/pot/v1/credit-cards?per_page=4');
+        const response = await fetch('https://pftraveldev.wpengine.com/wp-json/pot/v1/credit-cards?per_page=100');
         const fetchedData = await response.json();
         posts.value = fetchedData;
         console.log(fetchedData)
       } catch (error) {
         console.error("Failed to fetch data:", error);
       } finally {
-        isLoading.value = false;
+        console.log('loaded');
       }
     };
-
-    const isPortraitImage = (imageElement) => {
-      return new Promise((resolve) => {
-        const img = new Image();
-        img.onload = function() {
-          const width = this.width;
-          const height = this.height;
-          resolve(width < height);
-        };
-        img.src = imageElement.src;
-      });
-    };
-
-    // Define handleImageLoad before onMounted
-    const handleImageLoad = (imageElement) => {
-      isPortraitImage(imageElement)
-        .then((isPortrait) => {
-          if (isPortrait) {
-            imageElement.classList.add('portrait');
-            imageElement.classList.remove('landscape');
-          }
-        })
-        .catch((error) => {
-          console.error('Error loading image:', error);
-        });
-    };
-
-    // const checkImageOrientation = () => {
-    //   imageElements.value.forEach(image => {
-    //     const imgElement = refs.imageElements.find(ref => ref.alt === image.alt);
-    //     if (imgElement) {
-    //       const img = new Image();
-    //       img.onload = function() {
-    //         const width = this.width;
-    //         const height = this.height;
-    //         const isPortrait = width < height;
-    //               if (isPortrait) {
-    //       imageElement.classList.add('portrait');
-    //       imageElement.classList.remove('landscape');
-    //     } else {
-    //       imageElement.classList.remove('portrait');
-    //       imageElement.classList.add('landscape');
-    //     }
-    //         // isPortrait ? imgElement.classList.add('portrait') : imgElement.classList.add('landscape');
-    //       };
-    //       img.src = image.url;
-    //     }
-    //   });
-    // };
-     
-
+  
+    // onMounted(fetchData);
     onMounted(() => {
       fetchData();
-      images.value.forEach((imageElement) => {
-        // Check if the image is already loaded
-        if (imageElement.complete) {
-          handleImageLoad(imageElement);
-        } else {
-          // Listen for the load event if the image is not yet loaded
-          imageElement.addEventListener('load', () => handleImageLoad(imageElement));
-        }
-      });
+
     });
 
+    // State for filtered cards
+    const filteredCards = ref([]);
 
-    return { posts, isLoading, images, removeSpecialCharactersFromURL };
-  },
-};
-</script>
-
-<style>
-.portrait {
-  /* Styles for portrait images */
-  height: 300px;
-  width: 200px;
-  background-color: #d6d6d6;
-  text-align: center;
-  margin: 20px 0;
-}
-
-.landscape {
-  /* Styles for landscape images */
-  padding: 10px;
-  width: 100%;
-}
-</style>
-<!-- 
-<template>
-  <div>
-    <div v-if="isLoading">Loading...</div>
-    <div v-else-if="error">{{ error }}</div>
-    <div v-else>
-      <div v-for="(item, index) in responseData" :key="index">
-        Pass item as a scoped slot prop
-        <slot :item="item"></slot>
-      </div>
-    </div>
-  </div>
-</template>
-
-<script>
-import { ref, watchEffect } from 'vue';
-
-export default {
-  props: {
-    endpoint: {
-      type: String,
-      required: true
-    }
-  },
-  setup(props, { slots }) {
-    const isLoading = ref(false);
-    const error = ref(null);
-    const responseData = ref([]);
-
-    const fetchData = async () => {
-      isLoading.value = true;
-      try {
-        const response = await fetch(props.endpoint);
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const data = await response.json();
-        responseData.value = data;
-      } catch (err) {
-        error.value = err.message || 'An error occurred';
-      } finally {
-        isLoading.value = false;
-      }
+    // Function to filter cards by type
+    const filterCards = (type) => {
+      filteredCards.value = posts.value.filter(card => card.type === type);
     };
 
-    watchEffect(() => {
-      fetchData();
-    });
-
     return {
-      isLoading,
-      error,
-      responseData
+      filteredCards,
+      filterCards
     };
   }
 };
-</script> -->
-  
-<!-- then in the template -->
+</script>
 
-<!-- <template>
-    <CustomComponent endpoint="your-api-endpoint">
-      Access the item using the slot
-      <template #default="{ item }">
-        <div>
-          <h2>{{ item.title }}</h2>
-          <p>{{ item.description }}</p>
-        </div>
-      </template>
-    </CustomComponent>
-  </template>
-  
-  <script>
-  import CustomComponent from './CustomComponent.vue';
-  
-  export default {
-    components: {
-      CustomComponent
-    }
-  };
-  </script> -->
-  
+<style scoped>
+/* Add your component-specific styles here if needed */
+</style>
+const res = await fetch("https://pftraveldev.wpengine.com/wp-json/pot/v1/credit-cards?per_page=100");
+const posts = await res.json(); -->
