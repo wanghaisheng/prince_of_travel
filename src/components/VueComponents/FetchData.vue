@@ -73,36 +73,38 @@
 
     <div class="container-fluid">
       <div class="row p-4" v-if="filteredData.length">
-          <div v-for="(post, index) in filteredData" :key="post.id" class="col-xl-6 px-2 credit-card-item" :data-id="index + 1">
+          <div v-for="(post, index) in filteredData" :key="post.id" class="col-lg-6 px-2 credit-card-item" :data-id="index + 1">
             <!-- {{ post.title }} -->
-        <div class="card mb-3 rounded-5 shadow position-relative d-flex justify-content-center" style="background: rgba(255,255,255,0.6); min-height: 350px;">
+        <div class="card mb-3 rounded-5 shadow position-relative d-flex justify-content-center" style="background: rgba(255,255,255,0.6);">
+          <!-- min-height: 350px; -->
+          
           <div class="row g-0 p-2">
-            <div class="col-md-5 d-flex flex-column justify-content-center align-items-center text-start p-3 rounded-5 position-relative" style="background: #00000020; min-height: 330px">
-            
-            <div class="position-absolute z-0 rounded-circle top-50 start-50 translate-middle" style="height: 200px; width: 200px; background: #00000050"></div>
+            <div class="col-5 d-flex flex-column justify-content-center align-items-center text-start p-3 rounded-5 position-relative" style="background: #00000020;">
+              <!-- min-height: 330px -->
+
+            <div class="position-absolute z-0 rounded-circle top-50 start-50 translate-middle" style="height: 150px; width: 150px; height: 14ch; width: 14ch; background: #00000050"></div>
               <div class="text-center mx-auto position-relative">
                 <img :src="getImageSrc(post.featured_image.large)" alt=""
                 :class="isPortraitImage(post) ? 'portrait' : 'landscape'"
                  :data-image-id="'item_' + index">
               </div>
             </div>
-            <div class="col-md-7 p-4">
-              <div class="card-body position-relative py-0 px-0">
-                <h5 class="fs-4 card-title fw-bold mb-0" style="text-wrap: pretty" v-html="post.title"></h5>
+            <div class="col-7 d-flex p-4">
+              <div class="card-body position-relative py-0 px-0 d-flex flex-column justify-content-center align-items-start text-start">
+                <h5 class="card-title fw-bold mb-0" style="font-size: 3.6vmin; letter-spacing: -1px" v-html="post.title"></h5>
                 <!--<badge class="badge position-absolute end-0 top-0 m-3">{post.custom_fields.bank_name}</badge>-->
-                <div class="my-3">
+                <div class="my-2">
                   <!--<p class="small m-0 mt-2 mb-0" style="font-size: 16px" v-html="post.custom_fields.reward_points"></p>-->
-                  <p class="small m-0 mt-2 mb-0 fw-bold" style="font-size: 15px" v-html="post.custom_fields.membership_reward"></p>
+                  <p class="small m-0 mt-2 mb-0 fw-bold" style="font-size: 14.5px" v-html="post.custom_fields.membership_reward"></p>
                   <p v-if="post.custom_fields.welcome_bonus_value" class="small m-0 my-0 fw-bold" style="font-size: 15px">$<span class="fw-bold" v-html="post.custom_fields.welcome_bonus_value"></span> First year value</p>
-                  <p v-else class="small m-0 my-0" style="font-size: 15px">N/A</p>
+                  <p v-else class="small m-0 my-0" style="font-size: 14.5px">N/A</p>
                 </div>
-                <ul class="text-body-secondary mt-2 list-unstyled pe-3" style="font-size: 15px">
+
+                <ul class="d-none d-lg-block text-body-secondary mt-2 list-unstyled pe-3" style="font-size: 14.5px">
                   <li v-if="!post.custom_fields.features_1_feature || !post.custom_fields.features_2_feature" class="border-bottom border-top my-1 py-2" v-html="post.custom_fields.features_0_feature"></li>
                   <li v-else class="border-bottom border-top mb-1 pb-2 pt-1" v-html="post.custom_fields.features_0_feature"></li>
-
                   <li v-if="post.custom_fields.features_1_feature" class="border-bottom mb-1 pb-2" v-html="post.custom_fields.features_1_feature"></li>
-                  <li v-if="post.custom_fields.features_2_feature" class="border-bottom mb-1 pb-1" v-html="post.custom_fields.features_2_feature"></li>
-                  
+                  <li v-if="post.custom_fields.features_2_feature" class="d-none d-lg-block border-bottom mb-1 pb-1" v-html="post.custom_fields.features_2_feature"></li>
                 </ul>
                 <div class="d-flex flex-wrap pt-2">
                   <button class="btn btn-sm btn-secondary fw-bold opacity-75 me-1 rounded-pill px-4 py-2" type="button" data-bs-toggle="offcanvas" :data-bs-target="'#item_' + index" aria-controls="offcanvasBottom">Details</button>
@@ -116,7 +118,7 @@
         </div>
 
         <div class="offcanvas offcanvas-bottom mx-auto rounded-top-4 px-0" style="width: 90%; height: 90%" tabindex="-1" :id="'item_' + index" aria-labelledby="offcanvasBottomLabel" :data-product-slug="post.slug">
-            <div class="offcanvas-body position-relative rounded-top-4" style="background: #ddd; padding: 76px">
+            <div class="offcanvas-body position-relative rounded-top-4" style="background: #ddd; padding: 76px; padding: 7% 10%">
               <svg id="offcanvasClose" role="button" style="width: 40px;" data-bs-dismiss="offcanvas" aria-label="Close" xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" class="bi bi-x-circle-fill position-absolute end-0 top-0 m-4" viewBox="0 0 16 16">
                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
               </svg>
@@ -126,7 +128,7 @@
                     <div class="position-absolute z-0 rounded-circle top-50 start-50 translate-middle" style="height: 15vw; width: 15vw; background: #00000050"></div>
                     <div class="text-center position-relative">
                       <img :src="getImageSrc(post.featured_image.large)" alt=""
-                      :class="isPortraitImage(post) ? 'portrait' : 'landscape'"
+                      :class="isPortraitImage(post) ? 'portrait portrait-detail' : 'landscape landscape-detail'"
                       :data-image-id="'item_' + index">
                     </div>
                   </div>
@@ -135,7 +137,7 @@
                 </div>
               </div>
 
-              <div class="container-fluid px-0 mt-4 mb-5">
+              <div class="container-fluid px-0 mt-3 mb-5">
                   <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 my-3">
                     <div class="col">
                       <div class="bg-light rounded-4 shadow" style="min-height: 240px; padding: 2.5rem; --bs-bg-opacity: 0.5;">
@@ -403,6 +405,31 @@ const isPortraitImage = (image) => {
     max-width: 200px;
     width: auto;
     margin: 0; */
+}
+
+.card, 
+.card .col-5 {
+  min-height: 330px;
+}
+
+@media only screen and (max-width: 768px)   {
+  .card, .card .col-5 {
+    min-height: 0;
+  }
+    .landscape {
+      padding: 0;
+  }
+    .landscape-detail {
+      padding: 20px 30px 10px;
+  }
+  .portrait {
+    height: 180px;
+    width: 110px;
+  }
+  .portrait-detail {
+    height: 210px;
+    width: 130px;
+  }
 }
 </style>
 
