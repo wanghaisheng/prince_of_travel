@@ -1,6 +1,7 @@
 ---
 // import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import functions from '../../js/functions';
 // import { Markdown } from '@astropub/md'
 
 export const prerender = true;
@@ -72,8 +73,9 @@ const url = encodeURIComponent(Astro.url.pathname);
 <Layout title={post.title || post.data.title} description="" image="">
 
     <div class="content-hero container-fluid px-0 pt-3">
-        <div class="row min-vh-500 pt-5">
-          <div class="col-lg-7 d-flex flex-column justify-content-end align-items-start text-start p-5">
+        <div class="row min-vh-100 pt-5" style="background: #eee;">
+          <div class="col-lg-6 d-flex flex-column justify-content-center align-items-start text-start p-5 position-relative">
+            <img src="https://princeoftravel.com/wp-content/themes/dstheme/assets/images/new-map.svg" class="w-100 position-absolute top-0 start-0 translate-middle z-0" alt="">
             <a href="/credit-cards">
                 <div class="d-flex align-items-center" data-aos="fade-up">
                     <i class="bi bi-arrow-left text-black-50 fs-1"></i>
@@ -87,12 +89,36 @@ const url = encodeURIComponent(Astro.url.pathname);
               <Fragment class="my-0" set:html={post.excerpt} />
           </div>
                 <p class="small text-uppercase fw-bold mb-0 mt-3" data-aos="fade-up" data-aos-delay="600"><span class="fw-light text-secondary">Updated on:</span> {post.pubDate?.toString().slice(0,10) || post.date?.toString().slice(0,10)}</p>
-                <!-- <p class="small text-pc-dark text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Read time </span>  {wordCount(post.body) || wordCount(post.content)} mins</p> -->
+        </div>
+        <div class="col-lg-6 d-flex flex-column justify-content-center align-items-start text-start p-5">
+          <h6>{post.custom_fields.card_benefits_0_b_title}</h6>
+          <div class="mt-3">
+            <h6>{post.custom_fields.card_benefits_1_b_title}</h6>
+            <p class="small my-0"><Fragment set:html={post.custom_fields.card_benefits_1_b_content.replace(/\r\n/g, '.<br>') + '.'} /></p>
+          </div>
+          <div class="mt-3">
+            <h6>{post.custom_fields.card_benefits_2_b_title}</h6>
+            <p class="small my-0"><Fragment set:html={post.custom_fields.card_benefits_2_b_content} /></p>
+          </div>
+          <div class="mt-3">
+            <h6>{post.custom_fields.card_benefits_3_b_title}</h6>
+            <p class="small my-0"><Fragment set:html={post.custom_fields.card_benefits_3_b_content.replace(/\r\n/g, '.<br>') + '.'} /></p>
+          </div>
+          <div class="mt-3">
+            <h6>{post.custom_fields.card_benefits_4_b_title}</h6>
+            <p class="small my-0"><Fragment set:html={post.custom_fields.card_benefits_4_b_content.replace(/\r\n/g, '.<br>') + '.'} /></p>
+          </div>
+          <div class="mt-3">
+            <h6>{post.custom_fields.card_benefits_5_b_title}</h6>
+            <p class="small my-0"><Fragment set:html={post.custom_fields.card_benefits_5_b_content.replace(/\r\n/g, '.<br>')} /></p>
+          </div>
+     
+         
         </div>
 
-            <div class="col-lg-12 d-flex flex-column justify-content-center align-items-center pt-5 px-0">
+            <!-- <div class="col-lg-12 d-flex flex-column justify-content-center align-items-center pt-5 px-0">
               <img class="w-100 object-fit" style="height: 500px" src="" data-src={post.data?.imageUrl || post.featured_image.large} alt={post.data?.imageAlt} />
-            </div>
+            </div> -->
         </div>
     </div>
 
@@ -101,7 +127,7 @@ const url = encodeURIComponent(Astro.url.pathname);
     <div class="container w-100 mx-auto">
         <div id="content" class="row p-4">
             <div class="content-body col-lg-8 offset-lg-2 px-4 pb-3 pt-0">
-              <p><Fragment set:html={post.custom_fields.card_content_0_c_content} /></p>
+              <p><Fragment set:html={functions.removeShortcodes(post.custom_fields.card_content_0_c_content)} /></p>
               <h2 class="fw-bold lh-1 ls-1"><Fragment set:html={post.custom_fields.card_content_1_c_title}/></h2>
               <p><Fragment set:html={post.custom_fields.card_content_1_c_content}</p>
               <h2 class="fw-bold lh-1 ls-1"><Fragment set:html={post.custom_fields.card_content_2_c_title}/></h2>

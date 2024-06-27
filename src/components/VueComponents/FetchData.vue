@@ -93,12 +93,15 @@
                 <div class="my-3">
                   <!--<p class="small m-0 mt-2 mb-0" style="font-size: 16px" v-html="post.custom_fields.reward_points"></p>-->
                   <p class="small m-0 mt-2 mb-0 fw-bold" style="font-size: 15px" v-html="post.custom_fields.membership_reward"></p>
-                  <p class="small m-0 my-0 fw-bold" style="font-size: 15px">$<span class="fw-bold" v-html="post.custom_fields.welcome_bonus_value"></span> First year value</p>
+                  <p v-if="post.custom_fields.welcome_bonus_value" class="small m-0 my-0 fw-bold" style="font-size: 15px">$<span class="fw-bold" v-html="post.custom_fields.welcome_bonus_value"></span> First year value</p>
+                  <p v-else class="small m-0 my-0" style="font-size: 15px">N/A</p>
                 </div>
                 <ul class="text-body-secondary mt-2 list-unstyled pe-3" style="font-size: 15px">
-                  <li class="border-bottom mb-1 pb-2" v-html="post.custom_fields.features_0_feature"></li>
+                  <li v-if="!post.custom_fields.features_1_feature || !post.custom_fields.features_2_feature" class="border-bottom border-top my-1 py-2" v-html="post.custom_fields.features_0_feature"></li>
+                  <li v-else class="border-bottom border-top mb-1 pb-2 pt-1" v-html="post.custom_fields.features_0_feature"></li>
+
                   <li v-if="post.custom_fields.features_1_feature" class="border-bottom mb-1 pb-2" v-html="post.custom_fields.features_1_feature"></li>
-                  <li v-else class="border-bottom mb-1 pb-1" v-html="post.custom_fields.features_2_feature"></li>
+                  <li v-if="post.custom_fields.features_2_feature" class="border-bottom mb-1 pb-1" v-html="post.custom_fields.features_2_feature"></li>
                   
                 </ul>
                 <div class="d-flex flex-wrap pt-2">
@@ -113,15 +116,13 @@
         </div>
 
         <div class="offcanvas offcanvas-bottom mx-auto rounded-top-4 px-0" style="width: 90%; height: 90%" tabindex="-1" :id="'item_' + index" aria-labelledby="offcanvasBottomLabel" :data-product-slug="post.slug">
-            <div class="offcanvas-body position-relative rounded-top-4 bg-ivory-light" style="padding: 76px">
+            <div class="offcanvas-body position-relative rounded-top-4" style="background: #ddd; padding: 76px">
               <svg id="offcanvasClose" role="button" style="width: 40px;" data-bs-dismiss="offcanvas" aria-label="Close" xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" class="bi bi-x-circle-fill position-absolute end-0 top-0 m-4" viewBox="0 0 16 16">
                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
               </svg>
 
               <div class="row px-3">
-                <div class="col-lg-3 d-flex justify-content-center align-items-center">
-                  <!--<img src={post.featured_image.large} data-image-id={'item_' + index} class="credit-card-img" alt="">-->
-                  <div class="col-sm-5 d-flex justify-content-center align-items-center p-3 rounded-5 position-relative">
+                  <div class="col-md-5 col-lg-4 d-flex justify-content-center align-items-center p-3 rounded-5 position-relative">
                     <div class="position-absolute z-0 rounded-circle top-50 start-50 translate-middle" style="height: 15vw; width: 15vw; background: #00000050"></div>
                     <div class="text-center position-relative">
                       <img :src="getImageSrc(post.featured_image.large)" alt=""
@@ -129,9 +130,8 @@
                       :data-image-id="'item_' + index">
                     </div>
                   </div>
-                </div>  
-                <div class="col-lg-9 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
-                  <h2 class="display-3 ls-1 lh-1 text-black-50 fw-bold mt-4 mb-2 mb-lg-4 px-4" v-html="post.title"></h2>
+                <div class="col-md-7 col-lg-8 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-md-start">
+                  <h2 class="display-3 ls-1 lh-1 text-black-50 fw-bold my-0 mb-lg-4 px-4" v-html="post.title"></h2>
                 </div>
               </div>
 
