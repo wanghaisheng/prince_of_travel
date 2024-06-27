@@ -112,6 +112,11 @@ const url = encodeURIComponent(Astro.url.pathname);
               <p><Fragment set:html={post.custom_fields.card_content_4_c_content}</p>
               <h2 class="fw-bold lh-1 ls-1"><Fragment set:html={post.custom_fields.card_content_5_c_title}/></h2>
               <p><Fragment set:html={post.custom_fields.card_content_5_c_content}</p>
+              { post.custom_fields.legal_disclaimers && 
+                <div class="border-top">
+                  <p class="my-0"><Fragment set:html={post.custom_fields.legal_disclaimers} /></p>
+                </div>
+              }
 
               <!-- share -->
               <div class="d-flex border-top py-3 mt-4">
