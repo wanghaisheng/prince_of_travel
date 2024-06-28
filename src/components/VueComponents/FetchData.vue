@@ -409,7 +409,7 @@ const isPortraitImage = (image) => {
 
 .card, 
 .card .col-5 {
-  min-height: 330px;
+  min-height: 390px;
 }
 
 @media only screen and (max-width: 768px)   {

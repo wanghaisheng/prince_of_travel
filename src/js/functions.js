@@ -60,7 +60,20 @@ export default {
 
         // Remove all matched shortcodes from the text
         return text.replace(shortcodeRegex, '');
-    }
+    },
+    // cleanString:(inputString) => {
+    //     // Replace single line breaks with <br>, double line breaks with <br><br>, and remove tabs
+    //     return inputString.replace(/\r\n\r\n/g, "<br><br>").replace(/(\r\n|\n|\r|\t)/gm, "<br>");
+    //   },
+
+    // removeShortcodes: (str) => {
+    //     // Regular expression to match shortcodes
+    //     const shortcodeRegex = /\[\/?([a-z]+_[a-z]+).*?\]/gi;
+      
+    //     // Replace matched shortcodes with an empty string
+    //     return str.replace(shortcodeRegex, '');
+    //   },
+
     // addPTagsToText: (text) => {
     //     // Split the text into paragraphs using \r\n\r\n as delimiter
     //     let paragraphs = text.split(/\r\n\r\n/);

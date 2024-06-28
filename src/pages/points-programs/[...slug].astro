@@ -92,17 +92,17 @@ function shorten(text, max) {
 }
 ---
 
-<Layout title="" description="" image="">
+<Layout title={post.custom_fields.subtitle + ' ' + post.custom_fields.p_title_h4} description={post.custom_fields.short_description + '.'} image="">
     <div class="container-fluid px-0 pt-3">
         <div class="row py-3 position-relative">
             <div class="col-lg-8 offset-lg-2 d-flex flex-column justify-content-center align-items-center text-center p-5">
                 <a href="/points-programs">
-                    <div class="d-flex align-items-center aos-init aos-animate position-absolute start-0 top-25 ms-4" data-aos="fade-up">
+                    <div class="d-flex align-items-center aos-init aos-animate position-absolute start-0 top-25 ms-4 mt-3" data-aos="fade-up">
                         <i class="bi bi-arrow-left text-black-50 fs-1"></i>
                         <h6 class="ms-2 my-0 text-black-50 fw-light">Back</h6>
                     </div>
                 </a>
-                <img class="h-auto mx-0 rounded-4 p-4 mb-4" style="width: 200px; background: #eee" src="" data-src={post.featured_image.large || post.data?.imageUrl} alt="" />
+                <img class="h-auto mx-0 rounded-4 p-4 my-4" style="width: 200px; background: #eee" src="" data-src={post.featured_image.large || post.data?.imageUrl} alt="" />
                 <h5>{post.custom_fields.subtitle}</h5>
                 <h1 class="fw-bold text-body-secondary lh-2 ls-1 mb-0 mt-2" style="font-size: 10vmin;">
                     <Fragment set:html={post.custom_fields.p_title_h4} />
@@ -144,7 +144,7 @@ function shorten(text, max) {
           </div>
         </div>
 
-        <div class="row" id="content">
+        <div class="row p-5 p-lg-4" id="content">
           <div class="content-body col-lg-8 offset-lg-2">
             <hr class="mx-auto my-4">
             <p class="fs-5 fst-italic text-black-50"><Fragment set:html={post.custom_fields.point_content_0_c_content} /></p>
@@ -165,8 +165,8 @@ function shorten(text, max) {
     
     <!--body/sidebar-->
     <div class="container w-100 mx-auto">
-        <div class="row p-4">
-            <div class="content-body col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 px-4 py-5">
+        <div class="row px-4 pb-4 pt-0">
+            <div class="content-body col-lg-10 offset-lg-1 px-4 pb-5">
                 <div class=""><Fragment set:html={post.content} /></div>
                 <!-- <Markdown of={post.body} /> -->
             
@@ -203,7 +203,7 @@ function shorten(text, max) {
               </div>
             </div>
             
-            <div class="col-lg-12 d-block d-xl-none border-top p-4">
+            <!-- <div class="col-lg-12 d-block d-xl-none border-top p-4">
                 <div class="py-2">
                 <p><span class="fw-bold text-body-secondary">Prince of Travel</span> is a non-traditional, full service travel concierge designed exclusively for companies and individuals who require exclusive travel arrangements. We handle the nuances of travel ensuring a seamless and extraordinary journey from start to finish.</p>
                 </div>
@@ -222,8 +222,8 @@ function shorten(text, max) {
                     </a>
                 </div>
                 <hr>
-    
-            </div>
+            </div> -->
+
         </div>
     </div>
 </Layout>

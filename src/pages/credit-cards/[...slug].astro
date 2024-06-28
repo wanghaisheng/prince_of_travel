@@ -68,21 +68,66 @@ function emailPage(title) {
   return emailShare;
 }
 const url = encodeURIComponent(Astro.url.pathname);
+
+// function replaceLineBreaksWithBr(responseObject) {
+//   for (let key in responseObject) {
+//     if (responseObject.hasOwnProperty(key)) {
+//       if (typeof responseObject[key] === 'string') {
+//         responseObject[key] = responseObject[key].replace(/(\r\n|\n|\r)/gm, "<br>");
+//       } else if (typeof responseObject[key] === 'object') {
+//         replaceLineBreaksWithBr(responseObject[key]); // Recursive call for nested objects
+//       }
+//     }
+//   }
+// }
+
+// Modified function to handle two consecutive \r\n sequences
+// function replaceLineBreaksWithSingleBr(responseObject) {
+//   for (let key in responseObject) {
+//     if (responseObject.hasOwnProperty(key)) {
+//       if (typeof responseObject[key] === 'string') {
+//         responseObject[key] = responseObject[key].replace(/\r\n\r\n/g, "<br><br>").replace(/(\r\n|\n|\r)/gm, "<br>");
+//       } else if (typeof responseObject[key] === 'object') {
+//         replaceLineBreaksWithSingleBr(responseObject[key]); // Recursive call for nested objects
+//       }
+//     }
+//   }
+// }
+
+// replaceLineBreaksWithSingleBr(post);
+
+// function cleanString(inputString) {
+//     // Replace single line breaks with <br>, double line breaks with <br><br>, and remove tabs
+//     return inputString.replace(/\r\n\r\n/g, "<br><br>").replace(/(\r\n|\n|\r|\t)/gm, "<br>");
+//   }
+
+  function cleanString(inputString) {
+    // Check if the string contains \r\n
+    if (/(\r\n|\n|\r)/.test(inputString)) {
+        // If it does, clean the string
+        return inputString.replace(/\r\n\r\n/g, "<br><br>").replace(/(\r\n|\n|\r|\t)/gm, "<br>");
+    } else {
+        // If it doesn't, return the original string
+        return inputString;
+    }
+}
 ---
 
 <Layout title={post.title || post.data.title} description="" image="">
 
     <div class="content-hero container-fluid px-0">
-        <div class="row min-vh-100 pt-5" style="background: #eee;">
-          <div class="col-lg-6 d-flex flex-column justify-content-center align-items-start text-start px-5 pt-5 pb-0 pb-lg-5 position-relative">
-            <img src="https://princeoftravel.com/wp-content/themes/dstheme/assets/images/new-map.svg" class="w-100 position-absolute top-0 start-0 translate-middle z-0" alt="">
-            <a href="/credit-cards">
+        <div class="row min-vh-100 pt-5 position-relative" style="background: #eee;">
+           <a href="/credit-cards" class="position-absolute top-25 start-25 mt-5 ms-3">
                 <div class="d-flex align-items-center" data-aos="fade-up">
                     <i class="bi bi-arrow-left text-black-50 fs-1"></i>
-                    <h6 class="ms-2 my-0 text-black-50 fw-light">Back to Credit Cards</h6>
+                    <h6 class="ms-2 my-0 text-black-50 fw-light">Back</h6>
                 </div>
             </a>
-            <h1 class="text-body-secondary lh-2 ls-1 my-2" data-aos="fade-up" data-aos-delay="200">
+          <div class="col-lg-6 d-flex flex-column justify-content-center align-items-center text-center px-5 pt-5 pb-0 pb-lg-5">
+           
+            <img src={post.featured_image.large} class="landscape"
+            alt="">
+            <h1 class="text-body-secondary lh-2 ls-1 mb-2 mt-4" style="font-size: 6vmin" data-aos="fade-up" data-aos-delay="200">
               <Fragment set:html={post.title} />
             </h1>
             <div class="fs-5 text-body-secondary my-3" data-aos="fade-up" data-aos-delay="400">
@@ -91,29 +136,31 @@ const url = encodeURIComponent(Astro.url.pathname);
           <p class="small text-uppercase fw-bold mb-0 mt-3" data-aos="fade-up" data-aos-delay="600"><span class="fw-light text-secondary">Updated on:</span> {post.pubDate?.toString().slice(0,10) || post.date?.toString().slice(0,10)}</p>
         </div>
         <div class="col-lg-6 d-flex flex-column justify-content-center align-items-start text-start p-5">
-          <h6>{post.custom_fields.card_benefits_0_b_title}</h6>
+          <h6 class="fw-bold">{post.custom_fields.card_benefits_0_b_title}</h6>
           <div class="mt-3">
-            <h6>{post.custom_fields.card_benefits_1_b_title}</h6>
-            <p class="small my-0"><Fragment set:html={post.custom_fields.card_benefits_1_b_content.replace(/\r\n/g, '.<br>') + '.'} /></p>
+            <h6 class="fw-bold">{post.custom_fields.card_benefits_1_b_title}</h6>
+            <p class="small my-0"><Fragment set:html={cleanString(post.custom_fields.card_benefits_1_b_content)} /></p>
           </div>
           <div class="mt-3">
-            <h6>{post.custom_fields.card_benefits_2_b_title}</h6>
-            <p class="small my-0"><Fragment set:html={post.custom_fields.card_benefits_2_b_content} /></p>
+            <h6 class="fw-bold">{post.custom_fields.card_benefits_2_b_title}</h6>
+            <p class="small my-0"><Fragment set:html={cleanString(post.custom_fields.card_benefits_2_b_content)} /></p>
           </div>
           <div class="mt-3">
-            <h6>{post.custom_fields.card_benefits_3_b_title}</h6>
-            <p class="small my-0"><Fragment set:html={post.custom_fields.card_benefits_3_b_content.replace(/\r\n/g, '.<br>') + '.'} /></p>
+            <h6 class="fw-bold">{post.custom_fields.card_benefits_3_b_title}</h6>
+            <p class="small my-0"><Fragment set:html={cleanString(post.custom_fields.card_benefits_3_b_content)} /></p>
           </div>
           <div class="mt-3">
-            <h6>{post.custom_fields.card_benefits_4_b_title}</h6>
-            <p class="small my-0"><Fragment set:html={post.custom_fields.card_benefits_4_b_content.replace(/\r\n/g, '.<br>') + '.'} /></p>
+            <h6 class="fw-bold">{post.custom_fields.card_benefits_4_b_title}</h6>
+            <p class="small my-0"><Fragment set:html={cleanString(post.custom_fields.card_benefits_4_b_content)} /></p>
           </div>
           <div class="mt-3">
-            <h6>{post.custom_fields.card_benefits_5_b_title}</h6>
-            <p class="small my-0"><Fragment set:html={post.custom_fields.card_benefits_5_b_content.replace(/\r\n/g, '.<br>')} /></p>
+            <h6 class="fw-bold"><Fragment set:html={post.custom_fields.card_benefits_5_b_title}/></h6>
+            <p class="small my-0"><Fragment set:html={cleanString(post.custom_fields.card_benefits_5_b_content)} /></p>
           </div>
           <div class="mt-3">
-            <button class="btn btn-dark rounded-pill px-4">Apply now</button>
+            <a href={post.apply_now_link} target="_blank">
+              <button class="btn btn-dark rounded-pill px-4">Apply now</button>
+            </a>
           </div>
      
          
@@ -142,7 +189,7 @@ const url = encodeURIComponent(Astro.url.pathname);
               <h2 class="fw-bold lh-1 ls-1"><Fragment set:html={post.custom_fields.card_content_5_c_title}/></h2>
               <p><Fragment set:html={post.custom_fields.card_content_5_c_content}</p>
               { post.custom_fields.legal_disclaimers && 
-                <div class="border-top">
+                <div class="border-top pt-3">
                   <p class="my-0"><Fragment set:html={post.custom_fields.legal_disclaimers} /></p>
                 </div>
               }
@@ -206,6 +253,46 @@ const url = encodeURIComponent(Astro.url.pathname);
     </div>
 </Layout>
 
+<style>
+
+.portrait {
+  /* Styles for portrait images */
+  height: 240px;
+  width: 150px;
+  text-align: center;
+}
+
+.landscape {
+  /* Styles for landscape images */
+  width: 70%;
+  padding: 0 20px;
+  margin: 0 auto;
+
+  /* max-height: 200px;
+    max-width: 200px;
+    width: auto;
+    margin: 0; */
+}
+
+
+@media only screen and (max-width: 768px)   {
+    .landscape {
+      padding: 0;
+  }
+    .landscape-detail {
+      padding: 20px 30px 10px;
+  }
+  .portrait {
+    height: 180px;
+    width: 110px;
+  }
+  .portrait-detail {
+    height: 210px;
+    width: 130px;
+  }
+}
+</style>
+
 <script>
 // var targetParagraph = document.querySelector('#content .content-body p:nth-of-type(3)');
 // var dynamicContent = '<div id="custom-div" class="bg-primary text-light">Nostrud elit qui amet nisi nulla ea ullamco. Nulla aliqua aute et deserunt mollit et deserunt dolor duis Lorem nulla aliquip. Veniam sit voluptate velit quis dolor pariatur anim culpa reprehenderit irure qui sint. Veniam qui sunt proident velit incididunt tempor Lorem in sit laborum officia exercitation culpa dolor.</div>';
@@ -220,4 +307,27 @@ const url = encodeURIComponent(Astro.url.pathname);
             navigator.clipboard.writeText("https://princecollection.com" + window.location.pathname);
         })
     }
+
+    function isPortraitImage(imageElement, callback) {
+    const img = new Image();
+    img.onload = function() {
+        const width = this.width;
+        const height = this.height;
+        callback(width < height);
+    };
+    img.src = imageElement.src;
+}
+
+// Example usage:
+const imageElements = document.querySelectorAll('img');
+imageElements.forEach(function(imageElement) {
+    isPortraitImage(imageElement, function(isPortrait) {
+        if (isPortrait) {
+            imageElement.classList.add('portrait');
+            imageElement.classList.remove('landscape');
+        }
+    });
+});
+
+
   </script>
