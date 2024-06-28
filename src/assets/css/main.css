@@ -41,8 +41,8 @@ a {
 
 a:hover {
   /* text-decoration: underline; */
-  text-decoration-color: var(--lightblue);
-  /* text-decoration-color: #22222280; */
+  /* text-decoration-color: var(--lightblue); */
+  text-decoration-color: #22222280;
   opacity: 0.9;
 }
 
