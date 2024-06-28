@@ -32,12 +32,18 @@ body,
 }
 
 a {
-  text-decoration: none;
+  /* text-decoration: none; */
   color: inherit;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: all .2s ease-in-out;
 }
 
 a:hover {
-  text-decoration: underline;
+  /* text-decoration: underline; */
+  text-decoration-color: var(--lightblue);
+  /* text-decoration-color: #22222280; */
+  opacity: 0.9;
 }
 
 /* general spacing setup */
@@ -66,11 +72,28 @@ h4, .h4 {
   line-height: 95%;
 }
 
+h1.fs-5,
+h1.fs-3,
+h3, h4 {
+  letter-spacing: -1px;
+}
+
 p {
   text-wrap: pretty;
 }
 
 /* images */
+
+/* Simple skeleton loader styles */
+/* .img-skeleton {
+  position:absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 600px;
+  object-fit: cover;
+  background: #eee;
+} */
 
 img {
   width: 100%;

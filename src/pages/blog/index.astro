@@ -248,7 +248,7 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                     <div class:list={[index === 0 ? 'row px-0 mx-0 mb-3 rounded-5' : 'd-none']} style="background: rgba(0, 0, 0, 0.09);">
                         
                         <div class="col-lg-6 d-flex justify-content-center align-items-center my-auto p-3">
-                            <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="w-100 object-fit rounded-5 min-vh-500" style="aspect-ratio: 16/9; " alt="..." data-aos="fade" />
+                            <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="w-100 object-fit rounded-5 min-vh-500 img-skeleton invisible" style="aspect-ratio: 16/9; " alt="..." data-aos="fade" />
                         </div>
                         <div class="col-lg-6 text-light d-flex flex-column justify-content-center align-items-start rounded-4 p-5 position-relative">
                             <a class="d-flex" href={`/${article.category_name}/${article.slug}/`}>
