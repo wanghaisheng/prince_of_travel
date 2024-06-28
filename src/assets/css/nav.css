@@ -1,6 +1,7 @@
 #nav, 
 nav {
   margin: 0 auto;
+  max-width: 1900px;
 }
 
 .offcanvas ul li.nav-item {

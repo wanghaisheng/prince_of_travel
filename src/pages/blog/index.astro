@@ -239,7 +239,7 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
 				</div>
 			</div>
 
-            <div class="row text-light p-4 mx-0 bg-gold">
+            <div class="row p-4 mx-0 bg-navy text-light">
                 <div class="col-lg-12 d-flex flex-column justify-content-center align-items-start text-start mb-3">
                     <h1 class="display-1 text-uppercase fw-900 ls-1 lh-1">/ News</h1>
                 </div>
@@ -253,7 +253,7 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                         <div class="col-lg-6 text-light d-flex flex-column justify-content-center align-items-start rounded-4 p-5 position-relative">
                             <a class="d-flex" href={`/${article.category_name}/${article.slug}/`}>
                             <div class="card-body px-2 py-0 d-flex flex-column justify-content-center align-items-start">
-                                <h6 class="card-title display-3 text-black-50 fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
+                                <h6 class="card-title display-3 fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
                                 <p class="m-0 mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>
                                 <p class="mb-3 mt-0">By: {article._embedded?.author[0].name}</p>
                                 <i class="bi bi-arrow-up-right-circle-fill text-light opacity-50 display-5 m-3 position-absolute end-0 bottom-0"></i>
@@ -281,24 +281,24 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                 ))}
             </div>
 
-            <div class="row text-light p-4 mx-0 bg-navy text-light">
+            <div class="row p-4 mx-0 bg-gold">
                 <div class="col-lg-12 d-flex flex-column justify-content-center align-items-start text-start mb-3">
                     <h1 class="display-1 text-uppercase fw-900 ls-1 lh-1">/ Deals</h1>
                 </div>
                 {
                  posts.filter(cat => cat._embedded['wp:term'][0][0].slug === 'deals' && cat.category_name === 'deals').map((article, index) => (
-                    <div class:list={[index === 0 ? 'row px-0 mx-0 mb-3 rounded-5' : 'd-none']} style="background: rgba(255, 255, 255, 0.09);">
+                    <div class:list={[index === 0 ? 'row px-0 mx-0 mb-3 rounded-5' : 'd-none']} style="background: rgba(0, 0, 0, 0.09);">
                         
                         <div class="col-lg-6 d-flex justify-content-center align-items-center my-auto p-3">
-                            <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="w-100 object-fit rounded-5 min-vh-500" style="aspect-ratio: 16/9; " alt="..." data-aos="fade" />
+                            <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="w-100 object-fit rounded-5 min-vh-500" style="aspect-ratio: 16/9; " alt="" data-aos="fade" />
                         </div>
-                        <div class="col-lg-6 text-light d-flex flex-column justify-content-center align-items-start rounded-4 p-5 position-relative">
+                        <div class="col-lg-6 d-flex flex-column justify-content-center align-items-start rounded-4 p-5 position-relative">
                             <a class="d-flex" href={`/${article.category_name}/${article.slug}/`}>
-                            <div class="card-body px-2 py-0 d-flex flex-column justify-content-center align-items-start">
+                            <div class="card-body text-black-50 px-2 py-0 d-flex flex-column justify-content-center align-items-start">
                                 <h6 class="card-title display-3 fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
                                 <p class="m-0 mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>
                                 <p class="mb-3 mt-0">By: {article._embedded?.author[0].name}</p>
-                                <i class="bi bi-arrow-up-right-circle-fill text-light opacity-50 display-5 m-3 position-absolute end-0 bottom-0"></i>
+                                <i class="bi bi-arrow-up-right-circle-fill opacity-50 display-5 m-3 position-absolute end-0 bottom-0"></i>
                             </div>
                             </a>
                         </div> 
@@ -314,7 +314,7 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                                 <h5 class="card-title text-secondary fs-4 fw-900 my-2"><Fragment set:html={article.title.rendered} /></h5>
                                 <p class="small text-secondary mt-1 mb-0">By: {article._embedded?.author[0].name}</p>
                                 <p class="card-text text-body-secondary my-3"><Fragment set:html={functions.shorten(article.excerpt.rendered, 150)} /></p>
-                                <i class="bi bi-arrow-up-right-circle-fill opacity-75 fs-2 position-absolute top-0 end-0 m-3"></i>
+                                <i class="bi bi-arrow-up-right-circle-fill fs-2 position-absolute top-0 end-0 m-3"></i>
                             </div>
                         </div>
                    </a>

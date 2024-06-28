@@ -16,6 +16,14 @@
     min-height: 500px;
 }
 
+@media only screen and (max-width: 768px) {
+
+.min-vh-500 {
+    min-height: 300px;
+}
+}
+
+
 /* text */
 
 .ls-1 {
@@ -53,12 +61,6 @@
 
 .font-oswald {
     font-family: "Oswald", Helvetica, Arial, sans-serif;
-    font-optical-sizing: auto;
-    font-style: normal;
-}
-
-.font-public {
-    font-family: "Public Sans", Helvetica, Arial, sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
 }

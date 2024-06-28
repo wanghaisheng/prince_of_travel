@@ -100,11 +100,11 @@
                   <p v-else class="small m-0 my-0" style="font-size: 14.5px">N/A</p>
                 </div>
 
-                <ul class="d-none d-lg-block text-body-secondary mt-2 list-unstyled pe-3" style="font-size: 14.5px">
+                <ul class="d-none d-md-block text-body-secondary mt-2 list-unstyled pe-3" style="font-size: 14px">
                   <li v-if="!post.custom_fields.features_1_feature || !post.custom_fields.features_2_feature" class="border-bottom border-top my-1 py-2" v-html="post.custom_fields.features_0_feature"></li>
                   <li v-else class="border-bottom border-top mb-1 pb-2 pt-1" v-html="post.custom_fields.features_0_feature"></li>
                   <li v-if="post.custom_fields.features_1_feature" class="border-bottom mb-1 pb-2" v-html="post.custom_fields.features_1_feature"></li>
-                  <li v-if="post.custom_fields.features_2_feature" class="d-none d-lg-block border-bottom mb-1 pb-1" v-html="post.custom_fields.features_2_feature"></li>
+                  <li v-if="post.custom_fields.features_2_feature" class="d-none d-xl-block border-bottom mb-1 pb-1" v-html="post.custom_fields.features_2_feature"></li>
                 </ul>
                 <div class="d-flex flex-wrap pt-2">
                   <button class="btn btn-sm btn-secondary fw-bold opacity-75 me-1 rounded-pill px-4 py-2" type="button" data-bs-toggle="offcanvas" :data-bs-target="'#item_' + index" aria-controls="offcanvasBottom">Details</button>
@@ -138,7 +138,7 @@
               </div>
 
               <div class="container-fluid px-0 mt-3 mb-5">
-                  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 my-3">
+                  <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-4 g-4 my-3">
                     <div class="col">
                       <div class="bg-light rounded-4 shadow" style="min-height: 240px; padding: 2.5rem; --bs-bg-opacity: 0.5;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-award text-black-50 mb-2" viewBox="0 0 16 16">

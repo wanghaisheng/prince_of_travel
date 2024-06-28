@@ -1,12 +1,12 @@
 {
     "navData": [
         {
-            "title": "News",
-            "description": "Prince Collection is a full-service travel brand with an emphasis on luxury travel.",
-            "path": "/news",
-            "icon": "bi-newspaper",
-            "badge": "Who we are",
-            "background": "bg-dutch-white"
+        "title": "News",
+        "description": "Prince of Travel is a full-service travel brand with an emphasis on luxury travel.",
+        "path": "/news",
+        "icon": "bi-newspaper",
+        "badge": "Who we are",
+        "background": "bg-dutch-white"
         },
         {
           "title": "Deals",
@@ -41,12 +41,12 @@
           "background": "bg-pale-dogwood"
         },
         {
-          "title": "Hotel Programs",
-          "path": "/hotel-programs",
-          "description": "Get in-depth information on hotel programs and learn more about Prince Collection’s premier brands and vendors.",
-          "icon": "bi-book",
-          "badge": "Travel tips",
-          "background": "bg-pale-dogwood"
+            "title": "Credit Cards",
+            "path": "/credit-cards",
+            "description": "Get in-depth information on hotel programs and learn more about Prince Collection’s premier brands and vendors.",
+            "icon": "bi-book",
+            "badge": "Travel tips",
+            "background": "bg-pale-dogwood"
         },
         {
           "title": "Points Programs",
@@ -56,6 +56,14 @@
           "badge": "Travel tips",
           "background": "bg-pale-dogwood"
         },
+        {
+            "title": "Hotel Programs",
+            "path": "/hotel-programs",
+            "description": "Get in-depth information on hotel programs and learn more about Prince Collection’s premier brands and vendors.",
+            "icon": "bi-book",
+            "badge": "Travel tips",
+            "background": "bg-pale-dogwood"
+          },
         {
           "title": "Airlines",
           "path": "/airlines",
