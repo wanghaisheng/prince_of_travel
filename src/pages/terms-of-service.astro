@@ -19,7 +19,7 @@ const pageData = await res.json();
 
         <div class="row">
             <div class="col-lg-8 offset-lg-2 p-5 text-black-50">
-               <div class="fs-5"><Fragment set:html={pageData[0].content.rendered} /></div>
+               <div class="fs-5"><Fragment set:html={pageData[0].content?.rendered} /></div>
             </div>
         </div>
     </div>

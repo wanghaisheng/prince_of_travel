@@ -168,8 +168,8 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                         <div class="col-md-6 d-flex flex-column justify-content-center align-items-start p-5">
                             <a href={`/${blogPosts[0].data.category}/${blogPosts[0].data.slug}/`}>
                             <p class="small m-0 mt-2 mb-0 text-primary" style="text-transform: capitalize;">{blogPosts[0].data.category}</p>
-                            <h5 class="card-title fs-4 fw-900 my-2">{blogPosts[0].data.title}</h5>
-                            <p class="small m-0 mt-2 mb-0">By: {blogPosts[0].data.author}</p>
+                            <h5 class="card-title fs-4 fw-900 my-2 py-1">{blogPosts[0].data.title}</h5>
+                            <p class="small m-0 mt-2 mb-0">{blogPosts[0].data.author}</p>
                             <p class="card-text pe-5">{functions.shorten(blogPosts[0].data.description, 150) + '...'} </p>
                             </a>
                         </div>
@@ -185,7 +185,7 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                                 <div class="card-body px-3 position-relative">
                                     <p class="small m-0 text-secondary mt-2 mb-0" style="text-transform: capitalize;">{article._embedded['wp:term'][0][0].slug}</p>
                                     <h5 class="card-title text-secondary fw-900 my-2"><Fragment set:html={article.title.rendered} /></h5>
-                                    <p class="small text-secondary mt-1 mb-0">By: {article._embedded?.author[0].name}</p>
+                                    <p class="small text-secondary mt-1 mb-0">{article._embedded?.author[0].name}</p>
                                     <p class="small card-text text-body-secondary my-3"><Fragment set:html={functions.shorten(article.excerpt.rendered, 150)} /></p>
                                     <i class="bi bi-arrow-up-right-circle-fill text-secondary opacity-75 fs-2 position-absolute bottom-0 end-0 m-3"></i>
                                 </div>
@@ -213,7 +213,7 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                                     <p class="small m-0 text-secondary mt-2 mb-0" style="text-transform: capitalize;">{article._embedded['wp:term'][0][0].slug}</p>
                                    
                                     <h6 class="card-title text-secondary fw-900 my-2"><Fragment set:html={article.title.rendered} /></h6>
-                                    <p class="small text-secondary mt-1 mb-0">By: {article._embedded?.author[0].name}</p>
+                                    <p class="small text-secondary mt-1 mb-0">{article._embedded?.author[0].name}</p>
                                     <i class="bi bi-arrow-up-right-circle-fill text-secondary opacity-75 fs-4 position-absolute bottom-0 end-0 m-1"></i>
                                     </div>
                                 </div>
@@ -245,7 +245,7 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                 </div>
                 {
                  posts.filter(cat => cat._embedded['wp:term'][0][0].slug === 'news' && cat.category_name === 'news').map((article, index) => (
-                    <div class:list={[index === 0 ? 'row px-0 mx-0 mb-3 rounded-5' : 'd-none']} style="background: rgba(0, 0, 0, 0.09);">
+                    <div class:list={[index === 0 ? 'row px-0 mx-0 mb-3 rounded-5' : 'd-none']} style="background: rgba(255, 255, 255, 0.09);">
                         
                         <div class="col-lg-6 d-flex justify-content-center align-items-center my-auto p-3">
                             <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="w-100 object-fit rounded-5 min-vh-500 img-skeleton invisible" style="aspect-ratio: 16/9; " alt="..." data-aos="fade" />
@@ -254,8 +254,8 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                             <a class="d-flex" href={`/${article.category_name}/${article.slug}/`}>
                             <div class="card-body px-2 py-0 d-flex flex-column justify-content-center align-items-start">
                                 <h6 class="card-title display-3 fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
-                                <p class="m-0 mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>
-                                <p class="mb-3 mt-0">By: {article._embedded?.author[0].name}</p>
+                                <p class="m-0 mt-2 mb-0 fw-bold">{article.date?.toString().slice(0,10)}</p>
+                                <p class="mb-3 mt-0">{article._embedded?.author[0].name}</p>
                                 <i class="bi bi-arrow-up-right-circle-fill text-light opacity-50 display-5 m-3 position-absolute end-0 bottom-0"></i>
                             </div>
                             </a>
@@ -267,10 +267,9 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                         <div class="card rounded-4 border-0 shadow mb-3" style="min-height: 500px">
                             <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top w-100 object-fit rounded-top-4" style="height: 200px;" alt="..." data-aos="fade" />
                             <div class="card-body p-4 position-relative">
-                                <!--<p class="small m-0 text-secondary mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>-->
                                 <p class="small m-0 text-secondary mt-2 mb-0" style="text-transform: capitalize;">{article._embedded['wp:term'][0][0].slug}</p>
-                                <h5 class="card-title text-secondary fs-4 fw-900 my-2"><Fragment set:html={article.title.rendered} /></h5>
-                                <p class="small text-secondary mt-1 mb-0">By: {article._embedded?.author[0].name}</p>
+                                <h5 class="card-title fs-4 fw-900 my-2 py-1"><Fragment set:html={article.title.rendered} /></h5>
+                                <p class="small text-black-50 fw-bold mt-1 mb-0">{article._embedded?.author[0].name + ' | ' + article.date?.toString().slice(0,10)}</p>
                                 <p class="card-text text-body-secondary my-3"><Fragment set:html={functions.shorten(article.excerpt.rendered, 150)} /></p>
                                 <i class="bi bi-arrow-up-right-circle-fill text-secondary opacity-75 fs-2 position-absolute top-0 end-0 m-3"></i>
                             </div>
@@ -297,7 +296,7 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                             <div class="card-body text-black-50 px-2 py-0 d-flex flex-column justify-content-center align-items-start">
                                 <h6 class="card-title display-3 fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
                                 <p class="m-0 mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>
-                                <p class="mb-3 mt-0">By: {article._embedded?.author[0].name}</p>
+                                <p class="mb-3 mt-0">{article._embedded?.author[0].name}</p>
                                 <i class="bi bi-arrow-up-right-circle-fill opacity-50 display-5 m-3 position-absolute end-0 bottom-0"></i>
                             </div>
                             </a>
@@ -309,10 +308,10 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                         <div class="card rounded-4 border-0 shadow mb-3" style="min-height: 500px">
                             <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top w-100 object-fit rounded-top-4" style="height: 200px;" alt="..." data-aos="fade" />
                             <div class="card-body p-4 position-relative">
-                                <!--<p class="small m-0 text-secondary mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>-->
+                              
                                 <p class="small m-0 text-secondary mt-2 mb-0" style="text-transform: capitalize;">{article._embedded['wp:term'][0][0].slug}</p>
-                                <h5 class="card-title text-secondary fs-4 fw-900 my-2"><Fragment set:html={article.title.rendered} /></h5>
-                                <p class="small text-secondary mt-1 mb-0">By: {article._embedded?.author[0].name}</p>
+                                <h5 class="card-title fs-4 fw-900 my-2 py-1"><Fragment set:html={article.title.rendered} /></h5>
+                                <p class="small text-black-50 fw-bold mt-1 mb-0">{article._embedded?.author[0].name + ' | ' + article.date?.toString().slice(0,10)}</p>
                                 <p class="card-text text-body-secondary my-3"><Fragment set:html={functions.shorten(article.excerpt.rendered, 150)} /></p>
                                 <i class="bi bi-arrow-up-right-circle-fill fs-2 position-absolute top-0 end-0 m-3"></i>
                             </div>
@@ -322,7 +321,7 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                 ))}
             </div>
 
-            <div class="row p-4 mx-0 bg-lightblue">
+            <div class="row p-4 mx-0 bg-lightblue text-light">
                 <div class="col-lg-12 d-flex flex-column justify-content-center align-items-start text-start mb-3">
                     <h1 class="display-1 text-uppercase fw-900 ls-1 lh-1">/ Guides</h1>
                 </div>
@@ -335,9 +334,9 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                         <div class="col-lg-6 d-flex flex-column justify-content-center align-items-start rounded-4 p-5 position-relative">
                             <a class="d-flex" href={`/${article.category_name}/${article.slug}/`}>
                             <div class="card-body px-2 py-0 d-flex flex-column justify-content-center align-items-start">
-                                <h6 class="card-title display-3 text-black-50 fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
+                                <h6 class="card-title display-3 fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
                                 <p class="m-0 mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>
-                                <p class="mb-3 mt-0">By: {article._embedded?.author[0].name}</p>
+                                <p class="mb-3 mt-0">{article._embedded?.author[0].name}</p>
                                 <i class="bi bi-arrow-up-right-circle-fill opacity-50 display-5 m-3 position-absolute end-0 bottom-0"></i>
                             </div>
                             </a>
@@ -349,11 +348,11 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                         <div class="card rounded-4 border-0 shadow mb-3" style="min-height: 500px">
                             <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top w-100 object-fit rounded-top-4" style="height: 200px;" alt="..." data-aos="fade" />
                             <div class="card-body p-4 position-relative">
-                                <!--<p class="small m-0 text-secondary mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>-->
+                        
                                 <p class="small m-0 text-secondary mt-2 mb-0" style="text-transform: capitalize;">{article._embedded['wp:term'][0][0].slug}</p>
-                                <h5 class="card-title text-secondary fs-4 fw-900 my-2"><Fragment set:html={article.title.rendered} /></h5>
-                                <p class="small text-secondary mt-1 mb-0">By: {article._embedded?.author[0].name}</p>
-                                <p class="card-text text-body-secondary my-3"><Fragment set:html={functions.shorten(article.excerpt.rendered, 150)} /></p>
+                                <h5 class="card-title fs-4 fw-900 my-2 py-1"><Fragment set:html={article.title.rendered} /></h5>
+                                <p class="small text-black-50 fw-bold mt-1 mb-0">{article._embedded?.author[0].name + ' | ' + article.date?.toString().slice(0,10)}</p>
+                                <p class="card-text text-black-50 my-3"><Fragment set:html={functions.shorten(article.excerpt.rendered, 150)} /></p>
                                 <i class="bi bi-arrow-up-right-circle-fill text-secondary opacity-75 fs-2 position-absolute top-0 end-0 m-3"></i>
                             </div>
                         </div>
@@ -378,7 +377,7 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                             <div class="card-body px-2 py-0 d-flex flex-column justify-content-center align-items-start">
                                 <h6 class="card-title display-3 text-black-50 fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
                                 <p class="m-0 mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>
-                                <p class="mb-3 mt-0">By: {article._embedded?.author[0].name}</p>
+                                <p class="mb-3 mt-0">{article._embedded?.author[0].name}</p>
                                 <i class="bi bi-arrow-up-right-circle-fill opacity-50 display-5 m-3 position-absolute end-0 bottom-0"></i>
                             </div>
                             </a>
@@ -390,10 +389,10 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                         <div class="card rounded-4 border-0 shadow mb-3" style="min-height: 500px">
                             <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top w-100 object-fit rounded-top-4" style="height: 200px;" alt="..." data-aos="fade" />
                             <div class="card-body p-4 position-relative">
-                                <!--<p class="small m-0 text-secondary mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>-->
+                             
                                 <p class="small m-0 text-secondary mt-2 mb-0" style="text-transform: capitalize;">{article._embedded['wp:term'][0][0].slug}</p>
-                                <h5 class="card-title text-secondary fs-4 fw-900 my-2"><Fragment set:html={article.title.rendered} /></h5>
-                                <p class="small text-secondary mt-1 mb-0">By: {article._embedded?.author[0].name}</p>
+                                <h5 class="card-title fs-4 fw-900 my-2 py-1"><Fragment set:html={article.title.rendered} /></h5>
+                                <p class="small text-black-50 fw-bold mt-1 mb-0">{article._embedded?.author[0].name + ' | ' + article.date?.toString().slice(0,10)}</p>
                                 <p class="card-text text-body-secondary my-3"><Fragment set:html={functions.shorten(article.excerpt.rendered, 150)} /></p>
                                 <i class="bi bi-arrow-up-right-circle-fill text-secondary opacity-75 fs-2 position-absolute top-0 end-0 m-3"></i>
                             </div>
@@ -419,7 +418,7 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                             <div class="card-body px-2 py-0 d-flex flex-column justify-content-center align-items-start">
                                 <h6 class="card-title display-3 text-black-50 fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
                                 <p class="m-0 mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>
-                                <p class="mb-3 mt-0">By: {article._embedded?.author[0].name}</p>
+                                <p class="mb-3 mt-0">{article._embedded?.author[0].name}</p>
                                 <i class="bi bi-arrow-up-right-circle-fill opacity-50 display-5 m-3 position-absolute end-0 bottom-0"></i>
                             </div>
                             </a>
@@ -431,10 +430,10 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                         <div class="card rounded-4 border-0 shadow mb-3" style="min-height: 500px">
                             <img src="" data-src={article._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top w-100 object-fit rounded-top-4" style="height: 200px;" alt="..." data-aos="fade" />
                             <div class="card-body p-4 position-relative">
-                                <!--<p class="small m-0 text-secondary mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>-->
+                             
                                 <p class="small m-0 text-secondary mt-2 mb-0" style="text-transform: capitalize;">{article._embedded['wp:term'][0][0].slug}</p>
-                                <h5 class="card-title text-secondary fs-4 fw-900 my-2"><Fragment set:html={article.title.rendered} /></h5>
-                                <p class="small text-secondary mt-1 mb-0">By: {article._embedded?.author[0].name}</p>
+                                <h5 class="card-title fs-4 fw-900 my-2 py-1"><Fragment set:html={article.title.rendered} /></h5>
+                                <p class="small text-black-50 fw-bold mt-1 mb-0">{article._embedded?.author[0].name + ' | ' + article.date?.toString().slice(0,10)}</p>
                                 <p class="card-text text-body-secondary my-3"><Fragment set:html={functions.shorten(article.excerpt.rendered, 150)} /></p>
                                 <i class="bi bi-arrow-up-right-circle-fill text-secondary opacity-75 fs-2 position-absolute top-0 end-0 m-3"></i>
                             </div>
@@ -460,7 +459,7 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                             <div class="card-body px-2 py-0">
                                 <p class="small m-0 mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>
                                 <h6 class="card-title display-3 text-balance fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
-                                <p class="small my-3">By: {article._embedded?.author[0].name}</p>
+                                <p class="small my-3">{article._embedded?.author[0].name}</p>
                                <button class="btn btn-sm small btn-secondary rounded-pill px-4 m-0 mt-2 mb-0">Read</button>
                                 <i class="bi bi-arrow-up-right-circle-fill text-black-50 display-5 my-3"></i>
                             </div>
@@ -476,7 +475,7 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                                 <p class="small m-0 text-secondary mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>
                                 <p class="small m-0 text-secondary mt-2 mb-0" style="text-transform: capitalize;">{article._embedded['wp:term'][0][0].slug}</p>
                                 <h5 class="card-title text-secondary fs-4 fw-900 my-2"><Fragment set:html={article.title.rendered} /></h5>
-                                <p class="small text-secondary mt-1 mb-0">By: {article._embedded?.author[0].name}</p>
+                                <p class="small text-secondary mt-1 mb-0">{article._embedded?.author[0].name}</p>
                                 <p class="card-text text-body-secondary my-3"><Fragment set:html={functions.shorten(article.excerpt.rendered, 150)} /></p>
                                 <i class="bi bi-arrow-up-right-circle-fill text-secondary opacity-75 fs-2 position-absolute top-0 end-0 m-3"></i>
                             </div>
@@ -501,7 +500,7 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                             <div class="card-body px-2 py-0">
                                 <p class="small m-0 mt-2 mb-0">{article.date?.toString().slice(0,10)}</p>
                                 <h6 class="card-title display-3 text-balance fw-bold ls-1 lh-1 my-2"><Fragment set:html={article.title.rendered} /></h6>
-                                <p class="small my-3">By: {article._embedded?.author[0].name}</p>
+                                <p class="small my-3">{article._embedded?.author[0].name}</p>
                                <button class="btn btn-sm small btn-secondary rounded-pill px-4 m-0 mt-2 mb-0">Read</button>
                                 <i class="bi bi-arrow-up-right-circle-fill text-black-50 display-5 my-3"></i>
                             </div>
@@ -516,7 +515,7 @@ const baseUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts';
                             <div class="card-body p-4 position-relative">
                                 <p class="small m-0 text-secondary mt-2 mb-0" style="text-transform: capitalize;">{article._embedded['wp:term'][0][0].slug}</p>
                                 <h5 class="card-title text-secondary fs-4 fw-900 my-2"><Fragment set:html={article.title.rendered} /></h5>
-                                <p class="small text-secondary mt-1 mb-0">By: {article._embedded?.author[0].name}</p>
+                                <p class="small text-secondary mt-1 mb-0">{article._embedded?.author[0].name}</p>
                                 <p class="card-text text-body-secondary my-3"><Fragment set:html={functions.shorten(article.excerpt.rendered, 150)} /></p>
                                 <i class="bi bi-arrow-up-right-circle-fill text-secondary opacity-75 fs-2 position-absolute top-0 end-0 m-3"></i>
                             </div>
