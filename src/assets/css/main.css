@@ -43,7 +43,7 @@ a:hover {
   /* text-decoration: underline; */
   /* text-decoration-color: var(--lightblue); */
   text-decoration-color: #22222280;
-  opacity: 0.9;
+  opacity: 0.8;
 }
 
 /* general spacing setup */
@@ -76,6 +76,10 @@ h1.fs-5,
 h1.fs-3,
 h3, h4 {
   letter-spacing: -1px;
+}
+
+h4 {
+  line-height: 104%;
 }
 
 p {

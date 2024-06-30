@@ -201,7 +201,7 @@ function removeSpecialCharactersFromURL(url) {
 					{next16.map((item, index) => (
 					<div class="col-lg-6">
 						<img src="" data-src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
-						<h1 class="fs-5 text-body-secondary fw-bold"><Fragment set:html={item.title.rendered} /></h1>
+						<h4 class="text-body-secondary fw-bold"><Fragment set:html={item.title.rendered} /></h4>
 						<p class="col-md-8 fs-5 text-body-secondary my-0"><Fragment set:html={functions.shorten(item.excerpt.rendered, 100) + '...'}/></p>
 						<!--<div class="py-2">
 							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {item._embedded?.author[0].name || item.data.author}</p>
