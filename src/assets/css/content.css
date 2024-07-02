@@ -15,13 +15,21 @@
 
 /* post content  */
 
-#content a {
-  text-decoration: none;
+#content a, #content p a {
+  /* text-decoration: none; */
   font-weight: bold;
+
+  border-bottom: 2px solid rgba(97, 0, 42, .15);
+  color: #000;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all .3s;
 }
 
-#content a:hover {
-  text-decoration: underline;
+#content a:hover,
+#content p a:hover {
+  /* text-decoration: underline; */
+  border-bottom-color: rgba(97, 0, 42, .5);
 }
 
 #content h1,
@@ -38,6 +46,10 @@
 #content h3,
 #content h4 {
   font-weight: bold;
+}
+
+#content h2 {
+  letter-spacing: -1.4px;
 }
 
 #content h4 {
@@ -96,6 +108,117 @@
 }
 
 /* wordpress api post styling */
+
+/* pot-box cc placements */
+
+.potbox.cc-featured {
+  padding: 20px;
+  border: 1px solid lightgrey;
+  border-radius: 22px;
+}
+
+.potbox .cc-featured, 
+.potbox-main.potbox-flexwrap {
+  display: flex;
+}
+
+.potbox-caption.potbox-caption-bold {
+  font-weight: bold;
+}
+
+.potbox-sidebar {
+  display: flex;
+  flex: 1 0 300px;
+  flex-flow: column;
+  padding: 10px;
+}
+
+
+.potbox-btns.potbox-flexwrap {
+  display: flex;
+  flex-flow: column wrap;
+  /* padding: 10px 0; */
+}
+
+.btn-default.potbox-btn.btn-primary,
+.btn-default.potbox-btn.btn-secondary,
+.first-year-value {
+  font-size: 15px;
+  font-weight: light;
+  text-align: center;
+}
+
+.btn-default.potbox-btn.btn-primary,
+.btn-default.potbox-btn.btn-secondary {
+  font-weight: normal !important;
+  text-align: center;
+  border-radius: 6px;
+  color: rgba(97, 0, 42, .8) !important;
+  /* opacity: 0.7; */
+  border: 1px solid rgba(97, 0, 42, .5);
+  margin-bottom: 5px;
+}
+
+.btn-default.potbox-btn.btn-primary:hover,
+.btn-default.potbox-btn.btn-secondary:hover {
+  background-color: rgba(97, 0, 42, .8);
+  color: #fff !important;
+}
+
+.first-year-value {
+  font-size: 16px !important;
+}
+
+.pot-award {
+  width: 200px;
+  height: auto;
+  margin: 0 auto !important;
+}
+
+.pot-award > img {
+  margin: 0 auto !important;
+}
+
+.wptb-preview-table.wptb-element-main-table_setting-32655.edit-active {
+  width: 100%;
+}
+
+.potbox-content ul {
+  font-size: 16px;
+  line-height: 1.9;
+  padding: 0 40px;
+}
+
+/* read more article link boxes */
+/* .potbox-main {
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 30px;
+} */
+
+/* .potbox-caption-wrapper {
+  display: none;
+} */
+
+.block-img.img-sm, .block-img.img-sm > img,
+.potbox-posts {
+  margin: 0 !important;
+}
+
+/* read more article title */
+.potbox-main .potbox-posts .potbox-post div:last-child {
+  font-size: 25px !important;
+  margin-top: 15px;
+}
+
+.potbox-main .potbox-posts .potbox-post div:last-child::after {
+  content: '\ARead more';
+  font-size: 18px;
+  font-weight: 100;
+  margin: 15px;
+  padding: 10px;
+  white-space: pre;
+}
 
 .cc-multi-row {
   display: flex;

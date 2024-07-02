@@ -1,7 +1,7 @@
 ---
 // import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-// import PostBody from '../../components/PostComponents/PostBody.astro';
+import functions from '../../js/functions';
 
 // i don't know why but the fetch urls need to match exactly to avoid 404 errors rendering dynamic pages
 export const prerender = true;
@@ -94,6 +94,69 @@ const verticalSlide = {
 function shorten(text, max) {
   return text && text.length > max ? text.slice(0, max).split(' ').slice(0, -1).join(' ') : text
 }
+
+function modifyResponseUrls(responseData) {
+    if (typeof responseData !== 'undefined' && responseData !== null) {
+        let modifiedContent = responseData.replace(/pftraveldev\.wpengine\.com/g, 'princeoftravel.com');
+        return modifiedContent;
+    } else {
+        return responseData; // Return unchanged if responseData is undefined or null
+    }
+}
+
+
+// works but only on one key/value
+// function modifyApiResponse(apiResponse) {
+//     // Check if apiResponse is defined and not null
+//     if (typeof apiResponse !== 'undefined' && apiResponse !== null) {
+//         // Iterate through each key in the apiResponse object
+//         for (let key in apiResponse) {
+//             if (apiResponse.hasOwnProperty(key)) {
+//                 // Check if the value at this key is a string (assuming content fields are strings)
+//                 if (typeof apiResponse[key] === 'string') {
+//                     // Perform the URL replacement
+//                     apiResponse[key] = apiResponse[key].replace(/pftraveldev\.wpengine\.com/g, 'princeoftravel.com');
+//                 }
+//                 // You can add additional checks or specific replacements for other data types or fields here
+//             }
+//         }
+//         return apiResponse;
+//     } else {
+//         return apiResponse; // Return unchanged if apiResponse is undefined or null
+//     }
+// }
+
+// modifyApiResponse(post.content);
+
+// works on the whole response object imageConfig.e. "post"
+// function modifyApiResponse(apiResponse) {
+//     // Helper function to recursively modify values
+//     function recursiveModify(obj) {
+//         // Check if obj is an object (excluding null, which typeof 'object' would also include)
+//         if (typeof obj === 'object' && obj !== null) {
+//             // Iterate through each key in the object
+//             for (let key in obj) {
+//                 if (obj.hasOwnProperty(key)) {
+//                     // Recursively call recursiveModify for nested objects or arrays
+//                     obj[key] = recursiveModify(obj[key]);
+//                 }
+//             }
+//         } else if (typeof obj === 'string') {
+//             // Perform the URL replacement for strings
+//             obj = obj.replace(/pftraveldev\.wpengine\.com/g, 'princeoftravel.com');
+//         }
+//         // Return modified or unchanged obj
+//         return obj;
+//     }
+
+//     // Apply recursiveModify to apiResponse
+//     return recursiveModify(apiResponse);
+// }
+
+// modifyApiResponse(post);
+
+functions.modifyApiResponse(post);
+
 ---
 
 <Layout title={post.title?.rendered || post.data.title} description={post.excerpt?.rendered || post.data.description} image={post.data?.imageUrl || post._embedded['wp:featuredmedia'][0]?.source_url}>
@@ -134,6 +197,7 @@ function shorten(text, max) {
         <div id="content" class="row p-4">
             <div class="content-body col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 px-4 py-5">
                 <div class=""><Fragment set:html={post.content?.rendered} /></div>
+                <!-- <div class=""><Fragment set:html={modifyResponseUrls(post.content?.rendered)} /></div> -->
                <!-- {post.content?.rendered ?
                 <Fragment id="postContent" set:html={post.content?.rendered} /> 
                 :

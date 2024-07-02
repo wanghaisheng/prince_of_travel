@@ -92,6 +92,24 @@ const verticalSlide = {
 function shorten(text, max) {
   return text && text.length > max ? text.slice(0, max).split(' ').slice(0, -1).join(' ') : text
 }
+
+// function removeShortcodesAndReplaceLineBreaks(responseObject) {
+//   for (let key in responseObject) {
+//     if (responseObject.hasOwnProperty(key)) {
+//       if (typeof responseObject[key] === 'string') {
+//         // Remove shortcodes
+//         responseObject[key] = responseObject[key].replace(/\[.*?\]/g, '');
+        
+//         // Replace line breaks
+//         responseObject[key] = responseObject[key].replace(/(\r\n|\n|\r)/gm, "<br>");
+//       } else if (typeof responseObject[key] === 'object') {
+//         // Recursive call for nested objects
+//         removeShortcodesAndReplaceLineBreaks(responseObject[key]);
+//       }
+//     }
+//   }
+// }
+
 ---
 
 <Layout title="" description="" image="">
@@ -131,7 +149,7 @@ function shorten(text, max) {
     <div class="container w-100 mx-auto">
         <div id="content" class="row p-4">
             <div class="content-body col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 p-4">
-                <div class=""><Fragment set:html={functions.removeShortcodes(post.content?.rendered)} /></div>
+                <div class=""><Fragment set:html={post.content?.rendered} /></div>
                <!-- {post.content?.rendered ?
                 <Fragment id="postContent" set:html={post.content?.rendered} /> 
                 :
