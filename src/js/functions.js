@@ -107,37 +107,67 @@ cleanString(inputString) {
 cleanAndModifyApiResponse(apiResponse) {
     // Helper function to recursively modify values
     function recursiveModify(obj) {
-      // Check if obj is an object (excluding null, which typeof 'object' would also include)
-      if (typeof obj === 'object' && obj !== null) {
-        // Iterate through each key in the object
-        for (let key in obj) {
-          if (obj.hasOwnProperty(key)) {
-            // Recursively call recursiveModify for nested objects or arrays
-            obj[key] = recursiveModify(obj[key]);
-          }
+        // Check if obj is an object (excluding null, which typeof 'object' would also include)
+        if (typeof obj === 'object' && obj !== null) {
+            // Iterate through each key in the object
+            for (let key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    // Recursively call recursiveModify for nested objects or arrays
+                    obj[key] = recursiveModify(obj[key]);
+                }
+            }
+        } else if (typeof obj === 'string') {
+            // Perform the URL replacement for strings
+            obj = obj.replace(/pftraveldev\.wpengine\.com/g, 'princeoftravel.com');
+            // Regular expression to match any shortcode pattern inside square brackets
+            const shortcodeRegex = /\[[^\]]+\]/gi;
+
+            // Remove all matched shortcodes from the string
+            obj = obj.replace(shortcodeRegex, '');
         }
-      } else if (typeof obj === 'string') {
-        // Perform the URL replacement for strings
-        obj = obj.replace(/pftraveldev\.wpengine\.com/g, 'princeoftravel.com');
-        // Regular expression to match any shortcode pattern inside square brackets
-        const shortcodeRegex = /\[[^\]]+\]/gi;
-  
-        // Remove all matched shortcodes from the string
-        obj = obj.replace(shortcodeRegex, '');
-  
-        // Check if cleaned text contains line breaks
-        if (/\r\n|\n|\r/.test(obj)) {
-          // Clean the string with line breaks
-          obj = obj.replace(/\r\n\r\n/g, "<br><br>").replace(/(\r\n|\n|\r|\t)/gm, "<br>");
-        }
-      }
-      // Return modified or unchanged obj
-      return obj;
+        // Return modified or unchanged obj
+        return obj;
     }
-  
+
     // Apply recursiveModify to apiResponse
     return recursiveModify(apiResponse);
-  }
+},
+
+
+
+// cleanAndModifyApiResponse(apiResponse) {
+//     // Helper function to recursively modify values
+//     function recursiveModify(obj) {
+//       // Check if obj is an object (excluding null, which typeof 'object' would also include)
+//       if (typeof obj === 'object' && obj !== null) {
+//         // Iterate through each key in the object
+//         for (let key in obj) {
+//           if (obj.hasOwnProperty(key)) {
+//             // Recursively call recursiveModify for nested objects or arrays
+//             obj[key] = recursiveModify(obj[key]);
+//           }
+//         }
+//       } else if (typeof obj === 'string') {
+//         // Perform the URL replacement for strings
+//         obj = obj.replace(/pftraveldev\.wpengine\.com/g, 'princeoftravel.com');
+//         // Regular expression to match any shortcode pattern inside square brackets
+//         const shortcodeRegex = /\[[^\]]+\]/gi;
+  
+//         // Remove all matched shortcodes from the string
+//         obj = obj.replace(shortcodeRegex, '');
+  
+//         // Check if cleaned text contains line breaks
+//         if (/\r\n|\n|\r/.test(obj)) {
+//           // Clean the string with line breaks
+//           obj = obj.replace(/\r\n\r\n/g, "<br><br>").replace(/(\r\n|\n|\r|\t)/gm, "<br>");
+//         }
+//       }
+//       // Return modified or unchanged obj
+//       return obj;
+//     }
+//     // Apply recursiveModify to apiResponse
+//     return recursiveModify(apiResponse);
+//   }
 
     // addPTagsToText: (text) => {
     //     // Split the text into paragraphs using \r\n\r\n as delimiter
