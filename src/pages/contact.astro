@@ -3,18 +3,24 @@ import Layout from '../layouts/Layout.astro';
 import data from '../data/sitecontent.json';
 ---
     <!-- Change or deletion of the name attributes in the input tag will lead to empty values on record submission-->
-    <Layout title="Prince Collection | Contact Us" description="Contact Prince Collection to discuss your next trip or travel arrangements, find out more about our process, or get more information.">
-        <div class="container-fluid px-0 bg-timberwolf">
+    <Layout title="Prince of Travel | Contact Us" description="Contact Prince of Travel to discuss your next trip or travel arrangements, find out more about our process, or get more information.">
+        <div class="container-fluid px-0">
 			<div class="row min-vh-100">
 				<div class="col-lg-6 d-flex flex-column justify-content-end align-items-start min-vh-50 text-start p-5 mb-0 mb-lg-4 mt-5 mt-lg-0">
                     <!-- <span class="badge rounded-pill fw-bold text-bg-dark py-2 px-3">{data.contact.badge}</span> -->
-					<h1 class="display-4 fw-bold lh-1 mb-2 mt-3"><Fragment set:html={data.contact.title} /></h1>
-					<p class="fs-5 mt-3 mb-0">{data.contact.content}</p>
+					<h1 class="display-4 fw-900 lh-1 mb-2 mt-3">Contact Us</h1>
+					<p class="fs-5 mt-3 mb-0">We’d love to hear from you! Drop us a message using the contact form here.</p>
+                    <p>We read every email from our readers and do our best to respond to them, though it’s not always possible given the volume of emails we get.</p>
+                    <p>If you have a Miles & Points-related question, you can also try finding your answer by:</p>
+                    <ul class="list-unstyled">
+                        <li>Joining the <a href="https://facebook.com/groups/princeoftravel" target="_blank">Prince of Travel Elites</a> Facebook group and asking the question there</li>
+                        <li>Joining the <a href="">Prince of Travel Club Lounge on Discord</a></li>
+                    </ul>
 				</div>
                 <div class="col-lg-6 d-flex flex-column justify-content-center align-items-center p-5 position-relative" style="background:
                 linear-gradient(135deg,#0000 18.75%,#d4d7cd 0 31.25%,#0000 0),
-                repeating-linear-gradient(45deg,#d4d7cd -6.25% 6.25%,#cbcdc4 0 18.75%); background-size: 64px 64px;">
-                    <form name="contact" method="POST" data-netlify="true" class="w-100 p-5 rounded-4 shadow bg-timberwolf position-relative">
+                repeating-linear-gradient(45deg,#d6d6d6 -6.25% 6.25%,#eeeeee 0 18.75%); background-size: 64px 64px;">
+                    <form name="contact" method="POST" data-netlify="true" class="w-100 p-5 rounded-4 shadow bg-light position-relative">
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label">Name</label>
                             <input type="text" name="name" class="form-control bg-timberwolf border-0 border-bottom border-secondary rounded-0" id="exampleFormControlInput1" placeholder="Your Name" required>
@@ -33,7 +39,7 @@ import data from '../data/sitecontent.json';
                           </div>
                           <button class="btn btn-dark d-none d-md-block rounded-5 px-4 mt-2" role="button">Submit</button>
                           <button class="btn btn-dark d-block d-md-none w-100 rounded-5 mt-2 px-4" role="button">Submit</button>
-
+                          <p class="small mb-0 text-body-secondary">By using this form you understand and abide by the Prince of Travel <a href="/privacy-policy" class="fw-bold text-dark">Privacy Policy</a> and <a href="/terms-of-service" class="fw-bold text-dark">Terms of Service.</a></p>
                       </form>
                 </div>
             </div>
