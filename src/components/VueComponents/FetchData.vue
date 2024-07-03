@@ -213,7 +213,20 @@
       </div><!--end main col-->
       </div><!--end row-->
 
-      <div class="row animate-in" v-else>
+      <div v-else-if="isLoading" class="row animate-in">
+        <div class="col-lg-8 offset-lg-2 p-5 text-center">
+          <div class="p-5 bg-ivory-light rounded-4 shadow">
+            <h3>Fetching data...</h3>
+            <div class="text-center">
+              <div class="spinner-grow" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div v-else class="row animate-in">
         <div class="col-lg-8 offset-lg-2 p-5 text-center">
           <div class="p-5 bg-ivory-light rounded-4 shadow">
             <h3>No results match those criteria</h3>
@@ -235,12 +248,14 @@ let data = ref([]);
 const annualFeeRange = ref(''); // Initialize as empty string
 // const annualFeeFilter = ref(false); 
 const firstYearValueFilter = ref(false); 
+const isLoading = ref(true); // Initially set to true
 
 async function fetchData() {
   try {
     const response = await fetch('https://pftraveldev.wpengine.com/wp-json/pot/v1/credit-cards?per_page=100');
     if (!response.ok) throw new Error(`HTTP error status: ${response.status}`);
     data.value = await response.json(); // Populate data with fetched cards
+    isLoading.value = false; // Set to false once data is fetched
     // Sort data by custom_fields.welcome_bonus_value in descending order
     data.value.sort((a, b) => {
       const valueA = parseFloat(a.custom_fields.welcome_bonus_value);
@@ -293,13 +308,6 @@ const filteredData = computed(() => {
       item.custom_fields.bank_name.toLowerCase().includes(bankFilter.value.toLowerCase())
     );
   }
-//   if (providerFilter.value) {
-//   const regexPattern = new RegExp(providerFilter.value.trim().toLowerCase(), 'i');
-//   result = result.filter(item =>
-//     item.custom_fields.payment_network_name!== undefined && // Ensure payment_network_name exists
-//     regexPattern.test(item.custom_fields.payment_network_name.toLowerCase())
-//   );
-// }
 if (providerFilter.value) {
   result = result.filter(item =>
     item.custom_fields.payment_network_name !== undefined && // Ensure payment_network_name exists
@@ -314,18 +322,6 @@ if (providerFilter.value) {
       parseInt(item.custom_fields.annual_fee, 10) <= feeUpperBound
     );
   }
-
-//   if (annualFeeRange.value) {
-//   const feeLowerBound = parseInt(annualFeeRange.value.split('-')[0], 10);
-//   const feeUpperBound = parseInt(annualFeeRange.value.split('-')[1], 10);
-
-//   result = result.filter(item => 
-//     item.custom_fields.annual_fee >= feeLowerBound &&
-//     item.custom_fields.annual_fee <= feeUpperBound
-//   );
-// } else {
-//   result = [...data.value]; // Include all items if no range is selected
-// }
   return result;
 });
 

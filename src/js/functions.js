@@ -90,18 +90,54 @@ export default {
     // Apply recursiveModify to apiResponse
     return recursiveModify(apiResponse);
 },
-    // cleanString:(inputString) => {
-    //     // Replace single line breaks with <br>, double line breaks with <br><br>, and remove tabs
-    //     return inputString.replace(/\r\n\r\n/g, "<br><br>").replace(/(\r\n|\n|\r|\t)/gm, "<br>");
-    //   },
+// remove carriage return character
+cleanString(inputString) {
+    // Check if the string contains \r\n
+    if (/(\r\n|\n|\r)/.test(inputString)) {
+        // If it does, clean the string
+        return inputString.replace(/\r\n\r\n/g, "<br><br>").replace(/(\r\n|\n|\r|\t)/gm, "<br>");
+    } else {
+        // If it doesn't, return the original string
+        return inputString;
+    }
+},
+// Utility function to remove shortcodes, convert carriage return to <br>, 
+// and modify API response to convert internal links from pftravel => princeoftravel.com/
 
-    // removeShortcodes: (str) => {
-    //     // Regular expression to match shortcodes
-    //     const shortcodeRegex = /\[\/?([a-z]+_[a-z]+).*?\]/gi;
-      
-    //     // Replace matched shortcodes with an empty string
-    //     return str.replace(shortcodeRegex, '');
-    //   },
+cleanAndModifyApiResponse(apiResponse) {
+    // Helper function to recursively modify values
+    function recursiveModify(obj) {
+      // Check if obj is an object (excluding null, which typeof 'object' would also include)
+      if (typeof obj === 'object' && obj !== null) {
+        // Iterate through each key in the object
+        for (let key in obj) {
+          if (obj.hasOwnProperty(key)) {
+            // Recursively call recursiveModify for nested objects or arrays
+            obj[key] = recursiveModify(obj[key]);
+          }
+        }
+      } else if (typeof obj === 'string') {
+        // Perform the URL replacement for strings
+        obj = obj.replace(/pftraveldev\.wpengine\.com/g, 'princeoftravel.com');
+        // Regular expression to match any shortcode pattern inside square brackets
+        const shortcodeRegex = /\[[^\]]+\]/gi;
+  
+        // Remove all matched shortcodes from the string
+        obj = obj.replace(shortcodeRegex, '');
+  
+        // Check if cleaned text contains line breaks
+        if (/\r\n|\n|\r/.test(obj)) {
+          // Clean the string with line breaks
+          obj = obj.replace(/\r\n\r\n/g, "<br><br>").replace(/(\r\n|\n|\r|\t)/gm, "<br>");
+        }
+      }
+      // Return modified or unchanged obj
+      return obj;
+    }
+  
+    // Apply recursiveModify to apiResponse
+    return recursiveModify(apiResponse);
+  }
 
     // addPTagsToText: (text) => {
     //     // Split the text into paragraphs using \r\n\r\n as delimiter
