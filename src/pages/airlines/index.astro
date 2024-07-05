@@ -94,6 +94,22 @@ function filterAndOrganize(response) {
         return item;
     });
 
+    // sort alphabetically
+    filteredTitles.sort((a, b) => {
+        // Convert both titles to lowercase to ensure case-insensitive comparison
+        let titleA = a.title.toLowerCase();
+        let titleB = b.title.toLowerCase();
+
+        // Compare titles
+        if (titleA < titleB) {
+            return -1;
+        }
+        if (titleA > titleB) {
+            return 1;
+        }
+        return 0; // titles are equal
+    });
+
     // Organize into two groups: Business Class and First Class
     let businessClass = filteredTitles.filter(item => item.title.toLowerCase().includes("business class"));
     let firstClass = filteredTitles.filter(item => item.title.toLowerCase().includes("first class"));
@@ -105,7 +121,7 @@ const organizedResults = filterAndOrganize(posts);
 
 ---
 
-<Layout title="Prince of Travel | Point Programs" description="Prince of Travel's latest news on everything from new hotel properties, to flights and airline deals, airports, credit cards, and more." image="">
+<Layout title="Prince of Travel | Airline Products" description="Here are our guides to the best premium aviation experiences in the world." image="">
 	<div class="container-fluid" style="background: ##fffbf8">
 		<div class="row pt-5">
 			<div class="col-lg-6 min-vh-50 d-flex flex-column justify-content-end align-items-start text-start p-5">
@@ -124,7 +140,7 @@ const organizedResults = filterAndOrganize(posts);
 
         <div class="row p-4 g-3">
             <div class="col-lg-6">	
-                <div class="card d-flex justify-content-center align-items-start mb-2 border-0 rounded-4 shadow p-5" style="min-height: 240px; background: #eee">
+                <div class="card d-flex justify-content-center align-items-start mb-2 border-0 rounded-4 shadow p-5" style="min-height: 300px; background: #eee">
                     <div class="object-fit rounded-4 p-4" style="background: var(--beige);">
                         <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
                             <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
@@ -168,7 +184,7 @@ const organizedResults = filterAndOrganize(posts);
 
 		<div class="row p-4 g-3">
             <div class="col-lg-6">	
-                <div class="card d-flex justify-content-center align-items-start mb-2 border-0 rounded-4 shadow p-5" style="min-height: 240px; background: #eee">
+                <div class="card d-flex justify-content-center align-items-start mb-2 border-0 rounded-4 shadow p-5" style="min-height: 300px; background: #eee">
                     <div class="object-fit rounded-4 p-4" style="background: var(--beige);">
                         <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" class="bi bi-briefcase-fill" viewBox="0 0 16 16">
                             <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v1.384l7.614 2.03a1.5 1.5 0 0 0 .772 0L16 5.884V4.5A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5"/>

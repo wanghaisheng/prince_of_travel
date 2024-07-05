@@ -50,62 +50,57 @@ const posts = await res.json();
 // currentPage++;
 // }
 
-// function destructureArray(array) {
-//     const first3 = array.slice(0, 3);
-//     const second3 = array.slice(3, 6);
-//     const third3 = array.slice(6, 9);
-//     const fourth3 = array.slice(9, 12);
-//     const fifth3 = array.slice(12, 15);
-//     const sixth5 = array.slice(15, 19);
-//     const next16 = array.slice(19, 31);
-//     const restOfPosts = array.slice(31);
-
-//     return [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts];
-// }
-
-// const [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts] = destructureArray(posts);
-
 // const combinedPosts = allPosts.concat(posts);
 
-// let filteredPosts = allPosts.filter(post => post.data.draft === false)
-// filteredPosts.sort((a, b) => b.data.pubDate - a.data.pubDate);
-// const [firstArticle, ...allArticles] = filteredPosts;
-// const [firstArticle, ...allArticles] = guidesPosts;
 
+// function filterAndOrganize(response) {
+//     // Filter titles that start with "The Complete Guide to"
+//     let filteredTitles = response.filter(item => item.title.startsWith("The Complete Guide to"));
 
-// const points2 = posts.filter(item => 
-// frequentFlyer.some(substring => item.includes(substring))
-// );
-// const points3 = posts.filter(item => 
-// hotelLoyalty.some(substring => item.includes(substring))
-// );
-// const points4 = posts.filter(item => 
-// other.some(substring => item.includes(substring))
-// );
+//     // Remove "The Complete Guide to" prefix from titles
+//     filteredTitles = filteredTitles.map(item => {
+//         item.title = item.title.replace("The Complete Guide to", "").trim();
+//         return item;
+//     });
+//     // sort alphabetically
+//     filteredTitles.sort((a, b) => {
+//         // Convert both titles to lowercase to ensure case-insensitive comparison
+//         let titleA = a.title.toLowerCase();
+//         let titleB = b.title.toLowerCase();
 
+//         // Compare titles
+//         if (titleA < titleB) {
+//             return -1;
+//         }
+//         if (titleA > titleB) {
+//             return 1;
+//         }
+//         return 0; // titles are equal
+//     });
+// }
 
-function filterAndOrganize(response) {
-    // Filter titles that start with "The Complete Guide to"
-    let filteredTitles = response.filter(item => item.title.startsWith("The Complete Guide to"));
+// filterAndOrganize(posts);
 
-    // Remove "The Complete Guide to" prefix from titles
-    filteredTitles = filteredTitles.map(item => {
-        item.title = item.title.replace("The Complete Guide to", "").trim();
-        return item;
-    });
+posts.forEach(item => {
+    item.title = item.title.replace("The Complete Guide to ", "");
+});
 
-    // // Organize into two groups: Business Class and First Class
-    // let businessClass = filteredTitles.filter(item => item.title.toLowerCase().includes("business class"));
-    // let firstClass = filteredTitles.filter(item => item.title.toLowerCase().includes("first class"));
-
-    // return { businessClass, firstClass };
-}
-
-const organizedResults = filterAndOrganize(posts);
+posts.sort((a, b) => {
+    let titleA = a.title.toLowerCase();
+    let titleB = b.title.toLowerCase();
+    
+    if (titleA < titleB) {
+        return -1;
+    }
+    if (titleA > titleB) {
+        return 1;
+    }
+    return 0; // titles are equal
+});
 
 ---
 
-<Layout title="Prince of Travel | Hotel Programs" description="Prince of Travel's latest news on everything from new hotel properties, to flights and airline deals, airports, credit cards, and more." image="">
+<Layout title="Prince of Travel | Hotel Programs" description="Explore Prince of Travel's comprehensive guides to hotel loyalty programs including offerings, exclusive perks, and booking benefits." image="">
 	<div class="container-fluid" style="background: ##fffbf8">
 		<div class="row pt-5">
 			<div class="col-lg-6 min-vh-50 d-flex flex-column justify-content-end align-items-start text-start p-5">

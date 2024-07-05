@@ -39,6 +39,11 @@
   border-bottom-color: rgba(97, 0, 42, .5);
 }
 
+.potbox-content a {
+  text-decoration: underline !important;
+  border-bottom: 0 !important;  
+}
+
 #content h1,
 #content h2,  
 #content h3,

@@ -65,15 +65,16 @@ function emailPage(title) {
   const emailShare = href + 'subject=' +  title + '&body=' + 'Check out this great post I found from princeoftravel.com: ' + url;
   return emailShare;
 }
-const url = encodeURIComponent(Astro.url.pathname);
+functions.modifyApiResponse(post);
+functions.removeCarriageReturn(post);
 ---
 
 <Layout title={post.title} description="" image="">
     <div class="container-fluid px-0 pt-3">
-        <div class="row py-3">
+        <div class="row pb-3 pt-4">
             <div class="col-lg-8 min-vh-500 d-flex flex-column justify-content-center align-items-start text-start p-5">
                 <a href="/hotel-programs">
-                    <div class="d-flex align-items-center" data-aos="fade-up">
+                    <div class="d-flex align-items-center mt-3" data-aos="fade-up">
                         <i class="bi bi-arrow-left text-black-50 fs-1"></i>
                         <h6 class="ms-2 my-0 text-black-50 fw-light">Back to Hotel Programs</h6>
                     </div>

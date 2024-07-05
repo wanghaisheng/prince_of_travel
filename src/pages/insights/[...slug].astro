@@ -1,8 +1,8 @@
 ---
 // import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import functions from '../../js/functions';
 // import { Markdown } from '@astropub/md';
-// import PostBody from '../../components/PostComponents/PostBody.astro';
 
 export const prerender = true;
 export async function getStaticPaths() {
@@ -70,6 +70,9 @@ const url = encodeURIComponent(Astro.url.pathname);
 function shorten(text, max) {
   return text && text.length > max ? text.slice(0, max).split(' ').slice(0, -1).join(' ') : text
 }
+
+functions.modifyApiResponse(post);
+functions.removeCarriageReturn(post);
 ---
 
 <Layout title={post.title?.rendered || post.data.title} description={post.excerpt?.rendered || post.data.description} image={post.data?.imageUrl || post._embedded['wp:featuredmedia'][0]?.source_url}>

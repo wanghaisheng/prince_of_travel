@@ -50,21 +50,6 @@ const posts = await res.json();
 // currentPage++;
 // }
 
-// function destructureArray(array) {
-//     const first3 = array.slice(0, 3);
-//     const second3 = array.slice(3, 6);
-//     const third3 = array.slice(6, 9);
-//     const fourth3 = array.slice(9, 12);
-//     const fifth3 = array.slice(12, 15);
-//     const sixth5 = array.slice(15, 19);
-//     const next16 = array.slice(19, 31);
-//     const restOfPosts = array.slice(31);
-
-//     return [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts];
-// }
-
-// const [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts] = destructureArray(posts);
-
 // const combinedPosts = allPosts.concat(posts);
 
 // let filteredPosts = allPosts.filter(post => post.data.draft === false)
@@ -73,35 +58,22 @@ const posts = await res.json();
 // const [firstArticle, ...allArticles] = guidesPosts;
 
 
-// const points2 = posts.filter(item => 
-// frequentFlyer.some(substring => item.includes(substring))
-// );
-// const points3 = posts.filter(item => 
-// hotelLoyalty.some(substring => item.includes(substring))
-// );
-// const points4 = posts.filter(item => 
-// other.some(substring => item.includes(substring))
-// );
+posts.forEach(item => {
+    item.title = item.title.replace("The Complete Guide to ", "");
+});
 
-
-function filterAndOrganize(response) {
-    // Filter titles that start with "The Complete Guide to"
-    let filteredTitles = response.filter(item => item.title.startsWith("The Complete Guide to"));
-
-    // Remove "The Complete Guide to" prefix from titles
-    filteredTitles = filteredTitles.map(item => {
-        item.title = item.title.replace("The Complete Guide to", "").trim();
-        return item;
-    });
-
-    // Organize into two groups: Business Class and First Class
-    let businessClass = filteredTitles.filter(item => item.title.toLowerCase().includes("business class"));
-    let firstClass = filteredTitles.filter(item => item.title.toLowerCase().includes("first class"));
-
-    return { businessClass, firstClass };
-}
-
-const organizedResults = filterAndOrganize(posts);
+posts.sort((a, b) => {
+    let titleA = a.title.toLowerCase();
+    let titleB = b.title.toLowerCase();
+    
+    if (titleA < titleB) {
+        return -1;
+    }
+    if (titleA > titleB) {
+        return 1;
+    }
+    return 0; // titles are equal
+});
 
 ---
 
@@ -133,7 +105,7 @@ const organizedResults = filterAndOrganize(posts);
 							<div class="col-md-8 my-auto">
                                 <div class="card-body p-4">
                                     <h4 class="fs-3 card-title text-body-secondary fw-bold">
-                                        <Fragment set:html={item.custom_fields.short_title} />
+                                        <Fragment set:html={item.title} />
                                     </h4>
                                     <p class="card-text text-black-50">
                                         <Fragment set:html={"Our complete guide to " + item.title + '.'} />
