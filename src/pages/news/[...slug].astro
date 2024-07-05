@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import functions from '../../js/functions';
 // import { Markdown } from '@astropub/md';
 
 // if there is no .md/collection content, do not use the combinedArray, will throw build errors
@@ -91,6 +92,10 @@ const verticalSlide = {
 function shorten(text, max) {
   return text && text.length > max ? text.slice(0, max).split(' ').slice(0, -1).join(' ') : text
 }
+
+functions.modifyApiResponse(post);
+functions.removeCarriageReturn(post);
+
 ---
 
 <Layout title="" description="" image="">
@@ -140,7 +145,7 @@ function shorten(text, max) {
                 <div class="d-flex border-top py-3 mt-4">
                     <h6 class="ms-2 my-0 text-black-50 fw-bold">Share this post</h6>
                 </div>
-                <div class="d-flex">
+                <div id="post-social-share-nav" class="d-flex">
                 <a href={fbShare()} target="_blank">
                     <button class="btn btn-light text-black-50 px-3 py-2 fw-900 fs-5 me-2" style="background: #d6d6d680;">
                     <i class="bi bi-facebook fs-5"></i>
@@ -169,7 +174,7 @@ function shorten(text, max) {
               </div>
             </div>
             
-            <div class="col-lg-12 d-block d-xl-none border-top p-4">
+            <!-- <div class="col-lg-12 d-block d-xl-none border-top p-4">
                 <div class="py-2">
                 <p><span class="fw-bold text-body-secondary">Prince Collection</span> is a non-traditional, full service travel concierge designed exclusively for companies and individuals who require exclusive travel arrangements. We handle the nuances of travel ensuring a seamless and extraordinary journey from start to finish.</p>
                 </div>
@@ -189,7 +194,7 @@ function shorten(text, max) {
                 </div>
                 <hr>
     
-            </div>
+            </div> -->
         </div>
     </div>
 </Layout>

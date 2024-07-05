@@ -65,10 +65,12 @@ function emailPage(title) {
   const emailShare = href + 'subject=' +  title + '&body=' + 'Check out this great post I found from princeoftravel.com: ' + url;
   return emailShare;
 }
-const url = encodeURIComponent(Astro.url.pathname);
+
+functions.modifyApiResponse(post);
+functions.removeCarriageReturn(post);
 ---
 
-<Layout title="Prince of Travel | Airline Products" description="" image="">
+<Layout title="Prince of Travel | Best Credit Cards" description="" image="">
     <div class="container-fluid px-0 pt-3">
         <div class="row pb-3 pt-5">
             <div class="col-lg-8 min-vh-500 d-flex flex-column justify-content-center align-items-start text-start p-5">
@@ -79,7 +81,7 @@ const url = encodeURIComponent(Astro.url.pathname);
                     </div>
                 </a>
     
-                <h1 class="fw-bold text-body-secondary lh-2 ls-1 my-2" data-aos="fade-up" data-aos-delay="200" style="font-size: 10vmin;">
+                <h1 class="fw-bold text-body-secondary lh-1 ls-1 my-2" data-aos="fade-up" data-aos-delay="200" style="font-size: 10vmin;">
                     <Fragment set:html={post.title} />
                 </h1>
                 
@@ -101,7 +103,37 @@ const url = encodeURIComponent(Astro.url.pathname);
     <div class="container w-100 mx-auto">
         <div id="content" class="row p-4">
             <div class="content-body col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 px-4 py-5">
-                <div><Fragment set:html={post.content} /></div>
+                <!-- <div><Fragment set:html={post.content} /></div> -->
+                <p class="mb-0"><Fragment set:html={post.custom_fields.intro} /></p>
+
+                <h2>{post.custom_fields.credit_cards_0_sub_category}</h2>
+                <p class="my-0"><Fragment set:html={post.custom_fields.credit_cards_0_bcc_content} /></p>
+                <h2>{post.custom_fields.credit_cards_1_sub_category}</h2>
+                <div><Fragment set:html={post.custom_fields.credit_cards_1_bcc_content} /></div>
+                <h2>{post.custom_fields.credit_cards_2_sub_category}</h2>
+                <div><Fragment set:html={post.custom_fields.credit_cards_2_bcc_content} /></div>
+                <h2>{post.custom_fields.credit_cards_3_sub_category}</h2>
+                <div><Fragment set:html={post.custom_fields.credit_cards_3_bcc_content} /></div>
+                <h2>{post.custom_fields.credit_cards_4_sub_category}</h2>
+                <div><Fragment set:html={post.custom_fields.credit_cards_4_bcc_content} /></div>
+                <h2>{post.custom_fields.credit_cards_5_sub_category}</h2>
+                <div><Fragment set:html={post.custom_fields.credit_cards_5_bcc_content} /></div>
+                <h2>{post.custom_fields.credit_cards_6_sub_category}</h2>
+                <div><Fragment set:html={post.custom_fields.credit_cards_6_bcc_content} /></div>
+                <h2>{post.custom_fields.credit_cards_7_sub_category}</h2>
+                <div><Fragment set:html={post.custom_fields.credit_cards_7_bcc_content} /></div>
+                <h2>{post.custom_fields.credit_cards_8_sub_category}</h2>
+                <div><Fragment set:html={post.custom_fields.credit_cards_8_bcc_content} /></div>
+                <h2>{post.custom_fields.credit_cards_9_sub_category}</h2>
+                <div><Fragment set:html={post.custom_fields.credit_cards_9_bcc_content} /></div>
+                <h2>{post.custom_fields.credit_cards_10_sub_category}</h2>
+                <div><Fragment set:html={post.custom_fields.credit_cards_10_bcc_content} /></div>
+                <h2>{post.custom_fields.credit_cards_11_sub_category}</h2>
+                <div><Fragment set:html={post.custom_fields.credit_cards_11_bcc_content} /></div>
+
+
+
+
                 <!-- <div><Fragment set:html={functions.removeShortcodes(post.content)} /></div> -->
                <!-- {post.content?.rendered ?
                 <Fragment id="postContent" set:html={post.content?.rendered} /> 
@@ -112,7 +144,7 @@ const url = encodeURIComponent(Astro.url.pathname);
                 <div class="d-flex border-top py-3 mt-4">
                     <h6 class="ms-2 my-0 text-black-50 fw-bold">Share this post</h6>
                 </div>
-                <div class="d-flex">
+                <div id="post-social-share-nav" class="d-flex">
                 <a href={fbShare()} target="_blank">
                     <button class="btn btn-light text-black-50 px-3 py-2 fw-900 fs-5 me-2" style="background: #d6d6d680;">
                     <i class="bi bi-facebook fs-5"></i>
@@ -141,7 +173,7 @@ const url = encodeURIComponent(Astro.url.pathname);
               </div>
             </div>
             
-            <div class="col-lg-12 d-block d-xl-none border-top p-4">
+            <!-- <div class="col-lg-12 d-block d-xl-none border-top p-4">
                 <div class="py-2">
                 <p><span class="fw-bold text-pc-dark">Prince Collection</span> is a non-traditional, full service travel concierge designed exclusively for companies and individuals who require exclusive travel arrangements. We handle the nuances of travel ensuring a seamless and extraordinary journey from start to finish.</p>
                 </div>
@@ -161,10 +193,17 @@ const url = encodeURIComponent(Astro.url.pathname);
                 </div>
                 <hr>
     
-            </div>
+            </div> -->
         </div>
     </div>
 </Layout>
+
+<style scoped>
+
+    #accel-snackbar {
+        display: none;
+    }
+</style>
 
 <script>
 // var targetParagraph = document.querySelector('#content .content-body p:nth-of-type(3)');

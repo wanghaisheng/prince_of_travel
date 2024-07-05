@@ -46,6 +46,17 @@ a:hover {
   opacity: 0.8;
 }
 
+/* Targeting the space between two <br> tags */
+/* br {
+  content: "";
+  display: block;
+  height: 0.9em;
+} */
+
+#accel-snackbar {
+  display: none;
+}
+
 /* general spacing setup */
 
 section {
@@ -88,17 +99,6 @@ p {
 
 /* images */
 
-/* Simple skeleton loader styles */
-/* .img-skeleton {
-  position:absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 600px;
-  object-fit: cover;
-  background: #eee;
-} */
-
 img {
   width: 100%;
   margin-inline: auto;
@@ -127,12 +127,20 @@ height: 450px !important;
 }
 
 .offcanvas ul {
-  padding: 10px 40px;
+  padding: 20px 20px 10px;
 }
 
 .offcanvas ul li {
   font-size: 18px;
   margin-bottom: 4px;
+}
+
+.offcanvas p ul {
+  margin-bottom: 0;
+}
+
+.offcanvas p ul li p {
+  margin: 0;
 }
 
 @media only screen and (max-width: 600px) {

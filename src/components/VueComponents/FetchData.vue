@@ -145,7 +145,7 @@
                           <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702z"/>
                           <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1z"/>
                         </svg>
-                        <h5 class="fs-4 fw-bold">MR Points</h5>
+                        <h5 class="fs-4 fw-bold">Rewards</h5>
                         <p v-if="post.custom_fields.membership_reward == '' || post.custom_fields.membership_reward == null" class="my-0 text-black-50" style="font-size: 17px;">N/A</p>
                         <p v-else class="my-0 text-black-50" style="font-size: 17px;" v-html="post.custom_fields.membership_reward"></p>
                       </div>
@@ -158,7 +158,7 @@
                         </svg>
                         <h5 class="fs-4 fw-bold">1st Year Value</h5>
                         <p v-if="!post.custom_fields.welcome_bonus_value || post.custom_fields.welcome_bonus_value === '0'" class="my-0 text-black-50" style="font-size: 17px;">N/A</p>
-                        <p v-else class="my-0 text-black-50" style="font-size: 17px;" v-html="post.custom_fields.welcome_bonus_value"></p>
+                        <p v-else class="my-0 text-black-50" style="font-size: 17px;" v-html="'$' + post.custom_fields.welcome_bonus_value"></p>
                       </div>  
                       </div>
                       <div class="col">
@@ -192,15 +192,16 @@
                 </div>
               </div>
             
-              <div v-if="post.custom_fields.card_content_4_c_content" class="display-5 fw-bold my-4 text-black-50 ls-1" v-html="post.custom_fields.card_content_4_c_title"></div>
+              <!-- <div v-if="post.custom_fields.card_content_4_c_content" class="display-5 fw-bold my-4 text-black-50 ls-1" v-html="post.custom_fields.card_content_4_c_title"></div>
               <div class="fs-5">
                 <p v-html="post.custom_fields.card_content_4_c_content"></p>
-              </div>
-              <div v-if="post.custom_fields.legal_disclaimers" class="border-top">
+              </div> -->
+
+              <div v-if="post.custom_fields.legal_disclaimers" class="border-top border-secondary">
                 <p class="mt-4" v-html="post.custom_fields.legal_disclaimers"></p>
               </div>
-              <div class="d-flex mt-4 pt-4 justify-content-start border-top">
-                <a href={post.custom_fields.colum_block_0_col1_button_link} target="_blank">
+              <div class="d-flex mt-4 pt-4 justify-content-start border-top border-secondary">
+                <a :href="post.custom_fields.apply_now_link" target="_blank">
                   <button class="btn btn-dark rounded-3 px-4 me-1">Apply</button>
                 </a>
                 <a :href="`/credit-cards/${encodeURIComponent(post.slug)}/`">
@@ -241,6 +242,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
+import functions from '../../js/functions';
 
 const bankFilter = ref('');
 const providerFilter = ref('');
@@ -262,6 +264,7 @@ async function fetchData() {
       const valueB = parseFloat(b.custom_fields.welcome_bonus_value);
       return valueB - valueA;
     });
+    functions.cleanAndModifyApiResponse(data);
   } catch (error) {
     console.error("Failed to fetch data:", error);
   }
