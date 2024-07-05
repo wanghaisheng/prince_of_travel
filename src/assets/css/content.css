@@ -124,7 +124,7 @@
   border-radius: 22px;
 } */
 
-.potbox .cc-featured, 
+.potbox.cc-featured, 
 .potbox-main.potbox-flexwrap {
   display: flex;
   flex-wrap: wrap;
@@ -145,6 +145,12 @@
   border: 1px solid #ddd;
   border-radius: 10px;
   margin-bottom: 20px;
+}
+
+/* hide CC mutli card table (in guides) difficult to style */
+.potbox.cc-multi {
+  display: none;
+  border: 0;
 }
 
 /* CC image, buttons, award */

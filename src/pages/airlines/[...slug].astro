@@ -65,7 +65,9 @@ function emailPage(title) {
   const emailShare = href + 'subject=' +  title + '&body=' + 'Check out this great post I found from princeoftravel.com: ' + url;
   return emailShare;
 }
-// const url = encodeURIComponent(Astro.url.pathname);
+
+functions.modifyApiResponse(post);
+functions.removeCarriageReturn(post);
 ---
 
 <Layout title="Prince of Travel | Airline Products" description="" image="">

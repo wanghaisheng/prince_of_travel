@@ -91,7 +91,7 @@ function removeSpecialCharactersFromURL(url) {
 				<div class="col-md-4 p-3">
 					<a href={`/reviews/${encodeURIComponent(item.slug)}/`}>
 					<div class="pb-3">
-						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover; height: 350px;" alt="">
+						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover; min-height: 350px;" alt="">
 						<h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
 						<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt.rendered, 150)} /></div>
 						<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
