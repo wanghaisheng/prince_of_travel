@@ -71,10 +71,46 @@ function encodeURIComponent(url) {
                     </svg>
 				</div>
 			</div>
-			<div class="row min-vh-100 position-relative p-5">
+
+			<div class="row min-vh-100 position-relative py-5">
 				<div class="position-absolute z-0 top-0 start-0 w-100 h-100 bg-navy" data-aos="fade" data-aos-delay="500"></div>
-				<div class="col-lg-8 offset-lg-2 d-flex flex-column justify-content-center align-items-start position-relative text-light">
-					<div class="mx-4 mx-lg-0 p-5 rounded-5 bg-navy" data-aos="fade">
+				<div class="col-lg-8 offset-lg-2 d-flex flex-column justify-content-center align-items-start text-start position-relative p-0">
+					<div class="mx-4 mx-lg-0 p-5 rounded-5 bg-navy text-light" data-aos="fade">
+						<h1 class="mb-1 mt-3 animate-in" style="font-size: 13vmin;" data-aos="fade"> 
+							News. Deals. Guides. Reviews.
+						<span class="d-block text-gold" data-aos="fade-up" data-aos-delay="200">Start here. Read anywhere.</span>
+						</h1>
+						<p class="fs-4" data-aos="fade" data-aos-delay="400">Explore the Prince of Travel <a href="/blog" class="fw-bold text-gold">blog</a>, a curated platform designed to elevate your travel experiences, ignite your curiosity and expand your expertise. Dive into a wealth of meticulously crafted content ranging from breaking travel news to insider deals, comprehensive travel guides, and personal, candid reviews. Start your journey here, where every article serves as a gateway to new destinations and enriching experiences. Whether you seek off-the-beaten-path adventures or luxury escapes, our blog is your compass.</p>
+					</div>
+				</div>
+				<div class="col-lg-12 px-5">
+					<div class="row g-3">
+					{posts.map((post, index) => (
+						<div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay={index * 100}>
+							<a href={`/${post.category_name}/${post.slug}/`}>
+								<div class="card rounded-5 border-0 shadow p-2">
+									<img src="" data-src={post._embedded['wp:featuredmedia'][0].source_url } class="card-img-top position-absolute top-0 start-0 z-0 w-100 h-100 object-fit rounded-5" style="filter: brightness(0.4)" alt="..." />
+									<div class="card-img-overlay position-relative">
+										<div class="card-body min-vh-50 text-light d-flex flex-column justify-content-end align-items-start p-3">
+										<p class="small mb-2" style="text-transform: capitalize;">{post._embedded['wp:term'][0][0].slug}</p>
+										<h5 class="card-title fs-4 fw-bold mb-0"><Fragment set:html={post.title.rendered} /></h5>
+										<div class="card-text my-0"><Fragment set:html={post.excerpt.rendered} /></div>
+											<i class="bi bi-arrow-up-right-circle-fill text-pc-light fs-1 position-absolute top-0 end-0 me-2 mt-1 p-3"></i>
+										</div>
+									</div>
+								</div>
+							</a>
+						</div>
+					))}
+					</div>
+				</div>
+			</div>
+
+			<!-- intro  -->
+			<!-- <div class="row min-vh-100 position-relative p-5">
+				<div class="position-absolute z-0 top-0 start-0 w-100 h-100 bg-navy" data-aos="fade" data-aos-delay="500"></div>
+				<div class="col-lg-8 offset-lg-2 d-flex flex-column justify-content-center align-items-start position-relative text-light p-0">
+					<div class="p-5 rounded-5 bg-navy" data-aos="fade">
 						<h1 class="mb-1 mt-3 animate-in" style="font-size: 13vmin;" data-aos="fade"> 
 							News. Deals. Guides. Reviews.
 						<span class="d-block text-gold" data-aos="fade-up" data-aos-delay="200">Start here. Read anywhere.</span>
@@ -104,16 +140,15 @@ function encodeURIComponent(url) {
 					))}
 					</div>
 				</div>
-			</div>
+			</div> -->
 
 		  <!-- credit cards -->
 
 		  <div class="row min-vh-100 position-relative py-5">
 			<div class="position-absolute z-0 top-0 start-0 w-100 h-100 bg-gold" data-aos="fade" data-aos-delay="500"></div>
-			<div class="col-lg-8 offset-lg-2 d-flex flex-column justify-content-center align-items-center text-center position-relative">
+			<div class="col-lg-8 offset-lg-2 d-flex flex-column justify-content-center align-items-center text-center position-relative p-0">
 				<div class="mx-4 mx-lg-0 p-5 rounded-5 bg-gold" data-aos="fade">
-					<h1 class="text-light mb-1 mt-3 animate-in" style="font-size: 13vmin;" data-aos="fade">Credit Cards.
-					<span class="d-block text-black-50" data-aos="fade-up" data-aos-delay="200">Everything you need to travel better.</span>
+					<h1 class="text-light mb-1 mt-3 animate-in" style="font-size: 13vmin;" data-aos="fade">Credit Cards. <span class="text-black-50" data-aos="fade-up" data-aos-delay="200">Everything you need to travel better.</span>
 					</h1>
 					<p class="fs-4" data-aos="fade-up" data-aos-delay="400">From earning points on every travel expense to enjoying priority boarding and complimentary hotel stays, learn how the right credit card can amplify your adventures. Whether you're chasing dream destinations or seeking unforgettable experiences, equip yourself with the ultimate tool for seamless payments and unparalleled travel privileges. Embark on a journey towards boundless exploration and remarkable travel rewards today.</p>
                     <div class="mt-4" data-aos="fade-up" data-aos-delay="600">
@@ -133,18 +168,18 @@ function encodeURIComponent(url) {
 				</div>
 				<div class="col-xl-6" data-aos="fade-up">
 					<div class="card mb-2 rounded-5 shadow position-relative" style="background: rgba(255,255,255,0.6); min-height: 320px;">
-						<div class="position-absolute top-0 end-0 m-3">
+						<div class="position-absolute top-0 end-0 m-3 z-1">
 							<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-bookmark-star-fill text-black-50" viewBox="0 0 16 16">
 								<path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5M8.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.18.18 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.18.18 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.18.18 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.18.18 0 0 1-.134-.098z"/>
 							</svg>
 						</div>
-						<div class="row p-3 g-0">
-						  <div class="col-sm-5 d-flex justify-content-center align-items-center p-3 rounded-5 position-relative" style="min-height: 350px;">
+						<div class="row p-0 p-md-3 g-0">
+						  <div class="col-md-5 d-flex justify-content-center align-items-center p-3 rounded-5 position-relative" style="min-height: 200px;">
 							<div class="position-absolute z-0 rounded-circle top-50 start-50 translate-middle" style="height: 15vw; width: 15vw; background: #00000050"></div>
 							<img src={pageData.top_offers_0_credit_card_featured_image} class="landscape position-relative" data-image-id="0" alt="">
 						  </div>
-						  <div class="col-sm-7 p-4">
-							<div class="card-body d-flex flex-column justify-content-center align-items-start ">
+						  <div class="col-md-7 d-flex flex-column justify-content-center align-items-start p-4">
+							<div class="card-body d-flex flex-column justify-content-center align-items-start pt-0 pt-lg-3 mb-3">
 								<h5 class="fs-3 text-dark card-title fw-bold mb-0" style="font-size: 24px; text-wrap: pretty"><Fragment set:html={pageData.top_offers_0_credit_card.credit_card_short_name} /></h5>
 								<div class="card-text mt-3 mb-2">
 									<p class="small m-0" ><Fragment set:html={pageData.top_offers_0_credit_card.membership_reward} /></p>
@@ -173,121 +208,121 @@ function encodeURIComponent(url) {
 
 				<div class="col-xl-6" data-aos="fade-up" data-aos-delay="200">
 					<div class="card mb-2 rounded-5 position-relative" style="background: rgba(255,255,255,0.6); min-height: 320px;">
-						<div class="position-absolute top-0 end-0 m-3">
+						<div class="position-absolute top-0 end-0 m-3 z-1">
 							<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-bookmark-star-fill text-black-50" viewBox="0 0 16 16">
 								<path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5M8.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.18.18 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.18.18 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.18.18 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.18.18 0 0 1-.134-.098z"/>
 							</svg>
 						</div>
-						<div class="row p-3 g-0">
-							<div class="col-sm-5 d-flex justify-content-center align-items-center p-3 rounded-5 position-relative" style="min-height: 350px;">
-								<div class="position-absolute z-0 rounded-circle top-50 start-50 translate-middle" style="height: 15vw; width: 15vw; background: #00000050"></div>
-							<img src={pageData.top_offers_1_credit_card_featured_image} class="landscape position-relative" data-image-id="1" alt="">
-						  </div>
-						  <div class="col-sm-7 p-4">
-							<div class="card-body d-flex flex-column justify-content-center align-items-start ">
-								<h5 class="fs-3 text-dark card-title fw-bold mb-0" style="font-size: 24px; text-wrap: pretty"><Fragment set:html={pageData.top_offers_1_credit_card.credit_card_short_name} /></h5>
-								<div class="card-text mt-3 mb-2">
-									<p class="small m-0" ><Fragment set:html={pageData.top_offers_1_credit_card.membership_reward} /></p>
-									<p class="small m-0"><Fragment set:html={pageData.top_offers_1_credit_card.fees} /></p>
-								</div>
-								<ul class="mt-2 ps-3" style="font-size: 15px">
-									<li><Fragment set:html={pageData.top_offers_1_credit_card.features_0_feature} /></li>
-									<li><Fragment set:html={pageData.top_offers_1_credit_card.features_1_feature} /></li>
-									<li><Fragment set:html={pageData.top_offers_1_credit_card.features_2_feature} /></li>
-								</ul>
-								<div class="d-flex position-absolute end-0 bottom-0 m-4">
-									<a href={pageData.top_offers_1_credit_card.apply_now_link}>
-										<button class="btn btn-sm btn-dark rounded-pill me-1 mt-1 px-3" style="font-size: 13px">Apply
-									</button>
-									</a>
-									<a href={`/credit-cards/${encodeURIComponent(pageData.top_offers_1_credit_card_slug)}`}>
-										<button class="btn btn-sm btn-secondary rounded-pill mt-1 px-3 opacity-75" style="font-size: 13px">Learn more
-										</button>
-									</a>
-								</div>
+						<div class="row p-0 p-md-3 g-0">
+							<div class="col-md-5 d-flex justify-content-center align-items-center p-3 rounded-5 position-relative" style="min-height: 200px;">
+							  <div class="position-absolute z-0 rounded-circle top-50 start-50 translate-middle" style="height: 15vw; width: 15vw; background: #00000050"></div>
+							  <img src={pageData.top_offers_1_credit_card_featured_image} class="landscape position-relative" data-image-id="1" alt="">
+							</div>
+							<div class="col-md-7 d-flex flex-column justify-content-center align-items-start p-4">
+							  <div class="card-body d-flex flex-column justify-content-center align-items-start pt-0 pt-lg-3">
+								  <h5 class="fs-3 text-dark card-title fw-bold mb-0" style="font-size: 24px; text-wrap: pretty"><Fragment set:html={pageData.top_offers_1_credit_card.credit_card_short_name} /></h5>
+								  <div class="card-text mt-3 mb-2">
+									  <p class="small m-0" ><Fragment set:html={pageData.top_offers_1_credit_card.membership_reward} /></p>
+									  <p class="small m-0"><Fragment set:html={pageData.top_offers_1_credit_card.fees} /></p>
+								  </div>
+								  <ul class="mt-2 ps-3" style="font-size: 15px">
+									  <li><Fragment set:html={pageData.top_offers_1_credit_card.features_0_feature} /></li>
+									  <li><Fragment set:html={pageData.top_offers_1_credit_card.features_1_feature} /></li>
+									  <li><Fragment set:html={pageData.top_offers_1_credit_card.features_2_feature} /></li>
+								  </ul>
+								  <div class="d-flex position-absolute end-0 bottom-0 m-4">
+									  <a href={pageData.top_offers_1_credit_card.apply_now_link}>
+										  <button class="btn btn-sm btn-dark rounded-pill me-1 mt-1 px-3" style="font-size: 13px">Apply
+									  </button>
+									  </a>
+									  <a href={`/credit-cards/${encodeURIComponent(pageData.top_offers_0_credit_card_slug)}`}>
+										  <button class="btn btn-sm btn-secondary rounded-pill mt-1 px-3 opacity-75" style="font-size: 13px">Learn more
+										  </button>
+									  </a>
+								  </div>
+							  </div>
 							</div>
 						  </div>
-						</div>
 					</div>
 				</div>
 
 				<div class="col-xl-6" data-aos="fade-up" data-aos-delay="400">
 					<div class="card mb-2 rounded-5 position-relative" style="background: rgba(255,255,255,0.6); min-height: 320px;">
-						<div class="position-absolute top-0 end-0 m-3">
+						<div class="position-absolute top-0 end-0 m-3 z-1">
 							<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-bookmark-star-fill text-black-50" viewBox="0 0 16 16">
 								<path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5M8.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.18.18 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.18.18 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.18.18 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.18.18 0 0 1-.134-.098z"/>
 							</svg>
 						</div>
-						<div class="row p-3 g-0">
-							<div class="col-sm-5 d-flex justify-content-center align-items-center p-3 rounded-5 position-relative" style="min-height: 350px;">
-								<div class="position-absolute z-0 rounded-circle top-50 start-50 translate-middle" style="height: 15vw; width: 15vw; background: #00000050"></div>
-							<img src={pageData.top_offers_2_credit_card_featured_image} class="landscape position-relative" data-image-id="2" alt="">
-						  </div>
-						  <div class="col-sm-7 p-4">
-							<div class="card-body d-flex flex-column justify-content-center align-items-start ">
-								<h5 class="fs-3 text-dark card-title fw-bold mb-0" style="font-size: 24px; text-wrap: pretty"><Fragment set:html={pageData.top_offers_2_credit_card.credit_card_short_name} /></h5>
-								<div class="card-text mt-3 mb-2">
-									<p class="small m-0" ><Fragment set:html={pageData.top_offers_2_credit_card.membership_reward} /></p>
-									<p class="small m-0"><Fragment set:html={pageData.top_offers_2_credit_card.fees} /></p>
-								</div>
-								<ul class="mt-2 ps-3" style="font-size: 15px">
-									<li><Fragment set:html={pageData.top_offers_2_credit_card.features_0_feature} /></li>
-									<li><Fragment set:html={pageData.top_offers_2_credit_card.features_1_feature} /></li>
-									<li><Fragment set:html={pageData.top_offers_2_credit_card.features_2_feature} /></li>
-								</ul>
-								<div class="d-flex position-absolute end-0 bottom-0 m-4">
-									<a href={pageData.top_offers_2_credit_card.apply_now_link}>
-										<button class="btn btn-sm btn-dark rounded-pill me-1 mt-1 px-3" style="font-size: 13px">Apply
-									</button>
-									</a>
-									<a href={`/credit-cards/${encodeURIComponent(pageData.top_offers_2_credit_card_slug)}`}>
-										<button class="btn btn-sm btn-secondary rounded-pill mt-1 px-3 opacity-75" style="font-size: 13px">Learn more
-										</button>
-									</a>
-								</div>
+						<div class="row p-0 p-md-3 g-0">
+							<div class="col-md-5 d-flex justify-content-center align-items-center p-3 rounded-5 position-relative" style="min-height: 200px;">
+							  <div class="position-absolute z-0 rounded-circle top-50 start-50 translate-middle" style="height: 15vw; width: 15vw; background: #00000050"></div>
+							  <img src={pageData.top_offers_2_credit_card_featured_image} class="landscape position-relative" data-image-id="2" alt="">
+							</div>
+							<div class="col-md-7 d-flex flex-column justify-content-center align-items-start p-4">
+							  <div class="card-body d-flex flex-column justify-content-center align-items-start pt-0 pt-lg-3 mb-3">
+								  <h5 class="fs-3 text-dark card-title fw-bold mb-0" style="font-size: 24px; text-wrap: pretty"><Fragment set:html={pageData.top_offers_2_credit_card.credit_card_short_name} /></h5>
+								  <div class="card-text mt-3 mb-2">
+									  <p class="small m-0" ><Fragment set:html={pageData.top_offers_2_credit_card.membership_reward} /></p>
+									  <p class="small m-0"><Fragment set:html={pageData.top_offers_2_credit_card.fees} /></p>
+								  </div>
+								  <ul class="mt-2 ps-3" style="font-size: 15px">
+									  <li><Fragment set:html={pageData.top_offers_2_credit_card.features_0_feature} /></li>
+									  <li><Fragment set:html={pageData.top_offers_2_credit_card.features_1_feature} /></li>
+									  <li><Fragment set:html={pageData.top_offers_2_credit_card.features_2_feature} /></li>
+								  </ul>
+								  <div class="d-flex position-absolute end-0 bottom-0 m-4">
+									  <a href={pageData.top_offers_2_credit_card.apply_now_link}>
+										  <button class="btn btn-sm btn-dark rounded-pill me-1 mt-1 px-3" style="font-size: 13px">Apply
+									  </button>
+									  </a>
+									  <a href={`/credit-cards/${encodeURIComponent(pageData.top_offers_0_credit_card_slug)}`}>
+										  <button class="btn btn-sm btn-secondary rounded-pill mt-1 px-3 opacity-75" style="font-size: 13px">Learn more
+										  </button>
+									  </a>
+								  </div>
+							  </div>
 							</div>
 						  </div>
-						</div>
 					</div>
 				</div>
 
 				<div class="col-xl-6" data-aos="fade-up" data-aos-delay="600">
 					<div class="card mb-2 rounded-5 position-relative" style="background: rgba(255,255,255,0.6); min-height: 320px;">
-						<div class="position-absolute top-0 end-0 m-3">
+						<div class="position-absolute top-0 end-0 m-3 z-1">
 							<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-bookmark-star-fill text-black-50" viewBox="0 0 16 16">
 								<path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5M8.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.18.18 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.18.18 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.18.18 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.18.18 0 0 1-.134-.098z"/>
 							</svg>
 						</div>
-						<div class="row p-3 g-0">
-							<div class="col-sm-5 d-flex justify-content-center align-items-center p-3 rounded-5 position-relative" style="min-height: 350px;">
-								<div class="position-absolute z-0 rounded-circle top-50 start-50 translate-middle" style="height: 15vw; width: 15vw; background: #00000050"></div>
-							<img src={pageData.top_offers_3_credit_card_featured_image} class="landscape position-relative" data-image-id="1" alt="">
-						  </div>
-						  <div class="col-sm-7 p-4">
-							<div class="card-body d-flex flex-column justify-content-center align-items-start ">
-								<h5 class="fs-3 text-dark card-title fw-bold mb-0" style="font-size: 24px; text-wrap: pretty"><Fragment set:html={pageData.top_offers_3_credit_card.credit_card_short_name} /></h5>
-								<div class="card-text mt-3 mb-2">
-									<p class="small m-0" ><Fragment set:html={pageData.top_offers_3_credit_card.membership_reward} /></p>
-									<p class="small m-0"><Fragment set:html={pageData.top_offers_3_credit_card.fees} /></p>
-								</div>
-								<ul class="mt-2 ps-3" style="font-size: 15px">
-									<li><Fragment set:html={pageData.top_offers_3_credit_card.features_0_feature} /></li>
-									<li><Fragment set:html={pageData.top_offers_3_credit_card.features_1_feature} /></li>
-									<li><Fragment set:html={pageData.top_offers_3_credit_card.features_2_feature} /></li>
-								</ul>
-								<div class="d-flex position-absolute end-0 bottom-0 m-4">
-									<a href={pageData.top_offers_3_credit_card.apply_now_link}>
-										<button class="btn btn-sm btn-dark rounded-pill me-1 mt-1 px-3" style="font-size: 13px">Apply
-									</button>
-									</a>
-									<a href={`/credit-cards/${encodeURIComponent(pageData.top_offers_3_credit_card_slug)}`}>
-										<button class="btn btn-sm btn-secondary rounded-pill mt-1 px-3 opacity-75" style="font-size: 13px">Learn more
-										</button>
-									</a>
-								</div>
+						<div class="row p-0 p-md-3 g-0">
+							<div class="col-md-5 d-flex justify-content-center align-items-center p-3 rounded-5 position-relative" style="min-height: 200px;">
+							  <div class="position-absolute z-0 rounded-circle top-50 start-50 translate-middle" style="height: 15vw; width: 15vw; background: #00000050"></div>
+							  <img src={pageData.top_offers_3_credit_card_featured_image} class="landscape position-relative" data-image-id="3" alt="">
+							</div>
+							<div class="col-md-7 d-flex flex-column justify-content-center align-items-start p-4">
+							  <div class="card-body d-flex flex-column justify-content-center align-items-start pt-0 pt-lg-3 mb-3">
+								  <h5 class="fs-3 text-dark card-title fw-bold mb-0" style="font-size: 24px; text-wrap: pretty"><Fragment set:html={pageData.top_offers_3_credit_card.credit_card_short_name} /></h5>
+								  <div class="card-text mt-3 mb-2">
+									  <p class="small m-0" ><Fragment set:html={pageData.top_offers_3_credit_card.membership_reward} /></p>
+									  <p class="small m-0"><Fragment set:html={pageData.top_offers_3_credit_card.fees} /></p>
+								  </div>
+								  <ul class="mt-2 ps-3" style="font-size: 15px">
+									  <li><Fragment set:html={pageData.top_offers_3_credit_card.features_0_feature} /></li>
+									  <li><Fragment set:html={pageData.top_offers_3_credit_card.features_1_feature} /></li>
+									  <li><Fragment set:html={pageData.top_offers_3_credit_card.features_2_feature} /></li>
+								  </ul>
+								  <div class="d-flex position-absolute end-0 bottom-0 m-4">
+									  <a href={pageData.top_offers_3_credit_card.apply_now_link}>
+										  <button class="btn btn-sm btn-dark rounded-pill me-1 mt-1 px-3" style="font-size: 13px">Apply
+									  </button>
+									  </a>
+									  <a href={`/credit-cards/${encodeURIComponent(pageData.top_offers_3_credit_card_slug)}`}>
+										  <button class="btn btn-sm btn-secondary rounded-pill mt-1 px-3 opacity-75" style="font-size: 13px">Learn more
+										  </button>
+									  </a>
+								  </div>
+							  </div>
 							</div>
 						  </div>
-						</div>
 					</div>
 				</div>
 				<!--end card column -->
@@ -318,11 +353,10 @@ function encodeURIComponent(url) {
 					<h5>{pageData.section_3_bottom_text}</h5>
 					<h2 class="display-3 text-start position-relative ls-1 lh-1 fw-bold text-black-50 pb-4 mt-0">{pageData.section_3_bottom_heading}</h2>
 				</div>	
-			<a href="/points-valuations">
-				<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 px-4 px-lg-5">
+				<div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 px-4 px-lg-5">
 			<div class="col" data-aos="fade-up" data-aos-delay="200">
 				<div class="card rounded-5 border-0 shadow">
-					<div class="card-body text-gold d-flex flex-column justify-content-end align-items-start text-start p-5">
+					<div class="card-body text-gold d-flex flex-column justify-content-end align-items-start text-start p-4">
 					<p class="card-title fs-4 fw-light"><Fragment set:html={pageData.all_points_0_pointtext}/></p>
 					<p class="fs-1 card-text mb-3 mt-2">{pageData.all_points_0_point_number}</p>
 					<i class="bi bi-arrow-up-right-circle-fill text-gold fs-3 position-absolute top-0 end-0 me-2 mt-1 p-3"></i>
@@ -331,7 +365,7 @@ function encodeURIComponent(url) {
 			</div>
 			<div class="col" data-aos="fade-up">
 				<div class="card rounded-5 border-0 shadow">
-					<div class="card-body text-gold d-flex flex-column justify-content-end align-items-start text-start p-5">
+					<div class="card-body text-gold d-flex flex-column justify-content-end align-items-start text-start p-4">
 					<p class="card-title fs-4 lh-1 fw-light"><Fragment set:html={pageData.all_points_1_pointtext}/></p>
 					<p class="fs-1 card-text mb-3 mt-2">{pageData.all_points_1_point_number}</p>
 					<i class="bi bi-arrow-up-right-circle-fill text-gold fs-3 position-absolute top-0 end-0 me-2 mt-1 p-3"></i>
@@ -340,7 +374,7 @@ function encodeURIComponent(url) {
 			</div>
 			<div class="col" data-aos="fade-up">
 				<div class="card rounded-5 border-0 shadow">
-					<div class="card-body text-gold d-flex flex-column justify-content-end align-items-start text-start p-5">
+					<div class="card-body text-gold d-flex flex-column justify-content-end align-items-start text-start p-4">
 					<p class="card-title fs-4 lh-1 fw-light"><Fragment set:html={pageData.all_points_2_pointtext} /></h2>
 					<p class="fs-1 card-text mb-3 mt-2">{pageData.all_points_2_point_number}</p>
 					<i class="bi bi-arrow-up-right-circle-fill text-gold fs-3 position-absolute top-0 end-0 me-2 mt-1 p-3"></i>
@@ -349,7 +383,7 @@ function encodeURIComponent(url) {
 			</div>
 			<div class="col" data-aos="fade-up">
 				<div class="card rounded-5 border-0 shadow">
-					<div class="card-body text-gold d-flex flex-column justify-content-end align-items-start text-start p-5">
+					<div class="card-body text-gold d-flex flex-column justify-content-end align-items-start text-start p-4">
 					<p class="card-title fs-4 lh-1 fw-light"><Fragment set:html={pageData.all_points_3_pointtext}/></h2>
 					<p class="fs-1 card-text mb-3 mt-2">{pageData.all_points_3_point_number}</p>
 					<i class="bi bi-arrow-up-right-circle-fill text-gold fs-3 position-absolute top-0 end-0 me-2 mt-1 p-3"></i>
@@ -358,7 +392,7 @@ function encodeURIComponent(url) {
 			</div>
 			<div class="col" data-aos="fade-up">
 				<div class="card rounded-5 border-0 shadow">
-					<div class="card-body text-gold d-flex flex-column justify-content-end align-items-start text-start p-5">
+					<div class="card-body text-gold d-flex flex-column justify-content-end align-items-start text-start p-4">
 					<p class="card-title fs-4 lh-1 fw-light"><Fragment set:html={pageData.all_points_4_pointtext}/></h2>
 					<p class="fs-1 card-text mb-3 mt-2">{pageData.all_points_4_point_number}</p>
 					<i class="bi bi-arrow-up-right-circle-fill text-gold fs-3 position-absolute top-0 end-0 me-2 mt-1 p-3"></i>
@@ -367,7 +401,7 @@ function encodeURIComponent(url) {
 			</div>
 			<div class="col" data-aos="fade-up">
 				<div class="card rounded-5 border-0 shadow">
-					<div class="card-body text-gold d-flex flex-column justify-content-end align-items-start text-start p-5">
+					<div class="card-body text-gold d-flex flex-column justify-content-end align-items-start text-start p-4">
 					<p class="card-title fs-4 lh-1 fw-light"><Fragment set:html={pageData.all_points_5_pointtext}/></h2>
 					<p class="fs-1 card-text mb-3 mt-2">{pageData.all_points_5_point_number}</p>
 					<i class="bi bi-arrow-up-right-circle-fill text-gold fs-3 position-absolute top-0 end-0 me-2 mt-1 p-3"></i>
@@ -376,7 +410,7 @@ function encodeURIComponent(url) {
 			</div>
 			<div class="col" data-aos="fade-up">
 				<div class="card rounded-5 border-0 shadow">
-					<div class="card-body text-gold d-flex flex-column justify-content-end align-items-start text-start p-5">
+					<div class="card-body text-gold d-flex flex-column justify-content-end align-items-start text-start p-4">
 					<p class="card-title fs-4 lh-1 fw-light"><Fragment set:html={pageData.all_points_6_pointtext}/></h2>
 					<p class="fs-1 card-text mb-3 mt-2">{pageData.all_points_6_point_number}</p>
 					<i class="bi bi-arrow-up-right-circle-fill text-gold fs-3 position-absolute top-0 end-0 me-2 mt-1 p-3"></i>
@@ -385,7 +419,7 @@ function encodeURIComponent(url) {
 			</div>
 			<div class="col" data-aos="fade-up">
 				<div class="card rounded-5 border-0 shadow">
-					<div class="card-body text-gold d-flex flex-column justify-content-end align-items-start text-start p-5">
+					<div class="card-body text-gold d-flex flex-column justify-content-end align-items-start text-start p-4">
 					<p class="card-title fs-4 lh-1 fw-light"><Fragment set:html={pageData.all_points_7_pointtext}/></h2>
 					<p class="fs-1 card-text mb-3 mt-2">{pageData.all_points_7_point_number}</p>
 					<i class="bi bi-arrow-up-right-circle-fill text-gold fs-3 position-absolute top-0 end-0 me-2 mt-1 p-3"></i>
@@ -393,7 +427,6 @@ function encodeURIComponent(url) {
 				</div>
 			</div>
 		</div>
-		</a>
 		<div class="mt-5" data-aos="fade-up" data-aos-delay="200">
 			<a href="/points-valuations">
 				<button class="btn btn-dark btn-lg rounded-pill px-5 py-3 fw-bold text-gold">View all</button>
