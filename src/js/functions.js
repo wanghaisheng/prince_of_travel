@@ -160,9 +160,6 @@ removeCarriageReturn(apiResponse) {
     // Apply recursiveModify to apiResponse
     return recursiveModify(apiResponse);
   },
-
-
-
 cleanAndModifyApiResponse(apiResponse) {
     // Helper function to recursively modify values
     function recursiveModify(obj) {
