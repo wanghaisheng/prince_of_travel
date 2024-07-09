@@ -9,81 +9,6 @@ import functions from '../../js/functions.js';
 const res = await fetch("https://pftraveldev.wpengine.com/wp-json/pot/v1/airlines?per_page=100");
 const posts = await res.json();
 
-// const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/pot/v1/points';
-// const perPage = 51; // Number of posts per page
-// let posts = [];
-// let currentPage = 1;
-// let totalFetchedPosts = 0;
-// while (totalFetchedPosts < 50) { // Stop when reaching 50 posts
-// const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
-// const data = await response.json();
-// // console.log('Received posts:', data);
-// if (data.length === 0) {
-// 	console.log('No more posts, exiting loop');
-// 	break; // No more posts, exit loop
-// }
-
-// posts = posts.concat(data);
-// console.log('Data type of array:', typeof posts);
-// totalFetchedPosts += posts.length; // Update total fetched posts
-// currentPage++;
-// }
-
-
-// const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/pot/v1/points';
-// const perPage = 51; // Number of posts per page
-// let posts = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
-// let currentPage = 1;
-// let totalFetchedPosts = 0;
-// while (totalFetchedPosts < 50) { // Stop when reaching 50 posts
-// const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
-// const data = await response.json();
-// // console.log('Received posts:', data);
-// if (data.length === 0) {
-// 	console.log('No more posts, exiting loop');
-// 	break; // No more posts, exit loop
-// }
-
-// posts = posts.concat(data);
-// console.log('Data type of array:', typeof posts);
-// totalFetchedPosts += posts.length; // Update total fetched posts
-// currentPage++;
-// }
-
-// function destructureArray(array) {
-//     const first3 = array.slice(0, 3);
-//     const second3 = array.slice(3, 6);
-//     const third3 = array.slice(6, 9);
-//     const fourth3 = array.slice(9, 12);
-//     const fifth3 = array.slice(12, 15);
-//     const sixth5 = array.slice(15, 19);
-//     const next16 = array.slice(19, 31);
-//     const restOfPosts = array.slice(31);
-
-//     return [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts];
-// }
-
-// const [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts] = destructureArray(posts);
-
-// const combinedPosts = allPosts.concat(posts);
-
-// let filteredPosts = allPosts.filter(post => post.data.draft === false)
-// filteredPosts.sort((a, b) => b.data.pubDate - a.data.pubDate);
-// const [firstArticle, ...allArticles] = filteredPosts;
-// const [firstArticle, ...allArticles] = guidesPosts;
-
-
-// const points2 = posts.filter(item => 
-// frequentFlyer.some(substring => item.includes(substring))
-// );
-// const points3 = posts.filter(item => 
-// hotelLoyalty.some(substring => item.includes(substring))
-// );
-// const points4 = posts.filter(item => 
-// other.some(substring => item.includes(substring))
-// );
-
-
 function filterAndOrganize(response) {
     // Filter titles that start with "The Complete Guide to"
     let filteredTitles = response.filter(item => item.title.startsWith("The Complete Guide to"));
@@ -126,8 +51,7 @@ const organizedResults = filterAndOrganize(posts);
 		<div class="row pt-5">
 			<div class="col-lg-6 min-vh-50 d-flex flex-column justify-content-end align-items-start text-start p-5">
 			  <h1 class="text-secondary fw-bold ls-1 lh-1" style="font-size: 12vmin;" data-aos="fade-up" data-aos-delay="200">Airline Products</h1>
-				 <p class="fs-5 text-body-secondary mt-2 mb-0" data-aos="fade-up" data-aos-delay="600">Explore our comprehensive guides to the best aviation experiences worldwide. Get insight into first-class cabins, exclusive routes, effective points redemption strategies, and navigate award availability. Benefit from insider tips and tricks for luxurious travel with a range of premier airlines.
-                 </p>
+				 <p class="fs-5 text-body-secondary mt-2 mb-0" data-aos="fade-up" data-aos-delay="600">Explore our comprehensive guides to the best aviation experiences worldwide. Get insight into First Class cabins, exclusive routes, effective points redemption strategies, and award availability patterns.</p>
 		  </div>
 		  <div class="col-lg-12 d-flex flex-column justify-content-center align-items-center pt-5 px-0">
             <!-- ad concept, banner shows placement card? -->
