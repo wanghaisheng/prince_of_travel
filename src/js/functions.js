@@ -195,18 +195,17 @@ cleanAndModifyApiResponse(apiResponse) {
     }
     // Apply recursiveModify to apiResponse
     return recursiveModify(apiResponse);
-  }
+  },
+  formatDate(dateTimeString) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const date = new Date(dateTimeString);
+    return date.toLocaleDateString('en-US', options);
+}
 
-    // addPTagsToText: (text) => {
-    //     // Split the text into paragraphs using \r\n\r\n as delimiter
-    //     let paragraphs = text.split(/\r\n\r\n/);
-    
-    //     // Map over each paragraph to wrap them in <p> tags
-    //     let paragraphsWithTag = paragraphs.map(paragraph => `<p>${paragraph}</p>`);
-    
-    //     // Join paragraphs into a single string with <p> tags
-    //     let textWithTag = paragraphsWithTag.join('');
-    
-    //     return textWithTag;
-    // }
+//   formatDate(dateTimeString) {
+//     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+//     const date = new Date(dateTimeString);
+//     return date.toLocaleDateString('en-US', options);
+// }
+
    };
