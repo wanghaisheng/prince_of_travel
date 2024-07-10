@@ -310,11 +310,14 @@ const filteredData = computed(() => {
   let result = [...data.value]; // Start with all cards
 
   if (bankFilter.value) {
-    result = result.filter(item =>
-    item.title !== undefined &&
-      item.title.toLowerCase().includes(bankFilter.value.toLowerCase())
-    );
+    result = result.filter(item => {
+      // Replace &nbsp; with a space in item.title
+      const cleanedTitle = item.title.replace(/&nbsp;/g, ' ');
+      return cleanedTitle !== undefined &&
+             cleanedTitle.toLowerCase().includes(bankFilter.value.toLowerCase());
+    });
   }
+  
 if (providerFilter.value) {
   result = result.filter(item =>
     item.custom_fields.payment_network_name !== undefined && // Ensure payment_network_name exists
