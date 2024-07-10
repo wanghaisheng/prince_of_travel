@@ -7,7 +7,7 @@
           <ul class="nav nav-pills nav-fill">
             <li class="nav-item me-2 mb-2 mb-md-0">
               <select class="form-select" aria-label="Filter by bank" v-model="bankFilter">
-                <option value="" selected>Search by bank</option>
+                <option value="" selected>Search by Bank</option>
                 <option v-for="option in bankOptions" :key="option" :value="option">{{ option }}</option>
               </select>
 
@@ -28,7 +28,7 @@
             </li>
             <li class="nav-item me-2 mb-2 mb-md-0">
               <select class="form-select" aria-label="Filter by issuer" v-model="providerFilter">
-                <option value="" selected>Search by issuer</option>
+                <option value="" selected>Search by Network</option>
                 <option v-for="option in providerOptions" :key="option" :value="option">{{ option }}</option>
               </select>
 
@@ -82,14 +82,14 @@
             <div class="col-5 d-flex flex-column justify-content-center align-items-center text-start p-3 rounded-5 position-relative" style="background: #00000020;">
               <!-- min-height: 330px -->
 
-            <div class="position-absolute z-0 rounded-circle top-50 start-50 translate-middle" style="height: 150px; width: 150px; height: 14ch; width: 14ch; background: #00000050"></div>
+            <div class="card-bg-circle position-absolute z-0 rounded-circle top-50 start-50 translate-middle"></div>
               <div class="text-center mx-auto position-relative">
                 <img :src="getImageSrc(post.featured_image.large)" alt=""
                 :class="isPortraitImage(post) ? 'portrait' : 'landscape'"
                  :data-image-id="'item_' + index">
               </div>
             </div>
-            <div class="col-7 d-flex p-4">
+            <div class="col-7 d-flex px-4 py-3">
               <div class="card-body position-relative py-0 px-0 d-flex flex-column justify-content-center align-items-start text-start">
                 <h5 class="card-title fw-bold mb-0" style="font-size: 3.6vmin; letter-spacing: -1px" v-html="post.title"></h5>
                 <!--<badge class="badge position-absolute end-0 top-0 m-3">{post.custom_fields.bank_name}</badge>-->
@@ -106,10 +106,10 @@
                   <li v-if="post.custom_fields.features_1_feature" class="border-bottom mb-1 pb-2" v-html="post.custom_fields.features_1_feature"></li>
                   <li v-if="post.custom_fields.features_2_feature" class="d-none d-xl-block border-bottom mb-1 pb-1" v-html="post.custom_fields.features_2_feature"></li>
                 </ul>
-                <div class="d-flex flex-wrap pt-2">
-                  <button class="btn btn-sm btn-secondary fw-bold opacity-75 me-1 rounded-pill px-4 py-2" type="button" data-bs-toggle="offcanvas" :data-bs-target="'#item_' + index" aria-controls="offcanvasBottom">Details</button>
+                <div class="d-flex pt-2">
+                  <button class="btn btn-sm btn-secondary fw-bold opacity-75 me-1 rounded-pill px-3 py-1 px-lg-4 py-lg-2" type="button" data-bs-toggle="offcanvas" :data-bs-target="'#item_' + index" aria-controls="offcanvasBottom">Details</button>
                   <a :href="`/credit-cards/${encodeURIComponent(post.slug)}`">
-                    <button class="btn btn-sm btn-dark fw-bold rounded-pill px-4 py-2">Review</button>
+                    <button class="btn btn-sm btn-dark fw-bold rounded-pill px-3 py-1 px-lg-4 py-lg-2">Review</button>
                   </a>
                 </div>
               </div>
@@ -278,6 +278,9 @@ onMounted(() => {
   });
 });
 
+// this searches the title field for bank name in the title string value
+// the title has to have all terms in it to match. If the api response has
+// special chars or different spelling i.e. Tims vs Tim's, it won't match.
 const bankOptions = ref([
   'American Express', 
   'BMO', 
@@ -286,19 +289,20 @@ const bankOptions = ref([
   'CIBC',
   'Desjardins',
   'Home Trust',
-  'KOHO Financial',
+  'KOHO',
+  'Laurentian Bank',
   'MBNA',
   'Meridian', 
   'National Bank',
-  'Neo Financial',
+  'Neo',
   'PC Financial',
   'RBC',
-  'Rogers Bank',
+  'Rogers',
   'Scotiabank',
   'Simplii Financial',
   'Tangerine',
   'TD',
-  'Tims Financial']); // Example options
+  'Tims']); // Example options
 const providerOptions = ref(['Visa', 'Mastercard', 'American Express']); // Example options
 
 const filteredData = computed(() => {
@@ -307,8 +311,8 @@ const filteredData = computed(() => {
 
   if (bankFilter.value) {
     result = result.filter(item =>
-    item.custom_fields.bank_name !== undefined &&
-      item.custom_fields.bank_name.toLowerCase().includes(bankFilter.value.toLowerCase())
+    item.title !== undefined &&
+      item.title.toLowerCase().includes(bankFilter.value.toLowerCase())
     );
   }
 if (providerFilter.value) {
@@ -387,6 +391,13 @@ const isPortraitImage = (image) => {
 </script>
 
 <style>
+
+.card-bg-circle {
+  height: 14ch;
+  width: 14ch;
+  background: #00000050
+}
+
 .portrait {
   /* Styles for portrait images */
   height: 240px;
@@ -423,6 +434,14 @@ const isPortraitImage = (image) => {
   .portrait-detail {
     height: 210px;
     width: 130px;
+  }
+}
+
+@media only screen and (max-width: 601px)   {
+  .card-bg-circle {
+    height: 11ch;
+    width: 11ch;
+    background: rgba(0, 0, 0, 0.1);
   }
 }
 </style>
