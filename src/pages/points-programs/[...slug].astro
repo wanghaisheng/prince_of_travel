@@ -1,6 +1,7 @@
 ---
 // import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import functions from '../../js/functions';
 // import { Markdown } from '@astropub/md';
 
 // if there is no .md/collection content, do not use the combinedArray, will throw build errors
@@ -90,6 +91,9 @@ const verticalSlide = {
 function shorten(text, max) {
   return text && text.length > max ? text.slice(0, max).split(' ').slice(0, -1).join(' ') : text
 }
+
+functions.modifyApiResponse(post);
+functions.removeCarriageReturn(post);
 ---
 
 <Layout title={post.custom_fields.subtitle + ' ' + post.custom_fields.p_title_h4} description={post.custom_fields.short_description + '.'} image="">

@@ -75,14 +75,28 @@ export default {
                 }
             }
         } else if (typeof obj === 'string') {
-            // Perform the URL replacement for strings
-            obj = obj.replace(/pftraveldev\.wpengine\.com/g, 'princeoftravel.com');
-            // Regular expression to match any shortcode pattern inside square brackets
-            const shortcodeRegex = /\[[^\]]+\]/gi;
+          // Regular expression to match <img> tags with src attribute
+          const imgTagRegex = /<img\s[^>]*src=["']([^"']+)["'][^>]*>/gi;
 
-            // Remove all matched shortcodes from the string
-            obj = obj.replace(shortcodeRegex, '');
-        }
+          // Function to replace URLs only if they are not within <img> tags
+          obj = obj.replace(imgTagRegex, (match, src) => {
+              return match; // Keep <img> tags with src attributes unchanged
+          });
+
+          // Regular expression to match <a> tags with href attribute
+          const anchorTagRegex = /<a\s[^>]*href=["']([^"']+)["'][^>]*>/gi;
+
+          // Replace pftraveldev.wpengine.com with princeoftravel.com in <a> tags
+          obj = obj.replace(anchorTagRegex, (match, href) => {
+              return match.replace(/pftraveldev\.wpengine\.com/g, 'princeoftravel.com');
+          });
+
+          // Regular expression to match any shortcode pattern inside square brackets
+          const shortcodeRegex = /\[[^\]]+\]/gi;
+
+          // Remove all matched shortcodes from the string
+          obj = obj.replace(shortcodeRegex, '');
+      }
         // Return modified or unchanged obj
         return obj;
     }
