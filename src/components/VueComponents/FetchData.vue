@@ -201,7 +201,7 @@
                 <p class="mt-4" v-html="post.custom_fields.legal_disclaimers"></p>
               </div>
               <div class="d-flex mt-4 pt-4 justify-content-start border-top border-secondary">
-                <a :href="post.custom_fields.apply_now_link" target="_blank">
+                <a :href="'https://pftraveldev.wpengine.com' + post.custom_fields.apply_now_link" target="_blank">
                   <button class="btn btn-dark rounded-3 px-4 me-1">Apply</button>
                 </a>
                 <a :href="`/credit-cards/${encodeURIComponent(post.slug)}/`">
