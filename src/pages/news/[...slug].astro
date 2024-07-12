@@ -8,8 +8,31 @@ import functions from '../../js/functions';
 export const prerender = true;
 export async function getStaticPaths() {
     const newsEntries = await getCollection('news');
-    let data = await fetch("https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=news&_embed&per_page=51");
-    let posts = await data.json();
+    // let data = await fetch("https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=news&_embed&per_page=100");
+    
+    const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=news&_embed';
+    const perPage = 51; // Number of posts per page
+    let posts = [];
+    let currentPage = 1;
+    let totalFetchedPosts = 0;
+    while (totalFetchedPosts < 500) { // Stop when reaching 50 posts
+    const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
+    const data = await response.json();
+    // console.log('Received posts:', data);
+    if (data.length === 0) {
+      console.log('No more posts, exiting loop');
+      break; // No more posts, exit loop
+    }
+
+    posts = posts.concat(data);
+    console.log('Data type of array:', typeof posts);
+    totalFetchedPosts += posts.length; // Update total fetched posts
+    currentPage++;
+    }
+    
+    
+    
+    // let posts = await data.json();
     // const combinedArray = dealsEntries.concat(posts);
 
 //   return combinedArray.map(post => ({
