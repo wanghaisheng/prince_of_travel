@@ -6,24 +6,49 @@ const newsPosts = await getCollection("news");
 // https://docs.astro.build/en/tutorials/add-content-collections/
 import functions from '../../js/functions.js';
 
+// const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=news&_embed';
+// const perPage = 51; // Number of posts per page
+// let posts = [];
+// let currentPage = 1;
+// let totalFetchedPosts = 0;
+// while (totalFetchedPosts < 543) { // Stop when reaching 50 posts
+// const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
+// const data = await response.json();
+// // console.log('Received posts:', data);
+// if (data.length === 0) {
+// 	console.log('No more posts, exiting loop');
+// 	break; // No more posts, exit loop
+// }
+
+// posts = posts.concat(data);
+// console.log('Data type of array:', typeof posts);
+// totalFetchedPosts += posts.length; // Update total fetched posts
+// currentPage++;
+// }
+
 const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=news&_embed';
-const perPage = 51; // Number of posts per page
+const perPage = 100; // Number of posts per page
 let posts = [];
 let currentPage = 1;
+const totalPostsToFetch = 542;
 let totalFetchedPosts = 0;
-while (totalFetchedPosts < 500) { // Stop when reaching 50 posts
-const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
-const data = await response.json();
-// console.log('Received posts:', data);
-if (data.length === 0) {
-	console.log('No more posts, exiting loop');
-	break; // No more posts, exit loop
-}
 
-posts = posts.concat(data);
-console.log('Data type of array:', typeof posts);
-totalFetchedPosts += posts.length; // Update total fetched posts
-currentPage++;
+// Calculate total pages needed to fetch all posts
+const totalPages = Math.ceil(totalPostsToFetch / perPage);
+
+while (currentPage <= totalPages) {
+    const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
+    const data = await response.json();
+
+    if (data.length === 0) {
+        console.log('No more posts, exiting loop');
+        break; // No more posts, exit loop
+    }
+
+    posts = posts.concat(data);
+    console.log('Data type of array:', typeof posts, 'Total posts =', posts.length);
+    totalFetchedPosts += data.length; // Update total fetched posts based on the received data length
+    currentPage++;
 }
 
 function destructureArray(array) {
@@ -120,7 +145,7 @@ function removeSpecialCharactersFromURL(url) {
 			index === 0 ? 
 		
 			<div class="col-lg-6 p-4">
-				<img src="" data-src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
+				<img src="" data-src={item._embedded['wp:featuredmedia'][0]?.source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
 			</div>
 
 			<div class="col-lg-6 p-5 d-flex flex-column justify-content-center align-items-start">
@@ -178,7 +203,7 @@ function removeSpecialCharactersFromURL(url) {
 				<div class="row p-3">
 					{sixth5.map((item, index) => (
 					<div class="col-lg-12 p-4">
-						<img src="" data-src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
+						<img src="" data-src={item._embedded['wp:featuredmedia'][0]?.source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
 						<h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
 						<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt.rendered, 150)} /></div>
 						<div class="py-2">
@@ -221,7 +246,7 @@ function removeSpecialCharactersFromURL(url) {
 		<div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-3 p-4">
 			{restOfPosts?.map((item) => (
 			<div class="col p-3">
-				<img src="" data-src={item._embedded['wp:featuredmedia'][0].source_url || item.data?.imageUrl} class="w-100" style="object-fit: cover;" alt="">
+				<img src="" data-src={item._embedded['wp:featuredmedia'][0]?.source_url || item.data?.imageUrl} class="w-100" style="object-fit: cover;" alt="">
 						<h1 class="fs-3 text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
 						<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt.rendered, 150)} /></div>
 						<div class="py-2">

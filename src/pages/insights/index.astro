@@ -4,24 +4,49 @@ import Layout from '../../layouts/Layout.astro';
 // const insightsPosts = await getCollection("insights");
 import functions from '../../js/functions.js';
 
+// const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=insights&_embed';
+// const perPage = 51; // Number of posts per page
+// let posts = [];
+// let currentPage = 1;
+// let totalFetchedPosts = 0;
+// while (totalFetchedPosts < 50) { // Stop when reaching 50 posts
+// const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
+// const data = await response.json();
+// // console.log('Received posts:', data);
+// if (data.length === 0) {
+// 	console.log('No more posts, exiting loop');
+// 	break; // No more posts, exit loop
+// }
+
+// posts = posts.concat(data);
+// console.log('Data type of array:', typeof posts);
+// totalFetchedPosts += posts.length; // Update total fetched posts
+// currentPage++;
+// }
+
 const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=insights&_embed';
-const perPage = 51; // Number of posts per page
+const perPage = 100; // Number of posts per page
 let posts = [];
 let currentPage = 1;
+const totalPostsToFetch = 217;
 let totalFetchedPosts = 0;
-while (totalFetchedPosts < 50) { // Stop when reaching 50 posts
-const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
-const data = await response.json();
-// console.log('Received posts:', data);
-if (data.length === 0) {
-	console.log('No more posts, exiting loop');
-	break; // No more posts, exit loop
-}
 
-posts = posts.concat(data);
-console.log('Data type of array:', typeof posts);
-totalFetchedPosts += posts.length; // Update total fetched posts
-currentPage++;
+// Calculate total pages needed to fetch all posts
+const totalPages = Math.ceil(totalPostsToFetch / perPage);
+
+while (currentPage <= totalPages) {
+    const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
+    const data = await response.json();
+
+    if (data.length === 0) {
+        console.log('No more posts, exiting loop');
+        break; // No more posts, exit loop
+    }
+
+    posts = posts.concat(data);
+    console.log('Data type of array:', typeof posts, 'Total posts =', posts.length);
+    totalFetchedPosts += data.length; // Update total fetched posts based on the received data length
+    currentPage++;
 }
 
 function destructureArray(array) {

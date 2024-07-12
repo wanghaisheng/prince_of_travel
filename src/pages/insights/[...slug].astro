@@ -7,9 +7,34 @@ import functions from '../../js/functions';
 export const prerender = true;
 export async function getStaticPaths() {
     // const insightsEntries = await getCollection('deals');
-    let data = await fetch("https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=insights&_embed&per_page=51");
-    let posts = await data.json();
+    // let data = await fetch("https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=insights&_embed&per_page=51");
+    // let posts = await data.json();
     // const combinedArray = insightsEntries.concat(posts);
+
+    const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=insights&_embed';
+const perPage = 100; // Number of posts per page
+let posts = [];
+let currentPage = 1;
+const totalPostsToFetch = 217;
+let totalFetchedPosts = 0;
+
+// Calculate total pages needed to fetch all posts
+const totalPages = Math.ceil(totalPostsToFetch / perPage);
+
+while (currentPage <= totalPages) {
+    const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
+    const data = await response.json();
+
+    if (data.length === 0) {
+        console.log('No more posts, exiting loop');
+        break; // No more posts, exit loop
+    }
+
+    posts = posts.concat(data);
+    console.log('Data type of array:', typeof posts, 'Total posts =', posts.length);
+    totalFetchedPosts += data.length; // Update total fetched posts based on the received data length
+    currentPage++;
+}
 
 //   return combinedArray.map(post => ({
   return posts.map(post => ({
