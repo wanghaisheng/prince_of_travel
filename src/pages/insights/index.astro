@@ -71,6 +71,13 @@ const [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts] = 
 // const [firstArticle, ...allArticles] = filteredPosts;
 // const [firstArticle, ...allArticles] = insightsPosts;
 
+function removeSpecialCharactersFromURL(url) {
+    // Define a regular expression to match special characters
+	const regex = /[^\w\s\-#]/gi;
+    // Replace special characters with an empty string
+    const cleanURL = url.replace(regex, '');
+    return cleanURL;
+}
 ---
 
 <Layout title="Prince of Travel | Insights" description="Prince of Travel's latest insights on everything from new hotel properties, to flights and airline insights, airports, credit cards, and more." image="">
