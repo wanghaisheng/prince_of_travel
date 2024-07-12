@@ -1,5 +1,10 @@
   
-  [[redirects]]
+ [[redirects]]
+  from = "/apply/*"
+  to = "https://pftraveldev.wpengine.com/applyNow/:splat"
+  status = 301
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
