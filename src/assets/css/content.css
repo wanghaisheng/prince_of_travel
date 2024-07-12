@@ -64,6 +64,7 @@
   letter-spacing: -1.4px;
 }
 
+
 #content h4 {
   color: rgba(0,0,0,.4)!important;
 }
@@ -357,6 +358,7 @@
   color: grey;
   font-size: 16px;
   font-style: italic;
+  line-height: 1.5;
 }
 
 
@@ -454,4 +456,23 @@ suggest not putting more than 4 in any one gallery;
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+@media only screen and (max-width: 601px) {
+  #content h2 {
+    letter-spacing: -1px;
+    line-height: 121%;
+  }
+
+  .potbox-main .potbox-posts .potbox-post div:last-child {
+    font-size: 19px !important;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    padding: 18px 20px 23px;
+    margin: 15px 0 0;
+    border-radius: 15px;
+    background-color: #e8ebed;
+    line-height: 27px !important;
+  }
 }
