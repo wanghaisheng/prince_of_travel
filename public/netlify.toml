@@ -7,10 +7,4 @@
   from = "/apply/*"
   to = "https://pftraveldev.wpengine.com/apply/:splat"
   status = 301
-
-  [[redirects]]
-  from = "/ads.txt"
-  to = "https://adstxt.mediavine.com/sites/prince-of-travel/ads.txt"
-  status = 301
-  force = true
   
