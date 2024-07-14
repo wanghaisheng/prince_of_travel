@@ -119,7 +119,7 @@ video:hover {
 iframe {
 border-radius: 18px;
 width: 100% !important;
-height: 450px !important;
+/* height: 450px !important; */
 }
 
 .offcanvas {
