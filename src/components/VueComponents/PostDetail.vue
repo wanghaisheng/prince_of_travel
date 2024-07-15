@@ -4,19 +4,17 @@
       <div class="row pt-5 mt-5">
         <div class="col-md-6 p-5 d-flex flex-column justify-content-center align-items-start">
           <div class="m-3 py-5">
-            <h5 class="fs-5 mb-0">Topic</h5>
             <h1 class="display-1 fw-bold lh-1 ls-1 my-3">Reviews</h1>
-            <p class="fs-5 mt-0 col-lg-10 text-black-50">
-              Welcome to our reviews section, your ultimate destination for insightful and comprehensive evaluations of hotels, airlines, airports, credit cards, and more. Whether you're a seasoned jetsetter or planning your very first trip, our curated collection of reviews aims to be your trusted companion in navigating the vast world of travel.
-            </p>
+            <p class="fs-5 mt-0 col-lg-10 text-black-50">Explore our in-depth Reviews, covering the world’s best airlines, hotels, airport lounges, credit cards, and more. Whether you're a seasoned jetsetter or planning your very first trip, our curated trip reports give you a deep sense of what you can expect upon setting off on your own journey.</p>
           </div>
         </div>
+
         <div v-for="(item, index) in first3" :key="index" class="col-md-6 p-4">
           <a :href="`/reviews/${removeSpecialCharactersFromURL(item.slug)}/`">
             <div class="pb-3">
               <img :src="item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl" class="w-100" style="object-fit: cover; height: 350px" alt="">
               <h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4">{{ item.title.rendered }}</h1>
-              <div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2">{{ functions.shorten(item.excerpt.rendered, 150) }}</div>
+              <div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2" v-html="functions.shorten(item.excerpt.rendered, 150)"></div>
               <button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
             </div>
           </a>
@@ -30,7 +28,7 @@
             <div class="pb-3">
               <img :src="item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl" class="w-100" style="object-fit: cover;" alt="">
               <h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4">{{ item.title.rendered }}</h1>
-              <div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2">{{ functions.shorten(item.excerpt.rendered, 150) }}</div>
+              <div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2" v-html="functions.shorten(item.excerpt.rendered, 150)"></div>
               <button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
             </div>
           </a>
@@ -174,6 +172,7 @@
 
 <script setup>
 import { defineProps, onMounted } from 'vue';
+import functions from '../../js/functions';
 
 const props = defineProps({
     // first3: Array,
@@ -189,12 +188,14 @@ const props = defineProps({
     }
     });
     
-    const apiUrl = `https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=${category}&_embed`;
-const perPage = 50; // Number of posts per page
+    const apiUrl = `https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=reviews&_embed`;
+    // const apiUrl = `https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=${category}&_embed`;
+const perPage = 100; // Number of posts per page
+// const perPage = 100; // Number of posts per page
 let posts = [];
 let currentPage = 1;
 let totalFetchedPosts = 0;
-while (totalFetchedPosts < 50) { // Stop when reaching 50 posts
+while (totalFetchedPosts < 567) { // Stop when reaching 50 posts
 const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
 const data = await response.json();
 // console.log('Received posts:', data);
@@ -224,7 +225,7 @@ function destructureArray(array) {
 
 const [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts] = destructureArray(posts);
 
-const [firstArticle, ...allArticles] = newsPosts;
+// const [firstArticle, ...allArticles] = newsPosts;
 
 // bit-alaska post had a cross at the end of the url which threw a build error in netlify
 function removeSpecialCharactersFromURL(url) {
@@ -235,8 +236,6 @@ function removeSpecialCharactersFromURL(url) {
     return cleanURL;
 }
 
+functions.modifyApiResponse(posts);
+
 </script>
-
-<style lang="scss" scoped>
-
-</style>

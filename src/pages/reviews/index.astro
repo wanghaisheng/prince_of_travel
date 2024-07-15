@@ -1,9 +1,9 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from "astro:content";
+// import { getCollection } from "astro:content";
 // const allPosts = await Astro.glob('../../pages/blog/*.md');
-const reviewsPosts = await getCollection("reviews");
-import PostDetail from '../../components/VueComponents/PostDetail.vue';
+// const reviewsPosts = await getCollection("reviews");
+// import PostDetail from '../../components/VueComponents/PostDetail.vue';
 // astro.glob => getCollection is the difference between getting all files from a directory in pages vs. collections
 // https://docs.astro.build/en/tutorials/add-content-collections/
 import functions from '../../js/functions.js';
@@ -75,7 +75,7 @@ const [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts] = 
 // let filteredPosts = allPosts.filter(post => post.data.draft === false)
 // filteredPosts.sort((a, b) => b.data.pubDate - a.data.pubDate);
 // const [firstArticle, ...allArticles] = filteredPosts;
-const [firstArticle, ...allArticles] = reviewsPosts;
+// const [firstArticle, ...allArticles] = reviewsPosts;
 
 // bit-alaska post had a cross at the end of the url which threw a build error in netlify
 function removeSpecialCharactersFromURL(url) {
@@ -90,6 +90,9 @@ function removeSpecialCharactersFromURL(url) {
 
 <Layout title="Prince of Travel | Reviews" description="Prince of Travel's latest reviews spanning hotels, airports and airlines, credit cards, and more." image="">
 	<div class="container-fluid" style="background: ##fffbf8">
+		<!-- <div class="row">
+			<PostDetail client:load />
+		</div> -->
 		<div class="row pt-5 mt-5">
 			<div class="col-md-6 p-5 d-flex flex-column justify-content-center align-items-start">
 				<div class="m-3 py-5">
@@ -109,7 +112,8 @@ function removeSpecialCharactersFromURL(url) {
 				</a>
 			</div>
 			))}
-		</div><!--end row -->
+		</div>
+		<!--end row -->
 
 		<div class="row min-vh-100">
 			{second3.map((item, index) => (
