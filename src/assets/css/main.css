@@ -116,11 +116,16 @@ video:hover {
   cursor: pointer;
 }
 
-iframe:not(.adunit) {
+#content .content-body iframe {
   border-radius: 18px;
   width: 100% !important;
   height: 450px !important;
 }
+/* #content.content-body iframe:not(.adunit) {
+  border-radius: 18px;
+  width: 100% !important;
+  height: 450px !important;
+} */
 
 .offcanvas {
   color: #212529BF;

@@ -1,11 +1,11 @@
 [[redirects]]
-from = "/*"
-to = "/index.html"
-status = 200 
+  from = "/*"
+  to = "/index.html"
+  status = 200
 
 [[redirects]]
-from = "/apply/*"
-to = "https://pftraveldev.wpengine.com/apply/:splat"
-status = 301
-force = true
+  from = "/apply/*"
+  to = "https://pftraveldev.wpengine.com/apply/:splat"
+  status = 301
+  force = true
   
