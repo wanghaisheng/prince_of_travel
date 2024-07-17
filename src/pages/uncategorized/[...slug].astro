@@ -13,18 +13,18 @@ export async function getStaticPaths() {
     // add this when .md collection is ready
     // const combinedArray = reviewsEntries.concat(posts);
 
-    const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?categories=1&_embed';
+    const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/pot/v1/uncategorized';
     const perPage = 100; // Number of posts per page
     let posts = [];
     let currentPage = 1;
-    const totalPostsToFetch = 200;
+    const totalPostsToFetch = 700;
     let totalFetchedPosts = 0;
 
     // Calculate total pages needed to fetch all posts
     const totalPages = Math.ceil(totalPostsToFetch / perPage);
 
     while (currentPage <= totalPages) {
-        const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
+        const response = await fetch(`${apiUrl}?per_page=${perPage}&page=${currentPage}`);
         const data = await response.json();
 
         if (data.length === 0) {
@@ -134,7 +134,7 @@ functions.removeCarriageReturn(post);
 
 ---
 
-<Layout title={post.title?.rendered || post.data.title} description={post.excerpt?.rendered || post.data.description} image={post.data?.imageUrl || post._embedded['wp:featuredmedia'][0]?.source_url}>
+<Layout title={post.title || post.data.title} description={post.excerpt || post.data.description} image={post.data?.imageUrl || post.featured_image}>
 
     <div class="container-fluid px-0 pt-3">
         <div class="row pb-3 pt-5">
@@ -147,22 +147,22 @@ functions.removeCarriageReturn(post);
                 </a>
     
                 <h1 class="fw-bold text-body-secondary lh-2 ls-1 mb-0 mt-2" style="font-size: 10vmin;">
-                    <Fragment set:html={post.title?.rendered} />
+                    <Fragment set:html={post.title} />
                 </h1>
-                <div class="fs-4 text-body-secondary" data-aos="fade-up" data-aos-delay="400">
-                    <Fragment class="my-0" set:html={post.excerpt?.rendered} />
+                <div class="fs-4 text-body-secondary my-4" data-aos="fade-up" data-aos-delay="400">
+                    <Fragment set:html={post.excerpt} />
                 </div>
                 <div data-aos="fade-up" data-aos-delay="600">
-                    <p class="small text-body-secondary text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {post._embedded?.author[0].name || post.data.author}</p>
+                    <p class="small text-body-secondary text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {post.author.name || post.data.author}</p>
                     <p class="small text-body-secondary text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {post.date?.toString().slice(0,10) || post.data.pubDate.toString().slice(0,10)}</p>
-                    <p class="small text-body-secondary text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Read time </span> {wordCount(post.content?.rendered || post.body)} mins</p>
+                    <p class="small text-body-secondary text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Read time </span> {wordCount(post.content || post.body)} mins</p>
                 </div>
             </div>
         </div>
     
         <div class="row">
             <div class="col-lg-12 d-flex flex-column justify-content-center align-items-center px-0">
-                <img class="w-100 object-fit" style="height: 65vh" src="" data-src={post._embedded['wp:featuredmedia'][0].source_url || post.data?.imageUrl} alt="" />
+                <img class="w-100 object-fit" style="height: 65vh" src="" data-src={post.featured_image || post.data?.imageUrl} alt="" />
             </div>
         </div>
     </div>
@@ -171,7 +171,7 @@ functions.removeCarriageReturn(post);
     <div class="container w-100 mx-auto">
         <div id="content" class="row p-4">
             <div class="content-body col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 px-4 py-5">
-                <div class=""><Fragment set:html={post.content?.rendered} /></div>
+                <div class=""><Fragment set:html={post.content} /></div>
                 <!-- <div class=""><Fragment set:html={modifyResponseUrls(post.content?.rendered)} /></div> -->
                <!-- {post.content?.rendered ?
                 <Fragment id="postContent" set:html={post.content?.rendered} /> 
@@ -188,12 +188,12 @@ functions.removeCarriageReturn(post);
                     <i class="bi bi-facebook fs-5"></i>
                   </button>
                 </a>
-                <a href={tweetCurrentPage(post.title?.rendered || post.title)} target="_blank">
+                <a href={tweetCurrentPage(post.title || post.title)} target="_blank">
                   <button class="btn btn-light text-black-50 px-3 py-2 fw-900 fs-5 me-2" style="background: #d6d6d680;">
                     <i class="bi bi-twitter-x fs-5"></i>
                   </button>
                 </a>
-                <a href={emailPage(post.title?.rendered || post.title)}>
+                <a href={emailPage(post.title || post.title)}>
                   <button class="btn btn-light text-black-50 px-3 py-2 fw-900 fs-5 me-2" style="background: #d6d6d680;">
                     <i class="bi bi-envelope fs-5"></i>
                   </button>
