@@ -5,8 +5,7 @@ on:
     # This one runs at 1 PM UTC daily, which corresponds to 8 AM EST
     - cron: "0 13 * * *"
     # This one runs at 11 PM UTC daily, which corresponds to 6 PM EST
-    # - cron: "0 23 * * *"
-    - cron: "30 21 * * *"
+    - cron: "0 23 * * *"
 jobs:
   build:
     name: Call Netlify build hook
