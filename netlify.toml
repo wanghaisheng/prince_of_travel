@@ -9,3 +9,8 @@
   status = 301
   force = true
   
+[[redirects]]
+  from = "/apply/CIBCAventura"
+  to = "https://pftraveldev.wpengine.com/apply/CIBCAventura"
+  status = 301
+  force = true
