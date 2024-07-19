@@ -2,9 +2,11 @@ name: Schedule Netlify Build
 on:
   schedule:
     # Customize schedule expression at crontab.guru
-    # This one runs at 1 PM UTC daily, which corresponds to 8 AM EST
+    # This one runs at 8 AM EST
     - cron: "0 13 * * *"
-    # This one runs at 11 PM UTC daily, which corresponds to 6 PM EST
+    # This one runs at 12 PM EST
+    - cron: 0 17 * * *
+    # This one runs at 6 PM EST (UTC = ?)
     - cron: "0 23 * * *"
 jobs:
   build:
