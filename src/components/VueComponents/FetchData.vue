@@ -184,6 +184,13 @@
                       </div>
                     </div>  
                   </div>
+
+              <div v-if="post.custom_fields.card_benefits_3_b_title === 'Interest rates'" class="mt-3">
+                <h6 class="display-5 fw-bold my-4 text-black-50 ls-1" v-html="post.custom_fields.card_benefits_3_b_title.replace(/:/g, '')"></h6>
+                <div class="fs-5 text-body-secondary">
+                  <p v-html="functions.cleanString(post.custom_fields.card_benefits_3_b_content)"></p>
+                </div>
+              </div>
               
               <div v-if="post.custom_fields.card_content_1_c_content">
                 <div class="display-5 fw-bold my-4 text-black-50 ls-1" v-html="post.custom_fields.card_content_1_c_title"></div>
