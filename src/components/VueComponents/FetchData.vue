@@ -185,8 +185,17 @@
                     </div>  
                   </div>
 
-              <div v-if="post.custom_fields.card_benefits_3_b_title === 'Interest rates'" class="mt-3">
-                <h6 class="display-5 fw-bold my-4 text-black-50 ls-1" v-html="post.custom_fields.card_benefits_3_b_title.replace(/:/g, '')"></h6>
+                  <!-- addition for CIBC credit card rates -->
+              <div class="mt-3" v-if="post?.custom_fields?.card_benefits_2_b_title?.trim() === 'Interest rates:' || post?.custom_fields?.card_benefits_2_b_title?.trim() === 'Annual interest rates:'">
+                <h6 class="display-5 fw-bold my-4 text-black-50 ls-1" v-html="post.custom_fields.card_benefits_2_b_title"></h6>
+                <div class="fs-5 text-body-secondary">
+                  <p v-html="functions.cleanString(post.custom_fields.card_benefits_2_b_content)"></p>
+                </div>
+              </div>
+              
+                <!-- addition for CIBC credit card rates -->
+              <div class="mt-3" v-else-if="post?.custom_fields?.card_benefits_3_b_title?.trim() === 'Interest rates:' || post?.custom_fields?.card_benefits_3_b_title?.trim() === 'Annual interest rates:'">
+                <h6 class="display-5 fw-bold my-4 text-black-50 ls-1" v-html="post.custom_fields.card_benefits_3_b_title"></h6>
                 <div class="fs-5 text-body-secondary">
                   <p v-html="functions.cleanString(post.custom_fields.card_benefits_3_b_content)"></p>
                 </div>
