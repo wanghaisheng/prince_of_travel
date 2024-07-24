@@ -31,7 +31,7 @@ const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=ca
 const perPage = 100; // Number of posts per page
 let posts = [];
 let currentPage = 1;
-const totalPostsToFetch = 622;
+const totalPostsToFetch = 249;
 let totalFetchedPosts = 0;
 
 // Calculate total pages needed to fetch all posts
@@ -261,7 +261,7 @@ function removeSpecialCharactersFromURL(url) {
 				<div class="row g-5">
 					{next16.map((item, index) => (
 					<div class="col-lg-6">
-						<img src="" data-src={item._embedded['wp:featuredmedia'][0].source_url || item.data?.imageUrl} class="w-100" style="object-fit: cover; min-height: 350px;" alt="">
+						<img src="" data-src={item._embedded['wp:featuredmedia'][0].source_url || item.data?.imageUrl} class="w-100" style="object-fit: cover;" alt="">
 						<h4 class="text-body-secondary fw-bold"><Fragment set:html={item.title.rendered} /></h4>
 						<p class="col-md-8 fs-5 text-body-secondary my-0"><Fragment set:html={functions.shorten(item.excerpt.rendered, 100) + '...'}/></p>
 						<!--<div class="py-2">

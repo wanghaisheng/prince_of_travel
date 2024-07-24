@@ -91,7 +91,11 @@ function removeSpecialCharactersFromURL(url) {
 <Layout title="Prince of Travel | Reviews" description="Prince of Travel's latest reviews spanning hotels, airports and airlines, credit cards, and more." image="">
 	<div class="container-fluid" style="background: ##fffbf8">
 		<!-- <div class="row">
-			<PostDetail client:load />
+			<PostDetail 
+			endpoint="reviews"
+			title="Reviews"
+			description="Explore our in-depth Reviews, covering the world’s best airlines, hotels, airport lounges, credit cards, and more. Whether you're a seasoned jetsetter or planning your very first trip, our curated trip reports give you a deep sense of what you can expect upon setting off on your own journey."
+			client:load />
 		</div> -->
 
 		<div class="row pt-5 mt-5">
@@ -114,7 +118,6 @@ function removeSpecialCharactersFromURL(url) {
 			</div>
 			))}
 		</div>
-		<!--end row -->
 
 		<div class="row min-vh-100">
 			{second3.map((item, index) => (
@@ -139,16 +142,12 @@ function removeSpecialCharactersFromURL(url) {
 						<img src={item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
 						<h1 class:list={[index !== 0 ? "fs-3" : "", "text-body-secondary fw-bold lh-1 mb-3 mt-4"]}><Fragment set:html={item.title.rendered} /></h1>
 						<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt.rendered, 150)} /></div>
-						<!--<div class="py-2">
-							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {item._embedded?.author[0].name || item.data.author}</p>
-							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
-						</div>-->
 						<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
 					</div>
 				</a>
 			</div>
 			))}
-		</div><!--end row -->
+		</div>
 
 		<div class="row">	
 			{fourth3.map((item, index) => (	
@@ -178,16 +177,12 @@ function removeSpecialCharactersFromURL(url) {
 						<img src={item._embedded['wp:featuredmedia'][0]?.source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
 						<h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
 						<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt.rendered, 150)} /></div>
-						<!--<div class="py-2">
-							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {item._embedded?.author[0].name || item.data.author}</p>
-							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
-						</div>-->
 						<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
 					</div>
 				</a>
 			</div>
 			))}
-		</div><!--end row -->
+		</div>
 
 		<div class="row min-vh-100">
 			{fifth3.map((item, index) => (
@@ -197,10 +192,6 @@ function removeSpecialCharactersFromURL(url) {
 					<img src={item._embedded['wp:featuredmedia'][0]?.source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
 					<h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4"><Fragment set:html={item.title.rendered} /></h1>
 					<div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2"><Fragment set:html={functions.shorten(item.excerpt.rendered, 150)} /></div>
-					<!--<div class="py-2">
-						<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {item._embedded?.author[0].name || item.data.author}</p>
-						<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
-					</div>-->
 					<button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
 				</div>
 				</a>
@@ -239,10 +230,6 @@ function removeSpecialCharactersFromURL(url) {
 						<img src={item._embedded['wp:featuredmedia'][0]?.source_url || item.data.imageUrl} class="w-100" style="object-fit: cover;" alt="">
 						<h4 class="text-body-secondary fw-bold"><Fragment set:html={item.title.rendered} /></h4>
 						<p class="col-md-8 fs-5 text-body-secondary my-0"><Fragment set:html={functions.shorten(item.excerpt.rendered, 100) + '...'}/></p>
-						<!--<div class="py-2">
-							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {item._embedded?.author[0].name || item.data.author}</p>
-							<p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}</p>
-						</div>-->
 						<button class="btn btn-dark rounded-pill px-4 mt-2">Read article</button>
 						</a>
 					</div>

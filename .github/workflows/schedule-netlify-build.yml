@@ -1,11 +1,11 @@
 name: Schedule Netlify Build
 on:
   schedule:
-    - cron: "0 13 * * 1-5"
+    - cron: "0 14 * * 1-5" # Adjusted to 2 PM UTC for 8 AM EST
       description: "Runs at 8 AM EST (1:00 PM UTC) from Monday to Friday"
-    - cron: "0 17 * * 1-5"
+    - cron: "0 18 * * 1-5" # Adjusted to 6 PM UTC for 12 PM EST
       description: "Runs at 12 PM EST (5:00 PM UTC) from Monday to Friday"
-    - cron: "0 23 * * 1-5"
+    - cron: "0 0 * * 1-5" # Adjusted to 12 AM UTC for 6 PM EST
       description: "Runs at 6 PM EST (11:00 PM UTC) from Monday to Friday"
   workflow_dispatch:  # Add this event to allow manual triggering
 
@@ -17,6 +17,7 @@ jobs:
     steps:
       - name: Curl request
         run: curl -X POST -d {} https://api.netlify.com/build_hooks/66995f70b2a59435eb9e9337
+
 
 
 # name: Schedule Netlify Build
