@@ -150,7 +150,7 @@ functions.removeCarriageReturn(post);
     
         <div class="row">
             <div class="col-lg-12 d-flex flex-column justify-content-center align-items-center px-0">
-                <img class="w-100 object-fit" style="height: 65vh" src="" data-src={post._embedded['wp:featuredmedia'][0].source_url || post.data?.imageUrl} alt="" />
+                <img class="w-100 object-fit" style="height: 65vh" src="" data-src={post._embedded['wp:featuredmedia'][0]?.source_url || post.data?.imageUrl} alt="" />
             </div>
         </div>
     </div>
