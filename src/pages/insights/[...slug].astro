@@ -12,7 +12,7 @@ export async function getStaticPaths() {
     // const combinedArray = insightsEntries.concat(posts);
 
     const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=insights&_embed';
-const perPage = 100; // Number of posts per page
+const perPage = 50; // Number of posts per page
 let posts = [];
 let currentPage = 1;
 const totalPostsToFetch = 217;
