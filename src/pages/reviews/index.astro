@@ -3,57 +3,37 @@ import Layout from '../../layouts/Layout.astro';
 // import { getCollection } from "astro:content";
 // const allPosts = await Astro.glob('../../pages/blog/*.md');
 // const reviewsPosts = await getCollection("reviews");
-// import PostDetail from '../../components/VueComponents/PostDetail.vue';
+import PostDetail from '../../components/VueComponents/PostDetail.vue';
 // astro.glob => getCollection is the difference between getting all files from a directory in pages vs. collections
 // https://docs.astro.build/en/tutorials/add-content-collections/
 import functions from '../../js/functions.js';
 
 // const { index, slug } = Astro.props
 
-// const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=reviews&_embed';
-// const perPage = 51; // Number of posts per page
-// let posts = [];
-// let currentPage = 1;
-// let totalFetchedPosts = 0;
-// while (totalFetchedPosts < 50) { // Stop when reaching 50 posts
-// const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
-// const data = await response.json();
-// // console.log('Received posts:', data);
-// if (data.length === 0) {
-// 	console.log('No more posts, exiting loop');
-// 	break; // No more posts, exit loop
-// }
+	// const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=reviews&_embed';
+	// const perPage = 50; // Number of posts per page
+	// let posts = [];
+	// let currentPage = 1;
+	// const totalPostsToFetch = 568;
+	// let totalFetchedPosts = 0;
 
-// posts = posts.concat(data);
-// console.log('Data type of array:', typeof posts);
-// totalFetchedPosts += posts.length; // Update total fetched posts
-// currentPage++;
-// }
+	// // Calculate total pages needed to fetch all posts
+	// const totalPages = Math.ceil(totalPostsToFetch / perPage);
 
-	const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=reviews&_embed';
-	const perPage = 50; // Number of posts per page
-	let posts = [];
-	let currentPage = 1;
-	const totalPostsToFetch = 568;
-	let totalFetchedPosts = 0;
+	// while (currentPage <= totalPages) {
+	// 	const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
+	// 	const data = await response.json();
 
-	// Calculate total pages needed to fetch all posts
-	const totalPages = Math.ceil(totalPostsToFetch / perPage);
+	// 	if (data.length === 0) {
+	// 		console.log('No more posts, exiting loop');
+	// 		break; // No more posts, exit loop
+	// 	}
 
-	while (currentPage <= totalPages) {
-		const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
-		const data = await response.json();
-
-		if (data.length === 0) {
-			console.log('No more posts, exiting loop');
-			break; // No more posts, exit loop
-		}
-
-		posts = posts.concat(data);
-		console.log('Data type of array:', typeof posts, 'Total posts =', posts.length);
-		totalFetchedPosts += data.length; // Update total fetched posts based on the received data length
-		currentPage++;
-	}
+	// 	posts = posts.concat(data);
+	// 	console.log('Data type of array:', typeof posts, 'Total posts =', posts.length);
+	// 	totalFetchedPosts += data.length; // Update total fetched posts based on the received data length
+	// 	currentPage++;
+	// }
 
 function destructureArray(array) {
     const first3 = array.slice(0, 3);
@@ -68,7 +48,7 @@ function destructureArray(array) {
     return [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts];
 }
 
-const [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts] = destructureArray(posts);
+// const [first3, second3, third3, fourth3, fifth3, sixth5, next16, restOfPosts] = destructureArray(posts);
 
 // const combinedPosts = allPosts.concat(posts);
 
@@ -90,15 +70,15 @@ function removeSpecialCharactersFromURL(url) {
 
 <Layout title="Prince of Travel | Reviews" description="Prince of Travel's latest reviews spanning hotels, airports and airlines, credit cards, and more." image="">
 	<div class="container-fluid" style="background: ##fffbf8">
-		<!-- <div class="row">
+		<div class="row">
 			<PostDetail 
 			endpoint="reviews"
 			title="Reviews"
 			description="Explore our in-depth Reviews, covering the world’s best airlines, hotels, airport lounges, credit cards, and more. Whether you're a seasoned jetsetter or planning your very first trip, our curated trip reports give you a deep sense of what you can expect upon setting off on your own journey."
 			client:load />
-		</div> -->
+		</div>
 
-		<div class="row pt-5 mt-5">
+		<!-- <div class="row pt-5 mt-5">
 			<div class="col-md-6 p-5 d-flex flex-column justify-content-center align-items-start">
 				<div class="m-3 py-5">
 					<h1 class="display-1 fw-bold lh-1 ls-1 my-3">Reviews</h1>
@@ -253,7 +233,7 @@ function removeSpecialCharactersFromURL(url) {
 				</a>
 			</div>
 			))}	
-		</div>
+		</div> -->
 	</div>
 </Layout>
 

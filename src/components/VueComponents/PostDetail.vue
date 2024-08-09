@@ -1,26 +1,37 @@
 <template>
   <div class="container-fluid animate-in" v-if="isLoading">
     <div class="row pt-5 mt-5 min-vh-100">
-        <div class="col-lg-10 offset-lg-1 d-flex flex-column justify-content-center align-items-center text-center">
-          <div class="p-5">
+      <div class="col-md-6 p-5 d-flex flex-column justify-content-center align-items-start">
+          <div class="m-3 py-5">
             <h1 class="display-1 fw-bold lh-1 ls-1 my-3">{{ title }}</h1>
-            <p class="col-lg-8 offset-lg-2 fs-5 mt-0 text-black-50">{{ description }}</p>
-            <!-- <p class="fs-5 mt-0 text-black-50">Explore our in-depth Reviews, covering the world’s best airlines, hotels, airport lounges, credit cards, and more. Whether you're a seasoned jetsetter or planning your very first trip, our curated trip reports give you a deep sense of what you can expect upon setting off on your own journey.</p> -->
-            <h3>Fetching posts...</h3>
-            <div class="text-center">
-              <div class="spinner-grow" role="status">
-                <span class="visually-hidden">Loading...</span>
-              </div>
-            </div>
+            <p class="fs-5 mt-0 col-lg-10 text-black-50">{{ description }}</p>
           </div>
         </div>
-      </div>
-    </div>
 
-    <div class="container-fluid animate-in" style="background: #fffbf8" v-else>
+        <div class="col-md-6 p-4">
+            <div class="pb-3">
+              <div style="height: 300px; width: 100%; background: #eee;"></div>
+              <div class="mb-1 mt-3 rounded-2" style="height: 40px; width: 100%; background: #eee;"></div>
+              <p class="placeholder-glow my-2">
+                <span class="placeholder col-12 placeholder-lg rounded-2"></span>
+              </p>
+              <p class="placeholder-glow my-2">
+                <span class="placeholder col-12 placeholder-lg rounded-2"></span>
+              </p>
+              <p class="placeholder-glow my-1">
+                <span class="placeholder col-12 placeholder-lg rounded-2"></span>
+              </p>
+              <button class="btn btn-dark fw-bold rounded-pill px-5 py-3 mt-3 shadow" disabled></button>
+            </div>
+        </div>
+      </div>
+      </div>
+
+    <div class="container-fluid" style="background: #fffbf8" v-else>
+    <!-- <div class="container-fluid animate-in" style="background: #fffbf8"> -->
       <!-- First Section -->
       <div class="row pt-5 mt-5">
-        <div class="col-lg-12 pt-2 px-3">
+        <!-- <div class="col-lg-12 pt-2 px-3">
           <form class="form-floating">
                 <input type="text" class="form-control rounded-3 border border-secondary" id="floatingInputValue"
                 v-model="bankFilter" placeholder="Search posts">
@@ -41,21 +52,23 @@
               </a>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="col-md-6 p-5 d-flex flex-column justify-content-center align-items-start">
           <div class="m-3 py-5">
-            <h1 class="display-1 fw-bold lh-1 ls-1 my-3">Reviews</h1>
-            <p class="fs-5 mt-0 col-lg-10 text-black-50">Explore our in-depth Reviews, covering the world’s best airlines, hotels, airport lounges, credit cards, and more. Whether you're a seasoned jetsetter or planning your very first trip, our curated trip reports give you a deep sense of what you can expect upon setting off on your own journey.</p>
+            <h1 class="display-1 fw-bold lh-1 ls-1 my-3">{{ title }}</h1>
+            <p class="fs-5 mt-0 col-lg-10 text-black-50">{{ description }}</p>
           </div>
         </div>
 
-        <div v-for="(item, index) in filteredData?.slice(0,3)" :key="index" class="col-md-6 p-4">
+        <div v-for="(item, index) in filteredData?.slice(0,3)" :key="index" class="col-md-6 p-4 animate-in">
           <a :href="`/reviews/${removeSpecialCharactersFromURL(item.slug)}/`">
             <div class="pb-3">
               <img :src="item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl" class="w-100" style="object-fit: cover; height: 350px" alt="">
-              <h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4">{{ item.title.rendered }}</h1>
+              <p class="mt-4 mb-0" v-if="index != 0">{{functions.formatDate(item.date)}}</p>
+              <h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4" v-if="index === 0">{{ item.title.rendered }}</h1>
+              <h1 class="text-body-secondary fw-bold lh-1 my-3" v-else>{{ item.title.rendered }}</h1>
               <div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2" v-html="functions.shorten(item.excerpt.rendered, 150)"></div>
-              <button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
+              <button class="btn btn-dark fw-bold rounded-pill px-4 mt-1 shadow">Read article</button>
             </div>
           </a>
         </div>
@@ -67,9 +80,10 @@
           <a :href="`/reviews/${removeSpecialCharactersFromURL(item.slug)}/`">
             <div class="pb-3">
               <img :src="item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl" class="w-100" style="object-fit: cover;" alt="">
-              <h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4">{{ item.title.rendered }}</h1>
+              <p class="mt-4 mb-0">{{functions.formatDate(item.date)}}</p>
+              <h1 class="text-body-secondary fw-bold lh-1 my-3">{{ item.title.rendered }}</h1>
               <div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2" v-html="functions.shorten(item.excerpt.rendered, 150)"></div>
-              <button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
+              <button class="btn btn-dark fw-bold rounded-pill px-4 mt-1 shadow">Read article</button>
             </div>
           </a>
         </div>
@@ -77,11 +91,12 @@
   
     <!-- Third3 -->
     <div class="row">
-        <div v-for="(item, index) in filteredData?.slice(6,9)" :class="[index === 0 ? 'col-md-6' : 'col-md-3', 'p-4']" :key="index">
+        <div v-for="(item, index) in filteredData?.slice(6,9)" :class="[index === 0 ? 'col-md-6' : 'col-md-6 col-lg-3', 'p-4']" :key="index">
           <a :href="`/reviews/${removeSpecialCharactersFromURL(item.slug)}/`">
             <div class="pb-3">
               <img :src="item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl" class="w-100" style="object-fit: cover;" alt="">
-              <h1 :class="[index !== 0 ? 'fs-3' : '', 'text-body-secondary fw-bold lh-1 mb-3 mt-4']" v-html="item.title.rendered"></h1>
+              <p class="mt-4 mb-0">{{functions.formatDate(item.date)}}</p>
+              <h1 :class="[index !== 0 ? 'fs-3' : '', 'text-body-secondary fw-bold lh-1 my-3']" v-html="item.title.rendered"></h1>
               <div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2" v-html="functions.shorten(item.excerpt.rendered, 150)"></div>
               <button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
             </div>
@@ -90,25 +105,19 @@
     </div><!--end row -->
 
     <!-- Fourth3 -->
-    <div class="row">
-      <div v-for="(item, index) in filteredData?.slice(9,12)" :key="index">
-        <div class="d-flex">
+      <div class="row" v-for="(item, index) in filteredData?.slice(9,12)" :key="index">
             <div class="col-lg-6 p-4">
-                <img :src="item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl" class="w-100" style="object-fit: cover;" alt="">
+                <img :src="item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl" class="w-100 h-100" style="object-fit: cover;" alt="">
             </div>
 
-          <div class="col-lg-6 p-5 d-flex flex-column justify-content-center align-items-start">
+          <div class="col-lg-6 px-4 pb-5 pt-0 p-lg-5 d-flex flex-column justify-content-center align-items-start">
             <a :href="`/reviews/${removeSpecialCharactersFromURL(item.slug)}/`">
-            <h1 class="text-body-secondary fw-bold text-balance lh-1 mb-3 mt-4" v-html="item.title.rendered"></h1>
+              <p class="mt-4 mb-0">{{functions.formatDate(item.date)}}</p>
+            <h1 class="text-body-secondary fw-bold text-balance lh-1 my-3" v-html="item.title.rendered"></h1>
             <div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2" v-html="functions.shorten(item.excerpt.rendered, 150)"></div>
-            <div class="py-2">
-              <p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {{item._embedded?.author[0].name || item.data.author}}</p>
-              <p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {{item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10)}}</p>
-            </div>
-            <button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
+            <button class="btn btn-dark fw-bold rounded-pill px-4 mt-1 shadow">Read article</button>
             </a>
           </div>
-        </div>
     </div>
     <!--end row -->
 
@@ -118,7 +127,8 @@
           <a :href="`/reviews/${removeSpecialCharactersFromURL(item.slug)}/`">
             <div class="pb-3">
               <img :src="item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl" class="w-100" style="object-fit: cover;" alt="">
-              <h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4" v-html="item.title.rendered"></h1>
+              <p class="mt-4 mb-0">{{functions.formatDate(item.date)}}</p>
+              <h1 class="text-body-secondary fw-bold lh-1 my-3" v-html="item.title.rendered"></h1>
               <div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2" v-html="functions.shorten(item.excerpt.rendered, 150)"></div>
               <button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
             </div>
@@ -132,14 +142,11 @@
         <div class="row p-3">
             <div class="col-lg-12 p-4" v-for="(item, index) in filteredData?.slice(15,19)" :key="index">
               <img :src="item._embedded['wp:featuredmedia'][0].source_url || item.data.imageUrl" class="w-100" style="object-fit: cover;" alt="">
-              <h1 class="text-body-secondary fw-bold lh-1 mb-3 mt-4" v-html="item.title.rendered"></h1>
+              <p class="mt-4 mb-0">{{functions.formatDate(item.date)}}</p>
+              <h1 class="text-body-secondary fw-bold lh-1 my-3" v-html="item.title.rendered"></h1>
               <div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2" v-html="functions.shorten(item.excerpt.rendered, 150)"></div>
-              <div class="py-2">
-                <p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {{ item._embedded?.author[0].name || item.data.author }}</p>
-                <p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {{ item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10) }}</p>
-              </div>
               <a :href="`/reviews/${removeSpecialCharactersFromURL(item.slug)}/`">
-                <button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
+                <button class="btn btn-dark fw-bold rounded-pill px-4 mt-1 shadow">Read article</button>
               </a>
             </div>
         </div>
@@ -150,12 +157,13 @@
           <h1 class="display-2 fw-bold">More {{ title }}</h1>
         </div>
         <div class="row g-5">
-            <div class="col-lg-6" v-for="(item, index) in filteredData.slice(19, 31)" :key="index">
+            <div class="col-lg-6 px-3" v-for="(item, index) in filteredData.slice(19, 31)" :key="index">
               <img :src="item._embedded['wp:featuredmedia'][0]?.source_url || item.data?.imageUrl" class="w-100" style="object-fit: cover;" alt="">
-              <h4 class="text-body-secondary fw-bold" v-html="item.title.rendered"></h4>
-              <div class="fs-5 text-body-secondary my-0" v-html="functions.shorten(item.excerpt.rendered, 100) + '...'"></div>
+              <p class="mt-4 mb-0">{{functions.formatDate(item.date)}}</p>
+              <h4 class="text-body-secondary fw-bold my-3" v-html="item.title.rendered"></h4>
+              <div class="text-body-secondary my-0" v-html="functions.shorten(item.excerpt.rendered, 100) + '...'"></div>
               <a :href="`/reviews/${removeSpecialCharactersFromURL(item.slug)}/`">
-                <button class="btn btn-dark rounded-pill px-4 mt-2">Read article</button>
+                <button class="btn btn-sm btn-dark rounded-pill px-4 py-1 mt-1">Read article</button>
               </a>
             </div>
         </div>
@@ -165,27 +173,26 @@
     <!-- Rest of Posts -->
     <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-3 p-4">
         <div class="col p-3" v-for="(item, index) in filteredData.slice(31)" :key="index">
-          <img :src="item._embedded['wp:featuredmedia'][0].source_url || item.data?.imageUrl" class="w-100" style="object-fit: cover;" alt="">
-          <h1 class="fs-3 text-body-secondary fw-bold lh-1 mb-3 mt-4" v-html="item.title.rendered"></h1>
+          <img v-if="item._embedded['wp:featuredmedia'][0].source_url || item.data?.imageUrl" :src="item._embedded['wp:featuredmedia'][0].source_url || item.data?.imageUrl" class="w-100" style="object-fit: cover; min-height: 210px;" alt="">
+          <div v-else style="min-height: 210px; width: 100%; background: #eee;"></div>
+          <p class="mt-4 mb-0">{{functions.formatDate(item.date)}}</p>
+          <h1 class="fs-3 text-body-secondary fw-bold lh-1 my-3" v-html="item.title.rendered"></h1>
           <div class="col-md-10 fs-5 text-body-secondary mt-0 mb-2" v-html="functions.shorten(item.excerpt.rendered, 150)"></div>
-          <div class="py-2">
-            <p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">Written by</span> {{ item._embedded?.author[0].name || item.data.author }}</p>
-            <p class="small text-uppercase fw-bold my-0"><span class="fw-light text-secondary">On</span> {{ item.date.toString().slice(0,10) || item.data.pubDate.toString().slice(0,10) }}</p>
-          </div>
           <a :href="`/reviews/${removeSpecialCharactersFromURL(item.slug)}/`">
-            <button class="btn btn-dark fw-bold rounded-pill px-4 mt-3 shadow">Read article</button>
+            <button class="btn btn-dark fw-bold rounded-pill px-4 mt-1">Read article</button>
           </a>
         </div>
     </div>
-  </div>
 </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 import functions from '../../js/functions';
 let posts = ref([]);
 const bankFilter = ref('');
+
+let intervalId;
 
   const props = defineProps({
     title: String,
@@ -198,26 +205,85 @@ const bankFilter = ref('');
 
 async function fetchData() {
   try {
-    const apiUrl = `https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=${props.endpoint}&_embed`;
-    // const apiUrl = `https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=${category}&_embed`;
-    const perPage = 100; // Number of posts per page
-    // let posts = [];
-    let currentPage = 1;
-    let totalFetchedPosts = 0;
-    while (totalFetchedPosts < 567) { // Stop when reaching 50 posts
+
+    const apiUrl = `https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=${props.endpoint}&_embed&orderby=date&order=desc`;
+const perPage = 100; // Number of posts per page
+let articles = [];
+let currentPage = 1;
+let totalPages = 1; // Initialize with 1 to start the loop
+
+while (currentPage <= totalPages) {
     const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
     const data = await response.json();
-    isLoading.value = false; // Set to false once data is fetched
+    // isLoading.value = false;
+
+    // Check response headers for total pages
+    const totalPagesHeader = response.headers.get('X-WP-TotalPages');
+    totalPages = totalPagesHeader ? parseInt(totalPagesHeader, 10) : 1;
+
     if (data.length === 0) {
-      console.log('No more posts, exiting loop');
-      break; // No more posts, exit loop
+        console.log('No more posts, exiting loop');
+        break; // No more posts, exit loop
     }
-    posts.value = posts.value.concat(data);
-    console.log('Data type of array:', typeof posts.value);
-    totalFetchedPosts += posts.value.length; // Update total fetched posts
+
+    articles = articles.concat(data);
     currentPage++;
 }
-    
+
+// isLoading.value = false; // Set to false once all data is fetched
+posts.value = articles; // Update posts after fetching all pages
+console.log('Data type of array:', typeof posts.value);
+
+
+//     const apiUrl = `https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=${props.endpoint}&_embed&orderby=date&order=desc`;
+//     // const apiUrl = 'https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=news&_embed&orderby=date&order=desc';
+
+// const perPage = 100; // Number of posts per page
+// let articles = [];
+// let currentPage = 1;
+// let totalPages = 1; // Initialize with 1 to start the loop
+
+// while (currentPage <= totalPages) {
+//     const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
+//     const data = await response.json();
+//     isLoading.value = false; // Set to false once data is fetched
+
+//     // Check response headers for total pages
+//     const totalPagesHeader = response.headers.get('X-WP-TotalPages');
+//     totalPages = totalPagesHeader ? parseInt(totalPagesHeader, 10) : 1;
+
+//     if (data.length === 0) {
+//         console.log('No more posts, exiting loop');
+//         break; // No more posts, exit loop
+//     }
+
+//     posts.value = articles.concat(data);
+//     console.log('Data type of array:', typeof posts.value);
+//     currentPage++;
+
+// OG code getting fixed # posts
+
+    // const apiUrl = `https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=${props.endpoint}&_embed`;
+    // const perPage = 100; // Number of posts per page
+    // // let posts = [];
+    // let currentPage = 1;
+    // let totalFetchedPosts = 0;
+    // while (totalFetchedPosts < 1000) { // Stop when reaching 50 posts
+    // const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
+    // const data = await response.json();
+    // isLoading.value = false; // Set to false once data is fetched
+    // if (data.length === 0) {
+    //   console.log('No more posts, exiting loop');
+    //   break; // No more posts, exit loop
+    // }
+    // posts.value = posts.value.concat(data);
+    // console.log('Data type of array:', typeof posts.value);
+    // totalFetchedPosts += posts.value.length; // Update total fetched posts
+    // currentPage++;
+
+    // }
+  
+  isLoading.value = false;
   } catch (error) {
     console.error("Failed to fetch data:", error);
   }
@@ -247,11 +313,26 @@ async function fetchData() {
 // }
 
 onMounted(() => {
+  // Perform the initial fetch immediately when the component mounts
   fetchData();
-  // setInterval(fetchData, 2 * 60 * 60 * 1000); // 2 hours in milliseconds
-  // setInterval(fetchData, 30 * 60 * 1000, console.log('New fetch triggered')); // 30 minutes in milliseconds
-  setInterval(fetchData, 5 * 60 * 1000, console.log('New fetch triggered')); // 5 minutes in milliseconds
-})
+
+  // Set up an interval to fetch data periodically after the initial fetch
+  intervalId = setInterval(() => {
+    fetchData(); // Call fetchData at each interval
+    console.log('New fetch triggered at', new Date());
+  }, 60000); // Set interval to 60 seconds (1 minute)
+});
+
+onUnmounted(() => {
+    clearInterval(intervalId); // Clear interval on component unmount
+  });
+
+// onMounted(() => {
+//   // fetchData();
+//   // setInterval(fetchData, 2 * 60 * 60 * 1000); // 2 hours in milliseconds
+//   // setInterval(fetchData, 30 * 60 * 1000, console.log('New fetch triggered')); // 30 minutes in milliseconds
+//   setInterval(fetchData, 5 * 60 * 1000, console.log('New fetch triggered at ' + currentTime)); // 5 minutes in milliseconds
+// })
 
 function destructureArray(array) {
     const first3 = array.slice(0, 3);
