@@ -29,7 +29,7 @@
       </div>
       </div>
 
-    <div class="container-fluid" style="background: #fffbf8" v-else-if="posts.length > 0">
+    <div class="container-fluid" style="background: #fffbf8" v-else-if="posts.length">
     <!-- <div class="container-fluid animate-in" style="background: #fffbf8"> -->
       <!-- First Section -->
       <div class="row pt-5 mt-5">
@@ -205,6 +205,10 @@ let intervalId;
 
     const isLoading = ref(true); // Initially set to true
 
+    if (!posts.value.length) {
+    fetchData();
+  }
+
 async function fetchData() {
   try {
 
@@ -289,52 +293,6 @@ async function fetchData() {
     console.error("Failed to fetch data:", error);
   }
 }
-
-    
-//     const apiUrl = `https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=reviews&_embed`;
-//     // const apiUrl = `https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=${category}&_embed`;
-// const perPage = 100; // Number of posts per page
-// // const perPage = 100; // Number of posts per page
-// // let posts = [];
-// let currentPage = 1;
-// let totalFetchedPosts = 0;
-// while (totalFetchedPosts < 567) { // Stop when reaching 50 posts
-// const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
-// const data = await response.json();
-// // console.log('Received posts:', data);
-// if (data.length === 0) {
-// 	console.log('No more posts, exiting loop');
-// 	break; // No more posts, exit loop
-// }
-
-// posts.value = posts.concat(data);
-// console.log('Data type of array:', typeof posts);
-// totalFetchedPosts += posts.length; // Update total fetched posts
-// currentPage++;
-// }
-
-// onMounted(() => {
-//   // Perform the initial fetch immediately when the component mounts
-//   fetchData();
-
-//   // Set up an interval to fetch data periodically after the initial fetch
-//   intervalId = setInterval(() => {
-//     fetchData(); // Call fetchData at each interval
-//     console.log('New fetch triggered at', new Date());
-//   }, 60000); // Set interval to 60 seconds (1 minute)
-// });
-
-// onUnmounted(() => {
-//     clearInterval(intervalId); // Clear interval on component unmount
-//   });
-
-
-// fetchData();
-// // Set up a timer to refetch data every 5 minutes
-// setTimeout(() => {
-//   setInterval(fetchData, 300000);
-//   console.log('New fetch triggered at', new Date()); // Refetch data every 5 minutes
-// }, 5000); // Initial delay of 5 seconds before starting the interval
 
 
 onMounted(() => {
