@@ -10,16 +10,18 @@
 
         <div class="col-md-6 p-4">
             <div class="pb-3">
-              <div style="height: 300px; width: 100%; background: #eee;"></div>
-              <div class="mb-1 mt-3 rounded-2" style="height: 40px; width: 100%; background: #eee;"></div>
-              <p class="placeholder-glow my-2">
-                <span class="placeholder col-12 placeholder-lg rounded-2"></span>
+              <div class="rounded-1" style="height: 300px; width: 100%; background: #eee;"></div>
+              <p class="placeholder-glow mb-2 mt-3">
+                <span class="placeholder col-12 placeholder-lg rounded-2 py-4"></span>
               </p>
               <p class="placeholder-glow my-2">
-                <span class="placeholder col-12 placeholder-lg rounded-2"></span>
+                <span class="placeholder col-10 placeholder-lg rounded-2"></span>
               </p>
               <p class="placeholder-glow my-1">
-                <span class="placeholder col-12 placeholder-lg rounded-2"></span>
+                <span class="placeholder col-9 placeholder-lg rounded-2"></span>
+              </p>
+              <p class="placeholder-glow my-1">
+                <span class="placeholder col-8 placeholder-lg rounded-2"></span>
               </p>
               <button class="btn btn-dark fw-bold rounded-pill px-5 py-3 mt-3 shadow" disabled></button>
             </div>
@@ -27,7 +29,7 @@
       </div>
       </div>
 
-    <div class="container-fluid" style="background: #fffbf8" v-else>
+    <div class="container-fluid" style="background: #fffbf8" v-else-if="posts.length > 0">
     <!-- <div class="container-fluid animate-in" style="background: #fffbf8"> -->
       <!-- First Section -->
       <div class="row pt-5 mt-5">
@@ -206,33 +208,33 @@ let intervalId;
 async function fetchData() {
   try {
 
-    const apiUrl = `https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=${props.endpoint}&_embed&orderby=date&order=desc`;
-const perPage = 100; // Number of posts per page
-let articles = [];
-let currentPage = 1;
-let totalPages = 1; // Initialize with 1 to start the loop
+//     const apiUrl = `https://princeoftravel.wpenginepowered.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=${props.endpoint}&_embed&orderby=date&order=desc`;
+// const perPage = 10; // Number of posts per page
+// let articles = [];
+// let currentPage = 1;
+// let totalPages = 1; // Initialize with 1 to start the loop
 
-while (currentPage <= totalPages) {
-    const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
-    const data = await response.json();
-    // isLoading.value = false;
+// while (currentPage <= totalPages) {
+//     const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
+//     const data = await response.json();
+//     // isLoading.value = false;
 
-    // Check response headers for total pages
-    const totalPagesHeader = response.headers.get('X-WP-TotalPages');
-    totalPages = totalPagesHeader ? parseInt(totalPagesHeader, 10) : 1;
+//     // Check response headers for total pages
+//     const totalPagesHeader = response.headers.get('X-WP-TotalPages');
+//     totalPages = totalPagesHeader ? parseInt(totalPagesHeader, 10) : 1;
 
-    if (data.length === 0) {
-        console.log('No more posts, exiting loop');
-        break; // No more posts, exit loop
-    }
+//     if (data.length === 0) {
+//         console.log('No more posts, exiting loop');
+//         break; // No more posts, exit loop
+//     }
 
-    articles = articles.concat(data);
-    currentPage++;
-}
+//     articles = articles.concat(data);
+//     currentPage++;
+// }
 
-// isLoading.value = false; // Set to false once all data is fetched
-posts.value = articles; // Update posts after fetching all pages
-console.log('Data type of array:', typeof posts.value);
+// // isLoading.value = false; // Set to false once all data is fetched
+// posts.value = articles; // Update posts after fetching all pages
+// console.log('Data type of array:', typeof posts.value);
 
 
 //     const apiUrl = `https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=${props.endpoint}&_embed&orderby=date&order=desc`;
@@ -263,25 +265,24 @@ console.log('Data type of array:', typeof posts.value);
 
 // OG code getting fixed # posts
 
-    // const apiUrl = `https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=${props.endpoint}&_embed`;
-    // const perPage = 100; // Number of posts per page
-    // // let posts = [];
-    // let currentPage = 1;
-    // let totalFetchedPosts = 0;
-    // while (totalFetchedPosts < 1000) { // Stop when reaching 50 posts
-    // const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
-    // const data = await response.json();
-    // isLoading.value = false; // Set to false once data is fetched
-    // if (data.length === 0) {
-    //   console.log('No more posts, exiting loop');
-    //   break; // No more posts, exit loop
-    // }
-    // posts.value = posts.value.concat(data);
-    // console.log('Data type of array:', typeof posts.value);
-    // totalFetchedPosts += posts.value.length; // Update total fetched posts
-    // currentPage++;
+    const apiUrl = `https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=${props.endpoint}&_embed`;
+    const perPage = 100; // Number of posts per page
+    let currentPage = 1;
+    let totalFetchedPosts = 0;
+    while (totalFetchedPosts < 1000) { // Stop when reaching 50 posts
+    const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
+    const data = await response.json();
+    isLoading.value = false; // Set to false once data is fetched
+    if (data.length === 0) {
+      console.log('No more posts, exiting loop');
+      break; // No more posts, exit loop
+    }
+    posts.value = posts.value.concat(data);
+    console.log('Data type of array:', typeof posts.value);
+    totalFetchedPosts += posts.value.length; // Update total fetched posts
+    currentPage++;
 
-    // }
+    }
   
   isLoading.value = false;
   } catch (error) {
@@ -312,27 +313,45 @@ console.log('Data type of array:', typeof posts.value);
 // currentPage++;
 // }
 
-onMounted(() => {
-  // Perform the initial fetch immediately when the component mounts
-  fetchData();
+// onMounted(() => {
+//   // Perform the initial fetch immediately when the component mounts
+//   fetchData();
 
-  // Set up an interval to fetch data periodically after the initial fetch
-  intervalId = setInterval(() => {
-    fetchData(); // Call fetchData at each interval
-    console.log('New fetch triggered at', new Date());
-  }, 60000); // Set interval to 60 seconds (1 minute)
+//   // Set up an interval to fetch data periodically after the initial fetch
+//   intervalId = setInterval(() => {
+//     fetchData(); // Call fetchData at each interval
+//     console.log('New fetch triggered at', new Date());
+//   }, 60000); // Set interval to 60 seconds (1 minute)
+// });
+
+// onUnmounted(() => {
+//     clearInterval(intervalId); // Clear interval on component unmount
+//   });
+
+
+// fetchData();
+// // Set up a timer to refetch data every 5 minutes
+// setTimeout(() => {
+//   setInterval(fetchData, 300000);
+//   console.log('New fetch triggered at', new Date()); // Refetch data every 5 minutes
+// }, 5000); // Initial delay of 5 seconds before starting the interval
+
+
+onMounted(() => {
+  // Check if data already exists to avoid refetching
+  if (!posts.value.length) {
+    fetchData();
+  }
+
+  // Start the interval for data fetching
+  intervalId = setInterval(fetchData, 60000); // Fetch data every 5 minutes
+  // intervalId = setInterval(fetchData, 300000); // Fetch data every 5 minutes
 });
 
 onUnmounted(() => {
-    clearInterval(intervalId); // Clear interval on component unmount
-  });
-
-// onMounted(() => {
-//   // fetchData();
-//   // setInterval(fetchData, 2 * 60 * 60 * 1000); // 2 hours in milliseconds
-//   // setInterval(fetchData, 30 * 60 * 1000, console.log('New fetch triggered')); // 30 minutes in milliseconds
-//   setInterval(fetchData, 5 * 60 * 1000, console.log('New fetch triggered at ' + currentTime)); // 5 minutes in milliseconds
-// })
+  // Clear the interval when the component is unmounted
+  clearInterval(intervalId);
+});
 
 function destructureArray(array) {
     const first3 = array.slice(0, 3);

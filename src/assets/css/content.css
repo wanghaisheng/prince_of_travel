@@ -25,7 +25,6 @@
 #content a, #content p a {
   /* text-decoration: none; */
   font-weight: bold;
-
   border-bottom: 2px solid rgba(97, 0, 42, .15);
   color: #000;
   font-weight: 700;
@@ -61,7 +60,10 @@
 }
 
 #content h2 {
-  letter-spacing: -1.4px;
+  letter-spacing: -1px;
+  line-height: 117%;
+  padding-left: 15px;
+  border-left: 3px solid var(--pot);
 }
 
 
@@ -82,9 +84,9 @@
 #content .content-body p, 
 #content div, 
 #content .content-body div { 
-  font-size: 19px;
+  font-size: 17px;
   line-height: 32px;
-  color: var(--bs-secondary-color);
+  /* color: var(--bs-secondary-color); */
 }
 
 /* images */
@@ -100,7 +102,7 @@
   width: 100%;
   height: auto;
   /* object-fit: cover; */
-  margin: 20px auto;
+  margin: 20px auto 10px;
   /* margin: 0 auto; */
 }
 
@@ -147,7 +149,7 @@
 }
 
 .potbox-main {
-  padding: 20px;
+  padding: 10px 20px;
   border: 1px solid #ddd;
   border-radius: 10px;
   margin-bottom: 20px;
@@ -463,6 +465,24 @@ suggest not putting more than 4 in any one gallery;
     letter-spacing: -1px;
     line-height: 121%;
   }
+
+  .potbox.read-more.read-more-solo {
+    padding: 0 0;
+}
+
+.potbox-main {
+  padding: 0;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.potbox-sidebar {
+  display: flex;
+  flex: 1 0 300px;
+  flex-flow: column;
+  padding: 0 20px;
+}
 
   .potbox-main .potbox-posts .potbox-post div:last-child {
     font-size: 19px !important;
