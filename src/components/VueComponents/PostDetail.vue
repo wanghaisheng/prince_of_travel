@@ -193,6 +193,7 @@ import { ref, computed, onMounted, onUnmounted } from 'vue';
 import functions from '../../js/functions';
 let posts = ref([]);
 const bankFilter = ref('');
+const isLoading = ref(''); // Initially set to true
 
 let intervalId;
 
@@ -203,11 +204,12 @@ let intervalId;
   })
 
 
-    const isLoading = ref(true); // Initially set to true
+    // const isLoading = ref(true); // Initially set to true
 
     if (!posts.value.length) {
-    fetchData();
-  }
+      isLoading.value = true; // Initially set to true
+      fetchData();
+    }
 
 async function fetchData() {
   try {
@@ -288,7 +290,7 @@ async function fetchData() {
 
     }
   
-  isLoading.value = false;
+  // isLoading.value = false;
   } catch (error) {
     console.error("Failed to fetch data:", error);
   }
