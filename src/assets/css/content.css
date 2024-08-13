@@ -92,7 +92,7 @@
 /* images */
 
 #content .content-body p > img { 
-  margin: 10px 0;
+  margin: 10px auto;
 }
 
 #content > .content-body img, 

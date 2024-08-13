@@ -11,7 +11,7 @@ function filterPost(arr) {
 	return arr.filter(item => item.data.draft === false);
 }
 const pageDataPromise = fetch('https://pftraveldev.wpengine.com/wp-json/pot/v1/page-meta/1032').then(res => res.json());
-const blogPostsPromise = fetch('https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?per_page=8&_embed').then(res => res.json());
+const blogPostsPromise = fetch('https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?per_page=50&_embed').then(res => res.json());
 
 const [pageData, posts] = await Promise.all([pageDataPromise, blogPostsPromise]);
 
@@ -30,73 +30,33 @@ function encodeURIComponent(url) {
 <Layout title="Welcome to Prince of Travel" description="Prince of Travel" image="/images/video/pc-social-banner.jpeg">
 	<!-- https://cdn1.vectorstock.com/i/1000x1000/89/30/a-plane-line-drawing-style-design-vector-30478930.jpg -->
 		<div class="container-fluid px-0" data-aos="fade">
-			<div class="row min-vh-100 pt-4 position-relative">
-				<div data-aos="fade" data-aos-delay="1000" class="position-absolute w-100 h-100 top-25 start-0 transition-middle bg-world-map z-0"></div>
-				
-                <!-- style="background: url('https://images.unsplash.com/photo-1590602390809-a890807193ec?q=80&w=2899&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center; background-size: cover" -->
-                <!-- <div class="col-lg-8 d-flex flex-column justify-content-center align-items-center text-center p-5 position-absolute top-50 start-50 translate-middle" data-aos="fade">
-                    <img data-aos="fade-up" class="d-none d-lg-block logo animate-in py-4 ps-4 pe-3 rounded-4 bg-pot" style="width: 90px;" src="/images/logos/pot-crown-white.png" alt="Prince of Travel logo" />				
-                </div>
-
-                <div class="col-lg-8 d-flex flex-column justify-content-center align-items-center text-center p-5 position-absolute top-50 start-50 translate-middle" data-aos="fade" data-aos-delay="300">
-                    <img data-aos="fade-up" class="d-none d-lg-block logo animate-in py-4 ps-4 pe-3 rounded-4 bg-gold" style="width: 90px;" src="/images/logos/pot-crown-white.png" alt="Prince of Travel logo" />				
-                </div>
-
-                <div class="col-lg-8 d-flex flex-column justify-content-center align-items-center text-center p-5 position-absolute top-50 start-50 translate-middle" data-aos="fade" data-aos-delay="600">
-                    <img data-aos="fade-up" class="d-none d-lg-block logo animate-in py-4 ps-4 pe-3 rounded-4" style="background: var(--lime); width: 90px;" src="/images/logos/pot-crown-white.png" alt="Prince of Travel logo" />				
-                </div>
-
-                <div class="col-lg-8 d-flex flex-column justify-content-center align-items-center text-center p-5 position-absolute top-50 start-50 translate-middle" data-aos="fade" data-aos-delay="900">
-                    <img data-aos="fade-up" class="d-none d-lg-block logo animate-in py-4 ps-4 pe-3 rounded-4" style="background: var(--peach); width: 90px;" src="/images/logos/pot-crown-white.png" alt="Prince of Travel logo" />				
-                </div>
-
-                <div class="col-lg-8 d-flex flex-column justify-content-center align-items-center text-center p-5 position-absolute top-50 start-50 translate-middle" data-aos="fade" data-aos-delay="1100">
-                    <img data-aos="fade-up" class="d-none d-lg-block logo animate-in py-4 ps-4 pe-3 rounded-4" style="background: var(--salmon); width: 90px;" src="/images/logos/pot-crown-white.png" alt="Prince of Travel logo" />				
-                </div>
-                
-                <div class="col-lg-8 d-flex flex-column justify-content-center align-items-center text-center p-5 position-absolute top-50 start-50 translate-middle" data-aos="fade" data-aos-delay="1400">
-                    <img data-aos="fade-up" class="d-none d-lg-block logo animate-in py-4 ps-4 pe-3 rounded-4" style="background: var(--orange); width: 90px;" src="/images/logos/pot-crown-white.png" alt="Prince of Travel logo" />				
-                </div>
-                
-                <div class="col-lg-8 d-flex flex-column justify-content-center align-items-center text-center p-5 position-absolute top-50 start-50 translate-middle" data-aos="fade" data-aos-delay="1700">
-                    <img data-aos="fade-up" class="d-none d-lg-block logo animate-in py-4 ps-4 pe-3 rounded-4 bg-pot" style="width: 90px;" src="/images/logos/pot-crown-white.png" alt="Prince of Travel logo" />				
-                </div> -->
-
-				<div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 d-flex flex-column justify-content-center align-items-center text-center p-5">
-					<img data-aos="fade-up" data-aos-delay="100" class="logo animate-in py-4 ps-4 pe-3 mt-5 mt-lg-4 rounded-4 bg-pot" style="width: 90px;" src="/images/logos/pot-crown-white.png" alt="Prince of Travel logo" />					
-					<h1 class="lh-1 mb-1 mt-2" style="font-size: 12vmin;" data-aos="fade-up" data-aos-delay="200">Rewriting the travel ex<span class="text-pot">p</span>e<span class="text-pot">ri</span>e<span class="text-pot">nce</span>.</h1>
-					<p class="col-lg-10 fs-4 text-body-secondary" data-aos="fade-up" data-aos-delay="300">Prince of Travel is a team of expert travellers dedicated to educating, informing, and inspiring our readers on maximizing the power of Miles & Points to travel the world at a fraction of the price.</p>
-                    <svg  data-aos="fade-up" data-aos-delay="400" xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="currentColor" class="bi bi-chevron-down text-black-50" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
-                    </svg>
-				</div>
-			</div>
-
-			<div class="row min-vh-100 position-relative py-5">
-				<div class="position-absolute z-0 top-0 start-0 w-100 h-100 bg-navy" data-aos="fade" data-aos-delay="500"></div>
-				<div class="col-lg-8 offset-lg-2 d-flex flex-column justify-content-center align-items-start text-start position-relative p-0">
-					<div class="mx-4 mx-lg-0 p-5 rounded-5 bg-navy text-light" data-aos="fade">
-						<h1 class="mb-1 mt-3 animate-in" style="font-size: 13vmin;" data-aos="fade"> 
-							News. Deals. Guides. Reviews.
-						<span class="d-block text-gold" data-aos="fade-up" data-aos-delay="200">Start here. Read anywhere.</span>
-						</h1>
-						<p class="fs-4" data-aos="fade" data-aos-delay="400">Explore our curated platform of over <a href="/blog" class="fw-bold text-gold">2,000 articles,</a> updated every day, designed to elevate your travel experiences and ignite your wanderlust. Dive into a wealth of meticulously crafted content, ranging from breaking travel news to insider deals, comprehensive travel guides, and in-depth reviews of the world’s best travel experiences.</p>
+			<div class="py-3"></div>
+			<div class="row p-4 p-lg-5 mt-5">
+				<div class="col-lg-9 px-3">
+					<h1 class="lh-1 ls-1 py-0 mt-0" style="font-size: 13vmin;" data-aos="fade-up" data-aos-delay="200">Your home for smarter travel</h1>
+					<div class="row py-3">
+						<div class="col-lg-6">
+							<img class="w-100" src="" data-src={posts[0]._embedded['wp:featuredmedia'][0].source_url} alt="">
+						</div>
+						<div class="col-lg-6 d-flex flex-column justify-content-center align-items-start p-4 p-lg-5">
+							<p class="small my-2" style="text-transform: capitalize;">{posts[0]._embedded['wp:term'][0][0].slug}</p>
+							<h2 class="card-title fw-bold my-0"><Fragment set:html={posts[0].title.rendered} /></h2>
+							<div class="card-text my-0"><Fragment set:html={functions.shortenToClosestPeriod(posts[0].excerpt.rendered)} /></div>
+							<p class="my-0">{posts[0]._embedded?.author[0].name}</p>
+						</div>
 					</div>
-				</div>
-				<div class="col-lg-12 px-5">
-					<div class="row g-3">
-					{posts.map((post, index) => (
-						<div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay={index * 100}>
+					<!-- grid -->
+					<div class="row">
+					{posts.slice(1,10).map((post, index) => (
+						post._embedded['wp:term'][0][0].slug != 'news' &&
+						<div class="col-lg-4 mb-3" data-aos="fade-up" data-aos-delay={index * 100}>
 							<a href={`/${post.category_name}/${post.slug}/`}>
-								<div class="card rounded-5 border-0 shadow p-2">
-									<img src="" data-src={post._embedded['wp:featuredmedia'][0].source_url } class="card-img-top position-absolute top-0 start-0 z-0 w-100 h-100 object-fit rounded-5" style="filter: brightness(0.4)" alt="..." />
-									<div class="card-img-overlay position-relative">
-										<div class="card-body min-vh-50 text-light d-flex flex-column justify-content-end align-items-start p-3">
-										<p class="small mb-2" style="text-transform: capitalize;">{post._embedded['wp:term'][0][0].slug}</p>
-										<h5 class="card-title fs-4 fw-bold mb-0"><Fragment set:html={post.title.rendered} /></h5>
-										<div class="card-text my-0"><Fragment set:html={post.excerpt.rendered} /></div>
-											<i class="bi bi-arrow-up-right-circle-fill text-pc-light fs-1 position-absolute top-0 end-0 me-2 mt-1 p-3"></i>
-										</div>
+								<div class="card border-0 p-2">
+									<img src="" data-src={post._embedded['wp:featuredmedia'][0].source_url } class="card-img-top w-100" alt="..." />
+										<div class="card-body d-flex flex-column justify-content-end align-items-start p-2">
+										<p class="small my-2" style="text-transform: capitalize;">{post._embedded['wp:term'][0][0].slug}</p>
+										<h5 class="card-title fw-bold mb-0"><Fragment set:html={post.title.rendered} /></h5>
+										<div class="card-text my-0 small"><Fragment set:html={functions.shortenToClosestPeriod(post.excerpt.rendered)} /></div>
 									</div>
 								</div>
 							</a>
@@ -104,195 +64,242 @@ function encodeURIComponent(url) {
 					))}
 					</div>
 				</div>
-			</div>
 
-		  <!-- credit cards -->
-
-		  <div class="row min-vh-100 position-relative py-5">
-			<div class="position-absolute z-0 top-0 start-0 w-100 h-100 bg-gold" data-aos="fade" data-aos-delay="500"></div>
-			<div class="col-lg-8 offset-lg-2 d-flex flex-column justify-content-center align-items-center text-center position-relative p-0">
-				<div class="mx-4 mx-lg-0 p-5 rounded-5 bg-gold" data-aos="fade">
-					<h1 class="text-light mb-1 mt-3 animate-in" style="font-size: 13vmin;" data-aos="fade">Credit Cards. <span class="text-black-50" data-aos="fade-up" data-aos-delay="200">Everything you need to travel better.</span>
-					</h1>
-					<p class="fs-4" data-aos="fade-up" data-aos-delay="400">Whether you’re earning points on daily expenses or enjoying priority boarding and complimentary hotel stays, the right credit card can supercharge your adventures around the world. Explore our database of 100+ credit cards to select the perfect credit card tailored to your exact needs.</p>
-                    <div class="mt-4" data-aos="fade-up" data-aos-delay="600">
-                        <a href="/credit-cards">
-                            <button class="btn btn-dark opacity-50 btn-lg rounded-pill px-5 py-3 fw-bold">See more</button>
-                        </a>
-                    </div>
+				<!-- sidebar -->
+				<div class="col-lg-3 px-3">
+					<h1 class="border-bottom pb-3">Latest News</h1>
+					{posts.slice(2,10).map((post, index) => (
+						post._embedded['wp:term'][0][0].slug === 'news' &&
+						<div class="col-lg-12 mb-3" data-aos="fade-up" data-aos-delay={index * 100}>
+							<a href={`/${post.category_name}/${post.slug}/`}>
+								<div class="card border-0 p-2">
+									<img src="" data-src={post._embedded['wp:featuredmedia'][0].source_url } class="card-img-top w-100" alt="..." />
+										<div class="card-body d-flex flex-column justify-content-end align-items-start p-2">
+										<!--<p class="small my-2" style="text-transform: capitalize;">{post._embedded['wp:term'][0][0].slug}</p>-->
+										<h5 class="card-title fw-bold mb-0 mt-3"><Fragment set:html={post.title.rendered} /></h5>
+										<div class="card-text my-0 small"><Fragment set:html={functions.shortenToClosestPeriod(post.excerpt.rendered)} /></div>
+									</div>
+								</div>
+							</a>
+						</div>
+					))}
 				</div>
 			</div>
 
-			<!-- <FetchData client:idle /> -->
-
-			<div class="row mx-auto g-4 px-5">
-
-				<div class="col-lg-8 offset-lg-2 px-5 text-center text-black-50 position-relative" data-aos="fade-up">
-					<h2 class="display-3 text-center position-relative ls-1 lh-1 fw-bold mt-2">{pageData.section3_heading}</h2>					
-				</div>
-				<div class="col-xl-6" data-aos="fade-up">
-					<div class="card mb-2 rounded-5 shadow position-relative" style="background: rgba(255,255,255,0.6); min-height: 320px;">
-						<div class="position-absolute top-0 end-0 m-3 z-1">
+			<div class="row bg-light g-4 p-5">
+				<h2 class="display-3 ls-1 lh-1 fw-bold mt-2">Best Credit Card Offers</h2>					
+				<div class="col-lg-3 col-md-6" data-aos="fade-up">
+					<div class="card mb-2 rounded-3 border-0 position-relative" style="background: rgba(255,255,255,0.6); min-height: 420px;">
+						<div class="position-absolute top-0 end-0 z-1">
 							<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-bookmark-star-fill text-black-50" viewBox="0 0 16 16">
 								<path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5M8.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.18.18 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.18.18 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.18.18 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.18.18 0 0 1-.134-.098z"/>
 							</svg>
 						</div>
-						<div class="row p-0 p-md-3 g-0">
-						  <div class="col-md-5 d-flex justify-content-center align-items-center p-3 rounded-5 position-relative" style="min-height: 200px;">
-							<div class="position-absolute z-0 rounded-circle top-50 start-50 translate-middle" style="height: 15vw; width: 15vw; background: #00000050"></div>
-							<img src={pageData.top_offers_0_credit_card_featured_image} class="landscape position-relative" data-image-id="0" alt="">
-						  </div>
-						  <div class="col-md-7 d-flex flex-column justify-content-center align-items-start p-4">
-							<div class="card-body d-flex flex-column justify-content-center align-items-start pt-0 pt-lg-3 mb-3">
-								<h5 class="fs-3 text-dark card-title fw-bold mb-0" style="font-size: 24px; text-wrap: pretty"><Fragment set:html={pageData.top_offers_0_credit_card.credit_card_short_name} /></h5>
-								<div class="card-text mt-3 mb-2">
-									<p class="small m-0" ><Fragment set:html={pageData.top_offers_0_credit_card.membership_reward} /></p>
-									<p class="small m-0"><Fragment set:html={pageData.top_offers_0_credit_card.fees} /></p>
-								</div>
-								<ul class="mt-2 ps-3" style="font-size: 15px">
-									<li><Fragment set:html={pageData.top_offers_0_credit_card.features_0_feature} /></li>
-									<li><Fragment set:html={pageData.top_offers_0_credit_card.features_1_feature} /></li>
-									<li><Fragment set:html={pageData.top_offers_0_credit_card.features_2_feature} /></li>
-								</ul>
-								<div class="d-flex position-absolute end-0 bottom-0 m-4">
-									<a href={'https://pftraveldev.wpengine.com' + pageData.top_offers_0_credit_card.apply_now_link} target="_blank">
-										<button class="btn btn-sm btn-dark rounded-pill me-1 mt-1 px-3" style="font-size: 13px">Apply
+						<img style="max-width: 250px" src={pageData.top_offers_0_credit_card_featured_image} class="landscape position-relative" data-image-id="0" alt="">
+						<div class="card-body d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start pt-0 pt-lg-3">
+							<h5 class="fs-4 text-dark card-title fw-bold mb-0" style="font-size: 24px; text-wrap: pretty"><Fragment set:html={pageData.top_offers_0_credit_card.credit_card_short_name} /></h5>
+							<div class="card-text mt-3 mb-2">
+								<p class="small m-0" ><Fragment set:html={pageData.top_offers_0_credit_card.membership_reward} /></p>
+								<p class="small m-0"><Fragment set:html={pageData.top_offers_0_credit_card.fees} /></p>
+							</div>
+							<!-- <ul class="mt-2 ps-3" style="font-size: 15px">
+								<li><Fragment set:html={pageData.top_offers_0_credit_card.features_0_feature} /></li>
+								<li><Fragment set:html={pageData.top_offers_0_credit_card.features_1_feature} /></li>
+								<li><Fragment set:html={pageData.top_offers_0_credit_card.features_2_feature} /></li>
+							</ul> -->
+							<div class="d-flex mt-2">
+								<a href={'https://pftraveldev.wpengine.com' + pageData.top_offers_0_credit_card.apply_now_link} target="_blank">
+									<button class="btn btn-sm btn-dark rounded-3 me-1 mt-1 px-3" style="font-size: 13px">Apply
+								</button>
+								</a>
+								<a href={`/credit-cards/${encodeURIComponent(pageData.top_offers_0_credit_card_slug)}`}>
+									<button class="btn btn-sm btn-secondary rounded-3 mt-1 px-3 opacity-75" style="font-size: 13px">Learn more
 									</button>
-									</a>
-									<a href={`/credit-cards/${encodeURIComponent(pageData.top_offers_0_credit_card_slug)}`}>
-										<button class="btn btn-sm btn-secondary rounded-pill mt-1 px-3 opacity-75" style="font-size: 13px">Learn more
-										</button>
-									</a>
-								</div>
+								</a>
 							</div>
-						  </div>
 						</div>
 					</div>
 				</div>
 
-				<div class="col-xl-6" data-aos="fade-up" data-aos-delay="200">
-					<div class="card mb-2 rounded-5 position-relative" style="background: rgba(255,255,255,0.6); min-height: 320px;">
-						<div class="position-absolute top-0 end-0 m-3 z-1">
+				<div class="col-lg-3 col-md-6" data-aos="fade-up">
+					<div class="card mb-2 rounded-3 border-0 position-relative" style="background: rgba(255,255,255,0.6); min-height: 420px;">
+						<div class="position-absolute top-0 end-0 z-1">
 							<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-bookmark-star-fill text-black-50" viewBox="0 0 16 16">
 								<path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5M8.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.18.18 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.18.18 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.18.18 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.18.18 0 0 1-.134-.098z"/>
 							</svg>
 						</div>
-						<div class="row p-0 p-md-3 g-0">
-							<div class="col-md-5 d-flex justify-content-center align-items-center p-3 rounded-5 position-relative" style="min-height: 200px;">
-							  <div class="position-absolute z-0 rounded-circle top-50 start-50 translate-middle" style="height: 15vw; width: 15vw; background: #00000050"></div>
-							  <img src={pageData.top_offers_1_credit_card_featured_image} class="landscape position-relative" data-image-id="1" alt="">
+						<img style="max-width: 250px" src={pageData.top_offers_1_credit_card_featured_image} class="landscape position-relative" data-image-id="0" alt="">
+						<div class="card-body d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start pt-0 pt-lg-3">
+							<h5 class="fs-4 text-dark card-title fw-bold mb-0" style="font-size: 24px; text-wrap: pretty"><Fragment set:html={pageData.top_offers_0_credit_card.credit_card_short_name} /></h5>
+							<div class="card-text mt-3 mb-2">
+								<p class="small m-0" ><Fragment set:html={pageData.top_offers_0_credit_card.membership_reward} /></p>
+								<p class="small m-0"><Fragment set:html={pageData.top_offers_0_credit_card.fees} /></p>
 							</div>
-							<div class="col-md-7 d-flex flex-column justify-content-center align-items-start p-4">
-							  <div class="card-body d-flex flex-column justify-content-center align-items-start pt-0 pt-lg-3">
-								  <h5 class="fs-3 text-dark card-title fw-bold mb-0" style="font-size: 24px; text-wrap: pretty"><Fragment set:html={pageData.top_offers_1_credit_card.credit_card_short_name} /></h5>
-								  <div class="card-text mt-3 mb-2">
-									  <p class="small m-0" ><Fragment set:html={pageData.top_offers_1_credit_card.membership_reward} /></p>
-									  <p class="small m-0"><Fragment set:html={pageData.top_offers_1_credit_card.fees} /></p>
-								  </div>
-								  <ul class="mt-2 ps-3" style="font-size: 15px">
-									  <li><Fragment set:html={pageData.top_offers_1_credit_card.features_0_feature} /></li>
-									  <li><Fragment set:html={pageData.top_offers_1_credit_card.features_1_feature} /></li>
-									  <li><Fragment set:html={pageData.top_offers_1_credit_card.features_2_feature} /></li>
-								  </ul>
-								  <div class="d-flex position-absolute end-0 bottom-0 m-4">
-									  <a href={'https://pftraveldev.wpengine.com' + pageData.top_offers_1_credit_card.apply_now_link} target="_blank">
-										  <button class="btn btn-sm btn-dark rounded-pill me-1 mt-1 px-3" style="font-size: 13px">Apply
-									  </button>
-									  </a>
-									  <a href={`/credit-cards/${encodeURIComponent(pageData.top_offers_0_credit_card_slug)}`}>
-										  <button class="btn btn-sm btn-secondary rounded-pill mt-1 px-3 opacity-75" style="font-size: 13px">Learn more
-										  </button>
-									  </a>
-								  </div>
-							  </div>
+							<div class="d-flex mt-2">
+								<a href={'https://pftraveldev.wpengine.com' + pageData.top_offers_1_credit_card.apply_now_link} target="_blank">
+									<button class="btn btn-sm btn-dark rounded-3 me-1 mt-1 px-3" style="font-size: 13px">Apply
+								</button>
+								</a>
+								<a href={`/credit-cards/${encodeURIComponent(pageData.top_offers_1_credit_card_slug)}`}>
+									<button class="btn btn-sm btn-secondary rounded-3 mt-1 px-3 opacity-75" style="font-size: 13px">Learn more
+									</button>
+								</a>
 							</div>
-						  </div>
+						</div>
 					</div>
 				</div>
 
-				<div class="col-xl-6" data-aos="fade-up" data-aos-delay="400">
-					<div class="card mb-2 rounded-5 position-relative" style="background: rgba(255,255,255,0.6); min-height: 320px;">
-						<div class="position-absolute top-0 end-0 m-3 z-1">
+				<div class="col-lg-3 col-md-6" data-aos="fade-up">
+					<div class="card mb-2 rounded-3 border-0 position-relative" style="background: rgba(255,255,255,0.6); min-height: 420px;">
+						<div class="position-absolute top-0 end-0 z-1">
 							<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-bookmark-star-fill text-black-50" viewBox="0 0 16 16">
 								<path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5M8.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.18.18 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.18.18 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.18.18 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.18.18 0 0 1-.134-.098z"/>
 							</svg>
 						</div>
-						<div class="row p-0 p-md-3 g-0">
-							<div class="col-md-5 d-flex justify-content-center align-items-center p-3 rounded-5 position-relative" style="min-height: 200px;">
-							  <div class="position-absolute z-0 rounded-circle top-50 start-50 translate-middle" style="height: 15vw; width: 15vw; background: #00000050"></div>
-							  <img src={pageData.top_offers_2_credit_card_featured_image} class="landscape position-relative" data-image-id="2" alt="">
+						<img style="max-width: 250px" src={pageData.top_offers_2_credit_card_featured_image} class="landscape position-relative" data-image-id="0" alt="">
+						<div class="card-body d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start pt-0 pt-lg-3">
+							<h5 class="fs-4 text-dark card-title fw-bold mb-0" style="font-size: 24px; text-wrap: pretty"><Fragment set:html={pageData.top_offers_2_credit_card.credit_card_short_name} /></h5>
+							<div class="card-text mt-3 mb-2">
+								<p class="small m-0" ><Fragment set:html={pageData.top_offers_2_credit_card.membership_reward} /></p>
+								<p class="small m-0"><Fragment set:html={pageData.top_offers_2_credit_card.fees} /></p>
 							</div>
-							<div class="col-md-7 d-flex flex-column justify-content-center align-items-start p-4">
-							  <div class="card-body d-flex flex-column justify-content-center align-items-start pt-0 pt-lg-3 mb-3">
-								  <h5 class="fs-3 text-dark card-title fw-bold mb-0" style="font-size: 24px; text-wrap: pretty"><Fragment set:html={pageData.top_offers_2_credit_card.credit_card_short_name} /></h5>
-								  <div class="card-text mt-3 mb-2">
-									  <p class="small m-0" ><Fragment set:html={pageData.top_offers_2_credit_card.membership_reward} /></p>
-									  <p class="small m-0"><Fragment set:html={pageData.top_offers_2_credit_card.fees} /></p>
-								  </div>
-								  <ul class="mt-2 ps-3" style="font-size: 15px">
-									  <li><Fragment set:html={pageData.top_offers_2_credit_card.features_0_feature} /></li>
-									  <li><Fragment set:html={pageData.top_offers_2_credit_card.features_1_feature} /></li>
-									  <li><Fragment set:html={pageData.top_offers_2_credit_card.features_2_feature} /></li>
-								  </ul>
-								  <div class="d-flex position-absolute end-0 bottom-0 m-4">
-									  <a href={'https://pftraveldev.wpengine.com' + pageData.top_offers_2_credit_card.apply_now_link} target="_blank">
-										  <button class="btn btn-sm btn-dark rounded-pill me-1 mt-1 px-3" style="font-size: 13px">Apply
-									  </button>
-									  </a>
-									  <a href={`/credit-cards/${encodeURIComponent(pageData.top_offers_0_credit_card_slug)}`}>
-										  <button class="btn btn-sm btn-secondary rounded-pill mt-1 px-3 opacity-75" style="font-size: 13px">Learn more
-										  </button>
-									  </a>
-								  </div>
-							  </div>
+							<div class="d-flex mt-2">
+								<a href={'https://pftraveldev.wpengine.com' + pageData.top_offers_2_credit_card.apply_now_link} target="_blank">
+									<button class="btn btn-sm btn-dark rounded-3 me-1 mt-1 px-3" style="font-size: 13px">Apply
+								</button>
+								</a>
+								<a href={`/credit-cards/${encodeURIComponent(pageData.top_offers_2_credit_card_slug)}`}>
+									<button class="btn btn-sm btn-secondary rounded-3 mt-1 px-3 opacity-75" style="font-size: 13px">Learn more
+									</button>
+								</a>
 							</div>
-						  </div>
+						</div>
 					</div>
 				</div>
 
-				<div class="col-xl-6" data-aos="fade-up" data-aos-delay="600">
-					<div class="card mb-2 rounded-5 position-relative" style="background: rgba(255,255,255,0.6); min-height: 320px;">
-						<div class="position-absolute top-0 end-0 m-3 z-1">
+				<div class="col-lg-3 col-md-6" data-aos="fade-up">
+					<div class="card mb-2 rounded-3 border-0 position-relative" style="background: rgba(255,255,255,0.6); min-height: 420px;">
+						<div class="position-absolute top-0 end-0 z-1">
 							<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-bookmark-star-fill text-black-50" viewBox="0 0 16 16">
 								<path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5M8.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.18.18 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.18.18 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.18.18 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.18.18 0 0 1-.134-.098z"/>
 							</svg>
 						</div>
-						<div class="row p-0 p-md-3 g-0">
-							<div class="col-md-5 d-flex justify-content-center align-items-center p-3 rounded-5 position-relative" style="min-height: 200px;">
-							  <div class="position-absolute z-0 rounded-circle top-50 start-50 translate-middle" style="height: 15vw; width: 15vw; background: #00000050"></div>
-							  <img src={pageData.top_offers_3_credit_card_featured_image} class="landscape position-relative" data-image-id="3" alt="">
+						<img style="max-width: 250px" src={pageData.top_offers_3_credit_card_featured_image} class="landscape position-relative" data-image-id="0" alt="">
+						<div class="card-body d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start pt-0 pt-lg-3">
+							<h5 class="fs-4 text-dark card-title fw-bold mb-0" style="font-size: 24px; text-wrap: pretty"><Fragment set:html={pageData.top_offers_3_credit_card.credit_card_short_name} /></h5>
+							<div class="card-text mt-3 mb-2">
+								<p class="small m-0" ><Fragment set:html={pageData.top_offers_3_credit_card.membership_reward} /></p>
+								<p class="small m-0"><Fragment set:html={pageData.top_offers_3_credit_card.fees} /></p>
 							</div>
-							<div class="col-md-7 d-flex flex-column justify-content-center align-items-start p-4">
-							  <div class="card-body d-flex flex-column justify-content-center align-items-start pt-0 pt-lg-3 mb-3">
-								  <h5 class="fs-3 text-dark card-title fw-bold mb-0" style="font-size: 24px; text-wrap: pretty"><Fragment set:html={pageData.top_offers_3_credit_card.credit_card_short_name} /></h5>
-								  <div class="card-text mt-3 mb-2">
-									  <p class="small m-0" ><Fragment set:html={pageData.top_offers_3_credit_card.membership_reward} /></p>
-									  <p class="small m-0"><Fragment set:html={pageData.top_offers_3_credit_card.fees} /></p>
-								  </div>
-								  <ul class="mt-2 ps-3" style="font-size: 15px">
-									  <li><Fragment set:html={pageData.top_offers_3_credit_card.features_0_feature} /></li>
-									  <li><Fragment set:html={pageData.top_offers_3_credit_card.features_1_feature} /></li>
-									  <li><Fragment set:html={pageData.top_offers_3_credit_card.features_2_feature} /></li>
-								  </ul>
-								  <div class="d-flex position-absolute end-0 bottom-0 m-4">
-									  <a href={'https://pftraveldev.wpengine.com' + pageData.top_offers_3_credit_card.apply_now_link} target="_blank">
-										  <button class="btn btn-sm btn-dark rounded-pill me-1 mt-1 px-3" style="font-size: 13px">Apply
-									  </button>
-									  </a>
-									  <a href={`/credit-cards/${encodeURIComponent(pageData.top_offers_3_credit_card_slug)}`}>
-										  <button class="btn btn-sm btn-secondary rounded-pill mt-1 px-3 opacity-75" style="font-size: 13px">Learn more
-										  </button>
-									  </a>
-								  </div>
-							  </div>
+							<div class="d-flex mt-2">
+								<a href={'https://pftraveldev.wpengine.com' + pageData.top_offers_3_credit_card.apply_now_link} target="_blank">
+									<button class="btn btn-sm btn-dark rounded-3 me-1 mt-1 px-3" style="font-size: 13px">Apply
+								</button>
+								</a>
+								<a href={`/credit-cards/${encodeURIComponent(pageData.top_offers_3_credit_card_slug)}`}>
+									<button class="btn btn-sm btn-secondary rounded-3 mt-1 px-3 opacity-75" style="font-size: 13px">Learn more
+									</button>
+								</a>
 							</div>
-						  </div>
+						</div>
 					</div>
 				</div>
 				<!--end card column -->
-			</div><!--end individual credit cards row -->
+			</div>
 
-		</div><!--end CC section -->
+			<div class="row p-4 mx-0 bg-navy text-light">
+                <div class="col-lg-12 d-flex flex-column justify-content-center align-items-start text-start mb-3">
+                    <h1 class="display-1 text-uppercase fw-900 ls-1 lh-1">/ News</h1>
+                </div>
+                {
+                 posts.filter(cat => cat._embedded['wp:term'][0][0].slug === 'news' && cat.category_name === 'news').slice(0,9).map((post, index) => (
+                    <div class:list={[index === 0 ? 'row px-0 mx-0 mb-3 rounded-3' : 'd-none']} style="background: rgba(255, 255, 255, 0.09);">
+                        
+                        <div class="col-lg-6 d-flex justify-content-center align-items-center my-auto p-3" data-aos="fade">
+                            <img src="" data-src={post._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="w-100 object-fit rounded-3 min-vh-500 img-skeleton invisible" style="aspect-ratio: 16/9; " alt="..." />
+                        </div>
+                        <div class="col-lg-6 text-light d-flex flex-column justify-content-center align-items-start rounded-4 p-5 position-relative" data-aos="fade">
+                            <a class="d-flex" href={`/${post.category_name}/${post.slug}/`}>
+                            <div class="card-body px-2 py-0 d-flex flex-column justify-content-center align-items-start">
+                                <h6 class="card-title display-3 fw-bold ls-1 lh-1 my-2"><Fragment set:html={post.title.rendered} /></h6>
+                                <p class="m-0 mt-2 mb-0 fw-bold">{functions.formatDate(post.date)}</p>
+                                <p class="mb-3 mt-0">{post._embedded?.author[0].name}</p>
+                                <i class="bi bi-arrow-right text-light opacity-50 display-5 m-3 position-absolute end-0 bottom-0"></i>
+                            </div>
+                            </a>
+                        </div> 
+                    </div>
+
+                    <div class:list={[index !== 0 ? 'col-lg-3 col-md-6' : 'd-none']}>
+                        <a href={`/${post._embedded['wp:term'][0][0].slug}/${post.slug}/`}>
+                        <div class="card rounded-3 border-0 shadow mb-3 p-0" style="min-height: 550px" data-aos="fade-up" data-aos-delay={index * 100}>
+                            <img src="" data-src={post._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top w-100 object-fit rounded-top-3" style="height: 200px;" alt="..." data-aos="fade" />
+                            <div class="card-body p-4 position-relative">
+                                <!--<p class="small m-0 text-secondary mt-2 mb-0" style="text-transform: capitalize;">{post._embedded['wp:term'][0][0].slug}</p>-->
+                                <p class="small text-black-50 fw-bold mt-1 mb-0">{functions.formatDate(post.date)}</p>
+                                <h5 class="card-title fs-4 fw-900 my-2 py-1"><Fragment set:html={post.title.rendered} /></h5>
+                                <p class="small text-black-50 fw-bold mt-1 mb-0">{post._embedded?.author[0].name}</p>
+                                <p class="card-text text-body-secondary"><Fragment set:html={functions.shorten(post.excerpt.rendered, 150)} /></p>
+                                <i class="bi bi-arrow-right opacity-75 fs-2 position-absolute bottom-0 end-0 m-3"></i>
+                            </div>
+                        </div>
+                   </a>
+                    </div>
+             
+                ))}
+            </div>
+
+			<div class="row min-vh-100 p-5">
+				<div class="col-lg-10 mx-auto d-flex flex-column justify-content-center align-items-cetner text-center" data-aos="fade-up">
+					<!-- <img data-aos="fade-up" data-aos-delay="100" class="logo animate-in py-4 ps-4 pe-3 mt-5 mt-lg-4 rounded-4 bg-pot" style="width: 80px;" src="/images/logos/pot-crown-white.png" alt="Prince of Travel logo" />					 -->
+					<h2 class="display-3 fw-light ls-1" style="line-height: 120%">Prince of Travel is a team of <span class="bg-pot text-light">expert travellers</span> dedicated to educating, informing, and inspiring our readers on maximizing the power of <span class="bg-navy text-light">Miles & Points</span> to travel the world at a fraction of the price.</h2>
+					<div class="col-lg-8 mx-auto">
+					<p class="fs-4">Join the Prince of Travel community and discover a world of exclusive travel insights.</p>
+					<div class="klaviyo-form-WA4GRc mt-2 w-100 mx-auto p-2 border border-secondary rounded-3"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row p-4 mx-0" style="background: #eee">
+                <div class="col-lg-12 d-flex flex-column justify-content-center align-items-start text-start mb-3">
+                    <h1 class="display-1 text-uppercase fw-900 ls-1 lh-1">/ Guides</h1>
+                </div>
+                {
+                 posts.filter(cat => cat._embedded['wp:term'][0][0].slug === 'guides' && cat.category_name === 'guides').slice(0,9).map((post, index) => (
+                    <div class:list={[index === 0 ? 'row px-0 mx-0 mb-3 rounded-3' : 'd-none']} style="background: rgba(255, 255, 255, 0.09);">
+                        
+                        <div class="col-lg-6 d-flex justify-content-center align-items-center my-auto p-3" data-aos="fade">
+                            <img src="" data-src={post._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="w-100 object-fit rounded-3 min-vh-500 img-skeleton invisible" style="aspect-ratio: 16/9; " alt="..." />
+                        </div>
+                        <div class="col-lg-6 d-flex flex-column justify-content-center align-items-start rounded-4 p-5 position-relative" data-aos="fade">
+                            <a class="d-flex" href={`/${post.category_name}/${post.slug}/`}>
+                            <div class="card-body px-2 py-0 d-flex flex-column justify-content-center align-items-start">
+                                <h6 class="card-title display-3 fw-bold ls-1 lh-1 my-2"><Fragment set:html={post.title.rendered} /></h6>
+                                <p class="m-0 mt-2 mb-0 fw-bold">{functions.formatDate(post.date)}</p>
+                                <p class="mb-3 mt-0">{post._embedded?.author[0].name}</p>
+                                <i class="bi bi-arrow-right display-5 m-3 position-absolute end-0 bottom-0"></i>
+                            </div>
+                            </a>
+                        </div> 
+                    </div>
+
+                    <div class:list={[index !== 0 ? 'col-lg-3 col-md-6' : 'd-none']}>
+                        <a href={`/${post._embedded['wp:term'][0][0].slug}/${post.slug}/`}>
+                        <div class="card rounded-3 border-0 shadow mb-3 p-0" style="min-height: 550px" data-aos="fade-up" data-aos-delay={index * 100}>
+                            <img src="" data-src={post._embedded['wp:featuredmedia'][0]?.source_url || '/images/general/pc-hotel-palm-trees.jpeg'} class="card-img-top w-100 object-fit rounded-top-3" style="height: 200px;" alt="..." data-aos="fade" />
+                            <div class="card-body p-4 position-relative">
+                                <!--<p class="small m-0 text-secondary mt-2 mb-0" style="text-transform: capitalize;">{post._embedded['wp:term'][0][0].slug}</p>-->
+                                <p class="small text-black-50 fw-bold mt-1 mb-0">{functions.formatDate(post.date)}</p>
+                                <h5 class="card-title fs-4 fw-900 my-2 py-1"><Fragment set:html={post.title.rendered} /></h5>
+                                <p class="small text-black-50 fw-bold mt-1 mb-0">{post._embedded?.author[0].name}</p>
+                                <p class="card-text text-body-secondary"><Fragment set:html={functions.shorten(post.excerpt.rendered, 150)} /></p>
+                                <i class="bi bi-arrow-right opacity-75 fs-2 position-absolute bottom-0 end-0 m-3"></i>
+                            </div>
+                        </div>
+                   </a>
+                    </div>
+                ))}
+            </div>
 
 		<!-- points -->
 
@@ -395,22 +402,6 @@ function encodeURIComponent(url) {
 
 		</div><!-- end points -->
 
-		<div class="row min-vh-100 position-relative z-0 py-5">
-			<!-- <div class="position-absolute z-0 top-0 start-0 w-100 h-100 bg-secondary z-0"></div> -->
-			<div class="position-absolute z-0 top-0 start-0 w-100 h-100 bg-ivory" data-aos="fade" data-aos-delay="500"></div>
-			<div class="col-lg-8 offset-lg-2 d-flex flex-column justify-content-center align-items-start position-relative">
-				<div class="mx-4 mx-lg-0 p-5 rounded-5 bg-ivory" data-aos="fade">
-					<h1 data-aos="fade" class="mb-1 mt-3 animate-in" style="font-size: 13vmin;"> 
-						Join our community.
-					<span class="d-block text-black-50" data-aos="fade-up" data-aos-delay="200">Get the best travel news, guides, deals and more.</span>
-					</h1>
-					<p data-aos="fade-up" data-aos-delay="400" class="fs-4 text-black-50">Join the Prince of Travel community and discover a world of exclusive travel insights. Unlock a wealth of curated travel news, expert guides, irresistible deals, and much more. Subscribers receive a weekly newsletter every Sunday filled with tips, tricks, and strategies to enrich your travel experiences and inspire your wanderlust.</p>
-                    <!-- <div data-aos="fade-up" data-aos-delay="450" class="klaviyo-form-Yk3c7x mt-4 w-100 mx-auto p-2 border border-secondary rounded-3"></div> -->
-					<div data-aos="fade-up" data-aos-delay="600" class="klaviyo-form-WA4GRc mt-4 w-100 mx-auto p-2 border border-secondary rounded-3"></div>
-				</div>
-			</div>
-		</div>
-		
 		<!-- about us -->
 		<div class="row min-vh-100 position-relative py-5 text-light">
 			<div class="position-absolute z-0 top-0 start-0 w-100 h-100 bg-pot" data-aos="fade" data-aos-delay="500"></div>

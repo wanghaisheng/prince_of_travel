@@ -219,6 +219,20 @@ functions.removeCarriageReturn(post);
 // var dynamicContent = '<div id="custom-div" class="bg-primary text-light">Nostrud elit qui amet nisi nulla ea ullamco. Nulla aliqua aute et deserunt mollit et deserunt dolor duis Lorem nulla aliquip. Veniam sit voluptate velit quis dolor pariatur anim culpa reprehenderit irure qui sint. Veniam qui sunt proident velit incididunt tempor Lorem in sit laborum officia exercitation culpa dolor.</div>';
 // targetParagraph.insertAdjacentHTML('afterend', dynamicContent);
 
+  const allImages = document.querySelectorAll('img'); // Select all <img> elements
+
+  allImages.forEach(img => {
+    if (img.classList.contains('width-50')) { // Check if the img has the class 'width-50'
+      // Apply styles if the condition is met
+      img.style.maxWidth = '360px';
+      img.style.width = '100%';
+      img.style.margin = '0 auto !important';
+      img.style.display = 'flex';
+      img.style.justifyContent = 'center';
+    }
+  });
+
+
     const toastTrigger = document.getElementById('liveToastBtn');
     const toastLiveExample = document.getElementById('liveToast');
         if (toastTrigger) {
