@@ -115,6 +115,12 @@ const url = encodeURIComponent(Astro.url.pathname);
 }
 
 functions.modifyApiResponse(post);
+
+// function to check CC fields for varying strings
+const containsSubstring = (key, substring) => {
+    const value = post.custom_fields[key];
+    return typeof value === 'string' && value.includes(substring);
+};
 ---
 
 <Layout title={post.title || post.data.title} description="" image="">
@@ -140,54 +146,54 @@ functions.modifyApiResponse(post);
         </div>
         <div class="col-lg-6 d-flex flex-column justify-content-center align-items-start text-start p-5" data-aos="fade-up" data-aos-delay="400">
 
-          { post.custom_fields.card_benefits_0_b_title.includes("Best offer") &&
-           <h6 class="fw-bold">{post.custom_fields.card_benefits_0_b_title}</h6>
-          }
-
-          { post.custom_fields.card_benefits_0_b_title.includes("Application") &&
+          { containsSubstring('card_benefits_0_b_title', "Best offer") && 
           <h6 class="fw-bold">{post.custom_fields.card_benefits_0_b_title}</h6>
-          }
-          
-          { post.custom_fields.card_benefits_0_b_title.includes("Signup bonus") &&
-           <h6 class="fw-bold">{post.custom_fields.card_benefits_0_b_title}</h6>
-           <p class="small my-0"><Fragment set:html={cleanString(post.custom_fields.card_benefits_0_b_content)} /></p>
-          }
-          
-          { post.custom_fields.card_benefits_0_b_title.includes("Welcome bonus") &&
-           <h6 class="fw-bold">{post.custom_fields.card_benefits_0_b_title}</h6>
-           <p class="small my-0"><Fragment set:html={cleanString(post.custom_fields.card_benefits_0_b_content)} /></p>
-          }
+         }
 
-          <!-- user annual fee field for annual fee instead of card_benefits -->
-          <div class="mt-3">
-            <h6 class="fw-bold">Annual fee</h6>
-            <p class="small my-0">$<Fragment set:html={cleanString(post.custom_fields.annual_fee)} /></p>
-          </div>
+         { containsSubstring('card_benefits_0_b_title', "Application") &&
+         <h6 class="fw-bold">{post.custom_fields.card_benefits_0_b_title}</h6>
+         }
+         
+         { containsSubstring('card_benefits_0_b_title', "Signup bonus") &&
+          <h6 class="fw-bold">{post.custom_fields.card_benefits_0_b_title}</h6>
+          <p class="small my-0"><Fragment set:html={cleanString(post.custom_fields.card_benefits_0_b_content)} /></p>
+         }
+         
+         { containsSubstring('card_benefits_0_b_title', "Welcome bonus") &&
+          <h6 class="fw-bold">{post.custom_fields.card_benefits_0_b_title}</h6>
+          <p class="small my-0"><Fragment set:html={cleanString(post.custom_fields.card_benefits_0_b_content)} /></p>
+         }
 
-          <!-- if card_benefits field contains annual fee, don't show it -->
-          { !post.custom_fields.card_benefits_1_b_title.includes("Annual fee") &&
-          <div class="mt-3">
-            <h6 class="fw-bold">{post.custom_fields.card_benefits_1_b_title}</h6>
-            <p class="small my-0"><Fragment set:html={cleanString(post.custom_fields.card_benefits_1_b_content)} /></p>
-          </div>
-        }
-          
-          { !post.custom_fields.card_benefits_2_b_title.includes("Annual fee") &&
-          <div class="mt-3">
-            <h6 class="fw-bold">{post.custom_fields.card_benefits_2_b_title}</h6>
-            <p class="small my-0"><Fragment set:html={cleanString(post.custom_fields.card_benefits_2_b_content)} /></p>
-          </div>
-        }
-          
-          <!-- <div class="mt-3">
-            <h6 class="fw-bold">{post.custom_fields.card_benefits_2_b_title}</h6>
-            <p class="small my-0"><Fragment set:html={cleanString(post.custom_fields.card_benefits_2_b_content)} /></p>
-          </div> -->
+         <!-- user annual fee field for annual fee instead of card_benefits -->
+         <div class="mt-3">
+           <h6 class="fw-bold">Annual fee</h6>
+           <p class="small my-0">$<Fragment set:html={cleanString(post.custom_fields.annual_fee)} /></p>
+         </div>
 
-          <div class="mt-3">
-            <h6 class="fw-bold"><Fragment set:html={post.custom_fields.card_benefits_3_b_title}/></h6>
-            <p class="small my-0"><Fragment set:html={cleanString(post.custom_fields.card_benefits_3_b_content)} /></p>
-          </div>
+         <!-- if card_benefits field contains annual fee, don't show it -->
+         { !containsSubstring('card_benefits_1_b_title', "Annual fee") &&
+         <div class="mt-3">
+           <h6 class="fw-bold">{post.custom_fields.card_benefits_1_b_title}</h6>
+           <p class="small my-0"><Fragment set:html={cleanString(post.custom_fields.card_benefits_1_b_content)} /></p>
+         </div>
+         }
+         
+       <!-- { !post.custom_fields.card_benefits_2_b_title.includes("Annual fee") && -->
+       { !containsSubstring('card_benefits_2_b_title', "Annual fee") &&
+       <div class="mt-3">
+         <h6 class="fw-bold"><Fragment set:html={post.custom_fields.card_benefits_2_b_title}/></h6>
+         <p class="small my-0"><Fragment set:html={cleanString(post.custom_fields.card_benefits_2_b_content)} /></p>
+       </div>
+       }
+
+         <!-- {!post.custom_fields.card_benefits_3_b_title?.includes("Annual fee") && -->
+         {!containsSubstring('card_benefits_3_b_title', "Annual fee") &&
+         <div class="mt-3">
+           <h6 class="fw-bold"><Fragment set:html={post.custom_fields.card_benefits_3_b_title}/></h6>
+           <p class="small my-0"><Fragment set:html={cleanString(post.custom_fields.card_benefits_3_b_content)} /></p>
+         </div>
+         }
+
           <div class="mt-3">
             <h6 class="fw-bold"><Fragment set:html={post.custom_fields.card_benefits_4_b_title}/></h6>
             <p class="small my-0"><Fragment set:html={cleanString(post.custom_fields.card_benefits_4_b_content)} /></p>
