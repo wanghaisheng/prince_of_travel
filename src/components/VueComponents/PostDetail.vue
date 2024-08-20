@@ -192,6 +192,7 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import functions from '../../js/functions';
 let posts = ref([]);
+let initialFetchCompleted = false;
 const bankFilter = ref('');
 const isLoading = ref(''); // Initially set to true
 
@@ -200,16 +201,11 @@ let intervalId;
   const props = defineProps({
     title: String,
     description: String,
-    endpoint: String
+    category: String
   })
 
 
     // const isLoading = ref(true); // Initially set to true
-
-    if (!posts.value.length) {
-      isLoading.value = true; // Initially set to true
-      fetchData();
-    }
 
 async function fetchData() {
   try {
@@ -271,23 +267,32 @@ async function fetchData() {
 
 // OG code getting fixed # posts
 
-    const apiUrl = `https://pftraveldev.wpengine.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=${props.endpoint}&_embed`;
+    const apiUrl = `https://princeoftravel.wpenginepowered.com/wp-json/wp/v2/posts?meta_key=category_name&meta_value=${props.category}&_embed`;
     const perPage = 100; // Number of posts per page
     let currentPage = 1;
     let totalFetchedPosts = 0;
-    while (totalFetchedPosts < 1000) { // Stop when reaching 50 posts
-    const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
-    const data = await response.json();
-    isLoading.value = false; // Set to false once data is fetched
-    if (data.length === 0) {
-      console.log('No more posts, exiting loop');
-      break; // No more posts, exit loop
-    }
-    posts.value = posts.value.concat(data);
-    console.log('Data type of array:', typeof posts.value);
-    totalFetchedPosts += posts.value.length; // Update total fetched posts
-    currentPage++;
+    // let initialFetchCompleted = false;
 
+    while (totalFetchedPosts < 1000) { // Adjust total fetched posts as needed
+      const response = await fetch(`${apiUrl}&per_page=${perPage}&page=${currentPage}`);
+      const data = await response.json();
+      
+      if (!initialFetchCompleted && data.length > 0) {
+        // Initially load/store the first 3 posts
+        posts.value = data.slice(0, 3);
+        initialFetchCompleted = true; // Mark initial fetch as completed
+        totalFetchedPosts += 3; // Update total fetched posts
+      } else if (data.length === 0 || totalFetchedPosts >= 1000) {
+        console.log('No more posts or reached limit, exiting loop');
+        break; // No more posts or reached the desired total, exit loop
+      } else {
+        // Append remaining posts
+        posts.value = posts.value.concat(data);
+        totalFetchedPosts += data.length; // Update total fetched posts
+      }
+      
+      isLoading.value = false; // Set to false once data is fetched
+      currentPage++;
     }
   
   // isLoading.value = false;
@@ -296,6 +301,11 @@ async function fetchData() {
   }
 }
 
+
+if (!posts.value.length) {
+      isLoading.value = true; // Initially set to true
+      fetchData();
+    }
 
 onMounted(() => {
   // Check if data already exists to avoid refetching
@@ -340,8 +350,8 @@ function removeSpecialCharactersFromURL(url) {
 functions.modifyApiResponse(posts);
 
 const filteredData = computed(() => {
-  // Show all cards initially; apply filters only after the initial load
-  let result = [...posts.value]; // Start with all cards
+  // Show all posts initially; apply filters only after the initial load
+  let result = [...posts.value]; // Start with all posts
 
   if (bankFilter.value) {
     result = result.filter(item =>
