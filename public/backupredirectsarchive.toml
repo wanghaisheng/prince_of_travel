@@ -5,12 +5,6 @@
   force = true
 
 [[redirects]]
-  from = "/uncategorized/*"
-  to = "/.netlify/functions/redirect"
-  status = 200
-  force = true
-
-[[redirects]]
   from = "/blog/prince-of-travel-featured-by-forbes"
   to = "/about/prince-of-travel-featured-by-forbes"
   status = 301

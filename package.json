@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "npm run generate-redirects && astro build",
+    "generate-redirects": "node src/js/generate-redirects.js",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -17,6 +18,7 @@
     "@astropub/md": "^0.4.0",
     "aos": "^2.3.4",
     "astro": "^4.13.2",
+    "node-fetch": "^3.3.2",
     "vue": "^3.4.27"
   }
 }

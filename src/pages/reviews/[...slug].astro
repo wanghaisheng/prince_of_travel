@@ -5,6 +5,15 @@ import functions from '../../js/functions';
 
 // i don't know why but the fetch urls need to match exactly to avoid 404 errors rendering dynamic pages
 export const prerender = true;
+// export async function getStaticPaths() {
+//   // example using local data: Image keys from WP API will not work/error as image is not being retrieved
+//   let posts = insights;
+//   return posts.map(post => ({
+//     params: { slug: post.slug }, 
+//     props: { post }
+//   }));
+// }
+
 export async function getStaticPaths() {
     // add this when .md collection is ready
     // const reviewsEntries = await getCollection('reviews');
