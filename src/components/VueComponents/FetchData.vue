@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <div class="row px-4">
         <div class="col-lg-10 offset-lg-1 p-3 bg-light rounded-4 border mt-3">
-          <!-- <h6 class="fs-5 text-secondary p-2">Filter cards</h6> -->
+          <!-- <h3 class="fs-5 text-secondary p-2">Filter cards</h3> -->
           <ul class="nav nav-pills nav-fill">
             <li class="nav-item me-2 mb-2 mb-md-0">
               <select class="form-select" aria-label="Filter by bank" v-model="bankFilter">
@@ -57,7 +57,7 @@
               </select>
             </li> -->
             <li class="nav-item me-2">
-              <button @click="sortByAnnualFee" class="btn btn-dark rounded-3 w-100">Annual Fee $-$$</button>
+              <button @click="sortByAnnualFee" class="btn btn-dark rounded-3 w-100">Sort by Annual Fee</button>
             </li>
             <li class="nav-item me-2">
               <button @click="resetFilters" class="btn btn-dark rounded-3 w-100">Reset</button>
@@ -72,7 +72,7 @@
     <!-- <input v-model="providerFilter" placeholder="Filter by Credit Card Provider" /> -->
 
     <div class="container-fluid">
-      <div class="row p-4" v-if="filteredData.length">
+      <div class="row px-2 pb-3 pt-4 p-lg-4" v-if="filteredData.length">
           <div v-for="(post, index) in filteredData" :key="post.id" class="col-lg-6 px-2 credit-card-item" :data-id="index + 1">
             <!-- {{ post.title }} -->
         <div class="card mb-3 rounded-5 shadow position-relative d-flex justify-content-center" style="background: rgba(255,255,255,0.6);">
@@ -91,13 +91,11 @@
             </div>
             <div class="col-7 d-flex px-4 py-3">
               <div class="card-body position-relative py-0 px-0 d-flex flex-column justify-content-center align-items-start text-start">
-                <h5 class="card-title fw-bold mb-0" style="font-size: 3.6vmin; letter-spacing: -1px" v-html="post.title"></h5>
-                <!--<badge class="badge position-absolute end-0 top-0 m-3">{post.custom_fields.bank_name}</badge>-->
-                <div class="my-2">
-                  <!--<p class="small m-0 mt-2 mb-0" style="font-size: 16px" v-html="post.custom_fields.reward_points"></p>-->
-                  <p class="small m-0 mt-2 mb-0 fw-bold" style="font-size: 14.5px" v-html="post.custom_fields.membership_reward"></p>
-                  <p v-if="post.custom_fields.welcome_bonus_value" class="small m-0 my-0 fw-bold" style="font-size: 15px">$<span class="fw-bold" v-html="post.custom_fields.welcome_bonus_value"></span> First year value</p>
-                  <p v-else class="small m-0 my-0" style="font-size: 14.5px">N/A</p>
+                <h5 class="card-title fw-bold mb-0" v-html="post.title"></h5>
+                <div class="card-text my-2">
+                  <p class="small m-0 mt-2 mb-0" v-html="post.custom_fields.membership_reward"></p>
+                  <p v-if="post.custom_fields.welcome_bonus_value" class="small m-0 my-0">$<span class="fw-bold" v-html="post.custom_fields.welcome_bonus_value"></span> First year value</p>
+                  <p v-else class="small m-0 my-0">N/A</p>
                 </div>
 
                 <ul class="d-none d-md-block text-body-secondary mt-2 list-unstyled pe-3" style="font-size: 14px">
@@ -107,9 +105,9 @@
                   <li v-if="post.custom_fields.features_2_feature" class="d-none d-xl-block border-bottom mb-1 pb-1" v-html="post.custom_fields.features_2_feature"></li>
                 </ul>
                 <div class="d-flex pt-2">
-                  <button class="btn btn-sm btn-secondary fw-bold opacity-75 me-1 rounded-pill px-3 py-1 px-lg-4 py-lg-2" type="button" data-bs-toggle="offcanvas" :data-bs-target="'#item_' + index" aria-controls="offcanvasBottom">Details</button>
+                  <button class="card-btn btn btn-sm btn-secondary opacity-75 me-1 rounded-pill px-3 py-1 px-lg-4 py-lg-2" type="button" data-bs-toggle="offcanvas" :data-bs-target="'#item_' + index" aria-controls="offcanvasBottom">Details</button>
                   <a :href="`/credit-cards/${encodeURIComponent(post.slug)}`">
-                    <button class="btn btn-sm btn-dark fw-bold rounded-pill px-3 py-1 px-lg-4 py-lg-2">Review</button>
+                    <button class="card-btn btn btn-sm btn-dark rounded-pill px-3 py-1 px-lg-4 py-lg-2">Review</button>
                   </a>
                 </div>
               </div>
@@ -133,7 +131,7 @@
                     </div>
                   </div>
                 <div class="col-md-7 col-lg-8 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-md-start">
-                  <h2 class="display-3 ls-1 lh-1 text-black-50 fw-bold my-0 mb-lg-4 px-4" v-html="post.title"></h2>
+                  <h2 class="display-3 ls-1 lh-1 fw-bold my-0 mb-lg-4 px-4" v-html="post.title"></h2>
                 </div>
               </div>
 
@@ -141,45 +139,45 @@
                   <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-4 g-3 my-3">
                     <div class="col">
                       <div class="bg-light rounded-4 shadow" style="min-height: 240px; padding: 2.5rem; --bs-bg-opacity: 0.5;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-award text-black-50 mb-2" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-award mb-2" viewBox="0 0 16 16">
                           <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702z"/>
                           <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1z"/>
                         </svg>
                         <h5 class="fs-4 fw-bold">Rewards</h5>
-                        <p v-if="post.custom_fields.membership_reward == '' || post.custom_fields.membership_reward == null" class="my-0 text-black-50" style="font-size: 17px;">N/A</p>
-                        <p v-else class="my-0 text-black-50" style="font-size: 17px;" v-html="post.custom_fields.membership_reward"></p>
+                        <p v-if="post.custom_fields.membership_reward == '' || post.custom_fields.membership_reward == null" class="my-0" style="font-size: 17px;">N/A</p>
+                        <p v-else class="my-0" style="font-size: 17px;" v-html="post.custom_fields.membership_reward"></p>
                       </div>
                     </div>
                     <div class="col">  
                       <div class="bg-light rounded-4 shadow"  style="min-height: 240px; padding: 2.5rem; --bs-bg-opacity: 0.5;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-credit-card-2-back text-black-50 mb-2" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-credit-card-2-back mb-2" viewBox="0 0 16 16">
                           <path d="M11 5.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5z"/>
                           <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm13 2v5H1V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1m-1 9H2a1 1 0 0 1-1-1v-1h14v1a1 1 0 0 1-1 1"/>
                         </svg>
                         <h5 class="fs-4 fw-bold">1st Year Value</h5>
-                        <p v-if="!post.custom_fields.welcome_bonus_value || post.custom_fields.welcome_bonus_value === '0'" class="my-0 text-black-50" style="font-size: 17px;">N/A</p>
-                        <p v-else class="my-0 text-black-50" style="font-size: 17px;" v-html="'$' + post.custom_fields.welcome_bonus_value"></p>
+                        <p v-if="!post.custom_fields.welcome_bonus_value || post.custom_fields.welcome_bonus_value === '0'" class="my-0" style="font-size: 17px;">N/A</p>
+                        <p v-else class="my-0" style="font-size: 17px;" v-html="'$' + post.custom_fields.welcome_bonus_value"></p>
                       </div>  
                       </div>
                       <div class="col">
                       <div class="bg-light rounded-4 shadow"  style="min-height: 240px; padding: 2.5rem; --bs-bg-opacity: 0.5;" >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-coin text-black-50 mb-2" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-coin mb-2" viewBox="0 0 16 16">
                           <path d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518z"/>
                           <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
                           <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11m0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12"/>
                         </svg>
                         <h5 class="fs-4 fw-bold">Fees</h5>
-                        <p class="my-0 text-black-50" style="font-size: 17px;" v-html="'$' + post.custom_fields.annual_fee + ' Annual fee'"></p>
+                        <p class="my-0" style="font-size: 17px;" v-html="'$' + post.custom_fields.annual_fee + ' Annual fee'"></p>
                       </div>  
                       </div>
                       <div class="col">
                       <div class="bg-light rounded-4 shadow"  style="min-height: 240px; padding: 2.5rem; --bs-bg-opacity: 0.5;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-patch-check text-black-50 mb-2" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-patch-check mb-2" viewBox="0 0 16 16">
                           <path fill-rule="evenodd" d="M10.354 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
                           <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911z"/>
                         </svg>
                         <h5 class="fs-4 fw-bold">Perks</h5>
-                        <p class="my-0 text-black-50" style="font-size: 15px;" v-html="post.custom_fields.features_1_feature"></p>
+                        <p class="my-0" style="font-size: 15px;" v-html="post.custom_fields.features_1_feature"></p>
                       </div>  
                       </div>
                     </div>  
@@ -187,38 +185,40 @@
 
                   <!-- addition for CIBC credit card rates -->
               <div class="mt-3" v-if="post?.custom_fields?.card_benefits_1_b_title?.trim() === 'Interest rates:' || post?.custom_fields?.card_benefits_1_b_title?.trim() === 'Annual interest rates:'">
-                <h6 class="display-5 fw-bold my-4 text-black-50 ls-1" v-html="post.custom_fields.card_benefits_1_b_title"></h6>
-                <p class="fs-5 text-body-secondary mb-0" v-html="functions.cleanString(post.custom_fields.card_benefits_1_b_content)"></p>
+                <h3 class="display-5 fw-bold ls-1 my-4" v-html="post.custom_fields.card_benefits_1_b_title"></h3>
+                <p class="my-0" style="font-size: 17px" v-html="functions.cleanString(post.custom_fields.card_benefits_1_b_content)"></p>
               </div>
               
               <div class="mt-3" v-else-if="post?.custom_fields?.card_benefits_2_b_title?.trim() === 'Interest rates:' || post?.custom_fields?.card_benefits_2_b_title?.trim() === 'Annual interest rates:'">
-                <h6 class="display-5 fw-bold my-4 text-black-50 ls-1" v-html="post.custom_fields.card_benefits_2_b_title"></h6>
-                <p class="fs-5 text-body-secondary mb-0" v-html="functions.cleanString(post.custom_fields.card_benefits_2_b_content)"></p>
+                <h3 class="display-5 fw-bold ls-1 my-4" v-html="post.custom_fields.card_benefits_2_b_title"></h3>
+                <p class="my-0" style="font-size: 17px" v-html="functions.cleanString(post.custom_fields.card_benefits_2_b_content)"></p>
               </div>
               
                 <!-- addition for CIBC credit card rates -->
               <div class="mt-3" v-else-if="post?.custom_fields?.card_benefits_3_b_title?.trim() === 'Interest rates:' || post?.custom_fields?.card_benefits_3_b_title?.trim() === 'Annual interest rates:'">
-                <h6 class="display-5 fw-bold my-4 text-black-50 ls-1" v-html="post.custom_fields.card_benefits_3_b_title"></h6>
-                <p class="fs-5 text-body-secondary mb-0" v-html="functions.cleanString(post.custom_fields.card_benefits_3_b_content)"></p>
+                <h3 class="display-5 fw-bold ls-1 my-4" v-html="post.custom_fields.card_benefits_3_b_title"></h3>
+                <p class="my-0" style="font-size: 17px" v-html="functions.cleanString(post.custom_fields.card_benefits_3_b_content)"></p>
               </div>
               
+              <!-- bonuses and fees -->
               <div v-if="post.custom_fields.card_content_1_c_content">
-                <div class="display-5 fw-bold my-4 text-black-50 ls-1" v-html="post.custom_fields.card_content_1_c_title"></div>
+                <div class="display-5 fw-bold my-4 ls-1" v-html="post.custom_fields.card_content_1_c_title"></div>
                 <div class="fs-5 text-body-secondary">
-                  <p v-html="post.custom_fields.card_content_1_c_content"></p>
+                  <!-- <p v-html="post.custom_fields.card_content_1_c_content"></p> -->
+                  <div id="bonuses_fees" v-html="cleanString(post.custom_fields.card_content_1_c_content)"></div>
                 </div>
               </div>
             
-              <!-- <div v-if="post.custom_fields.card_content_4_c_content" class="display-5 fw-bold my-4 text-black-50 ls-1" v-html="post.custom_fields.card_content_4_c_title"></div>
+              <!-- <div v-if="post.custom_fields.card_content_4_c_content" class="display-5 fw-bold my-4 ls-1" v-html="post.custom_fields.card_content_4_c_title"></div>
               <div class="fs-5">
                 <p v-html="post.custom_fields.card_content_4_c_content"></p>
               </div> -->
 
-              <div v-if="post.custom_fields.legal_disclaimers" class="border-top border-secondary">
+              <div v-if="post.custom_fields.legal_disclaimers" class="border-top border-secondary mt-4">
                 <p class="mt-4" v-html="post.custom_fields.legal_disclaimers"></p>
               </div>
               <div class="d-flex mt-4 pt-4 justify-content-start border-top border-secondary">
-                <a :href="'https://pftraveldev.wpengine.com' + post.custom_fields.apply_now_link" target="_blank">
+                <a :href="PUBLIC_API_HOST + post.custom_fields.apply_now_link" target="_blank">
                   <button class="btn btn-dark rounded-3 px-4 me-1">Apply</button>
                 </a>
                 <a :href="`/credit-cards/${encodeURIComponent(post.slug)}/`">
@@ -257,28 +257,51 @@
   </div><!--end parent div-->
 </template>
 
+<style>
+  #bonuses_fees p {
+    margin-bottom: 15px;
+    margin-top: 0;
+  }
+  
+  #bonuses_fees ul {
+    margin-bottom: 0px;
+  }
+</style>
+
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { nextTick, ref, computed, onMounted } from 'vue';
 import functions from '../../js/functions';
+
+const { PUBLIC_API_HOST } = import.meta.env;
 
 const bankFilter = ref('');
 const providerFilter = ref('');
 let data = ref([]);
+const originalData = ref([]);
 const annualFeeRange = ref(''); // Initialize as empty string
-// const annualFeeFilter = ref(false); 
 const firstYearValueFilter = ref(false); 
 const isLoading = ref(true); // Initially set to true
 
 async function fetchData() {
   try {
-    const response = await fetch('https://pftraveldev.wpengine.com/wp-json/pot/v1/credit-cards?per_page=100');
+    const response = await fetch(`https://princeoftravel.wpenginepowered.com/wp-json/pot/v1/credit-cards?per_page=100`);
     if (!response.ok) throw new Error(`HTTP error status: ${response.status}`);
-    data.value = await response.json(); // Populate data with fetched cards
+    // data.value = await response.json(); // Populate data with fetched cards
+    // isLoading.value = false; // Set to false once data is fetched
+    // originalData.value = data; // Update originalData with the fetched data
+    
+    const fetchedData = await response.json(); // Fetch the data
+    data.value = fetchedData; // Populate data with fetched cards
     isLoading.value = false; // Set to false once data is fetched
-    // Sort data by custom_fields.welcome_bonus_value in descending order
+    
+    // Now, update originalData with the fetched data
+    originalData.value = fetchedData;
+    
+    // Sort data by custom_fields.welcome_bonus_value in descending order + account for empty/undefined values which threw errors
     data.value.sort((a, b) => {
-      const valueA = parseFloat(a.custom_fields.welcome_bonus_value);
-      const valueB = parseFloat(b.custom_fields.welcome_bonus_value);
+      const valueA = a.custom_fields.welcome_bonus_value.trim() === "" ? -Infinity : parseFloat(a.custom_fields.welcome_bonus_value);
+      const valueB = b.custom_fields.welcome_bonus_value.trim() === "" ? -Infinity : parseFloat(b.custom_fields.welcome_bonus_value);
+
       return valueB - valueA;
     });
     
@@ -289,7 +312,6 @@ async function fetchData() {
 
 onMounted(() => {
   fetchData();
-  // isPortraitImage();
   data.value.forEach(image => {
     isPortraitImage(image.featured_image.large);
   });
@@ -387,11 +409,35 @@ const sortByAnnualFee = () => {
   data.value = filteredData;
 };
 
+// const resetFilters = () => {
+//   bankFilter.value = '';
+//   providerFilter.value = '';
+//   annualFeeRange.value = ''; // Reset annual fee range
+//   filteredData.value = [...data.value]; // Reset filteredData to original data
+//   sortedByAnnualFee.value = false; // Reset the annualFee sorting flag
+// };
+
 const resetFilters = () => {
   bankFilter.value = '';
   providerFilter.value = '';
-  annualFeeRange.value = ''; // Reset annual fee range
-  filteredData.value = [...data.value]; // Reset filteredData to original data
+  annualFeeRange.value = '';
+
+  // Reset the original data
+  // data.value = [...originalData.value];
+
+  // Check if originalData.value is an array before spreading it
+  if (Array.isArray(originalData.value)) {
+    data.value = [...originalData.value];
+  } else {
+    console.error('Error: originalData.value is not an array.');
+  }
+
+  // Force recomputation of filteredData
+  const tempFilterValue = 'test';
+  bankFilter.value = tempFilterValue;
+  nextTick(() => {
+    bankFilter.value = '';
+  });
 };
 
 // Function to get image src
@@ -408,9 +454,53 @@ const isPortraitImage = (image) => {
   img.src = getImageSrc(image.featured_image.large); // Pass the large image src
   return image.isPortrait;
 };
+
+function cleanString(inputString) {
+    // Check if the string contains \r\n
+    if (/(\r\n|\n|\r)/.test(inputString)) {
+        // If it does, clean the string
+        return inputString.replace(/\r\n\r\n/g, "<br><br>").replace(/(\r\n|\n|\r|\t)/gm, "  ");
+    } else {
+        // If it doesn't, return the original string
+        return inputString;
+    }
+}
+
+// function cleanString(inputString) {
+//     // Check if the string contains line breaks
+//     if (/(\r\n|\n|\r)/.test(inputString)) {
+//         // Replace double line breaks with a unique placeholder
+//         let placeholder = "__PARAGRAPH_BREAK__";
+//         let tempString = inputString.replace(/(\r\n\r\n|\n\n|\r\r)/g, placeholder);
+
+//         // Replace single line breaks and tabs within paragraphs with two spaces
+//         tempString = tempString.replace(/(\r\n|\n|\r|\t)/g, "  ");
+
+//         // Replace the placeholder with <br><br>
+//         return tempString.replace(new RegExp(placeholder, 'g'), "<br><br>").trim();
+//     } else {
+//         // If there are no line breaks, return the original string
+//         return inputString;
+//     }
+// }
+
+
 </script>
 
 <style>
+.card {
+    padding: 1rem !important;
+}
+
+.card-title {
+  font-size: 3.6vmin; 
+  letter-spacing: -0.5px
+}
+
+.card-text {
+  font-size: 14.5px;
+  font-weight: bold;
+}
 
 .card-bg-circle {
   height: 14ch;
@@ -438,6 +528,9 @@ const isPortraitImage = (image) => {
 }
 
 @media only screen and (max-width: 768px)   {
+  .card {
+    padding: .25rem !important;
+}
   .card, .card .col-5 {
     min-height: 0;
   }
@@ -458,7 +551,20 @@ const isPortraitImage = (image) => {
 }
 
 @media only screen and (max-width: 601px)   {
+  .card-btn {
+    font-size: 12px;
+  }
+  .card-title {
+  font-size: 3.5vmin; 
+  letter-spacing: -0.5px
+}
+
+.card-text, .card-text p {
+  font-size: 12px;
+  font-weight: normal;
+}
   .card-bg-circle {
+    display: none;
     height: 11ch;
     width: 11ch;
     background: rgba(0, 0, 0, 0.1);
