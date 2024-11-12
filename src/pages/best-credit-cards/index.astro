@@ -7,7 +7,8 @@ import Layout from '../../layouts/Layout.astro';
 import functions from '../../js/functions.js';
 
 const response = await fetch("http://pftravelstage.wpengine.com/wp-json/pot/v1/best-credit-cards");
-const posts = await response.json();
+//const posts = await response.json();
+const posts={}
 
 // const apiUrl = 'http://pftravelstage.wpengine.com/wp-json/pot/v1/best-credit-cards';
 // const perPage = 51; // Number of posts per page
